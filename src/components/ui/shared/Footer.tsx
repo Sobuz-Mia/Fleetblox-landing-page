@@ -92,7 +92,7 @@ const Footer = () => {
                 <h5 className=" font-openSans text-[#DFDFDF] text-[12px] leading-normal mb-[10px] ">
                   Products
                 </h5>
-                <Link className="cursor-pointer" href="/under-development">
+                <Link className="cursor-pointer" href="/features/dashboard">
                   <h5 className="font-openSans py-[2px] mb-[5px] cursor-pointer">
                     Dashboard
                   </h5>
@@ -188,7 +188,7 @@ const Footer = () => {
                     EV Fleet Integration
                   </h5>
                 </Link>
-                <Link href="/under-development">
+                <Link href="/solutions/remote-inspection">
                   <h5 className="font-openSans py-[2px] mb-[5px]">
                     Remote Inspection
                   </h5>
@@ -198,12 +198,12 @@ const Footer = () => {
                     Maintenance and Diagnostics
                   </h5>
                 </Link>
-                <Link href="/under-development">
+                <Link href="/solutions/workforce-connectivity">
                   <h5 className="font-openSans py-[2px] mb-[5px]">
                     Workforce Connectivity
                   </h5>
                 </Link>
-                <Link href="/under-development">
+                <Link href="/solutions/ai-fleet-assistant">
                   <h5 className="font-openSans py-[2px] mb-[5px]">
                     AI Fleet Assistant
                   </h5>
@@ -214,22 +214,22 @@ const Footer = () => {
                 <h5 className=" font-openSans text-[#DFDFDF] text-[12px] leading-normal mb-[10px] ">
                   Industries
                 </h5>
-                <Link href="/under-development">
+                <Link href="/industries/fleet-management">
                   <h5 className=" font-openSans py-[2px] mb-[5px]">
                     Fleet Management
                   </h5>
                 </Link>
-                <Link href="/under-development">
+                <Link href="/industries/auto-dealerships">
                   <h5 className=" font-openSans py-[2px] mb-[5px]">
                     Auto Dealerships
                   </h5>
                 </Link>
-                <Link href="/under-development">
+                <Link href="/industries/car-rental-providers">
                   <h5 className=" font-openSans py-[2px] mb-[5px]">
                     Car Rental Providers
                   </h5>
                 </Link>
-                <Link href="/under-development">
+                <Link href="/industries/e-mobility-services">
                   <h5 className=" font-openSans py-[2px] mb-[5px]">
                     E-Mobility Services
                   </h5>
