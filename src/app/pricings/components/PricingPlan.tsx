@@ -245,7 +245,25 @@ const PricingPlan = () => {
                     <RightArrowIcon />
                   </div>
                 </button>
-                <button className="md:hidden mt-[30px] bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
+                <button
+                  aria-label="Get started with Starter Fleet"
+                  onClick={() => {
+                    const planData = {
+                      price: 9.79,
+                      fleet: "Starter Fleet",
+                      slot: 10,
+                      annually: false,
+                      id: "cm95qsolw0000nbt4jd77z8kd",
+                    };
+
+                    localStorage.setItem(
+                      "selectedPlan",
+                      JSON.stringify(planData)
+                    );
+                    router.push("/getting-started");
+                  }}
+                  className="md:hidden mt-[30px] bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center"
+                >
                   Get Started
                 </button>
               </div>
@@ -267,19 +285,19 @@ const PricingPlan = () => {
                   <div className="flex items-center gap-[5px]">
                     <VehicleIcon />
                     <p className="text-[#333] text-[14px] font-openSans font-normal leading-5">
-                      {starterPlan[0]?.slotMinimum} vehicle slots
+                      {starterPlan[0]?.slotMinimum} slots minimum purchase
                     </p>
                   </div>
                   <div className="flex items-center gap-[5px]">
                     <DollarIcon />
                     <p className="text-[#333] text-[14px] font-openSans font-normal leading-5">
-                      Monthly subscription
+                      Subscription based ( cancel any time)
                     </p>
                   </div>
                   <div className="flex items-center gap-[5px]">
                     <LocationIcon />
                     <p className="text-[#333] text-[14px] font-openSans font-normal leading-5">
-                      01 fleet location
+                      01 business location
                     </p>
                   </div>
                 </div>
@@ -301,8 +319,11 @@ const PricingPlan = () => {
         )}
       </section>
       <section className="flex justify-center flex-col items-center px-5 pt-[80px] pb-[20px]">
-        <h2 className="text-[#333] text-[28px] font-bold text-center leading-[1.1] mb-[8px]">
+        {/* <h2 className="text-[#333] text-[28px] font-bold text-center leading-[1.1] mb-[8px]">
           Scale Your Fleet Seamlessly
+        </h2> */}
+        <h2 className="text-[#333] text-[28px] font-bold text-center leading-[1.1] mb-[8px]">
+          Link your fleet ecosystem
         </h2>
         <p className="text-[#7D7D7D] text-center leading-5 text-[14px] font-openSans">
           Slide the bar to explore pricing based on vehicle slots - Clear and

@@ -32,10 +32,16 @@ const VirtualSlot = () => {
 
             {/* Content */}
             <div className=" hidden md:block  relative text-center">
-              <h1 className="z-10 text-[52px] text-[#000E32] font-bold leading-[1.1]">
+              <p className="text-[16px] text-left md:text-center font-openSans font-semibold mb-[10px]">
+                Turn Every Mile Into Momentum
+              </p>
+              {/* <h1 className="z-10 text-[52px] text-[#000E32] font-bold leading-[1.1]">
                 Take <span className="text-[#0336BC]">Full Control</span> with
                 Virtual <br className="hidden md:block " />
                 Parking Slot Technology
+              </h1> */}
+              <h1 className="z-10 text-[52px] text-[#000E32] font-bold leading-[1.1]">
+                Link . Optimize. Comply. Expand
               </h1>
             </div>
           </motion.div>
