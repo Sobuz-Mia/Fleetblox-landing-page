@@ -12,6 +12,7 @@ import image_4 from "../../public/animation/image4.png";
 import image1 from "../assets/image-1.webp";
 import image2 from "../assets/image-2.webp";
 import image3 from "../assets/image-3.webp";
+import image4 from "../assets/image-4.png";
 import my_fleet_1 from "../assets/my-fleet-1.png";
 import my_fleet_2 from "../assets/my-fleet-2.png";
 import my_fleet_3 from "../assets/my-fleet-3.png";
@@ -106,7 +107,7 @@ const full_control_with_virtual_slot_data = [
       "Scale your operations effortlessly across regions, cities, and teams on a secure cloud-based platform. Integrate all assets in real time, enable effortless coordination, and put your entire fleet operation under one intelligent system.",
     link: "Read More",
     image: image_4,
-    mobile: image3,
+    mobile: image4,
     absolute: my_fleet_3,
   },
 ];
