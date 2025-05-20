@@ -10,30 +10,20 @@ const ConnectRemotelySection = () => {
           <div className="flex flex-col z-50">
             {/* Connect Remotely Section */}
             <section className="">
-              <h1 className="text-[28px] sm:text-[32px] md:text-[36px] font-bold text-[#04082C] leading-tight font-montserrat">
+              {/* <h1 className="text-[28px] sm:text-[32px] md:text-[36px] font-bold text-[#04082C] leading-tight font-montserrat">
                 Connect Your Fleet Remotely -{" "}
                 <span className="md:block">Anytime, Anywhere</span>
+              </h1> */}
+              <h1 className="text-[28px] sm:text-[32px] md:text-[36px] font-bold text-[#04082C] leading-tight font-montserrat">
+                Set up in minutes. Expand without barriers.
               </h1>
-              {/* <p className="my-4 md:my-5 text-[#333] leading-6 font-openSans text-left  text-[15px] md:text-[16px]">
-                Manage your fleet with unparalleled ease and flexibility.
-                Perform comprehensive vehicle checks, unlock vehicles,
-                <span className="hidden md:inline">
-                  <br />
-                </span>{" "}
-                coordinate repairs, and more without ever being physically
-                present. With the Virtual Parking Slot technology,
-                <span className="hidden md:inline">
-                  <br />
-                </span>{" "}
-                you remain in control, no matter where you are.
-              </p> */}
               <p className="my-4 md:my-5 text-[#333] leading-6 font-openSans text-left  text-[15px] md:text-[16px]">
-                Take full control of your fleet without ever being on-site. From
-                performing detailed vehicle checks and unlocking cars remotely
-                to coordinating repairs in real time, everything is at your
-                fingertips. Powered by our advanced Virtual Parking Slot
-                technology, you can monitor and manage your fleet from anywhere
-                seamlessly, securely, and efficiently.
+                Fleetblox is designed for speed and simplicity—what took weeks,
+                from onboarding vehicles to configuring teams and sites, is now
+                accomplished in minutes. With no physical installations or
+                technical delays, the platform adapts instantly to your
+                operation, no matter your fleet size or make-up—so your growth
+                is always supported, never slowed.
               </p>
               <Link href="/features/fleet-connectivity">
                 <button className="hidden md:flex lg:flex transition-all bg-[#2D65F2] hover:bg-[#0336BC] text-white duration-300 hover:w-[144.16px] w-[122.16px] items-center px-4 py-3 text-[16px] font-bold rounded-md group">

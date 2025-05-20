@@ -32,10 +32,16 @@ const VirtualSlot = () => {
 
             {/* Content */}
             <div className=" hidden md:block  relative text-center">
-              <h1 className="z-10 text-[52px] text-[#000E32] font-bold leading-[1.1]">
+              <p className="text-[22px] text-left md:text-center font-bold text-[#0336BC] mb-[10px]">
+                Turn Every Mile Into Momentum
+              </p>
+              {/* <h1 className="z-10 text-[52px] text-[#000E32] font-bold leading-[1.1]">
                 Take <span className="text-[#0336BC]">Full Control</span> with
                 Virtual <br className="hidden md:block " />
                 Parking Slot Technology
+              </h1> */}
+              <h1 className="z-10 text-[52px] text-[#000E32] font-bold leading-[1.1]">
+                Link . Optimize. Comply. Expand
               </h1>
             </div>
           </motion.div>
@@ -59,11 +65,17 @@ const VirtualSlot = () => {
         </div>
         {/* Mobile view */}
         <div className="md:hidden">
-          <h1 className="text-[28px] text-center mb-8 text-[#000E32] font-bold">
+          <p className="text-[14px] text-center font-bold text-[#0336BC] mb-[10px]">
+            Turn Every Mile Into Momentum
+          </p>
+          <h1 className="z-10 text-[28px] text-center text-[#000E32] font-bold leading-[1.1]">
+            Link . Optimize. Comply. Expand
+          </h1>
+          {/* <h1 className="text-[28px] text-center mb-8 text-[#000E32] font-bold">
             Take <span className="text-[#0336BC]">Full Control</span> with
             Virtual <br className="hidden md:block " />
             Parking Slot Technology
-          </h1>
+          </h1> */}
           {full_control_with_virtual_slot_data.map((item) => {
             return (
               <section
@@ -77,7 +89,7 @@ const VirtualSlot = () => {
                     alt="image"
                   />
                 </div>
-                <div className="flex-1 flex flex-col gap-y-[5px] text-left p-5">
+                <div className="flex-1 flex flex-col gap-y-[5px] text-left p-5 -mt-16">
                   <Image src={item.icon} alt="icon" />
                   <h1 className="text-[22px] text-left text-[#000E32] font-openSans font-bold ">
                     {item.title}
