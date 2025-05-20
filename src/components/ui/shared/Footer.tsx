@@ -132,7 +132,7 @@ const Footer = () => {
                     Documents Management
                   </h5>
                 </Link>
-                <Link href="/under-development">
+                <Link href="/features/intelligent-alerts">
                   <h5 className="font-openSans py-[2px] mb-[5px]">
                     Intelligent Alerts
                   </h5>

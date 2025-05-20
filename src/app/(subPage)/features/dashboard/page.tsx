@@ -96,7 +96,7 @@ const page = () => {
                             width={700}
                             height={491}
                             priority
-                            className="object-contain "
+                            className="object-contain w-[100%] max-w-[600px] mx-auto"
                         />
                     </div>
                 </div>
@@ -155,7 +155,7 @@ const page = () => {
                 </div>
                 <div className="max-w-[1200px] md:hidden block w-full mx-auto mt-[40px] px-5">
                     <Image
-                        src="/images/features/document-management-mobile.svg"
+                        src="/images/features/dashboard-mobile.svg"
                         alt="Remote Scalability Hero"
                         width={700}
                         height={491}

@@ -58,7 +58,7 @@ const ProductSubpage = () => {
               Documents Management
             </h1>
           </Link>
-          <Link href="/under-development">
+          <Link href="/features/intelligent-alerts">
             <h1 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#7D7D7D] flex gap-[10px]">
               Intelligent Alerts
               <button className="text-[8px] rounded-[4px] py-[0px] px-[6px] bg-[#2D65F2] text-white">
@@ -87,7 +87,7 @@ const ProductSubpage = () => {
           Mobile Apps
         </p>
         <div className="flex flex-col space-y-[5px] lg:space-y-[8px]">
-          <Link href="/under-development">
+          <Link href="/mobile-apps/fleetblox-crew">
             <h1 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#7D7D7D]">
               Fleetblox Crew
             </h1>
