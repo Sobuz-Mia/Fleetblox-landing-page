@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useEffect, useState } from "react";
-import { Search } from "lucide-react";
+import { ChevronLeft, Search } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useProgressUpdater } from "@/hooks/useProgress";
@@ -12,6 +12,7 @@ import Loader from "./Loader";
 import NotCompatibilityDialog from "./NotCompatibilityDialog";
 import NextStepButton from "@/components/ui/shared/NextStepButton";
 import Head from "next/head";
+
 
 export interface Country {
   country: string;
@@ -159,6 +160,10 @@ const SelectCountry = () => {
   //   setSelectedCountries((prev) => prev.filter((c) => c !== country));
   // };
 
+  const handleBack = () => {
+    router.back()
+  };
+
   return (
     <>
       <Head>
@@ -169,6 +174,16 @@ const SelectCountry = () => {
       </Head>
       <main className="flex flex-col h-[94vh] w-full max-w-[900px] mx-auto px-4 sm:px-6 ">
         {/* Header - Fixed at the Top */}
+        <div
+          onClick={handleBack}
+          className="mb-4 flex cursor-pointer items-center gap-1"
+          aria-label="Get started with FleetBlox"
+        >
+          <ChevronLeft size={16} className="text-[#999]" />
+          <span className="font-openSans text-sm font-semibold text-[#999]">
+            Back
+          </span>
+        </div>
         <div className="my-4 text-center flex-none">
           <h2 className="font-bold text-[20px] sm:text-[28px] font-openSans text-[#04082C] ">
             Select Registered Countries
@@ -177,16 +192,7 @@ const SelectCountry = () => {
             Choose all the countries where your fleet vehicles were originally
             registered.
           </p>
-          {/* <Button
-          onClick={() => {
-            sendGTMEvent({
-              event: "buttonClicked",
-              value: "test",
-            });
-          }}
-        >
-          test
-        </Button> */}
+
         </div>
 
         {/* Main Content - Scrollable */}
