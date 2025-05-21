@@ -64,10 +64,10 @@ const Deal = ({ Deals }: {
     };
 
     return (
-        <div className="mx-auto max-w-[1200px]  py-[30px] px-5 xl:px-0">
+        <div className="mx-auto max-w-[1200px] py-[30px] px-4 sm:px-5 xl:px-0">
 
-            <div className="mt-[30px] flex flex-col lg:flex-row items-center justify-between gap-x-[40px]">
-                <div className="lg:flex-[0.8] h-full lg:min-h-[240px] flex items-center justify-center">
+            <div className="mt-[20px] sm:mt-[30px] flex flex-col lg:flex-row items-center justify-between gap-x-[20px] md:gap-x-[40px]">
+                <div className="w-full lg:flex-[0.8] h-full lg:min-h-[240px] flex items-center justify-center mb-6 lg:mb-0">
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={activeIndex}
@@ -77,7 +77,7 @@ const Deal = ({ Deals }: {
                             transition={{ duration: 0 }}
                             className="w-full flex justify-center items-center"
                         >
-                            <div className="relative flex justify-center items-center w-full max-w-[550px]">
+                            <div className="relative flex justify-center items-center w-full max-w-[350px] sm:max-w-[450px] md:max-w-[550px]">
                                 <Image
                                     src={Deals[activeIndex].image}
                                     alt={Deals[activeIndex].title}
@@ -92,7 +92,7 @@ const Deal = ({ Deals }: {
                 </div>
 
                 {/* loading deal section */}
-                <div className="flex-1 space-y-[12px] ml-10 py-4">
+                <div className="flex-1 space-y-[10px] sm:space-y-[12px] ml-0 sm:ml-4 lg:ml-10 py-2 sm:py-4 w-full">
                     {Deals.map((item, index) => (
                         <div
                             key={index}
@@ -114,19 +114,19 @@ const Deal = ({ Deals }: {
                             </div>
 
                             {/* Content Container */}
-                            <div className="flex-1 px-[16px] py-[10px]">
+                            <div className="flex-1 px-[12px] sm:px-[16px] py-[8px] sm:py-[10px]">
                                 {/* Question Section */}
                                 <div
                                     onClick={() => handleItemClick(index)}
                                     className="cursor-pointer flex items-center justify-between"
                                 >
-                                    <h3 className="text-[16px] md:text-[18px] font-bold text-[#04082C] font-openSans">{item.title}</h3>
+                                    <h3 className="text-[15px] sm:text-[16px] md:text-[18px] font-bold text-[#04082C] font-openSans">{item.title}</h3>
                                 </div>
 
                                 {/* Answer Section */}
                                 {activeIndex === index && (
                                     <motion.div
-                                        className="text-[#333333] font-openSans mt-[10px] text-[13px] md:text-[14px] leading-[1.5]"
+                                        className="text-[#333333] font-openSans mt-[8px] sm:mt-[10px] text-[12px] sm:text-[13px] md:text-[14px] leading-[1.5]"
                                         initial={{ opacity: 0, y: -1 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: 10 }}

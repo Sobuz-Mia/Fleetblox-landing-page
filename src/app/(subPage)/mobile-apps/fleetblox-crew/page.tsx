@@ -8,9 +8,6 @@ import Deal from "../../industries/auto-dealerships/components/LoadingSection";
 import ScrollingSection from "../../industries/auto-dealerships/components/scrollingAnnimation";
 import FeatureCard from "@/components/ui/FeatureCard";
 
-
-
-
 const EMobilityServices = () => {
 
     const FleetsFit: any[] = [
