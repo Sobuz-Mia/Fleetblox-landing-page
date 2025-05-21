@@ -64,7 +64,6 @@ const CheckOutPage = () => {
       setInterestedUser(JSON.parse(storedInterestedUser));
   }, []);
 
-  // Move ALL direct localStorage access into useEffect
   useEffect(() => {
     if (typeof window !== "undefined") {
       try {
@@ -80,12 +79,12 @@ const CheckOutPage = () => {
     }
   }, []);
 
-  // Update these calculations to remove HST
+
   const calculateDisplayTotal = () => {
-    // Base price calculation
+
     let basePrice = (selectedPlan?.price ?? 0) * (selectedPlan?.slot ?? 0);
 
-    // If annually selected, multiply by 12 for yearly display
+
     if (selectedPlan?.annually) {
       basePrice = basePrice * 12;
     }
@@ -93,24 +92,23 @@ const CheckOutPage = () => {
     return basePrice;
   };
 
-  // Fixed setup fee
+
   const oneTimeSet = 100;
 
-  // Update where TotalForModal is defined - REMOVE HST
+
   const TotalForModal = calculateDisplayTotal();
-  // Remove this line: const hts = (TotalForModal + oneTimeSet) * 0.1;
-  const totalAmount = TotalForModal + oneTimeSet; // Remove hts from total
+
+  const totalAmount = TotalForModal + oneTimeSet;
 
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     phone: "",
     countryCode: "+1",
-    flag: Canada, // Provide a fallback path
+    flag: Canada,
   });
 
-  //   const [plan, setPlan] = useState("");
-  //   const [vinsResult, setVinsResult] = useState("");
+
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -175,7 +173,7 @@ const CheckOutPage = () => {
     setIsDropdownOpen(false);
   };
 
-  // Filter and determine compatibility status using `useMemo` for memoization
+
 
   const filteredCompatibleBrands = useCallback(() => {
     return brandCarList
@@ -225,7 +223,7 @@ const CheckOutPage = () => {
     }
   }
 
-  // Close dropdown when clicking outside
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -285,13 +283,13 @@ const CheckOutPage = () => {
     setLoading(true);
     e.preventDefault();
 
-    // Regular expression for validating an email address
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(formData.email)) {
       toast.error("Please enter a valid email address");
       setLoading(false);
-      return; // Prevent further execution if email is invalid
+      return;
     }
     // https://backend.illama360.com
     try {
