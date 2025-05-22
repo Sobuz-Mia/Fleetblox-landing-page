@@ -198,7 +198,7 @@ const PricingPlan = () => {
   }
 
 
-  const handleStarterPlan = async (starterPlan: any) => {
+  const handleStarterPlan = async (starterPlan: TStaterPlanData) => {
     const planData = {
       price: starterPlan?.price,
       fleet: starterPlan?.name || "Starter Fleet",
