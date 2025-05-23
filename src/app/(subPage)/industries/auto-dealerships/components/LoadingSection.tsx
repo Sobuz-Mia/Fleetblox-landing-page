@@ -44,7 +44,7 @@ const Deal = ({ Deals }: {
                     return 0;
                 }
                 // Increment progress
-                return prevProgress + (100 / 50); // Change from 150 to 50 - now ~2 seconds total
+                return prevProgress + (100 / 50); // 2 seconds total
             });
         }, 100);
 
@@ -65,17 +65,17 @@ const Deal = ({ Deals }: {
 
     return (
         <div className="mx-auto max-w-[1200px] py-[30px] px-4 sm:px-5 xl:px-0">
-
             <div className="mt-[20px] sm:mt-[30px] flex flex-col lg:flex-row items-center justify-between gap-x-[20px] md:gap-x-[40px]">
-                <div className="w-full lg:flex-[0.8] h-full lg:min-h-[240px] flex items-center justify-center mb-6 lg:mb-0">
+                {/* Image container with fixed height to prevent layout shifts */}
+                <div className="w-full lg:flex-[0.8] h-[240px] sm:h-[280px] md:h-[300px] flex items-center justify-center mb-6 lg:mb-0 relative">
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={activeIndex}
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            transition={{ duration: 0 }}
-                            className="w-full flex justify-center items-center"
+                            transition={{ duration: 0.3 }}
+                            className="absolute inset-0 flex justify-center items-center"
                         >
                             <div className="relative flex justify-center items-center w-full max-w-[350px] sm:max-w-[450px] md:max-w-[550px]">
                                 <Image
@@ -118,23 +118,18 @@ const Deal = ({ Deals }: {
                                 {/* Question Section */}
                                 <div
                                     onClick={() => handleItemClick(index)}
-                                    className="cursor-pointer flex items-center justify-between"
+                                    className={`cursor-pointer flex items-center justify-between ${activeIndex === index ? 'text-[#2D65F2]' : 'text-[#04082C]'}`}
                                 >
-                                    <h3 className="text-[15px] sm:text-[16px] md:text-[18px] font-bold text-[#04082C] font-openSans">{item.title}</h3>
+                                    <h3 className="text-[15px] sm:text-[16px] md:text-[18px] font-bold font-openSans">{item.title}</h3>
                                 </div>
 
-                                {/* Answer Section */}
-                                {activeIndex === index && (
-                                    <motion.div
-                                        className="text-[#333333] font-openSans mt-[8px] sm:mt-[10px] text-[12px] sm:text-[13px] md:text-[14px] leading-[1.5]"
-                                        initial={{ opacity: 0, y: -1 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: 10 }}
-                                        transition={{ ease: "easeInOut" }}
-                                    >
-                                        {item.content}
-                                    </motion.div>
-                                )}
+                                {/* Answer Section - Always render but conditionally show for smoother transitions */}
+                                <div
+                                    className={`text-[#333333] font-openSans mt-[8px] sm:mt-[10px] text-[12px] sm:text-[13px] md:text-[14px] leading-[1.5] transition-all duration-300 ${activeIndex === index ? 'opacity-100 max-h-[300px]' : 'opacity-0 max-h-0 overflow-hidden'
+                                        }`}
+                                >
+                                    {item.content}
+                                </div>
                             </div>
                         </div>
                     ))}
