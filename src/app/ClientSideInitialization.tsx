@@ -7,6 +7,24 @@ export default function ClientSideInitialization({
 }: {
   children: React.ReactNode;
 }) {
+
+  useEffect(() => {
+
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("country");
+      localStorage.removeItem("countries");
+      localStorage.removeItem("selectedPlan");
+      localStorage.removeItem("brands");
+      localStorage.removeItem("brandCarList");
+      localStorage.removeItem("brandModels");
+      localStorage.removeItem("VINS");
+      localStorage.removeItem("VINS_RESULT");
+      localStorage.removeItem("compatibility");
+      localStorage.removeItem("selectedCountries");
+    }
+  }, []);
+
+
   useEffect(() => {
     import("locomotive-scroll").then((locomotiveModule) => {
       const LocomotiveScroll = locomotiveModule.default;
@@ -23,6 +41,8 @@ export default function ClientSideInitialization({
       });
     });
   }, []);
+
+
 
   return <>{children}</>;
 }
