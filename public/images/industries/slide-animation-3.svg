@@ -1,10 +1,10 @@
 <svg width="633" height="420" viewBox="0 0 633 420" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g clip-path="url(#clip0_8004_38189)">
+<g clipPath="url(#clip0_8004_38189)">
 <rect width="560" height="420" rx="24" fill="white"/>
 <rect x="-70.1523" width="630.154" height="420" fill="url(#pattern0_8004_38189)"/>
 </g>
 <g filter="url(#filter0_f_8004_38189)">
-<rect x="312" y="249" width="292" height="131" rx="12" fill="black" fill-opacity="0.25"/>
+<rect x="312" y="249" width="292" height="131" rx="12" fill="black" fillOpacity="0.25"/>
 </g>
 <g filter="url(#filter1_d_8004_38189)">
 <rect x="320" y="229" width="300" height="133.025" rx="16" fill="white" shape-rendering="crispEdges"/>
