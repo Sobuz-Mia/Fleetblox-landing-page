@@ -69,6 +69,8 @@ export default function Home() {
             localStorage.removeItem("selectedCountries");
         }
     }, []);
+
+
     return (
         <div>
             <Navbar />
