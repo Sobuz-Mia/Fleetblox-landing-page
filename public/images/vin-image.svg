@@ -31,7 +31,7 @@
 <mask id="path-30-inside-1_5452_30290" fill="white">
 <path d="M4.99609 37.9648H172.996V115.965H4.99609V37.9648Z"/>
 </mask>
-<path d="M4.99609 37.9648H172.996V115.965H4.99609V37.9648Z" fill="url(#paint0_linear_5452_30290)" fill-opacity="0.2"/>
+<path d="M4.99609 37.9648H172.996V115.965H4.99609V37.9648Z" fill="url(#paint0_linear_5452_30290)" fillOpacity="0.2"/>
 <path d="M4.99609 38.8901H172.996V37.0396H4.99609V38.8901Z" fill="#303030" mask="url(#path-30-inside-1_5452_30290)"/>
 <defs>
 <linearGradient id="paint0_linear_5452_30290" x1="88.9961" y1="37.9648" x2="88.9961" y2="115.965" gradientUnits="userSpaceOnUse">
