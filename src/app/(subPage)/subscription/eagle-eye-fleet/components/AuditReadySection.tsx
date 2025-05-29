@@ -20,6 +20,7 @@ const AuditReadySection = () => {
           height={483}
           className="object-contain max-w-[676px] w-full mx-auto"
           quality={100}
+          priority
         />
         <Image
           data-aos="fade-up"
