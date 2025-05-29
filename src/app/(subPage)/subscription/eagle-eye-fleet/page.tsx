@@ -2,6 +2,7 @@ import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import Link from "next/link";
 import ReducedRiskAndDowntime from "./components/ReducedRiskAndDowntime";
 import RealtimeFleetAwareness from "./components/RealtimeFleetAwareness";
+import AuditReadySection from "./components/AuditReadySection";
 
 const page = () => {
   return (
@@ -46,6 +47,8 @@ const page = () => {
       <RealtimeFleetAwareness />
       {/* Reduced Risk and Downtime section */}
       <ReducedRiskAndDowntime />
+      {/* Always audit ready section */}
+      <AuditReadySection />
     </>
   );
 };
