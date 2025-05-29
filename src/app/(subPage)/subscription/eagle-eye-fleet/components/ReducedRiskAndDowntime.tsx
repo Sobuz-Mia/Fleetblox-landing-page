@@ -37,6 +37,7 @@ const ReducedRiskAndDowntime = () => {
           height={293}
           className="absolute bottom-[38%] left-[30%] -translate-x-1/2 z-10"
           quality={100}
+          priority
         />
         {/* Cars in front */}
         <Image
@@ -46,6 +47,7 @@ const ReducedRiskAndDowntime = () => {
           height={491}
           className="relative z-20 mx-auto object-contain "
           quality={100}
+          priority
         />
       </div>
       <div className="text-center">
