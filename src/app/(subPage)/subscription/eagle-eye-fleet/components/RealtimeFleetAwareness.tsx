@@ -63,6 +63,7 @@ const RealtimeFleetAwareness = () => {
         {/* location */}
         <div
           data-aos="fade-left"
+          data-aos-duration="2000"
           className="flex items-center absolute top-[34%] -right-[1.2%]"
         >
           <div className="pt-10">
@@ -101,6 +102,7 @@ const RealtimeFleetAwareness = () => {
         {/* system status */}
         <div
           data-aos="fade-left"
+          data-aos-duration="2000"
           className="flex items-center absolute top-[44%] -right-[8.5%]"
         >
           <div className="">
@@ -115,6 +117,7 @@ const RealtimeFleetAwareness = () => {
         {/* Vehicle conditions */}
         <div
           data-aos="fade-left"
+          data-aos-duration="2000"
           className="flex items-center absolute bottom-[43%] -right-[11.5%]"
         >
           <div className="">
@@ -129,6 +132,7 @@ const RealtimeFleetAwareness = () => {
         {/* Reminders */}
         <div
           data-aos="fade-left"
+          data-aos-duration="2000"
           className="flex items-center absolute bottom-[32.5%] -right-[5%]"
         >
           <div className="pb-8">

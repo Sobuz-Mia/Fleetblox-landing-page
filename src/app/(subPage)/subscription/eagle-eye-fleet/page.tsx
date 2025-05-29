@@ -3,6 +3,7 @@ import Link from "next/link";
 import ReducedRiskAndDowntime from "./components/ReducedRiskAndDowntime";
 import RealtimeFleetAwareness from "./components/RealtimeFleetAwareness";
 import AuditReadySection from "./components/AuditReadySection";
+import ExpansionCrossSites from "./components/ExpansionCrossSites";
 
 const page = () => {
   return (
@@ -49,6 +50,8 @@ const page = () => {
       <ReducedRiskAndDowntime />
       {/* Always audit ready section */}
       <AuditReadySection />
+      {/* Expansions cross sites */}
+      <ExpansionCrossSites />
     </>
   );
 };
