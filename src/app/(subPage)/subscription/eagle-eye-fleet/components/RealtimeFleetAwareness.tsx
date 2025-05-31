@@ -19,7 +19,7 @@ const RealtimeFleetAwareness = () => {
     },
   ];
   return (
-    <section className="py-[20px] lg:pt-[160px] lg:pb-[120px] max-w-[1200px] mx-auto w-full flex flex-col-reverse lg:flex-row items-center gap-10 md:gap-[50px] relative px-5">
+    <section className="py-[20px] lg:pt-[160px] lg:pb-[120px] max-w-[1200px] mx-auto w-full flex flex-col-reverse xl:flex-row items-center gap-10 md:gap-[50px] relative px-5">
       {/* left side */}
       <div className="max-w-[640px] w-full text-center lg:text-left">
         <h3 className="text-[28px] md:text-[36px] text-[#04082C] font-bold leading-tight lg:leading-[1.1]">

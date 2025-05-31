@@ -47,11 +47,11 @@ const page = () => {
       {/* Realtime fleet awareness section */}
       <RealtimeFleetAwareness />
       {/* Reduced Risk and Downtime section */}
-      {/* <ReducedRiskAndDowntime /> */}
+      <ReducedRiskAndDowntime />
       {/* Always audit ready section */}
-      {/* <AuditReadySection /> */}
+      <AuditReadySection />
       {/* Expansions cross sites */}
-      {/* <ExpansionCrossSites /> */}
+      <ExpansionCrossSites />
     </>
   );
 };

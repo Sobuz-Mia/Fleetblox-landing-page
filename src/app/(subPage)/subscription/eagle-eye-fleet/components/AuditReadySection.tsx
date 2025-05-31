@@ -2,9 +2,9 @@ import Image from "next/image";
 
 const AuditReadySection = () => {
   return (
-    <section className="py-[100px] max-w-[1200px] mx-auto w-full px-5">
+    <section className=" py-10 lg:py-[100px] max-w-[1200px] mx-auto w-full px-5">
       <div className="text-center max-w-[840px] mx-auto w-full">
-        <h2 className="text-[36px] font-bold text-[#04082C] leading-[1.1]">
+        <h2 className="text-[28px] md:text-[36px] font-bold text-[#04082C] leading-[1.1]">
           Always Audit-Ready
         </h2>
         <p className="text-[#333] text-[16px] leading-6 font-openSans mt-[10px] mb-[60px] max-w-[600px] w-full mx-auto">
@@ -12,7 +12,7 @@ const AuditReadySection = () => {
           behalf. No more messy spreadsheets. One neat command center only.
         </p>
       </div>
-      <div className="relative text-center">
+      <div className="relative text-center hidden md:block">
         <Image
           src="/images/subscription/ready-audit.svg"
           alt="Car and laptop"
@@ -46,7 +46,16 @@ const AuditReadySection = () => {
           />
         </div>
       </div>
-      <div className="mt-[60px] flex flex-col md:flex-row justify-items-center items-center gap-5 max-w-[900px] w-full mx-auto px-5">
+      <Image
+        src="/images/subscription/always-audit-ready-mobile-view.svg"
+        alt="Car and laptop"
+        width={676}
+        height={483}
+        className="object-contain w-full md:hidden block "
+        quality={100}
+        priority
+      />
+      <div className="mt-5 lg:mt-[60px] flex flex-col md:flex-row justify-items-center items-center gap-5 max-w-[900px] w-full mx-auto px-5">
         <div className="text-center md:border-r-[2px] border-[#FBEECA]">
           <div className="flex justify-center mb-4">
             <DigitalDocument />
