@@ -130,6 +130,48 @@ const page = () => {
           />
         </div>
       </section>
+
+      <section className="py-[80px]">
+        <div className="max-w-[1000px] mx-auto w-full text-center px-5">
+          <h2 className="text-[#04082C] w-full mx-auto font-montserrat text-[36px] lg:text-[36px] font-bold text-center leading-[24px] mb-[10px]">
+            Clarity Is Your Competitive Edge
+          </h2>
+          <p className="text-[#7D7D7D] text-[16px] leading-6 font-openSans">
+            As you can’t manage what you can’t see, Eagle Eye gives you full-spectrum visibility into your fleet without hardware, hassle or guesswork. From real-time condition insights to automated compliance tracking, it delivers the control, foresight  and operational intelligence that modern fleet operators need to stay ahead.
+
+          </p>
+          <Link
+            aria-label="Eagle eye your fleet"
+            href="#"
+            className="mt-[20px] lg:mt-[30px] flex justify-center"
+          >
+            <button className="hidden transition-all bg-[#2D65F2] hover:bg-[#0336BC] font-openSans text-white-primary text-white duration-300 hover:w-[200px] w-[190px] lg:flex items-center px-4 py-3 text-base font-bold rounded-md group">
+              <div className="z-20 whitespace-nowrap">Eagle eye your fleet</div>
+              <div className="z-10 transform transition-transform opacity-0 group-hover:opacity-100 -translate-x-4 duration-300 group-hover:translate-x-0">
+                <RightArrowIcon />
+              </div>
+            </button>
+          </Link>
+        </div>
+
+        <div className="max-w-[1200px] mx-auto w-full px-5 mt-[60px]">
+          <section className="my-8 md:my-10 border border-[#DFDFDF] h-[250px] xs:h-[280px] sm:h-[350px] md:h-[425px] rounded-[24px] bg-white overflow-hidden">
+            <div className="relative w-full h-full">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+                className="absolute inset-0 w-full h-full object-cover"
+              >
+                <source src="/videos/egale-eye-fleet.mp4" type="video/mp4" />
+              </video>
+            </div>
+          </section>
+        </div>
+
+      </section>
     </>
   );
 };
