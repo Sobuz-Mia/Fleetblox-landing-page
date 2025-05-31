@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import "../styles/globals.css";
+import "aos/dist/aos.css";
 import ClientSideInitialization from "./ClientSideInitialization";
 // import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { Toaster } from "react-hot-toast";
@@ -8,6 +9,7 @@ import { Montserrat, Open_Sans, Roboto } from "next/font/google";
 
 import imageUrl from "../../public/images/hero-2.png";
 import Script from "next/script";
+import AOSWrapper from "@/components/AOSWrapper";
 
 // Configure primary font
 const montserrat = Montserrat({
@@ -112,6 +114,7 @@ export default function RootLayout({
       lang="en"
       className={`${montserrat.variable} ${openSans.variable} ${roboto.variable}`}
     >
+      <AOSWrapper />
       <head>
         {/* Favicon link */}
         <link rel="icon" href="/Favicon.png" />
