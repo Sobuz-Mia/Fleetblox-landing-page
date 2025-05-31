@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useEffect, useState } from "react";
@@ -98,21 +99,62 @@ const ModelSelector = ({ params }: any) => {
 
         setRegionsWithCountryData(regionsWithCountryData);
 
-        // Fetch models for each region
+        // Fetch models for each region with retry logic
         const regions = Object.keys(regionsWithCountries);
-        const regionPromises = regions.map((region) =>
-          axios.get(
-            `https://api.fleetblox.com/api/dummy/check-compatibility-matrix?region=${region}`
-          )
-        );
+
+        // Function to make API call with retry logic
+        const fetchWithRetry = async (region: string, retries = 3, delay = 1000) => {
+          for (let attempt = 0; attempt < retries; attempt++) {
+            try {
+              const response = await axios.get(
+                `https://api.fleetblox.com/api/dummy/check-compatibility-matrix?region=${region}`,
+                { timeout: 10000 } // 10 second timeout
+              );
+              return response;
+            } catch (error: any) {
+              console.log(`Error fetching data for region ${region} (Attempt ${attempt + 1}/${retries}):`, error.message);
+
+              if (attempt === retries - 1) {
+                // This was the last attempt, throw the error
+                throw error;
+              }
+
+              // Wait before retrying
+              await new Promise(resolve => setTimeout(resolve, delay));
+              // Increase delay for next attempt (exponential backoff)
+              delay *= 2;
+            }
+          }
+        };
+
+        // Create promises with fallback to empty arrays if a region fails
+        const regionPromises = regions.map(async (region) => {
+          try {
+            return await fetchWithRetry(region);
+          } catch (error) {
+            console.error(`Failed to fetch data for region ${region} after multiple attempts:`, error);
+            toast.error(`Failed to load data for ${region} region`);
+            // Return a mock response with empty data to prevent breaking the app
+            return { data: { data: [] } };
+          }
+        });
 
         const responses = await Promise.all(regionPromises);
         const regionData = responses.reduce((acc, res, index) => {
           const region = regions[index];
-          acc[region] = res.data.data.map((brand: any) => ({
-            ...brand,
-            region,
-          }));
+          // Make sure res.data.data exists and is an array before mapping
+          const brandsData = res?.data?.data || [];
+          if (Array.isArray(brandsData)) {
+            // @ts-expect-error
+            acc[region] = brandsData.map((brand: any) => ({
+              ...brand,
+              region,
+            }));
+          } else {
+            console.error(`Invalid data format for region ${region}:`, res?.data);
+            // @ts-expect-error
+            acc[region] = []; // Set empty array for invalid data
+          }
           return acc;
         }, {} as { [key: string]: CarBrandsData });
 
@@ -178,36 +220,7 @@ const ModelSelector = ({ params }: any) => {
     }
   }, [currentBrandIndex, filteredModels]);
 
-  // 1. Add this function to fetch models for each country separately
-  // const fetchCountrySpecificModels = async (
-  //   brand: string,
-  //   country: CountryObject
-  // ) => {
-  //   try {
-  //     // Determine which region this country belongs to
-  //     let region = "EUROPE";
-  //     if (country.country === "United States") region = "US";
-  //     else if (country.country === "Canada") region = "CA";
 
-  //     // Fetch models specific to this region
-  //     const response = await axios.get(
-  //       `https://api.fleetblox.com/api/dummy/check-compatibility-matrix?region=${region}&brand=${brand}`
-  //     );
-
-  //     // Find the brand in the response
-  //     const brandData = response.data.data.find(
-  //       (b: any) => b.brand.toLowerCase() === brand.toLowerCase()
-  //     );
-
-  //     return brandData?.models || [];
-  //   } catch (error) {
-  //     console.error(
-  //       `Error fetching models for ${brand} in ${country.country}:`,
-  //       error
-  //     );
-  //     return [];
-  //   }
-  // };
 
   // 2. Update your useEffect that loads country models
   useEffect(() => {
