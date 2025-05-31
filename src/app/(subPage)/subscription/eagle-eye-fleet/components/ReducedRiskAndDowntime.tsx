@@ -35,7 +35,7 @@ const ReducedRiskAndDowntime = () => {
           alt="Shield Icon"
           width={260}
           height={293}
-          className="absolute bottom-[38%] left-[30%] -translate-x-1/2 z-10"
+          className="absolute bottom-[38%] left-[22%] sm:left-[30%] -translate-x-1/2 z-10"
           quality={100}
           priority
         />

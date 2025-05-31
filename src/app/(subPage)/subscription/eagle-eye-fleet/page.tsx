@@ -14,7 +14,7 @@ const page = () => {
           <h1 className="text-[28px] text-[#0336BC] font-bold font-montserrat">
             Eagle Eye Fleet
           </h1>
-          <h2 className="text-[36px] lg:text-[52px] font-bold text-[#04082C] leading-normal md:leading-[1.1] max-w-[800px] w-full mx-auto mb-[10px] mt-[5px] font-montserrat">
+          <h2 className="text-[30px] lg:text-[52px] font-bold text-[#04082C] leading-normal md:leading-[1.1] max-w-[800px] w-full mx-auto mb-[10px] mt-[5px] font-montserrat">
             Turn Fleet Blind Spots into Strategic Insights
           </h2>
           <p className="text-[16px] text-[#333] leading-6 font-openSans mb-[30px]">
