@@ -45,7 +45,7 @@ const page = () => {
         ></div>
       </section>
       {/* Realtime fleet awareness section */}
-      {/* <RealtimeFleetAwareness /> */}
+      <RealtimeFleetAwareness />
       {/* Reduced Risk and Downtime section */}
       {/* <ReducedRiskAndDowntime /> */}
       {/* Always audit ready section */}

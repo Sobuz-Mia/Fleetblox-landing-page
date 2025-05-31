@@ -19,17 +19,18 @@ const RealtimeFleetAwareness = () => {
     },
   ];
   return (
-    <section className="pt-[160px] pb-[120px] max-w-[1200px] mx-auto w-full flex  items-center gap-[50px] relative px-5">
-      <div className="max-w-[640px] w-full">
-        <h3 className="text-[36px] text-[#04082C] font-bold leading-tight lg:leading-[1.1]">
+    <section className="py-[20px] lg:pt-[160px] lg:pb-[120px] max-w-[1200px] mx-auto w-full flex flex-col-reverse lg:flex-row items-center gap-10 md:gap-[50px] relative px-5">
+      {/* left side */}
+      <div className="max-w-[640px] w-full text-center lg:text-left">
+        <h3 className="text-[28px] md:text-[36px] text-[#04082C] font-bold leading-tight lg:leading-[1.1]">
           Real-Time Fleet Awareness
         </h3>
-        <p className="text-[#333] text-[16px] leading-6 font-openSans mt-[10px] mb-[80px]">
+        <p className="text-[#7D7D7D] md:text-[#333] text-[16px] leading-6 font-openSans mt-[10px] mb-[40px] lg:mb-[80px]">
           Know every vehicle’s last status, condition, and location - instantly.
           You’re not guessing where vehicles are - you’re seeing where they’ve
           been and what they need.
         </p>
-        <div className="grid grid-cols-1 gap-[25px]">
+        <div className="grid grid-cols-1 gap-[25px] justify-items-center lg:justify-items-start">
           {FleetAwareness?.map((data, index) => (
             <div key={index} className={`flex relative max-w-[480px] w-full`}>
               <div className="absolute top-[8px] left-[8px] right-[8px] z-[10] rounded-[24px] bg-[rgba(0,0,0,0.08)] blur-[10px] h-[calc(100%+8px)]"></div>
@@ -49,14 +50,15 @@ const RealtimeFleetAwareness = () => {
           ))}
         </div>
       </div>
-      <div className="w-[480px] flex-shrink-0">
-        <div data-aos="fade-up" className="relative">
+      {/* animation start */}
+      <div className="max-w-[480px] w-full relative hidden md:block">
+        <div data-aos="fade-up" className="">
           <Image
             src="/images/subscription/laptop-and-car.svg"
             alt="Car and laptop"
             width={480}
             height={491}
-            className="object-contain w-[480px]"
+            className="object-contain w-full"
             quality={100}
           />
         </div>
@@ -64,9 +66,9 @@ const RealtimeFleetAwareness = () => {
         <div
           data-aos="fade-left"
           data-aos-duration="2000"
-          className="flex items-center absolute top-[34%] -right-[1.2%]"
+          className="flex items-center absolute -top-[5%] md:-top-[15%] -right-[4.5%] md:-right-[1%] lg:-right-[7%]"
         >
-          <div className="pt-10">
+          <div className="pt-10 hidden xs:block">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="36"
@@ -93,8 +95,35 @@ const RealtimeFleetAwareness = () => {
               </defs>
             </svg>
           </div>
-          <div className="border-[0.6px] px-5 py-[6px] rounded-[41px] border-[#0A2540]">
-            <p className="text-[#333] text-[12px] font-openSans font-semibold">
+          <div className="pt-5 xs:hidden block">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="19"
+              height="21"
+              viewBox="0 0 19 21"
+              fill="none"
+            >
+              <path
+                d="M0.487434 19.3395C0.487434 20.0929 1.09817 20.7036 1.85156 20.7036C2.60495 20.7036 3.21569 20.0929 3.21569 19.3395C3.21569 18.5861 2.60495 17.9754 1.85156 17.9754C1.09817 17.9754 0.487434 18.5861 0.487434 19.3395ZM1.85156 0.667969V0.412195H1.59579V0.667969H1.85156ZM1.85156 19.3395H2.10734V0.667969H1.85156H1.59579V19.3395H1.85156ZM1.85156 0.667969V0.923743H18.7327V0.667969V0.412195H1.85156V0.667969Z"
+                fill="url(#paint0_linear_9220_49221)"
+              />
+              <defs>
+                <linearGradient
+                  id="paint0_linear_9220_49221"
+                  x1="1.85156"
+                  y1="10.0037"
+                  x2="19.3819"
+                  y2="10.0037"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stopColor="#9A9A9A" />
+                  <stop offset="1" stopColor="#FAFAFF" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div className=" border-[0.3px] md:border-[0.6px] px-[10px] lg:px-5 py-[5px] lg:py-[6px] rounded-[20px] md:rounded-[41px] border-[#7D7D7D] md:border-[#0A2540] ">
+            <p className="text-[#333] text-[10px] lg:text-[12px] font-openSans font-semibold">
               Location
             </p>
           </div>
@@ -103,13 +132,13 @@ const RealtimeFleetAwareness = () => {
         <div
           data-aos="fade-left"
           data-aos-duration="2000"
-          className="flex items-center absolute top-[44%] -right-[8.5%]"
+          className="flex items-center absolute top-[20%] -right-[18%] md:-right-[19%] lg:-right-[26%]"
         >
           <div className="">
             <RightArrow />
           </div>
-          <div className="border-[0.6px] px-5 py-[6px] rounded-[41px] border-[#0A2540]">
-            <p className="text-[#333] text-[12px] font-openSans font-semibold">
+          <div className=" border-[0.3px] md:border-[0.6px] px-[10px] lg:px-5 py-[5px] lg:py-[6px] rounded-[20px] md:rounded-[41px] border-[#7D7D7D] md:border-[#0A2540] ">
+            <p className="text-[#333] text-[10px] lg:text-[12px] font-openSans font-semibold">
               System Status
             </p>
           </div>
@@ -118,7 +147,7 @@ const RealtimeFleetAwareness = () => {
         <div
           data-aos="fade-left"
           data-aos-duration="2000"
-          className="flex items-center absolute bottom-[43%] -right-[11.5%]"
+          className="flex items-center absolute bottom-[35%] -right-[35%]"
         >
           <div className="">
             <RightArrow />
@@ -133,7 +162,7 @@ const RealtimeFleetAwareness = () => {
         <div
           data-aos="fade-left"
           data-aos-duration="2000"
-          className="flex items-center absolute bottom-[32.5%] -right-[5%]"
+          className="flex items-center absolute bottom-[0%] -right-[16%]"
         >
           <div className="pb-8">
             <svg
@@ -168,6 +197,17 @@ const RealtimeFleetAwareness = () => {
             </p>
           </div>
         </div>
+      </div>
+      {/* mobile view */}
+      <div data-aos="fade-up" className="block md:hidden">
+        <Image
+          src="/images/subscription/realtime-fleet-awareness-mobile.svg"
+          alt="mobile view of realtime fleet awareness"
+          width={480}
+          height={491}
+          className="object-contain w-full"
+          quality={100}
+        />
       </div>
     </section>
   );
