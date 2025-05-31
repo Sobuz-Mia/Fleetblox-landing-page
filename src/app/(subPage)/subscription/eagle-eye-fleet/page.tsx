@@ -9,12 +9,12 @@ const page = () => {
   return (
     <>
       {/* hero section */}
-      <section className="bg-[#FAFAFF] pt-[100px] pb-[30px] overflow-hidden relative">
-        <div className="max-w-[1200px] mx-auto px-5 flex flex-col items-center py-[120px] text-center relative z-50 ">
+      <section className="bg-[#FAFAFF] lg:pt-[100px] pb-[30px] overflow-hidden relative">
+        <div className="max-w-[1200px] mx-auto px-5 flex flex-col items-center lg:py-[120px] pt-[100px] pb-10 lg:pb-0 text-center relative z-50 ">
           <h1 className="text-[28px] text-[#0336BC] font-bold font-montserrat">
             Eagle Eye Fleet
           </h1>
-          <h2 className="text-[52px] font-bold text-[#04082C] leading-normal md:leading-[1.1] max-w-[800px] w-full mx-auto mb-[10px] mt-[5px] font-montserrat">
+          <h2 className="text-[36px] lg:text-[52px] font-bold text-[#04082C] leading-normal md:leading-[1.1] max-w-[800px] w-full mx-auto mb-[10px] mt-[5px] font-montserrat">
             Turn Fleet Blind Spots into Strategic Insights
           </h2>
           <p className="text-[16px] text-[#333] leading-6 font-openSans mb-[30px]">
@@ -33,11 +33,11 @@ const page = () => {
               </div>
             </button>
           </Link>
-          {/* <Link aria-label="Get started with FleetBlox" href="/getting-started">
-          <button className="lg:hidden bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
-            Start today
-          </button>
-        </Link> */}
+          <Link aria-label="Get started with FleetBlox" href="/getting-started">
+            <button className="lg:hidden bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
+              Start today
+            </button>
+          </Link>
         </div>
         {/* Blurred spotlight ellipse */}
         <div
@@ -45,13 +45,13 @@ const page = () => {
         ></div>
       </section>
       {/* Realtime fleet awareness section */}
-      <RealtimeFleetAwareness />
+      {/* <RealtimeFleetAwareness /> */}
       {/* Reduced Risk and Downtime section */}
-      <ReducedRiskAndDowntime />
+      {/* <ReducedRiskAndDowntime /> */}
       {/* Always audit ready section */}
-      <AuditReadySection />
+      {/* <AuditReadySection /> */}
       {/* Expansions cross sites */}
-      <ExpansionCrossSites />
+      {/* <ExpansionCrossSites /> */}
     </>
   );
 };
