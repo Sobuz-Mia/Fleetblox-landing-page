@@ -6,7 +6,6 @@ import AuditReadySection from "./components/AuditReadySection";
 import ExpansionCrossSites from "./components/ExpansionCrossSites";
 
 const page = () => {
-
   return (
     <>
       {/* hero section */}
@@ -55,15 +54,18 @@ const page = () => {
       <ExpansionCrossSites />
 
       {/* Call to action section */}
-
+      {/* 
       <section className="py-[80px]">
         <div className="max-w-[1000px] mx-auto w-full text-center px-5">
           <h2 className="text-[#04082C] w-full mx-auto font-montserrat text-[36px] lg:text-[36px] font-bold text-center leading-[24px] mb-[10px]">
             Clarity Is Your Competitive Edge
           </h2>
           <p className="text-[#7D7D7D] text-[16px] leading-6 font-openSans">
-            As you can’t manage what you can’t see, Eagle Eye gives you full-spectrum visibility into your fleet without hardware, hassle or guesswork. From real-time condition insights to automated compliance tracking, it delivers the control, foresight  and operational intelligence that modern fleet operators need to stay ahead.
-
+            As you can’t manage what you can’t see, Eagle Eye gives you
+            full-spectrum visibility into your fleet without hardware, hassle or
+            guesswork. From real-time condition insights to automated compliance
+            tracking, it delivers the control, foresight and operational
+            intelligence that modern fleet operators need to stay ahead.
           </p>
           <Link
             aria-label="Eagle eye your fleet"
@@ -92,13 +94,10 @@ const page = () => {
               >
                 <source src="/videos/egale-eye-fleet.mp4" type="video/mp4" />
               </video>
-              svg
-
             </div>
           </section>
         </div>
-
-      </section>
+      </section> */}
     </>
   );
 };
