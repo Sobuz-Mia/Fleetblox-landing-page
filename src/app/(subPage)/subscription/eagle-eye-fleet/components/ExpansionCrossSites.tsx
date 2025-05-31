@@ -3,7 +3,7 @@ import Image from "next/image";
 const ExpansionCrossSites = () => {
   return (
     <div className=" bg-[#FAFAFF]">
-      <section className="pt-[120px] pb-[100px] max-w-[1200px] mx-auto w-full px-5 ">
+      <section className=" py-20 lg:pt-[120px] lg:pb-[100px] max-w-[1200px] mx-auto w-full px-5 ">
         <div className="text-center max-w-[840px] mx-auto w-full">
           <h2 className="text-[36px] font-bold text-[#04082C] leading-[1.1]">
             Expansion Across Sites

@@ -25,7 +25,7 @@ const ReducedRiskAndDowntime = () => {
     },
   ];
   return (
-    <section className=" py-[120px] max-w-[1200px] mx-auto w-full flex flex-col lg:flex-row items-center gap-[60px] lg:gap-0 px-5">
+    <section className="py-[120px] max-w-[1200px] mx-auto w-full flex flex-col lg:flex-row items-center gap-[60px] lg:gap-0 px-5">
       <div className="relative w-full max-w-[580px] mt-[109px] mx-auto">
         {/* Shield icon behind */}
         <Image
@@ -35,7 +35,7 @@ const ReducedRiskAndDowntime = () => {
           alt="Shield Icon"
           width={260}
           height={293}
-          className="absolute bottom-[38%] left-[30%] -translate-x-1/2 z-10"
+          className="absolute bottom-[38%] left-[22%] sm:left-[30%] -translate-x-1/2 z-10"
           quality={100}
           priority
         />
@@ -51,10 +51,10 @@ const ReducedRiskAndDowntime = () => {
         />
       </div>
       <div className="text-center">
-        <h2 className="text-[36px] font-bold text-[#04082C] leading-tight lg:leading-[1.1]">
+        <h2 className=" text-[28px] lg:text-[36px] font-bold text-[#04082C] leading-tight lg:leading-[1.1]">
           Reduced Risk and Downtime
         </h2>
-        <p className="mb-[80px] text-[16px] text-[#333] leading-6 font-openSans mt-[10px]">
+        <p className="mb-[80px] text-[16px] text-[#7D7D7D] md:text-[#333] leading-6 font-openSans mt-[10px]">
           Get ahead of problems that might ground your fleet or damage your
           bottom line. From minor dents to serious faults—you’ll catch it early
           and act faster.
