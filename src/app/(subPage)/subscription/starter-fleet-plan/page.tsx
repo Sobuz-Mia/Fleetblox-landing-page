@@ -73,7 +73,7 @@ const Page = () => {
 
 
             {/* Fleet connection section */}
-            <section className="py-12 sm:py-16 md:py-20 lg:py-32 max-w-[1200px] mx-auto w-full flex flex-col-reverse xl:flex-row items-stretch gap-8 sm:gap-10 md:gap-12 relative px-4 sm:px-5">
+            <section className="py-12 sm:py-16 md:py-20 lg:py-12 max-w-[1200px] mx-auto w-full flex flex-col-reverse xl:flex-row items-stretch gap-8 sm:gap-10 md:gap-12 relative px-4 sm:px-5">
                 {/* left side - now uses flex to center content vertically */}
                 <div className="flex-1 w-full flex flex-col justify-center text-center xl:text-left">
                     <p className="text-[#0336BC] font-openSans font-bold text-base sm:text-lg">Link your fleet</p>
