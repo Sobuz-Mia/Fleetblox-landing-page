@@ -17,9 +17,18 @@ export default {
           transform: "translateX(0)",
         },
       },
+      "pulse-slow": {
+        "0%, 100%": {
+          opacity: "0.4",
+        },
+        "50%": {
+          opacity: "0.5",
+        },
+      },
     },
     animation: {
       scroll: "scroll 30s linear infinite",
+      "pulse-slow": "pulse-slow 6s ease-in-out infinite",
     },
     extend: {
       colors: {
