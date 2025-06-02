@@ -13,29 +13,28 @@ const HeroSection = () => {
         {/* Text content remains the same */}
         <div className="max-w-[840px] w-full mx-auto text-center flex flex-col items-start md:items-center px-5">
           <p className="text-[18px] md:text-[28px] lg:text-[28px] text-left md:text-center font-bold text-[#0336BC] mb-[5px]">
-            Instant Fleet Connectivity
+            Instant Fleet Management
           </p>
           <h1 className="text-[36px] md:text-[52px] lg:text-[52px] text-left md:text-center font-bold text-[#04082C] leading-[1.1] font-montserrat">
             Manage and Scale Your Fleet Ecosystem Potentials
           </h1>
           <p className="text-left md:text-center font-openSans text-[#333] leading-6 text-[16px] mt-[10px]">
-            Fleetblox is an AI-powered, cloud-based platform that simplifies
-            fleet management, cuts costs, and reduces downtime. Streamline
-            operations, scale effortlessly, and turn your fleet into a growth
-            engine.
+            Fleetblox is a modern, AI-based platform designed to empower the
+            next generation of fleet management—built to adapt the demands of
+            today’s automotive technology
           </p>
           <div className="flex flex-col md:flex-row lg:flex-row items-start md:items-center justify-center gap-4 mt-5 pb-[30px] font-openSans">
             <div className="flex gap-[5px] text-[16px] font-openSans leading-6 font-semibold text-[#7D7D7D] text-left md:text-center">
               <CheckboxIcon />
-              <p>No Tools </p>
+              <p>Simplify Complexity </p>
             </div>
             <div className="flex gap-[5px] text-[16px] font-openSans leading-6 font-semibold text-[#7D7D7D]">
               <CheckboxIcon />
-              <p>No Installations</p>
+              <p>Adapt To Change.</p>
             </div>
             <div className="flex gap-[5px] text-[16px] font-openSans leading-6 font-semibold text-[#7D7D7D]">
               <CheckboxIcon />
-              <p>No Additional Cost </p>
+              <p>Grow Your Vision. </p>
             </div>
           </div>
           <Link aria-label="Get started with FleetBlox" href="/getting-started">
