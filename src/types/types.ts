@@ -50,3 +50,9 @@ export type TStaterPlanData = {
   createdAt: string;
   updatedAt: string;
 };
+export type NavbarItem = {
+  title: string;
+  description?: string;
+  href: string;
+  isUpcoming?: boolean;
+};
