@@ -7,10 +7,10 @@ const ProductSubpage = () => {
     <div className="p-[30px] bg-white grid grid-cols-1 lg:flex lg:gap-[60px]">
       {/* platform page */}
       <div className="flex flex-col lg:space-y-[10px] space-y-[16px] border-b lg:border-none">
-        <p className="text-[#7D7D7D] font-openSans text-[12px] pt-5 lg:pt-0 border-b border-[#DFDFDF]">
+        <p className="text-[#7D7D7D] font-openSans text-[12px] pt-5 lg:pt-0 lg:border-b lg:border-[#DFDFDF]">
           Platform
         </p>
-        <div className="flex gap-[30px]">
+        <div className="lg:flex gap-[30px] hidden ">
           <div className="flex flex-col  space-y-[5px] lg:space-y-[16px]">
             {platformFeatures.slice(0, 6).map((items, index) => (
               <GenerateNavbarItem key={index} {...items} />
@@ -22,10 +22,15 @@ const ProductSubpage = () => {
             ))}
           </div>
         </div>
+        <div className="flex flex-col  space-y-[5px] lg:space-y-[16px] lg:hidden">
+          {platformFeatures.map((items, index) => (
+            <GenerateNavbarItem key={index} {...items} />
+          ))}
+        </div>
       </div>
       {/* Mobile apps */}
       <div className="flex flex-col lg:space-y-[10px] space-y-[16px] border-b lg:border-none">
-        <p className="text-[#7D7D7D] font-openSans text-[12px] pt-5 lg:pt-0 border-b border-[#DFDFDF]">
+        <p className="text-[#7D7D7D] font-openSans text-[12px] pt-5 lg:pt-0 lg:border-b lg:border-[#DFDFDF]">
           Mobile Apps
         </p>
         <div className="flex flex-col space-y-[5px] lg:space-y-[8px]">
@@ -54,7 +59,7 @@ const ProductSubpage = () => {
       </div>
       {/* Subscription page */}
       <div className="flex flex-col lg:space-y-[10px] space-y-[16px] ">
-        <p className="text-[#7D7D7D] font-openSans text-[12px] pt-5 lg:pt-0 border-b border-[#DFDFDF]">
+        <p className="text-[#7D7D7D] font-openSans text-[12px] pt-5 lg:pt-0 lg:border-b lg:border-[#DFDFDF]">
           Subscription
         </p>
         <div className="flex flex-col lg:space-y-[8px] space-y-[5px]">
