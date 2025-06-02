@@ -61,3 +61,67 @@ export const platformFeatures: NavbarItem[] = [
     href: "/features/ai-assistant",
   },
 ];
+export const solutionsItems: NavbarItem[] = [
+  {
+    title: "Cloud Telematics",
+    href: "/solutions/cloud-telematic",
+  },
+  {
+    title: "Remote Access",
+    href: "/solutions/remote-access",
+  },
+  {
+    title: "Remote Scalability",
+    href: "/solutions/remote-scalability",
+  },
+  {
+    title: "Cost Optimization",
+    href: "/solutions/cost-optimization",
+  },
+  {
+    title: "Compliance and Safety",
+    href: "/solutions/compliance-and-safety",
+  },
+  {
+    title: "EV Fleet Integration",
+    href: "/solutions/ev-fleet-integration",
+  },
+  {
+    title: "Remote Inspection",
+    href: "/solutions/remote-inspection",
+  },
+  {
+    title: "Maintenance and Diagnostics",
+    href: "/solutions/maintenance-diagnostics",
+  },
+  {
+    title: "Workforce Connectivity",
+    href: "/solutions/workforce-connectivity",
+  },
+  {
+    title: "AI Fleet Assistant",
+    href: "/solutions/ai-fleet-assistant",
+  },
+];
+export const industriesItems: NavbarItem[] = [
+  {
+    title: "Fleet Management",
+    description: "Business ecosystem and customizations",
+    href: "/industries/fleet-management",
+  },
+  {
+    title: "Auto Dealerships",
+    description: "Dealership's inventory, locations and brands ",
+    href: "/industries/auto-dealerships",
+  },
+  {
+    title: "Car Rental Providers",
+    description: "Scalability and rental management",
+    href: "/industries/car-rental-providers",
+  },
+  {
+    title: "E-Mobility Services",
+    description: "EV command center, next-gen mobility",
+    href: "/industries/e-mobility-services",
+  },
+];

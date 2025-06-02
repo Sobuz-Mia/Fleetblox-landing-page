@@ -48,14 +48,6 @@ const ProductSubpage = () => {
             </h1>
           </Link>
         </div>
-        {/* <button className="transition-all mt-[5px]  leading-5 font-openSans text-[#2D65F2] duration-300 hover:w-[144.16px] w-[131.94px] flex items-center text-[14px] font-semibold group">
-          <div className="z-20 whitespace-nowrap text-left font-openSans">
-            View All Features
-          </div>
-          <div className="z-10 transform transition-transform opacity-0 group-hover:opacity-100 -translate-x-0 duration-300 group-hover:translate-x-0">
-            <RightArrowIcon fill="#2D65F2" />
-          </div>
-        </button> */}
       </div>
       {/* Subscription page */}
       <div className="flex flex-col lg:space-y-[10px] space-y-[16px] ">
