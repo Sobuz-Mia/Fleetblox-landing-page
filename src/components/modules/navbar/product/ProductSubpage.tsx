@@ -10,8 +10,8 @@ const ProductSubpage = () => {
         <p className="text-[#7D7D7D] font-openSans text-[12px] pt-5 lg:pt-0 lg:border-b lg:border-[#DFDFDF]">
           Platform
         </p>
-        <div className="lg:flex gap-[30px] hidden ">
-          <div className="flex flex-col  space-y-[5px] lg:space-y-[16px]">
+        <div className="lg:flex gap-[30px] hidden w-[550px] h-[300px]">
+          <div className="flex flex-col w-1/2 space-y-[5px] lg:space-y-[16px]">
             {platformFeatures.slice(0, 6).map((items, index) => (
               <GenerateNavbarItem key={index} {...items} />
             ))}
@@ -35,12 +35,12 @@ const ProductSubpage = () => {
         </p>
         <div className="flex flex-col space-y-[5px] lg:space-y-[8px]">
           <Link href="/mobile-apps/fleetblox-crew">
-            <h1 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#7D7D7D]">
+            <h1 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#0336BC]">
               Fleetblox Crew
             </h1>
           </Link>
           <Link href="/under-development">
-            <h1 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#7D7D7D] flex gap-[10px]">
+            <h1 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#0336BC] flex gap-[10px]">
               Fleetblox Drive{" "}
               <button className="text-[8px] rounded-[4px] py-[0px] px-[6px] bg-[#2D65F2] text-white">
                 Upcoming
@@ -55,13 +55,13 @@ const ProductSubpage = () => {
           Subscription
         </p>
         <div className="flex flex-col lg:space-y-[8px] space-y-[5px]">
-          <Link href="/subscription/starter-fleet-plan">
-            <h1 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#7D7D7D]">
+          <Link href="/under-development">
+            <h1 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#0336BC]">
               Starter Fleet
             </h1>
           </Link>
           <Link href="/subscription/eagle-eye-fleet">
-            <h1 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#7D7D7D]">
+            <h1 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#0336BC]">
               Eagle Eye Fleet
             </h1>
           </Link>

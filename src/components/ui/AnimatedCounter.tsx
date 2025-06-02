@@ -8,7 +8,13 @@ import {
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
-const AnimatedCounter = ({ end }: { end: number }) => {
+const AnimatedCounter = ({
+  end,
+  isString,
+}: {
+  end: number;
+  isString?: string;
+}) => {
   const count = useMotionValue(0);
   const spring = useSpring(count, { stiffness: 50, damping: 20, duration: 3 });
   const { ref, inView } = useInView({ triggerOnce: true });
@@ -29,7 +35,12 @@ const AnimatedCounter = ({ end }: { end: number }) => {
     setCurrentCount(Math.round(latest));
   });
 
-  return <motion.span ref={ref}>{currentCount}%</motion.span>;
+  return (
+    <motion.span ref={ref}>
+      {currentCount}
+      {isString ? isString : "%"}
+    </motion.span>
+  );
 };
 
 export default AnimatedCounter;
