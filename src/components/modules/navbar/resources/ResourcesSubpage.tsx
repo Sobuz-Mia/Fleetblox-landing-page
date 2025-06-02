@@ -32,7 +32,7 @@ const ResourcesSubpage = () => {
             </h1>
           </Link>
           <Link href="/about-us">
-            <h1 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#7D7D7D]">
+            <h1 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#0336BC]">
               About
             </h1>
           </Link>
