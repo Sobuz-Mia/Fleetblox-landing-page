@@ -280,7 +280,7 @@ const Footer = () => {
                       Contact
                     </h5>
                   </Link>
-                  <Link href="/under-development">
+                  <Link href="/about-us">
                     <h5 className=" font-openSans py-[2px] mb-[5px]">About</h5>
                   </Link>
                 </div>
