@@ -2,14 +2,14 @@ import { Metadata } from "next";
 import "../styles/globals.css";
 import "aos/dist/aos.css";
 import ClientSideInitialization from "./ClientSideInitialization";
-// import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { Toaster } from "react-hot-toast";
 
 import { Montserrat, Open_Sans, Roboto } from "next/font/google";
 
 import imageUrl from "../../public/images/hero-2.png";
-import Script from "next/script";
 import AOSWrapper from "@/components/AOSWrapper";
+import { CookieConsentProvider } from "@/providers/CookieConsentProvider";
+import dynamic from "next/dynamic";
 
 // Configure primary font
 const montserrat = Montserrat({
@@ -104,6 +104,22 @@ export const metadata: Metadata = {
   },
 };
 
+// Dynamically import components that depend on client-side features
+const CookieBanner = dynamic(
+  () => import('@/components/ui/shared/CookieBanner'),
+  { ssr: true }
+);
+
+const FacebookPixel = dynamic(
+  () => import('@/components/analytics/FacebookPixel'),
+  { ssr: true }
+);
+
+const GoogleAnalyticsComponent = dynamic(
+  () => import('@/components/analytics/GoogleAnalytics'),
+  { ssr: true }
+);
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -130,30 +146,21 @@ export default function RootLayout({
         <link rel="preload" href="/images/hero-2.webp" as="image" />
       </head>
 
-      <Script
-        id="gtm"
-        strategy="lazyOnload"
-        src="https://www.googletagmanager.com/gtm.js?id=GTM-KCWN5D9X"
-      />
-      <Script id="ga4-init" strategy="lazyOnload">
-        {`
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-16BPKJV2ZY');
-    `}
-      </Script>
-      {/*  */}
+      {/* Script tags are moved to GoogleAnalytics component with consent management */}
+
       <body className={`antialiased bg-white`}>
-        <ClientSideInitialization>
-          {/* <Navbar /> */}
-          {children}
-          {/* <Footer /> */}
-          <Toaster />
-        </ClientSideInitialization>
+        <CookieConsentProvider>
+          <ClientSideInitialization>
+            {/* <Navbar /> */}
+            {children}
+            {/* <Footer /> */}
+            <Toaster />
+            <CookieBanner />
+            <FacebookPixel />
+            <GoogleAnalyticsComponent />
+          </ClientSideInitialization>
+        </CookieConsentProvider>
       </body>
-      {/* <GoogleTagManager gtmId="GTM-KCWN5D9X" />
-      <GoogleAnalytics gaId="G-16BPKJV2ZY" /> */}
     </html>
   );
 }

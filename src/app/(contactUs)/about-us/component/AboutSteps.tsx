@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react'
 
 const AboutSteps = () => {
@@ -13,18 +14,26 @@ const AboutSteps = () => {
     return (
         <section className=" py-12 sm:py-16 md:py-20 lg:py-12 max-w-[1200px] mx-auto w-full flex flex-col-reverse xl:flex-row items-stretch gap-8 sm:gap-10 md:gap-12 relative px-4 sm:px-5">
             {/* left side - now uses flex to center content vertically */}
-            <div className=" sticky flex-1 w-full flex flex-col justify-start text-center xl:text-left">
-                <p className="text-[#0336BC] font-openSans font-bold text-base sm:text-lg">Our core values</p>
-                <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#04082C] font-bold leading-tight mt-2 mb-3 sm:mb-4">
-                    Foundations That Turns Vision
-                    Into <span className="font-bold text-[#2D65F2]">Values</span>
-                </h3>
-                <p className="text-[#7D7D7D] text-sm sm:text-base leading-6 font-openSans mb-6 sm:mb-8 lg:mb-12 max-w-[90%] sm:max-w-none mx-auto xl:mx-0">
-                    Bridging the gaps between today’s traditional fleet management and
-                    the new generation of connected vehicles.
-                </p>
+            <AnimatePresence mode="wait">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.4 }}
+                    className="sticky md:top-0 flex-1 w-full flex flex-col justify-start text-center xl:text-left">
+                    <p className="text-[#0336BC] font-openSans font-bold text-base sm:text-lg">Our core values</p>
+                    <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#04082C] font-bold leading-tight mt-2 mb-3 sm:mb-4">
+                        Foundations That Turns Vision
+                        Into <span className="font-bold text-[#2D65F2]">Values</span>
+                    </h3>
+                    <p className="text-[#7D7D7D] text-sm sm:text-base leading-6 font-openSans mb-6 sm:mb-8 lg:mb-12 max-w-[90%] sm:max-w-none mx-auto xl:mx-0">
+                        Bridging the gaps between today’s traditional fleet management and
+                        the new generation of connected vehicles.
+                    </p>
 
-            </div>
+                </motion.div>
+            </AnimatePresence>
+
 
             {/* Right side */}
             <div className="flex-1 w-full mt-32 flex items-center justify-center mb-6 xl:mb-0">

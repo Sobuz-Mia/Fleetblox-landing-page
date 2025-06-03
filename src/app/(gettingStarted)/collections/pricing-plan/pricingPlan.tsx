@@ -60,7 +60,7 @@ const PricingPlan = () => {
     const fetchPlans = async () => {
       try {
         const response = await fetch(
-          "https://backend.illama360.com/api/subscription/plans"
+          "https://api.fleetblox.com/api/subscription/plans"
         );
         if (!response.ok) throw new Error("Failed to fetch plans");
         const data = await response.json();
@@ -195,10 +195,10 @@ const PricingPlan = () => {
                           {slotCount >= 200
                             ? "30%"
                             : slotCount >= 150
-                            ? "18%"
-                            : slotCount >= 100
-                            ? "10%"
-                            : "5%"}{" "}
+                              ? "18%"
+                              : slotCount >= 100
+                                ? "10%"
+                                : "5%"}{" "}
                           discount {billAnnually && "+"}
                         </p>
                       )}
@@ -229,9 +229,8 @@ const PricingPlan = () => {
                 )}
                 {/* <p className="text-sm text-[#999]">{plan.discount}</p> */}
                 <ul
-                  className={`${
-                    plan?.name !== "Eagle eye fleet" ? "mt-2 " : "mt-5"
-                  } space-y-2`}
+                  className={`${plan?.name !== "Eagle eye fleet" ? "mt-2 " : "mt-5"
+                    } space-y-2`}
                 >
                   {plan?.description.map((feature: any, i: number) => (
                     <li key={i} className="flex items-start gap-[10px]">

@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic";
 import Navbar from "@/components/ui/shared/Navbar";
 import HeroSection from "@/components/modules/home/HeroSection";
-import { useEffect } from "react";
 
 
 const FleetSolution = dynamic(
@@ -52,25 +51,6 @@ const Footer = dynamic(() => import("@/components/ui/shared/Footer"), {
 });
 
 export default function Home() {
-
-
-    useEffect(() => {
-
-        if (typeof window !== "undefined") {
-            localStorage.removeItem("country");
-            localStorage.removeItem("countries");
-            localStorage.removeItem("selectedPlan");
-            localStorage.removeItem("brands");
-            localStorage.removeItem("brandCarList");
-            localStorage.removeItem("brandModels");
-            localStorage.removeItem("VINS");
-            localStorage.removeItem("VINS_RESULT");
-            localStorage.removeItem("compatibility");
-            localStorage.removeItem("selectedCountries");
-        }
-    }, []);
-
-
     return (
         <div>
             <Navbar />

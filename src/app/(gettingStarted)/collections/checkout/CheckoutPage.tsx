@@ -291,7 +291,7 @@ const CheckOutPage = () => {
       setLoading(false);
       return;
     }
-    // https://backend.illama360.com
+    // https://api.fleetblox.com
     try {
       setLoading(true);
       // const { data } = await axios.post(
@@ -300,7 +300,7 @@ const CheckOutPage = () => {
       // );
 
       const { data } = await axios.post(
-        "https://backend.illama360.com/api/payment/create-session",
+        "https://api.fleetblox.com/api/payment/create-session",
         submitData
       );
 
