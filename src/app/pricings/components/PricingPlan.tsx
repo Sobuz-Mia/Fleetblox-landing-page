@@ -67,7 +67,7 @@ const PricingPlan = () => {
       try {
         const response = await fetch(
           // "https://api.fleetblox.com/api/subscription/plans"
-          "https://backend.illama360.com/api/subscription/plans"
+          "https://api.fleetblox.com/api/subscription/plans"
         );
         if (!response.ok) throw new Error("Failed to fetch plans");
         const data = await response.json();
@@ -171,7 +171,7 @@ const PricingPlan = () => {
     const fetchStaterPlanData = async () => {
       try {
         const response = await axios.get(
-          "https://backend.illama360.com/api/subscription/plan/starter"
+          "https://api.fleetblox.com/api/subscription/plan/starter"
         );
         setStarterPlan(response.data.data);
       } catch (err) {
