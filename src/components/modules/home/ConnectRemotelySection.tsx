@@ -1,32 +1,31 @@
 import RightArrowIcon from "@/components/icons/RightArrowIcon";
-import Image from "next/image";
 import Link from "next/link";
 
 const ConnectRemotelySection = () => {
   return (
     <>
-      <main className="pt-10 md:pt-[70px] bg-white md:pb-[40px]">
+      <main className="bg-white lg:py-20 py-[60px] ">
         <div className="container mx-auto w-full px-4 lg:max-w-7xl">
           <div className="flex flex-col z-50">
             {/* Connect Remotely Section */}
-            <section className="">
-              {/* <h1 className="text-[28px] sm:text-[32px] md:text-[36px] font-bold text-[#04082C] leading-tight font-montserrat">
-                Connect Your Fleet Remotely -{" "}
-                <span className="md:block">Anytime, Anywhere</span>
-              </h1> */}
-              <h1 className="text-[28px] sm:text-[32px] md:text-[36px] font-bold text-[#04082C] leading-tight font-montserrat">
-                Set up in minutes. Expand without barriers.
+            <section className="flex flex-col text-left md:text-center md:items-center items-start">
+              <h3 className="text-[#0336BC] text-[22px] font-openSans font-bold mb-[10px]">
+                Plug-and-go live
+              </h3>
+              <h1 className="text-[28px] md:text-[36px] font-bold text-[#04082C] leading-tight font-montserrat">
+                Deploy Your Fleet in Minutes <br className="hidden md:block" />{" "}
+                From Your Desk
               </h1>
-              <p className="my-4 md:my-5 text-[#333] leading-6 font-openSans text-left  text-[15px] md:text-[16px]">
-                Fleetblox is designed for speed and simplicity—what took weeks,
-                from onboarding vehicles to configuring teams and sites, is now
-                accomplished in minutes. With no physical installations or
-                technical delays, the platform adapts instantly to your
-                operation, no matter your fleet size or make-up—so your growth
-                is always supported, never slowed.
+              <p className="my-4  text-[#333] leading-6 font-openSans text-[14px] md:text-[16px]">
+                Fleetblox is built to simplify-what used to take weeks, by
+                providing instant fleet activation, and real-time visibility for
+                your entire fleet, without the headache of physical
+                installations and time-consuming configuration. Once a vehicle
+                is onboarded it is 100% visible on the platform, with instant
+                accessibility to status, location , and readiness.
               </p>
               <Link href="/features/fleet-connectivity">
-                <button className="hidden md:flex lg:flex transition-all bg-[#2D65F2] hover:bg-[#0336BC] text-white duration-300 hover:w-[144.16px] w-[122.16px] items-center px-4 py-3 text-[16px] font-bold rounded-md group">
+                <button className="hidden md:flex lg:flex mb-10 transition-all bg-[#2D65F2] hover:bg-[#0336BC] text-white duration-300 hover:w-[144.16px] w-[122.16px] items-center px-4 py-3 text-[16px] font-bold rounded-md group">
                   <div className="z-20 whitespace-nowrap font-openSans font-bold">
                     Learn More
                   </div>
@@ -38,7 +37,7 @@ const ConnectRemotelySection = () => {
             </section>
 
             {/* Video Section */}
-            <section className="my-8 md:my-10 border border-[#DFDFDF] h-[250px] xs:h-[280px] sm:h-[350px] md:h-[425px] rounded-[24px] bg-white overflow-hidden">
+            <section className="border border-[#DFDFDF] h-[250px] xs:h-[280px] sm:h-[350px] md:h-[425px] rounded-[24px] bg-white overflow-hidden">
               <div className="relative w-full h-full">
                 <video
                   autoPlay
@@ -64,7 +63,7 @@ const ConnectRemotelySection = () => {
 
             {/* <div className=" flex md:hidden lg:hidden justify-center w-full"> */}
             <Link href="/features/fleet-connectivity">
-              <button className="lg:hidden bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
+              <button className="lg:hidden mt-10 bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
                 Learn More
               </button>
             </Link>
@@ -74,7 +73,7 @@ const ConnectRemotelySection = () => {
         </div>
       </main>
       {/* Optimize section */}
-      <div className="bg-[#FAFAFF] pt-[90px] pb-[120px] md:pt-[0px] md:pb-[0px] md:py-10">
+      {/* <div className="bg-[#FAFAFF] pt-[90px] pb-[120px] md:pt-[0px] md:pb-[0px] md:py-10">
         <section className="flex mx-auto w-full lg:max-w-7xl flex-col py-[0px] md:py-[120px] lg:flex-row p-0 rounded-[24px] px-5 items-center gap-[60px] h-auto md:rounded-[24px]">
           <div className="lg:w-[570px] w-full">
             <h1 className="text-[28px] sm:text-[32px] md:text-[36px] font-bold text-[#04082C] leading-tight font-montserrat">
@@ -101,7 +100,6 @@ const ConnectRemotelySection = () => {
             </Link>
           </div>
 
-          {/* <div className="flex-1 flex justify-center"> */}
           <Image
             src="/images/aI-assistant.webp"
             alt="AI assistant for fleet optimization"
@@ -112,8 +110,6 @@ const ConnectRemotelySection = () => {
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
             priority
           />
-          {/* </div> */}
-
           <div className="lg:hidden block w-full">
             <Link href="/features/document-management">
               <button className="bg-[#2D65F2] mt-5 hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
@@ -122,7 +118,7 @@ const ConnectRemotelySection = () => {
             </Link>
           </div>
         </section>
-      </div>
+      </div> */}
     </>
   );
 };
