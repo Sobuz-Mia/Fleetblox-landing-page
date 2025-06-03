@@ -5,17 +5,13 @@ import AnimatedCounter from "./../../ui/AnimatedCounter";
 import fleetSolutionImg from "../../../assets/fleetSolution.png";
 import fleetSolutionImg2 from "../../../assets/fleetSolution.png";
 import Image from "next/image";
-import NavigationIcon from "@/components/icons/NavigationIcon";
 type StatItem = {
   icon: React.FC;
   value: number;
   suffix?: string;
   description: string;
 };
-type Feature = {
-  title: string;
-  description: string;
-};
+
 const StatsSection = () => {
   const statsData: StatItem[] = [
     {
@@ -26,7 +22,7 @@ const StatsSection = () => {
     {
       icon: DriverAccountabilityIcon,
       value: 3,
-      suffix: "K",
+      suffix: "X",
       description: "Faster ROI on Fleet Operations",
     },
     {
@@ -35,30 +31,7 @@ const StatsSection = () => {
       description: "Increase in Asset Utilization",
     },
   ];
-  const fleetFeatures: Feature[] = [
-    {
-      title: "Lower Costs",
-      description: "Eliminate expensive hardware installation and maintenance.",
-    },
-    {
-      title: "Streamlined Operations",
-      description: "Manage everything from a cloud-based, all-in-one platform.",
-    },
-    {
-      title: "Scalability",
-      description:
-        "Add or remove vehicles effortlessly, free from hardware limitations.",
-    },
-    {
-      title: "Enhanced Security",
-      description: "Advanced encryption ensures your data stays protected.",
-    },
-    {
-      title: "Increased Efficiency",
-      description:
-        "Leverage AI tools to optimize scheduling and reduce downtime.",
-    },
-  ];
+
   return (
     <section className="py-[60px] flex flex-col items-center justify-center mx-auto max-w-[1200px] px-5">
       {/* counter component */}
@@ -78,36 +51,23 @@ const StatsSection = () => {
       {/* Laptop View */}
       <div
         style={{ boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.14)" }}
-        className=" hidden md:flex lg:flex mx-auto max-w-[1200px]  rounded-[24px] flex-col lg:flex-row"
+        className=" hidden md:flex lg:flex mx-auto max-w-[1200px]  rounded-[24px] flex-col lg:flex-row px-10 pb-[100px] pt-10 justify-items-center items-center"
       >
-        <div className="flex flex-col items-center lg:items-start w-full lg:w-1/2 p-10 mx-auto">
-          <h1 className="text-[#04082C] text-[36px] text-center lg:text-left font-bold mb-5 font-montserrat leading-[1.1]">
-            Experience a Smarter Way to Manage Your Fleet
-          </h1>
-          {/* <Link
-            href="/getting-started "
-            aria-label="Get started with FleetBlox"
-          >
-            <button className="md:flex transition-all font-openSans bg-[#2D65F2] hover:bg-[#0336BC] text-white-primary text-white duration-300 hover:w-[144.16px] w-[122.16px]  items-center px-[13px] hover:px-4 py-3 text-base font-bold rounded-md group">
-              <div className="z-20 whitespace-nowrap">Get Started</div>
-              <div className="z-10 transform transition-transform opacity-0 group-hover:opacity-100 -translate-x-4 duration-300 group-hover:translate-x-0">
-                <RightArrowIcon />
-              </div>
-            </button>
-          </Link> */}
-          <div className="pt-10">
-            {fleetFeatures.map((feature, index) => (
-              <div key={index} className="flex gap-[16px] mb-[30px]">
-                <NavigationIcon />
-                <div className=" text-[14px]  leading-5 ">
-                  <h2 className="font-bold text-[#333]">{feature?.title}</h2>
-                  <p className="text-[#7D7D7D]">{feature?.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+        <div className="max-w-[540px] w-fulls">
+          <h2 className="text-[36px] font-bold text-[#0A2540] leading-tight md:leading-[1.1] mb-5">
+            Built for <br />
+            <span className="text-[#0336BC]">Infinite Business Models</span>
+          </h2>
+          <p className="text-[#333] text-base leading-6">
+            Fleetblox has been built to be aligned with modern business
+            practices to accelerate your business growth. Fleetblox AI leverages
+            the ability to factor in how the assets move, respond to, and
+            perform with operational aspects. The system builds in real-time to
+            the operational constructs, so businesses can launch, adjust, or
+            change their business models as needed.
+          </p>
         </div>
-        <div className="lg:w-1/2 w-full mx-auto lg:mt-10 xl:mt-20 flex justify-center items-center relative">
+        <div className="w-1/2">
           <Image
             src={fleetSolutionImg}
             alt="logo"
@@ -120,9 +80,10 @@ const StatsSection = () => {
       <div className="flex md:hidden lg:hidden mx-auto max-w-7xl  flex-col md:flex-row lg:flex-row">
         <div>
           <div className="flex flex-col items-center justify-center">
-            <h1 className="text-[#04082C] text-[28px] text-center font-bold mb-5 font-montserrat leading-[1.1]">
-              Experience a Smarter <br /> Way to Manage Your <br /> Fleet
-            </h1>
+            <h2 className="text-[36px] text-center font-bold text-[#0A2540] leading-tight md:leading-[1.1] mb-5">
+              Built for <br />
+              <span className="text-[#0336BC]">Infinite Business Models</span>
+            </h2>
             <div className="w-full">
               <Image
                 src={fleetSolutionImg}
@@ -136,20 +97,15 @@ const StatsSection = () => {
               />
             </div>
           </div>
-          <div className="pt-10 ">
-            {fleetFeatures.map((feature, index) => (
-              <div key={index} className="flex gap-[16px] mb-[30px]">
-                <NavigationIcon />
-                <div className=" text-[14px] leading-5 ">
-                  <h2 className="font-bold text-[#333] font-openSans">
-                    {feature?.title}
-                  </h2>
-                  <p className="text-[#7D7D7D] font-openSans">
-                    {feature?.description}
-                  </p>
-                </div>
-              </div>
-            ))}
+          <div className="pt-5 ">
+            <p className="text-[#7D7D7D] text-sm leading-5 text-center">
+              Fleetblox has been built to be aligned with modern business
+              practices to accelerate your business growth. Fleetblox AI
+              leverages the ability to factor in how the assets move, respond
+              to, and perform with operational aspects. The system builds in
+              real-time to the operational constructs, so businesses can launch,
+              adjust, or change their business models as needed.
+            </p>
 
             {/* <Link
               aria-label="Get started with FleetBlox"
