@@ -37,16 +37,16 @@ const AboutSteps = () => {
 
             {/* Right side */}
             <div className="flex-1 w-full mt-32 flex items-center justify-center mb-6 xl:mb-0">
-                <div className="ml-20">
+                <div className="md:ml-20">
                     <LeftSideTimeLine />
                 </div>
-                <div className="grid grid-cols-1 gap-12 sm:gap-12 justify-items-center xl:justify-items-start relative pl-[80px] sm:pl-[90px]">
+                <div className="grid grid-cols-1 gap-16 sm:gap-12 justify-items-center xl:justify-items-start relative pl-[80px] sm:pl-[90px]">
                     {/* Main vertical timeline connector line */}
 
                     {timelineItems?.map((data, index) => {
 
                         return (
-                            <div key={index} className="flex relative max-w-[480px] w-[360px] group ml-[15px]">
+                            <div key={index} className="flex relative max-w-[480px] w-[250px] sm:w-[360px] group ml-[120px] md:ml-[15px]">
 
                                 {/* Card shadow */}
                                 <div className="absolute top-2 -ml-[100px] left-0 right-20 z-10 rounded-2xl bg-[rgba(0,0,0,0.08)] blur-md h-[calc(100%+8px)] transition-all duration-300 group-hover:bg-[rgba(0,0,0,0.12)]" />
