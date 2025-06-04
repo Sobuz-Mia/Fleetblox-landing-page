@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 
 import AccurateSlider from "@/app/pricings/components/AccurateSlider";
 import { useProgressUpdater } from "@/hooks/useProgress";
+import config from "@/utils/config";
 
 type TSelectedPlan = {
   price: number;
@@ -35,6 +36,8 @@ const PricingPlan = () => {
   const [selectedPlan, setSelectedPlan] = useState<TSelectedPlan | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const baseUrl = config.api.baseUrl;
+
 
   // Add this at the beginning of the component
   useEffect(() => {
@@ -60,7 +63,7 @@ const PricingPlan = () => {
     const fetchPlans = async () => {
       try {
         const response = await fetch(
-          "https://api.fleetblox.com/api/subscription/plans"
+          `${baseUrl}/api/subscription/plans`
         );
         if (!response.ok) throw new Error("Failed to fetch plans");
         const data = await response.json();
