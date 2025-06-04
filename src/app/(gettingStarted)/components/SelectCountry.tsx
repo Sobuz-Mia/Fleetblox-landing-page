@@ -42,7 +42,7 @@ const SelectCountry = () => {
     }
   }, []);
 
-  console.log("SelectCountry component rendered", config.api.baseUrl);
+  console.log("SelectCountry component rendered", config.api.baseUrl, config.isDevelopment, config.isProduction);
 
   const router = useRouter();
   const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
@@ -51,6 +51,7 @@ const SelectCountry = () => {
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const baseUrl = config.api.baseUrl;
+
 
 
   useEffect(() => {
