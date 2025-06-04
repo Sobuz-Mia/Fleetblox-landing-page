@@ -23,9 +23,9 @@ type CookieConsentContextType = {
 
 const defaultConsent: CookieConsentType = {
     necessary: true, // Always true as necessary cookies are required
-    analytics: false,
-    marketing: false,
-    preferences: false,
+    analytics: true,  // Set to true by default
+    marketing: true,  // Set to true by default
+    preferences: true,  // Set to true by default
 };
 
 const CookieConsentContext = createContext<CookieConsentContextType | undefined>(

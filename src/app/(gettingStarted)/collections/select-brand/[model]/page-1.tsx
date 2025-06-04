@@ -18,6 +18,7 @@ interface CarBrandsData extends OriginalCarBrandsData {
 }
 import Loader from "@/app/(gettingStarted)/components/Loader";
 import toast from "react-hot-toast";
+import config from "@/utils/config";
 
 interface CountryObject {
   country: string;
@@ -53,6 +54,8 @@ const ModelSelector = ({ params }: any) => {
     [countryCode: string]: string[];
   }>({});
 
+  const baseUrl = config.api.baseUrl;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -80,7 +83,8 @@ const ModelSelector = ({ params }: any) => {
 
         // Fetch all countries
         const countriesResponse = await axios.get(
-          "https://api.fleetblox.com/api/utils/all-countries"
+
+          `${baseUrl}/api/utils/all-countries`,
         );
         const allCountries = countriesResponse.data.data;
 
@@ -107,7 +111,8 @@ const ModelSelector = ({ params }: any) => {
           for (let attempt = 0; attempt < retries; attempt++) {
             try {
               const response = await axios.get(
-                `https://api.fleetblox.com/api/dummy/check-compatibility-matrix?region=${region}`,
+                `${baseUrl}/api/dummy/check-compatibility-matrix?region=${region}`,
+
                 { timeout: 10000 } // 10 second timeout
               );
               return response;
