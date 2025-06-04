@@ -1,3 +1,4 @@
+
 import Footer from "@/components/ui/shared/Footer";
 import Navbar from "@/components/ui/shared/Navbar";
 
@@ -446,3 +447,4 @@ const page = () => {
 };
 
 export default page;
+
