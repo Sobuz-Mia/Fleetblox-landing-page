@@ -22,11 +22,14 @@ export const config = {
     isProduction: process.env.NODE_ENV === 'production',
 
 
+
     // Feature flags
     features: {
         debug: process.env.DEBUG === 'true',
         securityHeaders: process.env.NEXT_PUBLIC_SECURITY_HEADERS === 'true',
     },
+
+
 };
 
 export default config;
