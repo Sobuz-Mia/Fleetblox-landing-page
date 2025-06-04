@@ -5,6 +5,7 @@ import axios from "axios";
 import { TransformedCarData } from "@/utils/transformCompatibilityData";
 import { CarBrandsData } from "@/app/(gettingStarted)/components/compatibility";
 import toast from "react-hot-toast";
+import config from "@/utils/config";
 
 const useBrandCarList = (initialCountry: string | null) => {
   const [brandCarList, setBrandCarList] = useState<CarBrandsData>([]);
@@ -16,6 +17,7 @@ const useBrandCarList = (initialCountry: string | null) => {
   const [loading, setLoading] = useState(false);
   const [vins, setVins] = useState<TransformedCarData[] | null>(null);
   const [country, setCountry] = useState<string>("");
+  const baseUrl = config.api.baseUrl;
 
   // Initialize from localStorage and URL params
   useEffect(() => {
@@ -105,7 +107,7 @@ const useBrandCarList = (initialCountry: string | null) => {
         const regionParam = `["${countrySelect.join('","')}"]`;
 
         const { data } = await axios.get(
-          `https://api.fleetblox.com/api/dummy/check-compatibility-common`,
+          `${baseUrl}/api/dummy/check-compatibility-common`,
           {
             params: {
               region: regionParam,

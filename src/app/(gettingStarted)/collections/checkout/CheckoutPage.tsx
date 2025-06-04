@@ -21,6 +21,7 @@ import useBrandCarList from "@/hooks/useCompatibility";
 import { Country } from "../../components/SelectCountry";
 import Loader from "../../components/Loader";
 import { AxiosErrorResponse } from "@/interface/AxiosErrorResponse";
+import config from "@/utils/config";
 
 interface PlanType {
   id?: string;
@@ -54,6 +55,8 @@ const CheckOutPage = () => {
 
   const [isOpen, setIsOpen] = useState("");
   const [brandCarList, setBrandCarList] = useState<any[]>([]);
+  const baseUrl = config.api.baseUrl;
+  const isDev = config.isDevelopment;
 
   useEffect(() => {
     // Client-side initialization
@@ -125,7 +128,8 @@ const CheckOutPage = () => {
 
     const getCountries = async () => {
       const countries = await fetch(
-        "https://api.fleetblox.com/api/utils/all-countries"
+
+        `${baseUrl}/api/utils/all-countries`
       );
       const response = await countries.json();
 
@@ -270,8 +274,8 @@ const CheckOutPage = () => {
     planId: selectedPlan?.id,
     phone: contactNumber,
     isFromPreLunching: true,
-    successUrl: "https://fleetblox.com/result/paymentSuccess",
-    cancelUrl: "https://fleetblox.com/result/paymentFaild",
+    successUrl: isDev ? `https://test-landing.fleetblox.com/result/paymentSuccess` : `https://fleetblox.com/result/paymentSuccess`,
+    cancelUrl: isDev ? `https://test-landing.fleetblox.com/result/paymentFaild` : `https://fleetblox.com/result/paymentFaild`,
     slot: selectedPlan?.slot,
     price: selectedPlan?.price,
     interval: selectedPlan?.annually ? "year" : "month",
@@ -291,16 +295,13 @@ const CheckOutPage = () => {
       setLoading(false);
       return;
     }
-    // https://api.fleetblox.com
+
     try {
       setLoading(true);
-      // const { data } = await axios.post(
-      //   "https://api.fleetblox.com/api/payment/create-session",
-      //   submitData
-      // );
+
 
       const { data } = await axios.post(
-        "https://api.fleetblox.com/api/payment/create-session",
+        `${baseUrl}/api/payment/create-session`,
         submitData
       );
 

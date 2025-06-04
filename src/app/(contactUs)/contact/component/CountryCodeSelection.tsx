@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { Country } from "@/app/(gettingStarted)/components/SelectCountry";
 import { TContactFormData } from "@/types/types";
 import Canada from "../../../../../public/images/canada.png";
+import config from "@/utils/config";
 const CountryCodeSelection = ({
   setFormData,
   formData,
@@ -15,6 +16,8 @@ const CountryCodeSelection = ({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [countries, setCountries] = useState<Country[] | null>(null);
+  const baseUrl = config.api.baseUrl;
+
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -27,7 +30,7 @@ const CountryCodeSelection = ({
 
     const getCountries = async () => {
       const countries = await fetch(
-        "https://api.fleetblox.com/api/utils/all-countries"
+        `${baseUrl}/api/utils/all-countries`
       );
       const response = await countries.json();
 
