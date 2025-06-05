@@ -88,7 +88,7 @@ const page = () => {
               </button>
             </Link>
           </div>
-          {/* <div className=" w-full py-5 lg:pl-[60px]">
+          <div className=" w-full py-5 lg:pl-[60px]">
             <Image
               src="/images/products/expenses-management-hero.svg"
               alt="Remote Scalability Hero"
@@ -97,7 +97,7 @@ const page = () => {
               priority
               className="object-contain w-full"
             />
-          </div> */}
+          </div>
         </div>
       </section>
       {/* Fleet management section */}

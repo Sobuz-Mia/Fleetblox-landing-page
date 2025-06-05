@@ -90,7 +90,7 @@ const UnifiedFleetManagement = () => {
         </div>
       </section>
       {/* Unlock higher ROI */}
-      <section className=" flex flex-col md:flex-row items-center gap-[60px] pt-[120px]">
+      <section className=" flex flex-col md:flex-row items-start gap-[60px] pt-[120px]">
         <div className="max-w-[570px] w-full items-center">
           <h2 className="text-[#0336BC] text-[22px] font-bold font-openSans mb-[10px] leading-[1.1]">
             Unlock Higher ROI
@@ -120,12 +120,22 @@ const UnifiedFleetManagement = () => {
           </Link>
         </div>
         <div data-aos="fade-left" data-aos-duration="2000">
-          <Image
+          {/* <Image
             src={"/images/unlock-higher-roi.svg"}
             height={480}
             width={600}
             alt="Unlock higher roi"
-          />
+          /> */}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            // preload="auto"
+            className=" z-50 h-full !w-full object-contain mix-blend-plus-lighter "
+          >
+            <source src="/videos/roi-section-video.mp4" type="video/mp4" />
+          </video>
           <Link href="/products/expenses-management">
             <button className="md:hidden mt-10 bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
               Learn More

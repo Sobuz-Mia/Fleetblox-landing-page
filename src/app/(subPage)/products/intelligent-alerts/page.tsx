@@ -75,7 +75,7 @@ const page = () => {
           </div>
           <div className=" w-full py-5 lg:pl-[60px]">
             <Image
-              src="/images/products/alart-hero.svg"
+              src="/images/products/alert-hero.svg"
               alt="Remote Scalability Hero"
               width={700}
               height={491}

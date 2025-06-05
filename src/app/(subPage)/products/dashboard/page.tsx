@@ -61,7 +61,7 @@ const page = () => {
         <div className="lg:max-w-[calc(100vw-30px)] xxl:max-w-[1440px] mx-auto w-full flex flex-col px-5 gap-10 lg:flex-row items-center justify-between">
           <div className="xl:pl-[120px] max-w-[800px] w-full">
             <h3 className="text-[#0336BC] font-openSans font-bold text-[22px] w-full">
-              Documents Management
+              Dashboard
             </h3>
             <h1 className="text-[#04082C] text-[36px] lg:text-[50px] font-bold leading-tight lg:leading-[1.1] w-full">
               Command Your Fleet from One Dashboard
@@ -89,7 +89,7 @@ const page = () => {
               </button>
             </Link>
           </div>
-          <div className=" w-1/2 py-5">
+          <div className=" lg:w-1/2 py-5">
             <Image
               src="/images/products/dashboard-hero.svg"
               alt="Remote Scalability Hero"

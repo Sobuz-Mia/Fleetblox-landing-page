@@ -83,7 +83,7 @@ const page = () => {
               </button>
             </Link>
           </div>
-          <div className=" w-1/2 py-5">
+          <div className=" lg:w-1/2 py-5">
             <Image
               src="/images/products/document-management-hero.svg"
               alt="Remote Scalability Hero"
