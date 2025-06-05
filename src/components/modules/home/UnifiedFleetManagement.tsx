@@ -4,6 +4,7 @@ import Link from "next/link";
 
 const UnifiedFleetManagement = () => {
   return (
+    // main section
     <main className="max-w-[1200px] w-full mx-auto py-20 lg:py-[120px] px-5">
       {/* Unified fleet management */}
       <section className=" flex flex-col md:flex-row items-center gap-[60px]">
