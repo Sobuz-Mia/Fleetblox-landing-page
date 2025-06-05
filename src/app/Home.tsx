@@ -75,8 +75,8 @@ export default function Home() {
       <ConnectRemotelySection />
       <VirtualSlot />
       <UnifiedFleetManagement />
-      <FleetBloxVerseSection />
       <WorkforceManageSection />
+      <FleetBloxVerseSection />
       <AiSupportSection />
       <GlobalCoverageAndCompatibility />
       <SlideShowSection />

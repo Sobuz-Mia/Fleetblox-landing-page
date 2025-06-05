@@ -10,7 +10,7 @@ const UnifiedFleetManagement = () => {
       <section className=" flex flex-col md:flex-row items-center gap-[60px]">
         <div className="max-w-[570px] w-full items-center">
           <h2 className="text-[#0336BC] text-[22px] font-bold font-openSans mb-[10px] leading-[1.1]">
-            Unified fleet management
+            Unified Fleet Management
           </h2>
           <h1 className="text-[#04082C] font-bold text-[36px] leading-[1.1] mb-5">
             Sync Your Assets Across Your Business locations
@@ -51,7 +51,7 @@ const UnifiedFleetManagement = () => {
       <section className=" flex flex-col md:flex-row-reverse items-center gap-[60px] lg:mt-[260px] mt-20">
         <div className="max-w-[570px] w-full items-center">
           <h2 className="text-[#0336BC] text-[22px] font-bold font-openSans mb-[10px] leading-[1.1]">
-            Stay audit-ready
+            Stay Audit-Ready
           </h2>
           <h1 className="text-[#04082C] font-bold text-[36px] leading-[1.1] mb-5">
             Compliance, Handled Before It’s Due!
