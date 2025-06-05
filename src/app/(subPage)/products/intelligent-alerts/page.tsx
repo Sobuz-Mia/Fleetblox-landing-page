@@ -75,7 +75,7 @@ const page = () => {
           </div>
           <div className=" w-full py-5 lg:pl-[60px]">
             <Image
-              src="/images/features/alart-hero.svg"
+              src="/images/products/alart-hero.svg"
               alt="Remote Scalability Hero"
               width={700}
               height={491}
@@ -135,12 +135,12 @@ const page = () => {
           <StepCard
             title="Select Your Vehicle"
             description="Choose the car you want to track and manage."
-            imagePath="/images/features/alert-step-1.svg"
+            imagePath="/images/products/alert-step-1.svg"
           />
           <StepCard
             title="Create the Reminder"
             description="Set alerts based on time or mileage to adapt your fleet needs."
-            imagePath="/images/features/alert-step-2.svg"
+            imagePath="/images/products/alert-step-2.svg"
           />
 
           <div
@@ -159,7 +159,7 @@ const page = () => {
               </div>
               <div className="w-full mt-[24px] overflow-hidden">
                 <Image
-                  src="/images/features/alert-step-3.svg"
+                  src="/images/products/alert-step-3.svg"
                   alt="Remote Scalability Hero"
                   width={327}
                   height={700}
@@ -184,7 +184,7 @@ const page = () => {
         </div>
         <div className="max-w-[1200px] hidden md:block w-full mx-auto mt-[60px] px-5">
           <Image
-            src="/images/features/alert-main.svg"
+            src="/images/products/alert-main.svg"
             alt="Remote Scalability Hero"
             width={700}
             height={491}
@@ -194,7 +194,7 @@ const page = () => {
         </div>
         <div className="max-w-[1200px] md:hidden block w-full mx-auto mt-[40px] px-5">
           <Image
-            src="/images/features/alert-mobile.svg"
+            src="/images/products/alert-mobile.svg"
             alt="Remote Scalability Hero"
             width={700}
             height={491}

@@ -83,7 +83,7 @@ const Scalability = () => {
           </div>
           <div className=" w-full py-5 lg:pl-[60px]">
             <Image
-              src="/images/features/scalability-hero.png"
+              src="/images/products/scalability-hero.png"
               alt="Remote Scalability Hero"
               width={700}
               height={491}
@@ -142,12 +142,12 @@ const Scalability = () => {
           <StepCard
             title="Add Fleet Location"
             description="Set up the location where your fleet operates."
-            imagePath="/images/features/s-add-location.svg"
+            imagePath="/images/products/s-add-location.svg"
           />
           <StepCard
             title="Add Your Vehicles"
             description="Assign vehicles to each location for efficient management."
-            imagePath="/images/features/s-add-car.svg"
+            imagePath="/images/products/s-add-car.svg"
           />
           <div
             className={`relative z-[200] top-[0px] mx-auto transform flex-col h-[600px] lg:h-[536px] w-full`}
@@ -164,7 +164,7 @@ const Scalability = () => {
               </div>
               <div className="w-full mt-10 overflow-hidden">
                 <Image
-                  src="/images/features/s-your-team.svg"
+                  src="/images/products/s-your-team.svg"
                   alt="Remote Scalability Hero"
                   width={327}
                   height={700}
@@ -190,7 +190,7 @@ const Scalability = () => {
         </div>
         <div className="max-w-[1200px] hidden md:block w-full mx-auto mt-[60px] px-5">
           <Image
-            src="/images/features/scalability-main.svg"
+            src="/images/products/scalability-main.svg"
             alt="Remote Scalability Hero"
             width={700}
             height={491}
@@ -200,7 +200,7 @@ const Scalability = () => {
         </div>
         <div className="max-w-[1200px] md:hidden block w-full mx-auto mt-[40px] px-5">
           <Image
-            src="/images/features/scalability-main-mobile.svg"
+            src="/images/products/scalability-main-mobile.svg"
             alt="Remote Scalability Hero"
             width={700}
             height={491}

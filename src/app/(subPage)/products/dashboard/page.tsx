@@ -91,7 +91,7 @@ const page = () => {
           </div>
           <div className=" w-1/2 py-5">
             <Image
-              src="/images/features/dashboard-hero.svg"
+              src="/images/products/dashboard-hero.svg"
               alt="Remote Scalability Hero"
               width={700}
               height={491}
@@ -147,7 +147,7 @@ const page = () => {
         </div>
         <div className="max-w-[1200px] hidden md:block w-full mx-auto mt-[60px] px-5">
           <Image
-            src="/images/features/dashboard-main.svg"
+            src="/images/products/dashboard-main.svg"
             alt="Remote Scalability Hero"
             width={700}
             height={491}
@@ -157,7 +157,7 @@ const page = () => {
         </div>
         <div className="max-w-[1200px] md:hidden block w-full mx-auto mt-[40px] px-5">
           <Image
-            src="/images/features/dashboard-mobile.svg"
+            src="/images/products/dashboard-mobile.svg"
             alt="Remote Scalability Hero"
             width={700}
             height={491}

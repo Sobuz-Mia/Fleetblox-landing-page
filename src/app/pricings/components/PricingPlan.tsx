@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import FAQSection from "@/components/modules/home/FAQSection";
 import AccurateSlider from "./AccurateSlider";
-import FeaturesComparison from "./FeaturesComparison";
+import FeaturesComparison from "./productsComparison";
 import Link from "next/link";
 import VehicleIcon from "@/components/icons/VehicleIcon";
 import DollarIcon from "@/components/icons/DollarIcon";
@@ -47,7 +47,6 @@ const PricingPlan = () => {
   const [staterPlanError, setStarterPlanError] = useState<string | null>(null);
   const baseUrl = config.api.baseUrl;
   useEffect(() => {
-
     if (typeof window !== "undefined") {
       localStorage.removeItem("country");
       localStorage.removeItem("countries");
@@ -66,10 +65,7 @@ const PricingPlan = () => {
   useEffect(() => {
     const fetchPlans = async () => {
       try {
-        const response = await fetch(
-
-          `${baseUrl}/api/subscription/plans`
-        );
+        const response = await fetch(`${baseUrl}/api/subscription/plans`);
         if (!response.ok) throw new Error("Failed to fetch plans");
         const data = await response.json();
         setCurrentPlans(data);
@@ -120,7 +116,6 @@ const PricingPlan = () => {
     setBillingMonthly(!billMonthly);
   };
 
-
   const handlePriceAndModal = ({ fleet, slot, annually, price }: any) => {
     setSelectedPlan({
       price: price,
@@ -161,7 +156,6 @@ const PricingPlan = () => {
     decimal = parts[1] || "00";
   }
 
-
   const handleStarterPlan = async (starterPlan: TStaterPlanData) => {
     const planData = {
       price: starterPlan?.price,
@@ -171,12 +165,9 @@ const PricingPlan = () => {
       id: starterPlan?.id, // Replace with actual ID from your backend
     };
 
-    localStorage.setItem(
-      "selectedPlan",
-      JSON.stringify(planData)
-    );
+    localStorage.setItem("selectedPlan", JSON.stringify(planData));
     router.push("/getting-started");
-  }
+  };
   return (
     <main className="h-full">
       {/* connect vehicle section start */}
@@ -204,7 +195,7 @@ const PricingPlan = () => {
                 <button
                   aria-label="Get started with Starter Fleet"
                   onClick={() => {
-                    handleStarterPlan(starterPlan[0])
+                    handleStarterPlan(starterPlan[0]);
                   }}
                   className="transition-all font-openSans bg-[#2D65F2] hover:bg-[#0336BC] rounded-md text-white-primary text-white duration-300 hover:w-[144.16px] w-[122.16px] hidden md:flex items-center px-4 py-3 text-base font-bold  group "
                 >
@@ -216,7 +207,7 @@ const PricingPlan = () => {
                 <button
                   aria-label="Get started with Starter Fleet"
                   onClick={() => {
-                    handleStarterPlan(starterPlan[0])
+                    handleStarterPlan(starterPlan[0]);
                   }}
                   className="md:hidden mt-[30px] bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center"
                 >
@@ -353,10 +344,10 @@ const PricingPlan = () => {
                           {slotCount >= 200
                             ? "30%"
                             : slotCount >= 150
-                              ? "18%"
-                              : slotCount >= 100
-                                ? "10%"
-                                : "5%"}{" "}
+                            ? "18%"
+                            : slotCount >= 100
+                            ? "10%"
+                            : "5%"}{" "}
                           discount {billAnnually && "+"}
                         </p>
                       )}
@@ -380,8 +371,9 @@ const PricingPlan = () => {
 
                 {/* <p className="text-sm text-[#999]">{plan.discount}</p> */}
                 <ul
-                  className={`${plan?.name !== "Eagle eye fleet" ? "mt-2 " : "mt-5"
-                    } space-y-2`}
+                  className={`${
+                    plan?.name !== "Eagle eye fleet" ? "mt-2 " : "mt-5"
+                  } space-y-2`}
                 >
                   {plan?.description.map((feature: any, i: number) => (
                     <li key={i} className="flex items-start gap-[10px]">

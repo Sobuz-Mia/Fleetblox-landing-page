@@ -201,7 +201,7 @@ const page = () => {
         </p>
         <div className="max-w-[1200px] w-full mx-auto mt-[60px] mb-10 px-5">
           {/* <Image
-            src="/images/features/connect-fleet-step.png"
+            src="/images/products/connect-fleet-step.png"
             alt="Remote Scalability Hero"
             width={700}
             height={491}
@@ -215,17 +215,17 @@ const page = () => {
           <StepCard
             title="Scan The VIN"
             description="Add the vehicle using the VIN or scan it with the VIN scanner."
-            imagePath="/images/features/connect-step-1.svg"
+            imagePath="/images/products/connect-step-1.svg"
           />
           <StepCard
             title="Connect The Vehicle"
             description="Use your manufacturer credentials to link your vehicle."
-            imagePath="/images/features/connect-step-2.svg"
+            imagePath="/images/products/connect-step-2.svg"
           />
           <StepCard
             title="Enable Access"
             description=" Review and approve permissions to allow data streaming."
-            imagePath="/images/features/connect-step-3.svg"
+            imagePath="/images/products/connect-step-3.svg"
           />
         </div>
       </section>
@@ -242,7 +242,7 @@ const page = () => {
         </div>
         <div className="max-w-[1200px] hidden md:block w-full mx-auto mt-[60px] px-5">
           <Image
-            src="/images/features/Fleetblox-deals.svg"
+            src="/images/products/Fleetblox-deals.svg"
             alt="Remote Scalability Hero"
             width={700}
             height={491}
@@ -252,7 +252,7 @@ const page = () => {
         </div>
         <div className="max-w-[1200px] md:hidden block w-full mx-auto mt-[40px] px-5">
           <Image
-            src="/images/features/cloud-connectivity-work-mobile.svg"
+            src="/images/products/cloud-connectivity-work-mobile.svg"
             alt="Remote Scalability Hero"
             width={700}
             height={491}

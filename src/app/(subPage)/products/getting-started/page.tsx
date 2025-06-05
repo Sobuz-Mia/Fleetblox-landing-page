@@ -83,7 +83,7 @@ const Onboarding = () => {
           </div>
           <div className="py-5 lg:pl-[60px]">
             <Image
-              src="/images/features/onboarding-hero.png"
+              src="/images/products/onboarding-hero.png"
               alt="Remote Scalability Hero"
               width={1100}
               height={491}
@@ -141,18 +141,18 @@ const Onboarding = () => {
           <StepCard
             title="Set Your Location"
             description="Choose a team member or partner to handle the maintenance."
-            imagePath="/images/features/add-location.png"
+            imagePath="/images/products/add-location.png"
           />
           <StepCard
             title="Add Your Vehicles"
             description="Scan and onboard your vehicle in seconds—entire specs, features, and history automatically with no manual input."
-            imagePath="/images/features/add-car.png"
+            imagePath="/images/products/add-car.png"
           />
           <StepCard
             title="Activate the Vehicle"
             description="Connect the vehicle to Fleetblox to enable real-time data
                   access, live tracking, and easy fleet management."
-            imagePath="/images/features/add-the-car.png"
+            imagePath="/images/products/add-the-car.png"
           />
         </div>
       </section>
@@ -169,7 +169,7 @@ const Onboarding = () => {
         </div>
         <div className="max-w-[1200px] hidden md:block w-full mx-auto mt-[60px] px-5">
           <Image
-            src="/images/features/onboarding-main.svg"
+            src="/images/products/onboarding-main.svg"
             alt="Remote Scalability Hero"
             width={700}
             height={491}
@@ -179,7 +179,7 @@ const Onboarding = () => {
         </div>
         <div className="max-w-[1200px] md:hidden block w-full mx-auto mt-[40px] px-5">
           <Image
-            src="/images/features/onboarding-main-mobile.svg"
+            src="/images/products/onboarding-main-mobile.svg"
             alt="Remote Scalability Hero"
             width={700}
             height={491}

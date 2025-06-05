@@ -87,7 +87,7 @@ const page = () => {
           </div>
           <div className=" w-full py-5 lg:pl-[60px]">
             <Image
-              src="/images/features/team-management-hero.svg"
+              src="/images/products/team-management-hero.svg"
               alt="Remote Scalability Hero"
               width={700}
               height={491}
@@ -147,12 +147,12 @@ const page = () => {
           <StepCard
             title="Create Roles"
             description="Create customized roles with necessary access for each team member."
-            imagePath="/images/features/team-management-step-1.svg"
+            imagePath="/images/products/team-management-step-1.svg"
           />
           <StepCard
             title="Assign Tasks"
             description="Assign tasks through a shared calendar for seamless coordination."
-            imagePath="/images/features/team-management-step-2.svg"
+            imagePath="/images/products/team-management-step-2.svg"
           />
 
           <div
@@ -171,7 +171,7 @@ const page = () => {
               </div>
               <div className="w-full mt-[24px] overflow-hidden">
                 <Image
-                  src="/images/features/team-management-step-3.svg"
+                  src="/images/products/team-management-step-3.svg"
                   alt="Remote Scalability Hero"
                   width={327}
                   height={700}
@@ -196,7 +196,7 @@ const page = () => {
         </div>
         <div className="max-w-[1200px] hidden md:block w-full mx-auto mt-[60px] px-5">
           <Image
-            src="/images/features/team-management-main.svg"
+            src="/images/products/team-management-main.svg"
             alt="Remote Scalability Hero"
             width={700}
             height={491}
@@ -206,7 +206,7 @@ const page = () => {
         </div>
         <div className="max-w-[1200px] md:hidden block w-full mx-auto mt-[40px] px-5">
           <Image
-            src="/images/features/team-management-mobile.svg"
+            src="/images/products/team-management-mobile.svg"
             alt="Remote Scalability Hero"
             width={700}
             height={491}

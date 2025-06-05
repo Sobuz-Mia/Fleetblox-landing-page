@@ -82,7 +82,7 @@ const page = () => {
           </div>
           <div className=" w-full py-5 lg:pl-[60px]">
             <Image
-              src="/images/features/maintenance-hero.svg"
+              src="/images/products/maintenance-hero.svg"
               alt="Remote Scalability Hero"
               width={700}
               height={491}
@@ -140,12 +140,12 @@ const page = () => {
           <StepCard
             title="Assign a Technician"
             description="Choose a team member or partner to handle the inspection."
-            imagePath="/images/features/assignTecnisian.svg"
+            imagePath="/images/products/assignTecnisian.svg"
           />
           <StepCard
             title="Perform the Maintenance"
             description="Follow digital guidelines to complete vehicle maintenance as specified by the owner."
-            imagePath="/images/features/platformMaintenance.svg"
+            imagePath="/images/products/platformMaintenance.svg"
           />
 
           <div
@@ -164,7 +164,7 @@ const page = () => {
               </div>
               <div className="w-full mt-10 overflow-hidden">
                 <Image
-                  src="/images/features/approvedOrResend.svg"
+                  src="/images/products/approvedOrResend.svg"
                   alt="Remote Scalability Hero"
                   width={327}
                   height={700}
@@ -190,7 +190,7 @@ const page = () => {
         </div>
         <div className="max-w-[1200px] hidden md:block w-full mx-auto mt-[60px] px-5">
           <Image
-            src="/images/features/optimizedMaintenanceWorkflow.svg"
+            src="/images/products/optimizedMaintenanceWorkflow.svg"
             alt="Remote Scalability Hero"
             width={500}
             height={491}
@@ -201,7 +201,7 @@ const page = () => {
         </div>
         <div className="max-w-[1200px] md:hidden block w-full mx-auto mt-[40px] px-5">
           <Image
-            src="/images/features/optimizedMaintenanceWorkflowMobile.svg"
+            src="/images/products/optimizedMaintenanceWorkflowMobile.svg"
             alt="Remote Scalability Hero"
             width={700}
             height={491}

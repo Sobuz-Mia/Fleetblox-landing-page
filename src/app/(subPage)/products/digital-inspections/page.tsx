@@ -201,7 +201,7 @@ const page = () => {
         </div>
         <div className="max-w-[1200px] hidden md:block w-full mx-auto mt-[60px] px-5">
           <Image
-            src="/images/features/maintenance/Fleetblox-connect.svg"
+            src="/images/products/maintenance/Fleetblox-connect.svg"
             alt="Remote Scalability Hero"
             width={700}
             height={491}
@@ -211,7 +211,7 @@ const page = () => {
         </div>
         <div className="max-w-[1200px] md:hidden block w-full mx-auto mt-[40px] px-5">
           <Image
-            src="/images/features/fleetblox-connect-mobile.svg"
+            src="/images/products/fleetblox-connect-mobile.svg"
             alt="Remote Scalability Hero"
             width={700}
             height={491}

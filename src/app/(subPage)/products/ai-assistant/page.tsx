@@ -92,7 +92,7 @@ const page = () => {
           </div>
           <div className=" w-full py-5 lg:pl-[60px]">
             <Image
-              src="/images/features/ai-assistant-hero.svg"
+              src="/images/products/ai-assistant-hero.svg"
               alt="ai assistant"
               width={700}
               height={491}
@@ -153,17 +153,17 @@ const page = () => {
           <StepCard
             title="Ask Bee Anything"
             description="From “How much did we spend on fuel this month?” to “Which vehicle had the most downtime?”"
-            imagePath="/images/features/BEE-step-1.svg"
+            imagePath="/images/products/BEE-step-1.svg"
           />
           <StepCard
             title="Get Instant Insights"
             description="Bee pulls data instantly from your system and gives you clear, actionable answers."
-            imagePath="/images/features/BEE-step-2.svg"
+            imagePath="/images/products/BEE-step-2.svg"
           />
           <StepCard
             title="Take Action Immediately"
             description="Use Bee to trigger tasks like generating reports, updating vehicle records, or alerting your team."
-            imagePath="/images/features/BEE-step-3.svg"
+            imagePath="/images/products/BEE-step-3.svg"
           />
         </div>
       </section>
@@ -181,7 +181,7 @@ const page = () => {
         </div>
         <div className="max-w-[1200px] hidden md:block w-full mx-auto mt-[60px] px-5">
           <Image
-            src="/images/features/Ask-Bee-Get-Answer.svg"
+            src="/images/products/Ask-Bee-Get-Answer.svg"
             alt="Remote Scalability Hero"
             width={700}
             height={491}
@@ -191,7 +191,7 @@ const page = () => {
         </div>
         <div className="max-w-[1200px] md:hidden block w-full mx-auto mt-[40px] px-5">
           <Image
-            src="/images/features/Ask-Bee-Get-Answer-mobile.svg"
+            src="/images/products/Ask-Bee-Get-Answer-mobile.svg"
             alt="Remote Scalability Hero"
             width={700}
             height={491}

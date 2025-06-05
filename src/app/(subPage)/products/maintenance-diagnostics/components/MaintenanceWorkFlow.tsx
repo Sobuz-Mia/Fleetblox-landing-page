@@ -14,7 +14,7 @@ const MaintenanceWorkFlow = () => {
           </p>
         </div>
         <Image
-          src="/images/features/maintenance/scheduleMaintenance.svg"
+          src="/images/products/maintenance/scheduleMaintenance.svg"
           alt="Remote Scalability Hero"
           width={363}
           height={210}
@@ -51,7 +51,7 @@ const MaintenanceWorkFlow = () => {
         </defs>
       </svg>
       <Image
-        src="/images/features/maintenance/tecnicalTask1.svg"
+        src="/images/products/maintenance/tecnicalTask1.svg"
         alt="Remote Scalability Hero"
         width={400}
         height={459}
@@ -87,7 +87,7 @@ const MaintenanceWorkFlow = () => {
         </defs>
       </svg>
       <Image
-        src="/images/features/maintenance/sentVehicleToServicing.svg"
+        src="/images/products/maintenance/sentVehicleToServicing.svg"
         alt="Remote Scalability Hero"
         width={400}
         height={459}
@@ -95,7 +95,7 @@ const MaintenanceWorkFlow = () => {
         quality={100}
       />
       <Image
-        src="/images/features/maintenance/double-line.svg"
+        src="/images/products/maintenance/double-line.svg"
         alt="Remote Scalability Hero"
         width={400}
         height={459}
@@ -103,7 +103,7 @@ const MaintenanceWorkFlow = () => {
         quality={100}
       />
       <Image
-        src="/images/features/maintenance/third-double-card.svg"
+        src="/images/products/maintenance/third-double-card.svg"
         alt="Remote Scalability Hero"
         width={400}
         height={459}

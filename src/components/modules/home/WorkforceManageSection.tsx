@@ -19,7 +19,7 @@ const WorkforceManageSection = () => {
               Streamlines your day-to-day operations with intelligent automation
               and dynamic workflows.
             </p>
-            {/* <Link href="/features/team-management">
+            {/* <Link href="/products/team-management">
               <button className=" hidden md:flex lg:flex transition-all bg-[#2D65F2] hover:bg-[#0336BC] text-white-primary text-white duration-300 hover:w-[144.16px] w-[122.16px] items-center px-4 py-3 text-[16px] font-bold rounded-md group ">
                 <div className="z-20 whitespace-nowrap font-openSans font-bold">
                   Learn More
@@ -67,7 +67,7 @@ const WorkforceManageSection = () => {
                   automation and dynamic workflows — from task assignment to
                   coordinating actions.
                 </p>
-                <Link href="/features/team-management">
+                <Link href="/products/team-management">
                   <button className="text-[#2D65F2] text-[16px] font-openSans font-bold mt-3">
                     Learn More
                   </button>
@@ -82,7 +82,7 @@ const WorkforceManageSection = () => {
                   field, and the flexibility to update tasks makes operations
                   more efficient and adaptable to changing needs.
                 </p>
-                <Link href="/features/team-management">
+                <Link href="/products/team-management">
                   <button className="text-[#2D65F2] text-[16px] font-openSans font-bold mt-3">
                     Learn More
                   </button>

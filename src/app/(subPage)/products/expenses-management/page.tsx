@@ -90,7 +90,7 @@ const page = () => {
           </div>
           {/* <div className=" w-full py-5 lg:pl-[60px]">
             <Image
-              src="/images/features/expenses-management-hero.svg"
+              src="/images/products/expenses-management-hero.svg"
               alt="Remote Scalability Hero"
               width={700}
               height={491}
@@ -149,12 +149,12 @@ const page = () => {
           <StepCard
             title="Add Custom Expenses"
             description="Establish and define special expense types (e.g., fuel, maintenance, insurance) for each vehicle."
-            imagePath="/images/features/drive-finencial-step-1.svg"
+            imagePath="/images/products/drive-finencial-step-1.svg"
           />
           <StepCard
             title="Set Your Budget"
             description="Allocate budget amounts to vehicle types and expense categories."
-            imagePath="/images/features/drive-finencial-step-2.svg"
+            imagePath="/images/products/drive-finencial-step-2.svg"
           />
 
           <div
@@ -173,7 +173,7 @@ const page = () => {
               </div>
               <div className="w-full mt-[24px] overflow-hidden">
                 <Image
-                  src="/images/features/drive-finencial-step-3.svg"
+                  src="/images/products/drive-finencial-step-3.svg"
                   alt="Remote Scalability Hero"
                   width={327}
                   height={700}
@@ -198,7 +198,7 @@ const page = () => {
         </div>
         <div className="max-w-[1200px] hidden md:block w-full mx-auto mt-[60px] px-5">
           <Image
-            src="/images/features/personalize-expenses.svg"
+            src="/images/products/personalize-expenses.svg"
             alt="Remote Scalability Hero"
             width={700}
             height={491}
@@ -208,7 +208,7 @@ const page = () => {
         </div>
         <div className="max-w-[1200px] md:hidden block w-full mx-auto mt-[40px] px-5">
           <Image
-            src="/images/features/personalize-expenses-mobile.svg"
+            src="/images/products/personalize-expenses-mobile.svg"
             alt="Remote Scalability Hero"
             width={700}
             height={491}
