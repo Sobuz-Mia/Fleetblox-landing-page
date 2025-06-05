@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { useCookieConsent } from "@/providers/CookieConsentProvider";
 import { Switch } from "@/components/ui/switch";
 
@@ -16,14 +17,21 @@ export default function CookieBanner() {
     } = useCookieConsent();
 
     const [showDetails, setShowDetails] = useState(false);
+    const [isHomePage, setIsHomePage] = useState(false);
+    const pathname = usePathname();
 
-    // Don't render anything if banner shouldn't be shown
-    if (!showConsentBanner) {
+    // Check if we're on the home page
+    useEffect(() => {
+        setIsHomePage(pathname === "/");
+    }, [pathname]);
+
+    // Don't render anything if banner shouldn't be shown or not on home page
+    if (!showConsentBanner || !isHomePage) {
         return null;
     }
 
     return (
-        <div className="fixed mx-auto rounded-2xl border-[1px] border-gray-200 max-w-[1200px] bottom-0 left-0 right-0 bg-white shadow-xl z-50 border-t w-[95%] sm:w-[90%]">
+        <div className="fixed mx-auto rounded-2xl border-[1px] border-gray-200 max-w-[1200px] bottom-0 left-0 right-0 bg-white shadow-xl z-[9999] border-t w-[95%] sm:w-[90%]">
             <div className="container mx-auto p-3 sm:p-4 md:p-6 max-w-7xl">
                 <div className="flex flex-col md:flex-row justify-between items-start gap-4 sm:gap-6">
                     <div className="flex-1">

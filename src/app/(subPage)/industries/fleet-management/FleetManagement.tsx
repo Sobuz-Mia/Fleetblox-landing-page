@@ -19,7 +19,7 @@ const FleetManagement = () => {
         {
             title: "Cut the Cost of Non- Compliance",
             content: "Avoid expensive delays and operations with Fleetblox. Our system automates critical compliance processes, including VIN verification, entry inspections, registration monitoring, and document storage, all in one place. Manage every deadline, keep your roads ready fleet, and reduce costs with ease.",
-            image: `/images/industries/one-network-2.svg`
+            image: `/images/industries/one-network-2.png`
         },
         {
             title: "Remote Diagnostic that Keep Revenue Rolling",

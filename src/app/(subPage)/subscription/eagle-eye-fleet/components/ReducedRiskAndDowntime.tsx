@@ -30,7 +30,7 @@ const ReducedRiskAndDowntime = () => {
         {/* Shield icon behind */}
         <Image
           data-aos="fade-up"
-          data-aos-duration="2000"
+          data-aos-anchor-placement="bottom-center"
           src="/images/subscription/fleet-car-icon.svg"
           alt="Shield Icon"
           width={260}
