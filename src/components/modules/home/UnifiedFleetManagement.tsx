@@ -22,7 +22,7 @@ const UnifiedFleetManagement = () => {
             mitigate any fragmentation that keep your fleet synchronous,
             efficient and ready to scale regardless of where or how you operate{" "}
           </p>
-          <Link href="/features/dashboard">
+          <Link href="/products/dashboard">
             <button className="hidden md:flex lg:flex mb-10 transition-all bg-[#2D65F2] hover:bg-[#0336BC] text-white duration-300 hover:w-[144.16px] w-[122.16px] items-center px-4 py-3 text-[16px] font-bold rounded-md group">
               <div className="z-20 whitespace-nowrap font-openSans font-bold">
                 Learn More
@@ -40,7 +40,7 @@ const UnifiedFleetManagement = () => {
             width={600}
             alt="unified fleet management"
           />
-          <Link href="/features/dashboard">
+          <Link href="/products/dashboard">
             <button className="md:hidden mt-10 bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
               Learn More
             </button>
@@ -64,7 +64,7 @@ const UnifiedFleetManagement = () => {
             so that you can ensure that every fleet vehicle complies with your
             internal SOPs and regulatory standards across all you locations.
           </p>
-          <Link href="/features/documents-management">
+          <Link href="/products/documents-management">
             <button className="hidden md:flex lg:flex mb-10 transition-all bg-[#2D65F2] hover:bg-[#0336BC] text-white duration-300 hover:w-[144.16px] w-[122.16px] items-center px-4 py-3 text-[16px] font-bold rounded-md group">
               <div className="z-20 whitespace-nowrap font-openSans font-bold">
                 Learn More
@@ -82,7 +82,7 @@ const UnifiedFleetManagement = () => {
             width={600}
             alt="stay audit ready"
           />
-          <Link href="/features/documents-management">
+          <Link href="/products/documents-management">
             <button className="md:hidden mt-10 bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
               Learn More
             </button>
@@ -90,7 +90,7 @@ const UnifiedFleetManagement = () => {
         </div>
       </section>
       {/* Unlock higher ROI */}
-      <section className=" flex flex-col md:flex-row items-center gap-[60px] pt-[120px]">
+      <section className=" flex flex-col md:flex-row items-start gap-[60px] pt-[120px]">
         <div className="max-w-[570px] w-full items-center">
           <h2 className="text-[#0336BC] text-[22px] font-bold font-openSans mb-[10px] leading-[1.1]">
             Unlock Higher ROI
@@ -108,7 +108,7 @@ const UnifiedFleetManagement = () => {
             cost-efficiency and create verifiable ROI by improving fleet cost
             management across all your locations.
           </p>
-          <Link href="/features/expenses-management">
+          <Link href="/products/expenses-management">
             <button className="hidden md:flex lg:flex mb-10 transition-all bg-[#2D65F2] hover:bg-[#0336BC] text-white duration-300 hover:w-[144.16px] w-[122.16px] items-center px-4 py-3 text-[16px] font-bold rounded-md group">
               <div className="z-20 whitespace-nowrap font-openSans font-bold">
                 Learn More
@@ -120,13 +120,23 @@ const UnifiedFleetManagement = () => {
           </Link>
         </div>
         <div data-aos="fade-left" data-aos-duration="2000">
-          <Image
+          {/* <Image
             src={"/images/unlock-higher-roi.svg"}
             height={480}
             width={600}
             alt="Unlock higher roi"
-          />
-          <Link href="/features/expenses-management">
+          /> */}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            // preload="auto"
+            className=" z-50 h-full !w-full object-contain mix-blend-plus-lighter "
+          >
+            <source src="/videos/roi-section-video.mp4" type="video/mp4" />
+          </video>
+          <Link href="/products/expenses-management">
             <button className="md:hidden mt-10 bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
               Learn More
             </button>
