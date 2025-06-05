@@ -6,6 +6,7 @@ import { Country } from "@/app/(gettingStarted)/components/SelectCountry";
 // import { TContactFormData } from "@/types/types"; // Removed unused import
 import Canada from "../../../../../public/images/canada.png";
 import React from "react";
+import config from "@/utils/config";
 // import DownArrow from "@/components/icons/DownArrow"; // Removed incorrect import
 
 // Define a base interface for props that CountryCodeSelection needs
@@ -27,6 +28,8 @@ const CountryCodeSelection = <T extends FormWithCountryCode>({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [countries, setCountries] = useState<Country[] | null>(null);
+  const baseUrl = config.api.baseUrl;
+
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -39,7 +42,7 @@ const CountryCodeSelection = <T extends FormWithCountryCode>({
 
     const getCountries = async () => {
       const countries = await fetch(
-        "https://backend.illama360.com/api/utils/all-countries"
+        `${baseUrl}/api/utils/all-countries`
       );
       const response = await countries.json();
 

@@ -17,7 +17,7 @@ interface CarBrand {
 
 const BrandSelector = () => {
   const router = useRouter();
-  const pathname = usePathname(); // get current route pathname
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const countryParam = searchParams.get("country");
   const [searchQuery, setSearchQuery] = useState("");
@@ -126,11 +126,10 @@ const BrandSelector = () => {
             filteredBrands.map((brand: CarBrand) => (
               <div
                 key={brand.brand}
-                className={`flex items-center px-4 py-3 gap-x-5 h-[64px] rounded-xl cursor-pointer transition-all duration-200 hover:bg-[#F5F9FC] border ${
-                  selectedBrands.includes(brand.brand)
+                className={`flex items-center px-4 py-3 gap-x-5 h-[64px] rounded-xl cursor-pointer transition-all duration-200 hover:bg-[#F5F9FC] border ${selectedBrands.includes(brand.brand)
                     ? "border-[#B8CBFC] bg-[#2D65F20F]"
                     : "border-[#F7F7F7]"
-                }`}
+                  }`}
                 onClick={() => handleBrandSelect(brand.brand)}
               >
                 {brand.brandLogo && (

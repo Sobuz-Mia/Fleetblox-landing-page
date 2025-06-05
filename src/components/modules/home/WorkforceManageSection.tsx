@@ -1,45 +1,25 @@
-import RightArrowIcon from "@/components/icons/RightArrowIcon";
-import TickIcon from "@/components/icons/TickIcon";
 import Container from "@/components/ui/Container";
 import Image from "next/image";
 import Link from "next/link";
 
 const WorkforceManageSection = () => {
-  const items = [
-    {
-      id: 1,
-      title: "Productivity Hub",
-      description:
-        "Assign tasks, share updates, and monitor progress in real time.",
-    },
-    {
-      id: 2,
-      title: "Fast & Easy Navigation",
-      description: "Centralize team management with an intuitive interface.",
-    },
-    {
-      id: 3,
-      title: "Unified Team Control",
-      description:
-        "Improve collaboration and keep everyone aligned, from drivers to administrators.",
-    },
-  ];
   return (
-    <main className="bg-white h-full -mt-10 md:mt-0">
+    <main className="bg-[#FAFAFF] h-full -mt-10 md:py-[120px]">
       <Container>
-        <section className="flex flex-col items-center justify-center">
+        <section className="flex flex-col items-center justify-center ">
           {/* header */}
           <div className="flex flex-col items-start md:items-center justify-center">
+            <h3 className="text-[18px] text-[#0336BC] font-bold font-openSans mb-[10px]">
+              Simplify Complex Operations
+            </h3>
             <h1 className="text-[28px] md:text-[36px] font-bold text-[#04082C] leading-[1.1] text-left  lg:text-center font-montserrat ">
-              Complete Workforce Management - <br /> Seamlessly Connected
+              Manage Smarter Move Faster
             </h1>
             <p className="my-5 text-[#333] font-openSans leading-6 text-[14px] md:text-[16px] mt-[10px] text-left lg:text-center">
-              Enhance communication and data sharing across your team with the
-              Fleetblox Crew App. Empower your <br /> workforce with tools and
-              insights to perform their duties efficiently, no matter where they
-              are
+              Streamlines your day-to-day operations with intelligent automation
+              and dynamic workflows.
             </p>
-            <Link href="/features/team-management">
+            {/* <Link href="/features/team-management">
               <button className=" hidden md:flex lg:flex transition-all bg-[#2D65F2] hover:bg-[#0336BC] text-white-primary text-white duration-300 hover:w-[144.16px] w-[122.16px] items-center px-4 py-3 text-[16px] font-bold rounded-md group ">
                 <div className="z-20 whitespace-nowrap font-openSans font-bold">
                   Learn More
@@ -48,12 +28,12 @@ const WorkforceManageSection = () => {
                   <RightArrowIcon />
                 </div>
               </button>
-            </Link>
+            </Link> */}
           </div>
           {/* */}
-          <div className="flex flex-col items-center lg:items-start lg:flex-row md:justify-between mt-20">
+          <div className="flex flex-col items-center lg:items-start lg:flex-row md:justify-between mt-20 md:gap-[60px]">
             {/* Image Section */}
-            <div className="hidden md:block lg:block w-full">
+            <div data-aos="fade-up" className="hidden md:block lg:block w-full">
               <Image
                 src="/images/workforce.png"
                 alt="image"
@@ -76,30 +56,38 @@ const WorkforceManageSection = () => {
             </div>
 
             {/* Benefit section */}
-            <div className="flex flex-col w-[350px] md:w-[600px] mx-auto md:ml-10 pt-10 gap-5">
-              {items.map((item) => (
-                <div key={item.id} className="flex items-center w-full gap-x-4">
-                  {/* Consistent icon container */}
-                  <div className="w-8 h-8 min-w-[32px]">
-                    <TickIcon />
-                  </div>
-                  <div>
-                    <h1 className="text-[18px] font-openSans font-bold text-[#333]">
-                      {item.title}
-                    </h1>
-                    <p className="text-[#7D7D7D] leading-6 font-normal font-openSans text-[14px] ">
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="mt-5 mb-10 md:hidden lg:hidden w-full">
-              <Link href="/features/team-management">
-                <button className="bg-[#2D65F2] mt-5 hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
-                  Learn More
-                </button>
-              </Link>
+            <div className="max-w-[400px] w-full pt-10">
+              <div className="mb-10">
+                <h3 className="text-[#333] text-[18px] font-openSans font-bold mb-[10px]">
+                  Operations With Automation
+                </h3>
+                <p className="text-[#7D7D7D] text-[14px] leading-5 font-openSans">
+                  Fleetblox streamlines your day-to-day field{" "}
+                  <br className="md:block hidden" /> operations with intelligent
+                  automation and dynamic workflows — from task assignment to
+                  coordinating actions.
+                </p>
+                <Link href="/features/team-management">
+                  <button className="text-[#2D65F2] text-[16px] font-openSans font-bold mt-3">
+                    Learn More
+                  </button>
+                </Link>
+              </div>
+              <div>
+                <h3 className="text-[#333] text-[18px] font-openSans font-bold mb-[10px]">
+                  Dynamic Task Tracking & Adjustment
+                </h3>
+                <p className="text-[#7D7D7D] text-[14px] leading-5 font-openSans">
+                  Real-time vehicle-to-task tracking keeps you in touch with the
+                  field, and the flexibility to update tasks makes operations
+                  more efficient and adaptable to changing needs.
+                </p>
+                <Link href="/features/team-management">
+                  <button className="text-[#2D65F2] text-[16px] font-openSans font-bold mt-3">
+                    Learn More
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         </section>

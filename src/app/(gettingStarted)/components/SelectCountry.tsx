@@ -12,6 +12,7 @@ import Loader from "./Loader";
 import NotCompatibilityDialog from "./NotCompatibilityDialog";
 import NextStepButton from "@/components/ui/shared/NextStepButton";
 import Head from "next/head";
+import config from "@/utils/config";
 
 
 export interface Country {
@@ -41,12 +42,17 @@ const SelectCountry = () => {
     }
   }, []);
 
+  console.log("SelectCountry component rendered", config.api.baseUrl, config.isDevelopment, config.isProduction);
+
   const router = useRouter();
   const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [countries, setCountries] = useState<Country[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
+  const baseUrl = config.api.baseUrl;
+
+
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -66,7 +72,7 @@ const SelectCountry = () => {
       try {
         setLoading(true);
         const countries = await fetch(
-          "https://api.fleetblox.com/api/utils/all-countries"
+          `${baseUrl}/api/utils/all-countries`
         );
         const response = await countries.json();
         setCountries(response.data);
