@@ -9,7 +9,7 @@ const GenerateNavbarItem = ({
 }: NavbarItem) => {
   return (
     <Link href={href}>
-      <div className="group">
+      <div className={`group ${description ? "h-10" : ""}`}>
         <h1 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold group-hover:text-[#0336BC] flex gap-[5px]">
           {title}
           {isUpcoming && (
@@ -19,7 +19,7 @@ const GenerateNavbarItem = ({
           )}
         </h1>
         {description && (
-          <p className="text-[#7D7D7D] text-[11px] group-hover:text-[12px] font-openSans">
+          <p className="text-[#7D7D7D] text-[11px] group-hover:text-[12px] font-openSans hidden lg:block">
             {description}
           </p>
         )}
