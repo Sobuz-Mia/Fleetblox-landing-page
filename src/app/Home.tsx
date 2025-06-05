@@ -1,5 +1,4 @@
 "use client";
-
 import dynamic from "next/dynamic";
 import Navbar from "@/components/ui/shared/Navbar";
 import HeroSection from "@/components/modules/home/HeroSection";

@@ -21,6 +21,7 @@ import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import axios from "axios";
 import { TStaterPlanData } from "@/types/types";
 import LocationIcon from "@/components/icons/LocationIcon";
+import config from "@/utils/config";
 
 type TSelectedPlan = {
   price: number;
@@ -44,7 +45,7 @@ const PricingPlan = () => {
   const [starterPlan, setStarterPlan] = useState<TStaterPlanData[]>([]);
   const [staterPlanLoading, setStarterPlanLoading] = useState(true);
   const [staterPlanError, setStarterPlanError] = useState<string | null>(null);
-
+  const baseUrl = config.api.baseUrl;
   useEffect(() => {
 
     if (typeof window !== "undefined") {
@@ -66,8 +67,8 @@ const PricingPlan = () => {
     const fetchPlans = async () => {
       try {
         const response = await fetch(
-          // "https://api.fleetblox.com/api/subscription/plans"
-          "https://backend.illama360.com/api/subscription/plans"
+
+          `${baseUrl}/api/subscription/plans`
         );
         if (!response.ok) throw new Error("Failed to fetch plans");
         const data = await response.json();
@@ -119,43 +120,6 @@ const PricingPlan = () => {
     setBillingMonthly(!billMonthly);
   };
 
-  const handleSubscriptionPlan = async () => {
-    // try {
-    //   const subscriptionInfo = {
-    //     userId: "sarkarsoumik215@gmail.com",
-    //     customerId: "cus_RgQvMiKISS0OAX",
-    //     newPlanId: "cm4vhz3pu0001oniuypx7p2uh",
-    //     totalSlot: slotCount,
-    //     price: Number(selectedPlan?.price?.toFixed(2)),
-    //     interval: billAnnually ? "year" : "month",
-    //   };
-
-    //   const response = await fetch("/payment/subscription/upgrade", {
-    //     method: "PUT",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(subscriptionInfo),
-    //   });
-
-    //   if (!response.ok) throw new Error("Update failed");
-
-    //   const res = await response.json();
-    //   if (res?.success) {
-    //     toast.success("Subscription plan updated successfully");
-    //     setShowUpdatePlanModal(false);
-    //   }
-    // } catch (error: any) {
-    //   console.log(error);
-    //   toast.error("Failed to update subscription plan");
-    // }
-
-    // For now, just close the modal
-
-    localStorage.setItem("selectedPlan", JSON.stringify(selectedPlan));
-
-    // toast.success("Subscription plan updated successfully");
-
-    router.push("/collections/checkout");
-  };
 
   const handlePriceAndModal = ({ fleet, slot, annually, price }: any) => {
     setSelectedPlan({
@@ -171,7 +135,7 @@ const PricingPlan = () => {
     const fetchStaterPlanData = async () => {
       try {
         const response = await axios.get(
-          "https://backend.illama360.com/api/subscription/plan/starter"
+          `${baseUrl}/api/subscription/plan/starter`
         );
         setStarterPlan(response.data.data);
       } catch (err) {

@@ -11,6 +11,7 @@ import { getCode } from "country-list";
 import transformCompatibilityData from "@/utils/transformCompatibilityData";
 import toast from "react-hot-toast";
 import search from "@/../public/images/search.svg";
+import config from "@/utils/config";
 
 interface CarModel {
   name: string;
@@ -29,10 +30,13 @@ export type CarBrandsData = CarBrand[];
 const VIN = () => {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
-  const [vinList, setVinList] = useState<string[]>([]); // Initialize vinList as an empty array
+  const [vinList, setVinList] = useState<string[]>([]);
   const { setCustomProgress, progress, setApiResponse } = useProgressUpdater();
   const [loading, setLoading] = useState(false);
   const [selectedCountry, SetSelectedCountry] = useState("");
+  const baseUrl = config.api.baseUrl;
+
+
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -105,7 +109,7 @@ const VIN = () => {
 
     try {
       const response = await fetch(
-        `https://api.fleetblox.com/api/dummy/compatibility-bulk?vin=${vinList.join(
+        `${baseUrl}/api/dummy/compatibility-bulk?vin=${vinList.join(
           ","
         )}&country=${selectedCountry}`
       );
@@ -187,9 +191,8 @@ const VIN = () => {
               aria-describedby="email-help"
               placeholder="Enter VIN"
               // className="w-full bg-bg_dusty_white text-ti_grey font-openSans text-[12px] leading-[16px] outline-none"
-              className={`w-3/4 rounded-md bg-[#F7F7F7] p-3 font-openSans text-sm leading-[155%] outline-none ${
-                searchQuery ? "text-[#333]" : "text-[#7D7D7D]"
-              }`}
+              className={`w-3/4 rounded-md bg-[#F7F7F7] p-3 font-openSans text-sm leading-[155%] outline-none ${searchQuery ? "text-[#333]" : "text-[#7D7D7D]"
+                }`}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -249,9 +252,8 @@ const VIN = () => {
           <div className="mt-6 flex flex-shrink-0 flex-col-reverse items-center gap-4 lg:flex-row">
             <button
               onClick={handleVinProcessing}
-              className={` w-full rounded-md px-[14px] py-[10px] font-openSans text-white ${
-                vinList.length !== 0 ? "bg-[#2D65F2]" : "bg-[#2D65F2]/50"
-              }`}
+              className={` w-full rounded-md px-[14px] py-[10px] font-openSans text-white ${vinList.length !== 0 ? "bg-[#2D65F2]" : "bg-[#2D65F2]/50"
+                }`}
               disabled={vinList.length === 0 || loading}
             >
               {loading ? "loading......" : "Check compatibility"}

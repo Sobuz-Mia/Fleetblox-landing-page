@@ -1,8 +1,9 @@
 import { MetadataRoute } from "next";
-const baseUrl = "https://www.fleetblox.com";
+import { config } from "../utils/config";
 
 export default function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // Base URL of your website
+  // Base URL from environment config
+  const baseUrl = config.siteUrl;
 
   return Promise.resolve([
     {
