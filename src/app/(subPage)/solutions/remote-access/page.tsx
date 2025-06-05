@@ -125,7 +125,7 @@ const page = () => {
       </section>
       {/* why Cloud section */}
       <section className="max-w-[1100px] mx-auto w-full my-10 lg:my-[100px] px-5">
-        <h1 className="mb-[40px] max-w-[840px] w-full lg:mb-[60px] text-center text-[#04082C] text-[28px] lg:text-[36px] font-bold">
+        <h1 className="mb-[40px] max-w-[840px] w-full mx-auto lg:mb-[60px] text-center text-[#04082C] text-[28px] lg:text-[36px] font-bold">
           Why Remote Access with a Digital Key Matters
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 justify-items-center lg:gap-[30px] gap-[20px]">

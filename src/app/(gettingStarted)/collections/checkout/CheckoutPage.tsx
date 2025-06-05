@@ -702,7 +702,7 @@ const CheckOutPage = () => {
 
                     {/* Phone Number Input */}
                     <input
-                      type="tel"
+                      type="number"
                       id="phone"
                       name="phone"
                       maxLength={17}
