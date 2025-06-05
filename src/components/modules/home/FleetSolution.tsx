@@ -67,7 +67,7 @@ const StatsSection = () => {
             change their business models as needed.
           </p>
         </div>
-        <div className="w-1/2">
+        <div data-aos="fade-up" data-aos-duration="1500" className="w-1/2">
           <Image
             src={fleetSolutionImg}
             alt="logo"
@@ -84,7 +84,7 @@ const StatsSection = () => {
               Built for <br />
               <span className="text-[#0336BC]">Infinite Business Models</span>
             </h2>
-            <div className="w-full">
+            <div data-aos="fade-up" className="w-full">
               <Image
                 src={fleetSolutionImg}
                 alt="logo"

@@ -33,7 +33,7 @@ const WorkforceManageSection = () => {
           {/* */}
           <div className="flex flex-col items-center lg:items-start lg:flex-row md:justify-between mt-20 md:gap-[60px]">
             {/* Image Section */}
-            <div className="hidden md:block lg:block w-full">
+            <div data-aos="fade-up" className="hidden md:block lg:block w-full">
               <Image
                 src="/images/workforce.png"
                 alt="image"

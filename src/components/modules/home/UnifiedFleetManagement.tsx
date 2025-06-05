@@ -33,7 +33,7 @@ const UnifiedFleetManagement = () => {
             </button>
           </Link>
         </div>
-        <div>
+        <div data-aos="fade-down-left" data-aos-duration="2000">
           <Image
             src={"/images/unified-fleet-management.svg"}
             height={480}
@@ -75,7 +75,7 @@ const UnifiedFleetManagement = () => {
             </button>
           </Link>
         </div>
-        <div>
+        <div data-aos="fade-right" data-aos-duration="2000">
           <Image
             src={"/images/stay-audit-ready.svg"}
             height={480}
@@ -119,7 +119,7 @@ const UnifiedFleetManagement = () => {
             </button>
           </Link>
         </div>
-        <div>
+        <div data-aos="fade-left" data-aos-duration="2000">
           <Image
             src={"/images/unlock-higher-roi.svg"}
             height={480}

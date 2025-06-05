@@ -9,7 +9,8 @@ const AiSupportSection = () => {
         <section className="py-[60px] flex flex-col lg:flex-row justify-between items-center gap-[40px]">
           <div className="text-white max-w-[570px]">
             <h1 className="text-[36px] font-bold mb-[10px] font-montserrat leading-[1.1]">
-              AI Support to Elevate Fleet Management
+              <span className="text-[#2D65F2]">AI</span> Support to Elevate
+              Fleet Management
             </h1>
             <p className="text-[16px] leading-6 font-openSans mb-[30px]">
               Your AI Garage Assistant works 24/7, providing real-time insights
