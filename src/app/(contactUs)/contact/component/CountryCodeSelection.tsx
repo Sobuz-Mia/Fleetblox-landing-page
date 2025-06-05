@@ -3,14 +3,26 @@ import { ChevronDown } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Country } from "@/app/(gettingStarted)/components/SelectCountry";
-import { TContactFormData } from "@/types/types";
+// import { TContactFormData } from "@/types/types"; // Removed unused import
 import Canada from "../../../../../public/images/canada.png";
-const CountryCodeSelection = ({
+import React from "react";
+// import DownArrow from "@/components/icons/DownArrow"; // Removed incorrect import
+
+// Define a base interface for props that CountryCodeSelection needs
+interface FormWithCountryCode {
+  countryCode: string;
+  flag: StaticImageData | string; // Adjust 'any' to be more specific if possible, e.g., StaticImageData or string for URL
+  // Add any other fields from TContactFormData that CountryCodeSelection *actually* uses or modifies here.
+  // If it only uses/modifies countryCode and flag, this is sufficient.
+}
+
+// Make the component generic
+const CountryCodeSelection = <T extends FormWithCountryCode>({
   setFormData,
   formData,
 }: {
-  setFormData: React.Dispatch<React.SetStateAction<TContactFormData>>;
-  formData: TContactFormData;
+  setFormData: React.Dispatch<React.SetStateAction<T>>;
+  formData: T;
 }) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -27,7 +39,7 @@ const CountryCodeSelection = ({
 
     const getCountries = async () => {
       const countries = await fetch(
-        "https://api.fleetblox.com/api/utils/all-countries"
+        "https://backend.illama360.com/api/utils/all-countries"
       );
       const response = await countries.json();
 
@@ -55,7 +67,7 @@ const CountryCodeSelection = ({
   }, []);
 
   const selectCountryCode = (data: Country) => {
-    setFormData((prev: TContactFormData) => ({
+    setFormData((prev: T) => ({
       ...prev,
       countryCode: data.phoneCode,
       flag: data.countryFlag as unknown as StaticImageData,

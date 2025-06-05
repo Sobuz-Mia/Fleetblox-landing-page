@@ -38,6 +38,26 @@ export type TContactFormData = {
   countryCode: string;
   flag: StaticImageData;
 };
+export type TFeedbackFormData = {
+  brandName: string;
+  brandEmail: string;
+  brandPhoneNumber: string;
+  message: string;
+  countryCode: string;
+  flag: StaticImageData;
+};
+
+export type TSalesFormData = {
+  fleetSize: string;
+  firstName: string;
+  lastName: string;
+  companyName: string;
+  phoneNumber: string;
+  companyEmail: string;
+  additionalMessage: string; 
+  countryCode: string;
+  flag: StaticImageData;
+};
 
 export type TStaterPlanData = {
   id: string;

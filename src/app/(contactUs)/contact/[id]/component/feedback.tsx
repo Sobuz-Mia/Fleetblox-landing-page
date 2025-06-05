@@ -1,20 +1,18 @@
 "use client";
 import RightArrowIcon from "@/components/icons/RightArrowIcon";
-import CountryCodeSelection from "./CountryCodeSelection";
+import CountryCodeSelection from "@/app/(contactUs)/contact/component/CountryCodeSelection";
 import { useState } from "react";
 import Canada from "@/../public/images/canada.png";
-import { TContactFormData } from "@/types/types";
+import {  TFeedbackFormData } from "@/types/types";
 import { toast } from "react-hot-toast";
-import axios from "axios";
+import axios from "axios"; 
 import { AxiosErrorResponse } from "@/interface/AxiosErrorResponse";
-const ContactUs = () => {
+const Feedback = () => {
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState<TContactFormData>({
-    firstName: "",
-    lastName: "",
-    company: "",
-    email: "",
-    phoneNumber: "",
+  const [formData, setFormData] = useState<TFeedbackFormData>({
+    brandName: "",
+    brandEmail: "",
+    brandPhoneNumber: "",
     message: "",
     countryCode: "+1",
     flag: Canada,
@@ -35,21 +33,19 @@ const ContactUs = () => {
     // Regular expression for validating an email address
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 
-    if (!emailRegex.test(formData.email.trim())) {
+    if (!emailRegex.test(formData.brandEmail.trim())) {
       toast.error("Please enter a valid email address");
       setLoading(false);
       return;
     }
 
-    if (formData.phoneNumber.length > 17) {
+    if (formData.brandPhoneNumber.length > 17) {
       toast.error("Please enter a valid phone number");
     }
     const contactData = {
-      firstName: formData.firstName.trim(),
-      lastName: formData.lastName.trim(),
-      company: formData.company.trim(),
-      email: formData.email.trim(),
-      phoneNumber: `${formData.countryCode}${formData.phoneNumber.trim()}`,
+      brandName: formData.brandName.trim(),
+      brandEmail: formData.brandEmail.trim(),
+      brandPhoneNumber: `${formData.countryCode}${formData.brandPhoneNumber.trim()}`,
       message: formData.message.trim(),
     };
 
@@ -62,11 +58,9 @@ const ContactUs = () => {
       if (data?.success) {
         toast.success("Message sent successfully!");
         setFormData({
-          firstName: "",
-          lastName: "",
-          company: "",
-          email: "",
-          phoneNumber: "",
+          brandName: "",
+          brandEmail: "",
+          brandPhoneNumber: "",
           message: "",
           countryCode: "+1",
           flag: Canada,
@@ -103,7 +97,7 @@ const ContactUs = () => {
             <h1 className="text-[#04082C] text-[18px] font-openSans font-bold mb-[8px]">
               Connect with Fleetblox
             </h1>
-            <p className="text-[#333] text-[14px] font-openSans leading-5 mb-[5px]">
+            <p className="text-[#7D7D7D] text-[16px] font-openSans leading-[24px] mb-[5px]">
               Fleetblox is an AI-powered, cloud-based fleet connectivity
               solution that reduces costs, minimizes downtime, and
               revolutionizes fleet management for smarter, more efficient
@@ -122,38 +116,38 @@ const ContactUs = () => {
               <input
                 type="text"
                 required
-                name="firstName"
-                aria-describedby="Enter your first name"
+                name="brandName"
+                aria-describedby="Brand Name"
                 autoComplete="off"
                 maxLength={20}
-                value={formData.firstName}
+                value={formData.brandName}
                 onChange={handleChange}
                 className={`p-4 text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${
-                  formData.firstName ? "has-value" : ""
+                  formData.brandName ? "has-value" : ""
                 }`}
               />
               <span className="absolute left-0 top-0 text-[#333] font-openSans text-[14px] leading-5 tracking-wide peer-focus:text-[#2D65F2] pointer-events-none duration-200 peer-focus:text-sm peer-focus:-translate-y-[27px] bg-white ml-4 peer-[.has-value]:text-[#2D65F2] peer-[.has-value]:-translate-y-[27px] peer-[.has-value]:text-sm">
-                First name
+                Brand Name
               </span>
             </label>
           </div>
-          {/* last name */}
+          {/* brand email */}
           <div>
             <label className="relative">
               <input
                 type="text"
-                name="lastName"
-                aria-describedby="Enter your last name"
+                name="brandEmail"
+                aria-describedby="Brand Email"
                 autoComplete="off"
                 maxLength={20}
-                value={formData.lastName}
+                value={formData.brandEmail}
                 onChange={handleChange}
                 className={`p-4 text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${
-                  formData.lastName ? "has-value" : ""
+                  formData.brandEmail ? "has-value" : ""
                 }`}
               />
               <span className="absolute left-0 top-0 text-[#333] font-openSans text-[14px] leading-5 tracking-wide peer-focus:text-[#2D65F2] pointer-events-none duration-200 peer-focus:text-sm peer-focus:-translate-y-[27px] bg-white ml-4 peer-[.has-value]:text-[#2D65F2] peer-[.has-value]:-translate-y-[27px] peer-[.has-value]:text-sm">
-                Last name
+                Brand Email
               </span>
             </label>
           </div>
@@ -164,17 +158,17 @@ const ContactUs = () => {
                 type="text"
                 required
                 autoComplete="off"
-                aria-describedby="Enter your company name"
-                name="company"
+                aria-describedby="Brand Phone Number"
+                name="brandPhoneNumber"
                 maxLength={40}
-                value={formData.company}
+                value={formData.brandPhoneNumber}
                 onChange={handleChange}
                 className={`p-4 text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${
-                  formData.company ? "has-value" : ""
+                  formData.brandPhoneNumber ? "has-value" : ""
                 }`}
               />
               <span className="absolute left-0 top-0 text-[#333] font-openSans text-[14px] leading-5 tracking-wide peer-focus:text-[#2D65F2] pointer-events-none duration-200 peer-focus:text-sm peer-focus:-translate-y-[27px] bg-white ml-4 peer-[.has-value]:text-[#2D65F2] peer-[.has-value]:-translate-y-[27px] peer-[.has-value]:text-sm">
-                Company
+                Brand Phone Number
               </span>
             </label>
           </div>
@@ -188,19 +182,19 @@ const ContactUs = () => {
                 aria-describedby="Enter your phone number"
                 autoComplete="off"
                 pattern="[0-9]*"
-                value={formData.phoneNumber}
+                value={formData.brandPhoneNumber}
                 onChange={handleChange}
                 className={`py-4  ${
-                  formData?.countryCode.length === 4
+                  formData?.countryCode?.length === 4
                     ? "px-[110px]"
                     : "px-[100px]"
                 } text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${
-                  formData.phoneNumber ? "has-value" : ""
+                  formData.brandPhoneNumber ? "has-value" : ""
                 }`}
               />
               <span
                 className={`absolute  ${
-                  formData?.countryCode.length === 4
+                  formData?.countryCode?.length === 4
                     ? "left-[90px]"
                     : "left-[85px]"
                 }  top-0 text-[#333] font-openSans text-[14px] leading-5 tracking-wide peer-focus:text-[#2D65F2] pointer-events-none duration-200 peer-focus:text-sm peer-focus:-translate-y-[27px] bg-white ml-4 peer-[.has-value]:text-[#2D65F2] peer-[.has-value]:-translate-y-[27px] peer-[.has-value]:text-sm`}
@@ -216,25 +210,6 @@ const ContactUs = () => {
             </label>
           </div>
           {/* email */}
-          <div>
-            <label className="relative">
-              <input
-                required
-                type="email"
-                name="email"
-                aria-describedby="email-help"
-                autoComplete="off"
-                value={formData.email}
-                onChange={handleChange}
-                className={`p-4 text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${
-                  formData.email ? "has-value" : ""
-                }`}
-              />
-              <span className="absolute left-0 top-0 text-[#333] font-openSans text-[14px] leading-5 tracking-wide peer-focus:text-[#2D65F2] pointer-events-none duration-200 peer-focus:text-sm peer-focus:-translate-y-[27px] bg-white ml-4 peer-[.has-value]:text-[#2D65F2] peer-[.has-value]:-translate-y-[27px] peer-[.has-value]:text-sm">
-                Email address
-              </span>
-            </label>
-          </div>
           {/* text area */}
           <div>
             <label className="relative">
@@ -281,4 +256,4 @@ const ContactUs = () => {
   );
 };
 
-export default ContactUs;
+export default Feedback;
