@@ -18,7 +18,7 @@ const AiSupportSection = () => {
               vehicle performance, ensure uninterrupted operations with smarter
               tools that keep every vehicle at its best.
             </p>
-            <Link href="/features/ai-assistant">
+            <Link href="/products/ai-assistant">
               <button className="transition-all hidden md:hidden lg:flex bg-[#2D65F2] hover:bg-[#0336BC] text-white-primary text-white duration-300 hover:w-[144.16px] w-[122.16px] items-center px-4 py-3 text-base font-bold rounded-md group">
                 <div className="z-20 whitespace-nowrap">Learn More</div>
                 <div className="z-10 transform transition-transform opacity-0 group-hover:opacity-100 -translate-x-4 duration-300 group-hover:translate-x-0">
@@ -68,7 +68,7 @@ const AiSupportSection = () => {
           </div>
         </section>
         <div className="pb-10 lg:hidden block">
-          <Link href="/features/ai-assistant">
+          <Link href="/products/ai-assistant">
             <button className=" bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex py-3 px-5 text-[14px] font-openSans font-bold rounded-md justify-center">
               Learn More
             </button>
