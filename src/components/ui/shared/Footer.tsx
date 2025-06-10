@@ -1,8 +1,6 @@
 import Image from "next/image";
 import FooterLogo from "../../../../public/images/footerLogo.png";
 import FacebookIcon from "@/components/icons/FacebookIcon";
-// import InstagramIcon from "@/components/icons/InstagramIcon";
-// import XIcon from "@/components/icons/XIcon";
 import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import LinkdinIcon from "@/components/icons/LinkdinIcon";
 import Link from "next/link";
@@ -92,57 +90,57 @@ const Footer = () => {
                 <h5 className=" font-openSans text-[#DFDFDF] text-[12px] leading-normal mb-[10px] ">
                   Products
                 </h5>
-                <Link className="cursor-pointer" href="/features/dashboard">
+                <Link className="cursor-pointer" href="/products/dashboard">
                   <h5 className="font-openSans py-[2px] mb-[5px] cursor-pointer">
                     Dashboard
                   </h5>
                 </Link>
-                <Link href="/features/getting-started">
+                <Link href="/products/getting-started">
                   <h5 className="font-openSans py-[2px] mb-[5px]">
                     Getting Started
                   </h5>
                 </Link>
-                <Link href="/features/fleet-integration">
+                <Link href="/products/fleet-integration">
                   <h5 className="font-openSans py-[2px] mb-[5px]">
                     Fleet Integration
                   </h5>
                 </Link>
-                <Link href="/features/fleet-expansion">
+                <Link href="/products/fleet-expansion">
                   <h5 className="font-openSans py-[2px] mb-[5px]">
                     Fleet Expansion
                   </h5>
                 </Link>
-                <Link href="/features/digital-inspections">
+                <Link href="/products/digital-inspections">
                   <h5 className="font-openSans py-[2px] mb-[5px]">
                     Digital Inspections
                   </h5>
                 </Link>
-                <Link href="/features/maintenance-diagnostics">
+                <Link href="/products/maintenance-diagnostics">
                   <h5 className="font-openSans py-[2px] mb-[5px]">
                     Maintenance & Diagnostics
                   </h5>
                 </Link>
-                <Link href="/features/expenses-management">
+                <Link href="/products/expenses-management">
                   <h5 className="font-openSans py-[2px] mb-[5px]">
                     Expenses Management
                   </h5>
                 </Link>
-                <Link href="/features/documents-management">
+                <Link href="/products/documents-management">
                   <h5 className="font-openSans py-[2px] mb-[5px]">
                     Documents Management
                   </h5>
                 </Link>
-                <Link href="/features/intelligent-alerts">
+                <Link href="/products/intelligent-alerts">
                   <h5 className="font-openSans py-[2px] mb-[5px]">
                     Intelligent Alerts
                   </h5>
                 </Link>
-                <Link href="/features/team-management">
+                <Link href="/products/team-management">
                   <h5 className="font-openSans py-[2px] mb-[5px]">
                     Team Management
                   </h5>
                 </Link>
-                <Link href="/features/ai-assistant">
+                <Link href="/products/ai-assistant">
                   <h5 className="font-openSans py-[2px] mb-[5px]">
                     AI Assistant
                   </h5>
@@ -312,7 +310,7 @@ const Footer = () => {
                 <Link href="/contact">
                   <h5 className=" font-openSans py-[2px] mb-[5px]">Contact</h5>
                 </Link>
-                <Link href="/under-development">
+                <Link href="/about-us">
                   <h5 className=" font-openSans py-[2px] mb-[5px]">About</h5>
                 </Link>
               </div>

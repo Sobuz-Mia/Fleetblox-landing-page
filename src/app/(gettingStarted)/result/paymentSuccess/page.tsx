@@ -32,8 +32,8 @@ const Page = () => {
         Purchase Completed
       </h1>
       <p className="text-[#7D7D7D] text-[14px] leading-5 font-openSans text-center">
-        {` You've successfully subscribed! Check your email to get started and
-        begin building your experience with us.`}
+        You&apos;ve successfully subscribed! <span className="font-semibold text-[#2D65F2]"> Check your email </span> to get started and
+        begin building your experience with us.
       </p>
     </div>
   );
