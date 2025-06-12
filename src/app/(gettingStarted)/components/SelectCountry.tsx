@@ -25,7 +25,6 @@ export interface Country {
 
 const SelectCountry = () => {
   const { setCustomProgress, progress, setCurrentStep } = useProgressUpdater();
-  // Update the cleanup useEffect
   useEffect(() => {
     setCurrentStep(0);
 

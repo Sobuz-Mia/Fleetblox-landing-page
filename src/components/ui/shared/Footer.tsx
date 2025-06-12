@@ -1,8 +1,6 @@
 import Image from "next/image";
 import FooterLogo from "../../../../public/images/footerLogo.png";
 import FacebookIcon from "@/components/icons/FacebookIcon";
-// import InstagramIcon from "@/components/icons/InstagramIcon";
-// import XIcon from "@/components/icons/XIcon";
 import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import LinkdinIcon from "@/components/icons/LinkdinIcon";
 import Link from "next/link";
@@ -312,7 +310,7 @@ const Footer = () => {
                 <Link href="/contact">
                   <h5 className=" font-openSans py-[2px] mb-[5px]">Contact</h5>
                 </Link>
-                <Link href="/under-development">
+                <Link href="/about-us">
                   <h5 className=" font-openSans py-[2px] mb-[5px]">About</h5>
                 </Link>
               </div>
