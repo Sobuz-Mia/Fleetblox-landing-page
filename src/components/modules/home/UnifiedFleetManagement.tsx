@@ -33,12 +33,27 @@ const UnifiedFleetManagement = () => {
             </button>
           </Link>
         </div>
-        <div data-aos="fade-down-left" data-aos-duration="2000">
+        <div
+          className="hidden md:block"
+          data-aos="fade-down-left"
+          data-aos-duration="2000"
+        >
           <Image
             src={"/images/unified-fleet-management.svg"}
             height={480}
-            width={600}
+            width={400}
             alt="unified fleet management"
+            className="w-full"
+          />
+        </div>
+        {/* mobile view */}
+        <div className="block md:hidden">
+          <Image
+            src={"/images/unified-fleet-management.svg"}
+            height={480}
+            width={400}
+            alt="unified fleet management"
+            className="w-full"
           />
           <Link href="/products/dashboard">
             <button className="md:hidden mt-10 bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
@@ -120,19 +135,12 @@ const UnifiedFleetManagement = () => {
           </Link>
         </div>
         <div data-aos="fade-left" data-aos-duration="2000">
-          {/* <Image
-            src={"/images/unlock-higher-roi.svg"}
-            height={480}
-            width={600}
-            alt="Unlock higher roi"
-          /> */}
           <video
             autoPlay
             loop
             muted
             playsInline
-            // preload="auto"
-            className=" z-50 h-full !w-full object-contain mix-blend-plus-lighter "
+            className=" z-50 h-full max-w-[540px] w-full object-contain mix-blend-plus-lighter "
           >
             <source src="/videos/roi-section-video.mp4" type="video/mp4" />
           </video>
