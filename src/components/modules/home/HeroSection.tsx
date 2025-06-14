@@ -6,6 +6,12 @@ import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import Link from "next/link";
 
 const HeroSection = () => {
+  const benefits = [
+    { text: "Cloud-Native Architecture" },
+    { text: "Multi-Powertrain Integration" },
+    { text: "Multi-Location Fleet Control" },
+    { text: "AI-Powered Intelligence" },
+  ];
   return (
     <section className="bg-[#FAFAFF] flex flex-col justify-center items-center z-50 overflow-hidden">
       {/* Main content section */}
@@ -13,50 +19,43 @@ const HeroSection = () => {
         {/* Text content remains the same */}
         <div className="max-w-[840px] w-full mx-auto text-center flex flex-col items-start md:items-center px-5">
           <p className="text-[18px] md:text-[28px] lg:text-[28px] text-left md:text-center font-bold text-[#0336BC] mb-[5px]">
-            Instant Fleet Management
+            Fleet Moderniser Platform
           </p>
           <h1 className="text-[36px] md:text-[52px] lg:text-[52px] text-left md:text-center font-bold text-[#04082C] leading-[1.1] font-montserrat">
-            Manage and Scale Your Fleet Ecosystem Potentials
+            Empower Your Fleet Ecosystem Potentials
           </h1>
           <p className="text-left md:text-center font-openSans text-[#333] leading-6 text-[16px] mt-[10px]">
             Fleetblox is a modern, AI-based platform designed to empower the
             next generation of fleet management—built to adapt the demands of
             today’s automotive technology
           </p>
-          <div className="flex flex-col md:flex-row lg:flex-row items-start md:items-center justify-center gap-4 mt-5 pb-[30px] font-openSans">
-            <div className="flex gap-[5px] text-[16px] font-openSans leading-6 font-semibold text-[#7D7D7D] text-left md:text-center">
+        </div>
+        <div className="flex flex-col lg:flex-row md:justify-center md:items-center gap-4 mt-5 pb-[30px] font-openSans w-full px-5">
+          {benefits?.map((benefit, index) => (
+            <div
+              key={index}
+              className="flex gap-[5px] text-[16px] font-openSans leading-6 font-semibold text-[#7D7D7D] md:text-center items-start md:items-center"
+            >
               <CheckboxIcon />
-              <p>Simplify Complexity </p>
+              <p className="text-left">{benefit?.text}</p>
             </div>
-            <div className="flex gap-[5px] text-[16px] font-openSans leading-6 font-semibold text-[#7D7D7D]">
-              <CheckboxIcon />
-              <p>Adapt To Change.</p>
+          ))}
+        </div>
+        <Link aria-label="Get started with FleetBlox" href="/getting-started">
+          <button className="hidden md:flex transition-all font-openSans bg-[#2D65F2] hover:bg-[#0336BC] text-white-primary text-white duration-300 hover:w-[144.16px] w-[122.16px]  items-center px-[13px] hover:px-4 py-3 text-base font-bold rounded-md group">
+            <div className="z-20 whitespace-nowrap"> Start Today</div>
+            <div className="z-10 transform transition-transform opacity-0 group-hover:opacity-100 -translate-x-4 duration-300 group-hover:translate-x-0">
+              <RightArrowIcon />
             </div>
-            <div className="flex gap-[5px] text-[16px] font-openSans leading-6 font-semibold text-[#7D7D7D]">
-              <CheckboxIcon />
-              <p>Grow Your Vision. </p>
-            </div>
-          </div>
+          </button>
+        </Link>
+        <div className="w-full">
           <Link aria-label="Get started with FleetBlox" href="/getting-started">
-            <button className="hidden md:flex transition-all font-openSans bg-[#2D65F2] hover:bg-[#0336BC] text-white-primary text-white duration-300 hover:w-[144.16px] w-[122.16px]  items-center px-[13px] hover:px-4 py-3 text-base font-bold rounded-md group">
-              <div className="z-20 whitespace-nowrap"> Start Today</div>
-              <div className="z-10 transform transition-transform opacity-0 group-hover:opacity-100 -translate-x-4 duration-300 group-hover:translate-x-0">
-                <RightArrowIcon />
-              </div>
+            <button className="px-5 py-3 rounded-md w-full text-center bg-[#2D65F2] font-openSans text-[14px] font-bold text-[#fff] flex justify-center md:hidden">
+              Start Today
             </button>
           </Link>
-          <div className="w-full">
-            <Link
-              aria-label="Get started with FleetBlox"
-              href="/getting-started"
-            >
-              <button className="px-5 py-3 rounded-md w-full text-center bg-[#2D65F2] font-openSans text-[14px] font-bold text-[#fff] flex justify-center md:hidden">
-                Start Today
-              </button>
-            </Link>
-          </div>
         </div>
-
         {/* Desktop hero with skeleton loader */}
         <div className="hidden lg:block relative max-h-[800px] lg:h-[800px] md:h-[500px] lg:w-[1200px] xl:w-[1400px] z-[0] overflow-hidden">
           <div className="relative h-full w-full flex justify-center items-center">
@@ -94,22 +93,22 @@ const HeroSection = () => {
           </div>
 
           {/* Features section remains unchanged */}
-          <div className="absolute -bottom-[10px] z-50 left-1/2 max-w-[880px] w-full gap-5 -translate-x-1/2 py-[30px] grid grid-cols-1 lg:grid-cols-3 text-center items-center justify-items-center">
+          <div className="absolute -bottom-[10px] z-50 left-1/2 max-w-[880px] w-full gap-5 -translate-x-1/2 py-[30px] grid grid-cols-1 lg:grid-cols-3 text-center items-start justify-items-center">
             {[
               {
-                title: "Instant Onboarding",
+                title: "Remote Integration",
                 description:
-                  "Integrate your fleet in minutes with no hassle and minimal setup.",
+                  "Gain instant visibility by seamlessly linking all your fleet assets across your entire ecosystem",
               },
               {
-                title: "Unified Ecosystem",
+                title: "Remote Operations",
                 description:
-                  "Unify all fleet locations and operations into a single platform",
+                  "Control your entire fleet ecosystem leveraging AI across every asset and location",
               },
               {
                 title: "Remote Scalability",
                 description:
-                  "Scale your fleet remotely with ease, without limits.",
+                  "Deploy and manage new branches without physical presence or operational delay.",
               },
             ].map((feature, index, arr) => (
               <div
