@@ -194,6 +194,7 @@ const page = () => {
             alt="Remote Scalability Hero"
             width={500}
             height={491}
+            priority
             className="object-contain max-w-[850px] w-full mx-auto"
             quality={100}
           />
