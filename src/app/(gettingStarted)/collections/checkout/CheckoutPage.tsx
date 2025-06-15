@@ -369,16 +369,16 @@ const CheckOutPage = () => {
                   />
                 </svg>
                 <div className="">
-                  <h1 className="text-[#04082C] font-openSans text-[16px] font-[600] leading-[160%]">
+                  <h2 className="text-[#04082C] font-openSans text-[16px] font-[600] leading-[160%]">
                     {selectedPlan?.fleet} (
                     {selectedPlan?.annually ? "Annual" : "Monthly"})
-                  </h1>
+                  </h2>
                   <p className="text-[12px] font-openSans font-normal text-[#7d7d7d]">
                     Pricing plan
                   </p>
                 </div>
               </div>
-              <h1>
+              <h4>
                 <span className="text-[22px] font-bold text-[#04082C] font-openSans">
                   ${Math.floor(selectedPlan?.price ?? 0)}
                 </span>
@@ -386,7 +386,7 @@ const CheckOutPage = () => {
                   .{selectedPlan?.price?.toFixed(2).split(".")[1]} /
                   {selectedPlan?.annually ? "month" : "month"} per slot
                 </span>
-              </h1>
+              </h4>
             </div>
             {/* vehicle slots */}
             <div className="mt-[10px] flex-col md:flex-row flex md:justify-between rounded-md border border-[#F6F6F6] p-3 md:p-4">
@@ -405,24 +405,24 @@ const CheckOutPage = () => {
                 </svg>
 
                 <div className="">
-                  <h1 className="text-[#04082C] font-openSans text-[16px] font-[600] leading-[160%]">
+                  <h2 className="text-[#04082C] font-openSans text-[16px] font-[600] leading-[160%]">
                     Total Vehicle Slot
                     {/* (
                     {selectedPlan?.annually ? "Annually" : "Monthly"}) */}
-                  </h1>
+                  </h2>
                   <p className="text-[12px] font-openSans font-normal text-[#7d7d7d]">
                     Fleet Size
                   </p>
                 </div>
               </div>
-              <h1>
+              <h4>
                 <span className="text-[22px] font-bold text-[#04082C] font-openSans">
                   {selectedPlan?.slot}
                 </span>
                 {/* <span className="ml-1 text-[12px] font-normal text-[#999]">
                   slots
                 </span> */}
-              </h1>
+              </h4>
             </div>
           </div>
 

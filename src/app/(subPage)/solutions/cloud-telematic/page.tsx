@@ -89,9 +89,9 @@ const page = () => {
       {/* hero section end */}
       <section className="max-w-[1200px] mx-auto w-full mt-[60px] lg:mt-[100px] px-5">
         <div className="max-w-[840px] mx-auto w-full text-center">
-          <h1 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold text-center leading-[1.1] mb-[10px]">
+          <h2 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold text-center leading-[1.1] mb-[10px]">
             How Cloud Telematics Sets Us Apart with Innovative Fleet Solutions
-          </h1>
+          </h2>
           <p className="text-[#333] text-[16px] leading-6 font-openSans">
             Unlocking the power of real-time data, advanced insights, and
             seamless fleet management for unmatched efficiency and control
@@ -115,9 +115,9 @@ const page = () => {
                   <TickIcon />
                 </div>
                 <div>
-                  <h1 className="text-[18px] font-openSans font-bold text-[#333]">
+                  <h2 className="text-[18px] font-openSans font-bold text-[#333]">
                     {item.title}
-                  </h1>
+                  </h2>
                   <p className="text-[#7D7D7D] leading-6 font-normal font-openSans text-[14px] ">
                     {item.description}
                   </p>
@@ -129,9 +129,9 @@ const page = () => {
       </section>
       {/* why Cloud section */}
       <section className="max-w-[1200px] mx-auto w-full my-10 lg:my-[100px] px-5">
-        <h1 className="mb-[40px] lg:mb-[60px] text-center text-[#04082C] text-[28px] lg:text-[36px] font-bold">
+        <h2 className="mb-[40px] lg:mb-[60px] text-center text-[#04082C] text-[28px] lg:text-[36px] font-bold">
           Why Cloud Telematics is the Future
-        </h1>
+        </h2>
         <div className="lg:grid hidden grid-cols-1 lg:grid-cols-3 justify-items-center gap-[30px]">
           {WhyCloudData?.slice(0, 3).map((data, index) => (
             <FeatureCard

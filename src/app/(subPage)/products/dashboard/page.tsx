@@ -168,9 +168,9 @@ const page = () => {
       </section>
       {/* why fleet owner partner section*/}
       <section className="max-w-[1200px] mx-auto w-full mb-[60px] px-5">
-        <h1 className="mb-[40px] lg:mb-[60px] text-center max-w-[700px] w-full mx-auto text-[#04082C] text-[28px] lg:text-[36px] font-bold">
+        <h2 className="mb-[40px] lg:mb-[60px] text-center max-w-[700px] w-full mx-auto text-[#04082C] text-[28px] lg:text-[36px] font-bold">
           A Dashboard That Moves Business Forward
-        </h1>
+        </h2>
         <div className="lg:grid hidden grid-cols-1 lg:grid-cols-3 justify-items-center items-center gap-[30px]">
           {FleetsFit?.slice(0, 6).map((data, index) => (
             <FeatureCard

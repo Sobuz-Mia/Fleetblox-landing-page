@@ -37,46 +37,46 @@ const FeaturesComparison = () => {
           }}
           className="sticky top-[80px] lg:top-[120px] grid grid-cols-1 md:grid-cols-2 h-[60px] items-center bg-[#FAFAFF] rounded-lg z-10 shadow-sm overflow-hidden"
         >
-          <h1 className="hidden md:block text-[14px] font-[600] ml-5 text-[#333]">
+          <h3 className="hidden md:block text-[14px] font-[600] ml-5 text-[#333]">
             Usage
-          </h1>
+          </h3>
 
-          <h1 className="text-center mx-auto text-[14px] font-bold text-black/95">
+          <h3 className="text-center mx-auto text-[14px] font-bold text-black/95">
             Eagle eye fleet
-          </h1>
+          </h3>
           {/* Dynamic fleet column commented out - will be added back in the future */}
         </motion.div>
         <div className="sticky top-[58px] lg:top-[96px] left-0 w-full h-[24px] bg-white z-0"></div>
         {/* Scrollable content section */}
         <div ref={ref}>
           <div className="rounded-md px-5 pb-5 text-center md:text-left">
-            <h1 className="text-[18px] font-[700] text-[#7D7D7D] font-openSans">
+            <h3 className="text-[18px] font-[700] text-[#7D7D7D] font-openSans">
               Vehicles
-            </h1>
+            </h3>
           </div>
           {vehicleFeatures?.map((features, index: number) => (
             <FeaturesPermissionRow key={index} featuresPermissions={features} />
           ))}
           <div className="rounded-md px-5 py-5 mt-[30px] md:mt-0 md:py-4 text-center md:text-left">
-            <h1 className="text-[18px] font-[700] text-[#7D7D7D] font-openSans">
+            <h3 className="text-[18px] font-[700] text-[#7D7D7D] font-openSans">
               Fleet
-            </h1>
+            </h3>
           </div>
           {fleetFeatures?.map((features, index: number) => (
             <FeaturesPermissionRow key={index} featuresPermissions={features} />
           ))}
           <div className="rounded-md px-5 py-5 mt-[30px] md:mt-0 md:py-4 text-center md:text-left">
-            <h1 className="text-[18px] font-[700] text-[#7D7D7D] font-openSans">
+            <h3 className="text-[18px] font-[700] text-[#7D7D7D] font-openSans">
               Brand
-            </h1>
+            </h3>
           </div>
           {brandFeatures?.map((features, index: number) => (
             <FeaturesPermissionRow key={index} featuresPermissions={features} />
           ))}
           <div className="rounded-md px-5 py-5 mt-[30px] md:mt-0 md:py-4 text-center md:text-left">
-            <h1 className="text-[18px] font-[700] text-[#7D7D7D] font-openSans">
+            <h3 className="text-[18px] font-[700] text-[#7D7D7D] font-openSans">
               Team
-            </h1>
+            </h3>
           </div>
           {teamFeatures?.map((features, index: number) => (
             <FeaturesPermissionRow key={index} featuresPermissions={features} />
@@ -111,15 +111,14 @@ const FeaturesPermissionRow: React.FC<FeaturesPermissionRowComponentProps> = ({
   return (
     <div>
       <div
-        className={`w-full ${
-          featuresPermissions?.border ? "" : "border-b"
-        } flex flex-col md:grid md:grid-cols-2 border-[#e4e2e2] px-5 py-5`}
+        className={`w-full ${featuresPermissions?.border ? "" : "border-b"
+          } flex flex-col md:grid md:grid-cols-2 border-[#e4e2e2] px-5 py-5`}
       >
         {/* features title */}
         <div>
-          <h1 className="text-[14px] text-center md:text-left font-openSans font-[600] text-[#202020]">
+          <h3 className="text-[14px] text-center md:text-left font-openSans font-[600] text-[#202020]">
             {featuresPermissions?.title}
-          </h1>
+          </h3>
         </div>
 
         {/* Display only Eagle Eye Fleet (first permission item) */}
@@ -146,11 +145,11 @@ const FeaturesPermissionRow: React.FC<FeaturesPermissionRowComponentProps> = ({
           {featuresPermissions.permissions[0]?.message && (
             <div>
               <div className="flex items-center gap-[2px] text-[12px] font-medium leading-4 text-[#202020]">
-                <h1> {featuresPermissions.permissions[0]?.message}</h1>
-                <h1 className="text-[#999]">
+                <h4> {featuresPermissions.permissions[0]?.message}</h4>
+                <h4 className="text-[#999]">
                   {" "}
                   {featuresPermissions.permissions[0]?.plan}
-                </h1>
+                </h4>
               </div>
             </div>
           )}
@@ -178,11 +177,11 @@ const FeaturesPermissionRow: React.FC<FeaturesPermissionRowComponentProps> = ({
           )}
           {featuresPermissions.permissions[0]?.message && (
             <div className="flex items-center flex-col gap-[2px] text-[12px] font-medium leading-4 text-[#202020]">
-              <h1> {featuresPermissions.permissions[0]?.message}</h1>
-              <h1 className="text-[#999]">
+              <h4> {featuresPermissions.permissions[0]?.message}</h4>
+              <h4 className="text-[#999]">
                 {" "}
                 {featuresPermissions.permissions[0]?.plan}
-              </h1>
+              </h4>
             </div>
           )}
         </div>

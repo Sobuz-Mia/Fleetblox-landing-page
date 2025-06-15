@@ -91,9 +91,9 @@ const VirtualSlot = () => {
                 </div>
                 <div className="flex-1 flex flex-col gap-y-[5px] text-left p-5 -mt-16">
                   <Image src={item.icon} alt="icon" />
-                  <h1 className="text-[22px] text-left text-[#000E32] font-openSans font-bold ">
+                  <h2 className="text-[22px] text-left text-[#000E32] font-openSans font-bold ">
                     {item.title}
-                  </h1>
+                  </h2>
                   <p className="text-[14px] text-left font-openSans text-[#333] leading-[20px]">
                     {item.description}
                   </p>

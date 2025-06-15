@@ -47,9 +47,9 @@ const page = () => {
             <h3 className="text-[#0336BC] font-openSans font-bold text-[22px]">
               Remote Inspection
             </h3>
-            <h1 className="text-[#04082C] text-[36px] lg:text-[52px] font-bold leading-[1.1]">
+            <h2 className="text-[#04082C] text-[36px] lg:text-[52px] font-bold leading-[1.1]">
               Seamless Vehicle Inspections Linked to Trips
-            </h1>
+            </h2>
             <p className="text-[#333] text-[16px] leading-6 mt-[10px] lg:mt-4 mb-5 font-openSans">
               Fleetblox’s AI Remote Inspection feature provides smart, real-time
               vehicle inspections linked directly to trips. As vehicles depart

@@ -99,9 +99,9 @@ const EMobilityServices = () => {
             <h3 className="text-[#0336BC] font-openSans font-bold text-[22px] w-full">
               Fleetblox crew
             </h3>
-            <h1 className="text-[#04082C] text-[36px] lg:text-[50px] font-bold leading-[1.1] w-full">
+            <h2 className="text-[#04082C] text-[36px] lg:text-[50px] font-bold leading-[1.1] w-full">
               Assemble Your fleet coordinators
-            </h1>
+            </h2>
             <p className="text-[#333] text-[16px] leading-6 mt-[10px] lg:mt-4 mb-5 font-openSans">
               Fleetblox makes your dispersed team become a coordinated team —
               with intelligent task streams, real-time notifications, and
@@ -144,9 +144,9 @@ const EMobilityServices = () => {
 
       <section className=" mx-auto w-full mt-[60px] lg:mt-[100px] px-5">
         <div className="max-w-[840px] mx-auto w-full text-center">
-          <h1 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold text-center leading-[1.1] mb-[10px]">
+          <h2 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold text-center leading-[1.1] mb-[10px]">
             Electrify Smarter
-          </h1>
+          </h2>
           <p className="text-[#333] text-[16px] leading-6 font-openSans">
             Unify charging, battery health, and remote control across your
             entire EV fleet
@@ -229,9 +229,9 @@ const EMobilityServices = () => {
       {/* animations section with GSAP scrolling */}
       <section className="mx-auto py-20 h-full  mt-[60px] lg:mt-[100px] px-5">
         <div className="max-w-[840px] mx-auto w-full text-center">
-          <h1 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold text-center leading-[1.1] mb-[10px]">
+          <h2 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold text-center leading-[1.1] mb-[10px]">
             Remote Operations That Moves You Beyond
-          </h1>
+          </h2>
           <p className="text-[#333] text-[16px] leading-6 font-openSans">
             Enhance team connectivity and accelerate operations through
             real-time monitoring.
@@ -241,9 +241,9 @@ const EMobilityServices = () => {
       </section>
 
       <section className="max-w-[1200px] mx-auto w-full mb-[60px] px-5">
-        <h1 className="mb-[40px] lg:mb-[60px] text-center max-w-[700px] w-full mx-auto text-[#04082C] text-[28px] lg:text-[36px] font-bold">
+        <h2 className="mb-[40px] lg:mb-[60px] text-center max-w-[700px] w-full mx-auto text-[#04082C] text-[28px] lg:text-[36px] font-bold">
           A Dashboard That Moves Business Forward
-        </h1>
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center items-center lg:gap-[30px] gap-[20px]">
           {FleetsFit?.map((data, index) => (
             <FeatureCard
@@ -251,10 +251,9 @@ const EMobilityServices = () => {
               icon={<data.icon />}
               title={data.title}
               description={data.description}
-              className={`w-full h-[250px] ${
-                index === 8 &&
+              className={`w-full h-[250px] ${index === 8 &&
                 "md:col-span-2 lg:col-span-3 md:max-w-[380px] mx-auto "
-              }`}
+                }`}
             />
           ))}
         </div>

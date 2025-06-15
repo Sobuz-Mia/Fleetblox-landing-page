@@ -56,7 +56,7 @@ const NavbarMobileView = () => {
                 onClick={() => setIsProduct(!isProduct)}
                 className="flex justify-between items-center py-5  text-[#04082C] text-[18px] font-bold font-openSans px-5"
               >
-                <h1>Product</h1>
+                <h4>Product</h4>
                 {isProduct ? <TopArrow /> : <DownArrowNav />}
               </div>
               {isProduct && <ProductSubpage />}
@@ -67,7 +67,7 @@ const NavbarMobileView = () => {
                 onClick={() => setIsSolutions(!isSolutions)}
                 className="flex justify-between items-center py-5  text-[#04082C] text-[18px] font-bold font-openSans px-5"
               >
-                <h1>Solutions</h1>
+                <h4>Solutions</h4>
                 {isSolutions ? <TopArrow /> : <DownArrowNav />}
               </div>
               {isSolutions && <SolutionsSubpage />}
@@ -78,14 +78,14 @@ const NavbarMobileView = () => {
                 onClick={() => setIsResources(!isResources)}
                 className="flex justify-between items-center py-5  text-[#04082C] text-[18px] font-bold font-openSans px-5"
               >
-                <h1>Resources</h1>
+                <h4>Resources</h4>
                 {isResources ? <TopArrow /> : <DownArrowNav />}
               </div>
               {isResources && <ResourcesSubpage />}
             </div>
             <div className="flex justify-between items-center py-5 border-b text-[#04082C] text-[18px] font-bold font-openSans px-5">
               <Link href="/pricings">
-                <h1>Pricings</h1>
+                <h4>Pricings</h4>
               </Link>
             </div>
           </div>
