@@ -35,11 +35,7 @@ const VirtualSlot = () => {
               <p className="text-[22px] text-left md:text-center font-bold text-[#0336BC] mb-[10px]">
                 Turn Every Mile Into Momentum
               </p>
-              {/* <h1 className="z-10 text-[52px] text-[#000E32] font-bold leading-[1.1]">
-                Take <span className="text-[#0336BC]">Full Control</span> with
-                Virtual <br className="hidden md:block " />
-                Parking Slot Technology
-              </h1> */}
+
               <h3 className="z-10 text-[52px] text-[#000E32] font-bold leading-[1.1]">
                 Link . Optimize. Comply. Expand
               </h3>
@@ -71,11 +67,7 @@ const VirtualSlot = () => {
           <h3 className="z-10 text-[28px] text-center text-[#000E32] font-bold leading-[1.1]">
             Link . Optimize. Comply. Expand
           </h3>
-          {/* <h1 className="text-[28px] text-center mb-8 text-[#000E32] font-bold">
-            Take <span className="text-[#0336BC]">Full Control</span> with
-            Virtual <br className="hidden md:block " />
-            Parking Slot Technology
-          </h1> */}
+
           {full_control_with_virtual_slot_data.map((item) => {
             return (
               <section
