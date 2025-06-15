@@ -115,9 +115,9 @@ const page = () => {
                                     <TickIcon />
                                 </div>
                                 <div>
-                                    <h1 className="text-[18px] font-openSans font-bold text-[#333]">
+                                    <h2 className="text-[18px] font-openSans font-bold text-[#333]">
                                         {item.title}
-                                    </h1>
+                                    </h2>
                                     <p className="text-[#7D7D7D] leading-6 font-normal font-openSans text-[14px] ">
                                         {item.description}
                                     </p>

@@ -111,9 +111,9 @@ const page = () => {
       {/* hero section end */}
       <section className="max-w-[1200px] mx-auto w-full mt-[60px] lg:mt-[100px] px-5">
         <div className="max-w-[840px] mx-auto w-full text-center px-5">
-          <h1 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold text-center leading-[1.1] mb-[10px]">
+          <h2 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold text-center leading-[1.1] mb-[10px]">
             Compliance Made Simple for Smarter Fleets
-          </h1>
+          </h2>
           <p className="text-[#333] text-[16px] leading-6 font-openSans">
             Enjoy a cleaner, smarter fleet experience that keeps future problems
             out of the way.
@@ -222,9 +222,9 @@ const page = () => {
       </section>
 
       <section className="max-w-[1200px] mx-auto w-full mb-[60px] px-5">
-        <h1 className="mb-[40px] lg:mb-[60px] text-center max-w-[840px] w-full mx-auto text-[#04082C] text-[28px] lg:text-[36px] font-bold">
+        <h2 className="mb-[40px] lg:mb-[60px] text-center max-w-[840px] w-full mx-auto text-[#04082C] text-[28px] lg:text-[36px] font-bold">
           {`Fleet Check-In That Reduce Risk and Disputes`}
-        </h1>
+        </h2>
         <div className="lg:grid hidden grid-cols-1 lg:grid-cols-3 justify-items-center items-center gap-[30px]">
           {whyFleetManager?.slice(0, 3).map((data, index) => (
             <FeatureCard
@@ -232,7 +232,7 @@ const page = () => {
               icon={<data.icon />}
               title={data.title}
               description={data.description}
-              // className="lg:max-w-[380px] lg:w-full"
+            // className="lg:max-w-[380px] lg:w-full"
             />
           ))}
         </div>
@@ -243,9 +243,8 @@ const page = () => {
               icon={<data.icon />}
               title={data.title}
               description={data.description}
-              className={`w-full ${
-                index === 4 && "md:col-span-2 md:max-w-[380px] mx-auto"
-              }`}
+              className={`w-full ${index === 4 && "md:col-span-2 md:max-w-[380px] mx-auto"
+                }`}
             />
           ))}
         </div>

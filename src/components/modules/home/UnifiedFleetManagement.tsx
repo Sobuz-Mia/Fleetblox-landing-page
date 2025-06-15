@@ -68,9 +68,9 @@ const UnifiedFleetManagement = () => {
           <h2 className="text-[#0336BC] text-[22px] font-bold font-openSans mb-[10px] leading-[1.1]">
             Stay Audit-Ready
           </h2>
-          <h1 className="text-[#04082C] font-bold text-[36px] leading-[1.1] mb-5">
+          <h2 className="text-[#04082C] font-bold text-[36px] leading-[1.1] mb-5">
             Compliance, Handled Before It’s Due!
-          </h1>
+          </h2>
           <p className="text-[#333] mb-[30px] text-[16px] font-openSans leading-6">
             Fleetblox automate compliance by triggering intelligent alerts for
             document renewals, expirations, and maintenance schedules with the
@@ -138,10 +138,10 @@ const UnifiedFleetManagement = () => {
           <h2 className="text-[#0336BC] text-[22px] font-bold font-openSans mb-[10px] leading-[1.1]">
             Unlock Higher ROI
           </h2>
-          <h1 className="text-[#04082C] font-bold text-[36px] leading-[1.1] mb-5">
+          <h2 className="text-[#04082C] font-bold text-[36px] leading-[1.1] mb-5">
             Spot Inefficiencies & Maximize your{" "}
             <span className="text-[#0336BC]">ROI</span>
-          </h1>
+          </h2>
           <p className="text-[#333] mb-[30px] text-[16px] font-openSans leading-6">
             Fleetblox provides you with complete command over operational
             expenses by allowing you to define customizable budgets set per

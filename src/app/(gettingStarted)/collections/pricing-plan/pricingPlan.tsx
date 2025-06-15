@@ -122,9 +122,9 @@ const PricingPlan = () => {
     <main className="min-h-screen pb-10 mb-10">
       <section className="container mx-auto  flex flex-col justify-center items-center">
         <Container>
-          <h1 className="text-center text-[22px] md:text-[22px] text-[#04082C] font-bold">
+          <h2 className="text-center text-[22px] md:text-[22px] text-[#04082C] font-bold">
             Set Fleet Size & Choose a Plan
-          </h1>
+          </h2>
           <p className="text-center font-[400] text-[14px] md:text-[16px] text-[#7d7d7d] my-3 font-openSans">
             Slide the bar to see prices for different vehicle slot ranges. Enjoy
             transparent pricing with no hidden fees
@@ -162,9 +162,9 @@ const PricingPlan = () => {
               <CardContent>
                 {plan?.name === "Smart fleet" ? (
                   <div className="">
-                    <h1 className="text-[32px] font-semibold text-[#999]">
+                    <h2 className="text-[32px] font-semibold text-[#999]">
                       Custom
-                    </h1>
+                    </h2>
                   </div>
                 ) : (
                   <div>
@@ -225,9 +225,9 @@ const PricingPlan = () => {
                 )}{" "}
                 {plan?.name !== "Eagle eye fleet" && (
                   <div className="flex items-center mt-5 justify-between">
-                    <h1 className="text-[14px] font-openSans leading-[155%] font-normal text-[#999]">
+                    <h2 className="text-[14px] font-openSans leading-[155%] font-normal text-[#999]">
                       All features in Eagle eye fleet
-                    </h1>
+                    </h2>
                   </div>
                 )}
                 {/* <p className="text-sm text-[#999]">{plan.discount}</p> */}
