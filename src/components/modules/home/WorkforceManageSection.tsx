@@ -11,9 +11,9 @@ const WorkforceManageSection = () => {
           <h3 className="text-[18px] text-[#0336BC] font-bold font-openSans mb-[10px]">
             Simplify Complex Operations
           </h3>
-          <h1 className="text-[28px] md:text-[36px] font-bold text-[#04082C] leading-[1.1] text-left  lg:text-center font-montserrat ">
+          <h3 className="text-[28px] md:text-[36px] font-bold text-[#04082C] leading-[1.1] text-left  lg:text-center font-montserrat ">
             Manage Smarter Move Faster
-          </h1>
+          </h3>
           <p className="my-5 text-[#333] font-openSans leading-6 text-[14px] md:text-[16px] mt-[10px] text-left lg:text-center">
             Streamlines your day-to-day operations with intelligent automation
             and dynamic workflows.

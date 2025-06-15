@@ -16,9 +16,9 @@ const Footer = () => {
           {/* animation */}
           <div className="relative flex flex-col items-center justify-center py-[120px]">
             <div className="max-w-[860px] w-full text-center z-[200] flex flex-col mt-[20px] lg:mt-[30px]">
-              <h1 className="z-50 font-montserrat text-[28px] lg:text-[52px] font-bold mb-[32px] lg:mb-0 leading-[1.1]">
+              <h3 className="z-50 font-montserrat text-[28px] lg:text-[52px] font-bold mb-[32px] lg:mb-0 leading-[1.1]">
                 Fleet Management Has Never Been This Easy
-              </h1>
+              </h3>
               <div className="md:flex hidden justify-center z-[100] lg:mt-8">
                 <Link
                   aria-label="Get started with FleetBlox"

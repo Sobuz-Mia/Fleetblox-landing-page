@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    "AI-powered fleet management solution connecting to 43+ car makes across North America and Europe. Optimize efficiency, reduce costs, and streamline operations with FleetBlox.",
+    "AI-powered fleet management solution connecting to 43+ car makes across North America and Europe.",
   keywords: [
     "#fleetmanagement",
     "#advancedfleetmanagement",

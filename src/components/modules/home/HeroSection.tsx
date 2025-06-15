@@ -21,9 +21,9 @@ const HeroSection = () => {
           <p className="text-[18px] md:text-[28px] lg:text-[28px] text-left md:text-center font-bold text-[#0336BC] mb-[5px]">
             Fleet Moderniser Platform
           </p>
-          <h1 className="text-[36px] md:text-[52px] lg:text-[52px] text-left md:text-center font-bold text-[#04082C] leading-[1.1] font-montserrat">
+          <h3 className="text-[36px] md:text-[52px] lg:text-[52px] text-left md:text-center font-bold text-[#04082C] leading-[1.1] font-montserrat">
             Empower Your Fleet Ecosystem Potentials
-          </h1>
+          </h3>
           <p className="text-left md:text-center font-openSans text-[#333] leading-6 text-[16px] mt-[10px]">
             Fleetblox is a modern, AI-based platform designed to empower the
             next generation of fleet management—built to adapt the demands of
@@ -116,9 +116,9 @@ const HeroSection = () => {
                 className="flex items-center justify-center gap-5"
               >
                 <div className="text-center">
-                  <h1 className="text-gray-900 font-bold text-[18px] font-openSans">
+                  <h4 className="text-gray-900 font-bold text-[18px] font-openSans">
                     {feature.title}
-                  </h1>
+                  </h4>
                   <p className="text-gray-700 text-[14px] leading-5 font-openSans">
                     {feature.description}
                   </p>

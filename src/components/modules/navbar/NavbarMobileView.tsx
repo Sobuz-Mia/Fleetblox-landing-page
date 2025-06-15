@@ -26,9 +26,9 @@ const NavbarMobileView = () => {
       {isDemoRequest ? (
         // Demo request content
         <div className="h-full bg-white z-50 px-5 flex flex-col">
-          <h1 className="text-[#04082C] text-center text-[28px] font-bold mt-10">
+          <h3 className="text-[#04082C] text-center text-[28px] font-bold mt-10">
             Demo Coming Soon
-          </h1>
+          </h3>
           <p className="text-[#333] font-openSans text-[14px] leading-5 text-center mt-[10px] mb-[30px]">
             {`Hey there! We're committed to delivering an exceptional demo
             experience. Our team is fine-tuning every detail to ensure a

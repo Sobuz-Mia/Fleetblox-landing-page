@@ -34,9 +34,9 @@ const FAQSection = () => {
         </Accordion.Root>
         <div className="mt-4 ml-[18px]">
           <Link href="/contact">
-            <h1 className="text-[#2D65F2] font-openSans text-[16px] font-bold">
+            <h3 className="text-[#2D65F2] font-openSans text-[16px] font-bold">
               Have More Questions?
-            </h1>
+            </h3>
           </Link>
         </div>
       </div>

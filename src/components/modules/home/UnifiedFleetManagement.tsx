@@ -12,9 +12,9 @@ const UnifiedFleetManagement = () => {
           <h2 className="text-[#0336BC] text-[22px] font-bold font-openSans mb-[10px] leading-[1.1]">
             Unified Fleet Management
           </h2>
-          <h1 className="text-[#04082C] font-bold text-[36px] leading-[1.1] mb-5">
+          <h3 className="text-[#04082C] font-bold text-[36px] leading-[1.1] mb-5">
             Sync Your Assets Across Your Business locations
-          </h1>
+          </h3>
           <p className="text-[#333] mb-[30px] text-[16px] font-openSans leading-6">
             Unify your complete fleet operation with one single integrated
             platform. Fleetblox connects every aspect of your operation,

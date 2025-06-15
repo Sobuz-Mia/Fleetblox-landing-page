@@ -60,9 +60,9 @@ const AuditReadySection = () => {
           <div className="flex justify-center mb-4">
             <DigitalDocument />
           </div>
-          <h1 className="text-[#04082C] font-openSans text-[22px] font-bold mb-[10px]">
+          <h2 className="text-[#04082C] font-openSans text-[22px] font-bold mb-[10px]">
             Digital Documents
-          </h1>
+          </h2>
           <p className="text-[14px] text-[#333] font-openSans leading-5 pr-10">
             Store, manage, and retrieve insurance, inspection, and registration
             files in one place

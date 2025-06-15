@@ -12,10 +12,10 @@ const ConnectRemotelySection = () => {
               <h3 className="text-[#0336BC] text-[22px] font-openSans font-bold mb-[10px]">
                 Instant Visibility
               </h3>
-              <h1 className="text-[28px] md:text-[36px] font-bold text-[#04082C] leading-tight font-montserrat">
+              <h3 className="text-[28px] md:text-[36px] font-bold text-[#04082C] leading-tight font-montserrat">
                 Deploy Your Fleet in Minutes <br className="hidden md:block" />{" "}
                 From Your Desk
-              </h1>
+              </h3>
               <p className="my-4  text-[#333] leading-6 font-openSans text-[14px] md:text-[16px]">
                 Fleetblox is built to simplify-what used to take weeks, by
                 providing instant fleet activation, and real-time visibility for

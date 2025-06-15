@@ -17,9 +17,9 @@ const BlogSection = () => {
               Latest Blogs
             </h3>
             {/* left side */}
-            <h1 className="font-montserrat text-[36px] font-bold leading-normal text-[#04082C]">
+            <h3 className="font-montserrat text-[36px] font-bold leading-normal text-[#04082C]">
               How to Build Your Perfect Fleet in 2025 (10-Step Guide)
-            </h1>
+            </h3>
             <h5 className="font-openSans text-[16px] font-semibold leading-[24px] text-[#7D7D7D] my-4">
               12 May 2024
             </h5>
