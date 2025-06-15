@@ -84,9 +84,9 @@ const page = () => {
       {/* hero section end */}
       <section className="max-w-[1200px] mx-auto w-full mt-[60px] lg:mt-[100px] px-5">
         <div className="max-w-[840px] mx-auto w-full text-center">
-          <h1 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold text-center leading-[1.1] mb-[10px]">
+          <h2 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold text-center leading-[1.1] mb-[10px]">
             Smarter Fleet Access, Stronger Security
-          </h1>
+          </h2>
           <p className="text-[#333] text-[16px] leading-6 font-openSans">
             Unleashing unmatched security, total control, and a revolutionary
             next-gen fleet management experience designed for the future of
@@ -111,9 +111,9 @@ const page = () => {
                   <TickIcon />
                 </div>
                 <div>
-                  <h1 className="text-[18px] font-openSans font-bold text-[#333]">
+                  <h2 className="text-[18px] font-openSans font-bold text-[#333]">
                     {item.title}
-                  </h1>
+                  </h2>
                   <p className="text-[#7D7D7D] leading-6 font-normal font-openSans text-[14px] ">
                     {item.description}
                   </p>
@@ -125,9 +125,9 @@ const page = () => {
       </section>
       {/* why Cloud section */}
       <section className="max-w-[1100px] mx-auto w-full my-10 lg:my-[100px] px-5">
-        <h1 className="mb-[40px] max-w-[840px] w-full mx-auto lg:mb-[60px] text-center text-[#04082C] text-[28px] lg:text-[36px] font-bold">
+        <h2 className="mb-[40px] max-w-[840px] w-full mx-auto lg:mb-[60px] text-center text-[#04082C] text-[28px] lg:text-[36px] font-bold">
           Why Remote Access with a Digital Key Matters
-        </h1>
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 justify-items-center lg:gap-[30px] gap-[20px]">
           {WhyRemoteAccessData?.map((data, index) => (
             <FeatureCard

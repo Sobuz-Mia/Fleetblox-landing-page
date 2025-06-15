@@ -100,9 +100,9 @@ const EMobilityServices = () => {
 
             <section className=" mx-auto w-full mt-[60px] lg:mt-[100px] px-5">
                 <div className="max-w-[840px] mx-auto w-full text-center">
-                    <h1 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold text-center leading-[1.1] mb-[10px]">
+                    <h2 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold text-center leading-[1.1] mb-[10px]">
                         Electrify Smarter
-                    </h1>
+                    </h2>
                     <p className="text-[#333] text-[16px] leading-6 font-openSans">
                         Unify charging, battery health, and remote control across your entire EV fleet
                     </p>

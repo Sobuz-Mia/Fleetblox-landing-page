@@ -9,14 +9,14 @@ const ResourcesSubpage = () => {
         </p>
         <div className="flex flex-col lg:space-y-[8px] space-y-[5px]">
           <Link href="/blog">
-            <h1 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#0336BC]">
+            <h2 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#0336BC]">
               Blogs
-            </h1>
+            </h2>
           </Link>
           <Link href="/under-development">
-            <h1 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#0336BC]">
+            <h2 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#0336BC]">
               Next Updates
-            </h1>
+            </h2>
           </Link>
         </div>
       </div>
@@ -27,14 +27,14 @@ const ResourcesSubpage = () => {
         </p>
         <div className="flex flex-col lg:space-y-[8px] space-y-[5px]">
           <Link href="/contact">
-            <h1 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#0336BC]">
+            <h2 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#0336BC]">
               Contact
-            </h1>
+            </h2>
           </Link>
           <Link href="/about-us">
-            <h1 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#0336BC]">
+            <h2 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#0336BC]">
               About
-            </h1>
+            </h2>
           </Link>
         </div>
       </div>

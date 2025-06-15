@@ -40,10 +40,10 @@ const FleetBloxVerseSection = () => {
               className={`sticky top-[100px] w-full h-screen flex flex-col items-start justify-center pb-[10px] `}
             >
               <div className="-mt-[240px]">
-                <h1 className="text-[28px] md:text-[36px] text-center md:text-left text-[#000E32] font-bold leading-[1.1]">
+                <h3 className="text-[28px] md:text-[36px] text-center md:text-left text-[#000E32] font-bold leading-[1.1]">
                   Fleetblox <span className="text-[#0336BC]">Versus</span>{" "}
                   <br /> Traditional Solutions
-                </h1>
+                </h3>
                 <p className="text-[#000E32] text-center md:text-left font-openSans font-normal text-base mt-4">
                   Discover how Fleetblox revolutionizes fleet management,
                   outperforming traditional solutions in efficiency, innovation,

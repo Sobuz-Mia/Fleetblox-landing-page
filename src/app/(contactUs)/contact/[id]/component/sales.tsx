@@ -105,9 +105,9 @@ const ContactUs = () => {
       <section className="flex justify-between  flex-col-reverse lg:flex-row max-w-[1120px] mx-auto w-full py-5 lg:py-[100px] gap-10 lg:gap-[100px] items-start px-5">
         <div className="flex lg:flex-col justify-between flex-col-reverse gap-10 lg:gap-[60px] w-full lg:w-1/2 ">
           <div>
-            <h1 className="text-[#04082C] text-[18px] font-openSans font-bold mb-[8px]">
+            <h2 className="text-[#04082C] text-[18px] font-openSans font-bold mb-[8px]">
               Connect with Fleetblox
-            </h1>
+            </h2>
             <p className="text-[#7D7D7D] text-[16px] font-openSans leading-[24px] mb-[5px]">
               Fleetblox is an AI-powered, cloud-based fleet connectivity
               solution that reduces costs, minimizes downtime, and
@@ -119,9 +119,9 @@ const ContactUs = () => {
             </h1> */}
           </div>
           <div>
-            <h1 className="text-[#04082C] text-[18px] font-openSans font-bold mb-[8px]">
+            <h3 className="text-[#04082C] text-[18px] font-openSans font-bold mb-[8px]">
               Headquarter
-            </h1>
+            </h3>
             <p className="text-[#7D7D7D] text-[14px] font-openSans leading-[24px] ">
               {" "}
               45 Oconnell St,
@@ -141,9 +141,8 @@ const ContactUs = () => {
                 value={formData.fleetSize}
                 onChange={handleChange}
                 required
-                className={`p-4 text-[#7D7D7D] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 bg-white  w-full appearance-none ${
-                  formData.fleetSize ? "text-[#333333]" : "text-[#7D7D7D]"
-                }`}
+                className={`p-4 text-[#7D7D7D] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 bg-white  w-full appearance-none ${formData.fleetSize ? "text-[#333333]" : "text-[#7D7D7D]"
+                  }`}
               >
                 {fleetSizeOptions.map((option) => (
                   <option
@@ -185,9 +184,8 @@ const ContactUs = () => {
                 maxLength={20}
                 value={formData.firstName}
                 onChange={handleChange}
-                className={`p-4 text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${
-                  formData.firstName ? "has-value" : ""
-                }`}
+                className={`p-4 text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${formData.firstName ? "has-value" : ""
+                  }`}
               />
               <span className="absolute left-0 top-0 text-[#333] font-openSans text-[14px] leading-5 tracking-wide peer-focus:text-[#2D65F2] pointer-events-none duration-200 peer-focus:text-sm peer-focus:-translate-y-[27px] bg-white ml-4 peer-[.has-value]:text-[#2D65F2] peer-[.has-value]:-translate-y-[27px] peer-[.has-value]:text-sm">
                 First name
@@ -205,9 +203,8 @@ const ContactUs = () => {
                 maxLength={20}
                 value={formData.lastName}
                 onChange={handleChange}
-                className={`p-4 text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${
-                  formData.lastName ? "has-value" : ""
-                }`}
+                className={`p-4 text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${formData.lastName ? "has-value" : ""
+                  }`}
               />
               <span className="absolute left-0 top-0 text-[#333] font-openSans text-[14px] leading-5 tracking-wide peer-focus:text-[#2D65F2] pointer-events-none duration-200 peer-focus:text-sm peer-focus:-translate-y-[27px] bg-white ml-4 peer-[.has-value]:text-[#2D65F2] peer-[.has-value]:-translate-y-[27px] peer-[.has-value]:text-sm">
                 Last name
@@ -226,9 +223,8 @@ const ContactUs = () => {
                 maxLength={40}
                 value={formData.companyName}
                 onChange={handleChange}
-                className={`p-4 text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${
-                  formData.companyName ? "has-value" : ""
-                }`}
+                className={`p-4 text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${formData.companyName ? "has-value" : ""
+                  }`}
               />
               <span className="absolute left-0 top-0 text-[#333] font-openSans text-[14px] leading-5 tracking-wide peer-focus:text-[#2D65F2] pointer-events-none duration-200 peer-focus:text-sm peer-focus:-translate-y-[27px] bg-white ml-4 peer-[.has-value]:text-[#2D65F2] peer-[.has-value]:-translate-y-[27px] peer-[.has-value]:text-sm">
                 Company Name
@@ -247,20 +243,17 @@ const ContactUs = () => {
                 pattern="[0-9]*"
                 value={formData.phoneNumber}
                 onChange={handleChange}
-                className={`py-4  ${
-                  formData.countryCode && formData.countryCode.length === 4
-                    ? "px-[110px]"
-                    : "px-[100px]"
-                } text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${
-                  formData.phoneNumber ? "has-value" : ""
-                }`}
+                className={`py-4  ${formData.countryCode && formData.countryCode.length === 4
+                  ? "px-[110px]"
+                  : "px-[100px]"
+                  } text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${formData.phoneNumber ? "has-value" : ""
+                  }`}
               />
               <span
-                className={`absolute  ${
-                  formData.countryCode && formData.countryCode.length === 4
-                    ? "left-[90px]"
-                    : "left-[85px]"
-                }  top-0 text-[#333] font-openSans text-[14px] leading-5 tracking-wide peer-focus:text-[#2D65F2] pointer-events-none duration-200 peer-focus:text-sm peer-focus:-translate-y-[27px] bg-white ml-4 peer-[.has-value]:text-[#2D65F2] peer-[.has-value]:-translate-y-[27px] peer-[.has-value]:text-sm`}
+                className={`absolute  ${formData.countryCode && formData.countryCode.length === 4
+                  ? "left-[90px]"
+                  : "left-[85px]"
+                  }  top-0 text-[#333] font-openSans text-[14px] leading-5 tracking-wide peer-focus:text-[#2D65F2] pointer-events-none duration-200 peer-focus:text-sm peer-focus:-translate-y-[27px] bg-white ml-4 peer-[.has-value]:text-[#2D65F2] peer-[.has-value]:-translate-y-[27px] peer-[.has-value]:text-sm`}
               >
                 Phone number
               </span>
@@ -283,9 +276,8 @@ const ContactUs = () => {
                 autoComplete="off"
                 value={formData.companyEmail}
                 onChange={handleChange}
-                className={`p-4 text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${
-                  formData.companyEmail ? "has-value" : ""
-                }`}
+                className={`p-4 text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${formData.companyEmail ? "has-value" : ""
+                  }`}
               />
               <span className="absolute left-0 top-0 text-[#333] font-openSans text-[14px] leading-5 tracking-wide peer-focus:text-[#2D65F2] pointer-events-none duration-200 peer-focus:text-sm peer-focus:-translate-y-[27px] bg-white ml-4 peer-[.has-value]:text-[#2D65F2] peer-[.has-value]:-translate-y-[27px] peer-[.has-value]:text-sm">
                 Company Email Address
@@ -302,9 +294,8 @@ const ContactUs = () => {
                 aria-describedby="Enter your message"
                 value={formData.additionalMessage}
                 onChange={handleChange}
-                className={`p-4 text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${
-                  formData.additionalMessage ? "has-value" : ""
-                }`}
+                className={`p-4 text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${formData.additionalMessage ? "has-value" : ""
+                  }`}
               />
               <span className="absolute left-0 bottom-[50px] text-[#333] font-openSans text-[14px] leading-5 tracking-wide peer-focus:text-[#2D65F2] pointer-events-none duration-200 peer-focus:text-sm peer-focus:-translate-y-[58px] bg-white ml-4 peer-[.has-value]:text-[#2D65F2] peer-[.has-value]:-translate-y-[58px] peer-[.has-value]:text-sm">
                 Additional Message

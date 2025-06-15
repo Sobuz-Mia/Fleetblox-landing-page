@@ -78,14 +78,14 @@ const GlobeSection = ({ title, description }: GlobeSectionProps) => {
     <section className="pt-[100px]">
       <div className="z-[100] mx-auto max-w-[1300px] lg:w-[1000px] 2xl:w-[1300px] space-y-[20px] overflow-hidden">
         <div className="relative z-[1000] px-5 max-w-[842px] w-full mx-auto text-center">
-          <h1 className="font-montserrat text-[#04082C] text-[28px] md:text-[36px] font-bold  text-center leading-[1.1]">
+          <h3 className="font-montserrat text-[#04082C] text-[28px] md:text-[36px] font-bold  text-center leading-[1.1]">
             {title.split("<br />").map((line, index) => (
               <React.Fragment key={index}>
                 {line}
                 {index !== title.split("<br />").length - 1 && <br />}
               </React.Fragment>
             ))}
-          </h1>
+          </h3>
           <p className="mt-[10px] text-[#333] text-[16px] font-normal leading-6 font-openSans mb-5">
             {description}
           </p>

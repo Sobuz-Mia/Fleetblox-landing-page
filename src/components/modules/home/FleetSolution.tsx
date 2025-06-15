@@ -39,9 +39,9 @@ const StatsSection = () => {
         {statsData.map((stat, index) => (
           <div key={index} className="text-center flex flex-col items-center">
             <stat.icon />
-            <h1 className="text-[#04082C] text-[36px] md:text-[52px] font-bold">
+            <h3 className="text-[#04082C] text-[36px] md:text-[52px] font-bold">
               <AnimatedCounter end={stat.value} isString={stat.suffix} />
-            </h1>
+            </h3>
             <p className="text-[#333] font-openSans text-[16px] font-semibold leading-6">
               {stat.description}
             </p>

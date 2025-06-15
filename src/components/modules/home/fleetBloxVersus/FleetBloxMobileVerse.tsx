@@ -21,10 +21,10 @@ const FleetBloxMobileVerse = () => {
     <div className="relative bg-[#FAFAFF]">
       {/* <div className="max-h-[200px] lg:h-[300px] md:h-[400px] filter blur-[200px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20  rounded-[520px] w-[200px] bg-[#FBEECA]  absolute "></div> */}
       <div className="px-5 md:px-[100px] pt-10 block lg:hidden">
-        <h1 className="text-[28px] text-center  text-[#000E32] font-bold leading-[1.1]">
+        <h3 className="text-[28px] text-center  text-[#000E32] font-bold leading-[1.1]">
           Fleetblox <span className="text-[#0336BC]">Versus </span> <br />{" "}
           Traditional Solutions
-        </h1>
+        </h3>
         <p className="text-center text-[#333] text-[14px] leading-5 font-openSans mt-[10px] mb-10">
           Discover how Fleetblox revolutionizes fleet management, outperforming
           traditional solutions in efficiency, innovation, and performance

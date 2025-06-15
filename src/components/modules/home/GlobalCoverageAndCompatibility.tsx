@@ -78,18 +78,18 @@ const GlobalCoverageAndCompatibility = () => {
       <section>
         <div className="z-[100] mx-auto max-w-[1300px] lg:w-[1000px] 2xl:w-[1300px] space-y-[20px] overflow-hidden">
           <div className="relative z-[1000] space-y-[20px] px-5">
-            <h1 className="font-montserrat text-[#04082C] text-[28px] md:text-[36px] font-bold max-w-[800px] w-full mx-auto text-center">
+            <h3 className="font-montserrat text-[#04082C] text-[28px] md:text-[36px] font-bold max-w-[800px] w-full mx-auto text-center">
               Global Coverage and Compatibility- Expands Your Fleet’s Reach
-            </h1>
+            </h3>
             <div className="z-[100] flex items-center justify-center">
               {cars.map((car, index) => (
                 <div
                   key={index}
                   className="flex w-[247px] flex-col items-center justify-between border-r-[2px] border-[#FBEECA] last:border-r-0"
                 >
-                  <h1 className="text-[#0336BC] text-[22px] font-openSans font-bold">
+                  <h2 className="text-[#0336BC] text-[22px] font-openSans font-bold">
                     {car.value}
-                  </h1>
+                  </h2>
                   <p className="text-[#7D7D7D] font-semibold text-[14px] font-openSans leading-5">
                     {car.title}
                   </p>
@@ -130,9 +130,9 @@ const GlobalCoverageAndCompatibility = () => {
         {/* Diverse and compatibility section */}
         <div className="mt-[60px] flex flex-col md:flex-row justify-items-center items-center gap-5 max-w-[1200px] w-full mx-auto">
           <div className="px-10 text-center md:border-r-[2px] border-[#FBEECA]">
-            <h1 className="text-[#04082C] font-openSans text-[22px] font-bold">
+            <h2 className="text-[#04082C] font-openSans text-[22px] font-bold">
               Diverse Market Adaptability
-            </h1>
+            </h2>
             <p className="text-[14px] text-[#333] font-openSans leading-5">
               Whether in North America, Europe, or beyond, our platform supports
               a wide range of fleet types and sizes, meeting local standards
@@ -162,9 +162,9 @@ const GlobalCoverageAndCompatibility = () => {
             />
           </svg>
           <div className="px-10 text-center">
-            <h1 className="text-[#04082C] font-openSans text-[22px] font-bold">
+            <h2 className="text-[#04082C] font-openSans text-[22px] font-bold">
               EV Fleet compatibility
-            </h1>
+            </h2>
             <p className="text-[14px] text-[#333] font-openSans leading-5">
               Seamlessly manage your electric vehicles with tools designed to
               support eco-friendly fleets. Optimize EV performance for greater

@@ -182,9 +182,9 @@ const PricingPlan = () => {
           <div className="max-w-[1200px] w-full mx-auto px-5 pt-[80px] pb-[80px] md:pb-[60px] flex flex-col md:flex-row gap-[60px] items-center relative">
             <div className="absolute top-[9vh] right-[30px] hidden md:block z-[10] rounded-[24px] bg-[#000] opacity-[0.07] blur-[20px] h-[360px] w-[340px] "></div>
             <div className="">
-              <h1 className="text-[#0336BC] font-openSans text-[18px] lg:text-[22px] font-bold">
+              <h3 className="text-[#0336BC] font-openSans text-[18px] lg:text-[22px] font-bold">
                 {starterPlan[0]?.name}
-              </h1>
+              </h3>
               <h2 className="text-[#04082C] font-bold text-[36px] lg:text-[52px] leading-[1.1] my-[10px]">
                 {starterPlan[0]?.subHeading}
               </h2>
@@ -310,9 +310,9 @@ const PricingPlan = () => {
               <CardContent>
                 {plan?.name === "Smart fleet" ? (
                   <div className="">
-                    <h1 className="text-[32px] font-semibold text-[#999]">
+                    <h3 className="text-[32px] font-semibold text-[#999]">
                       Custom
-                    </h1>
+                    </h3>
                   </div>
                 ) : (
                   <div>
@@ -344,10 +344,10 @@ const PricingPlan = () => {
                           {slotCount >= 200
                             ? "30%"
                             : slotCount >= 150
-                            ? "18%"
-                            : slotCount >= 100
-                            ? "10%"
-                            : "5%"}{" "}
+                              ? "18%"
+                              : slotCount >= 100
+                                ? "10%"
+                                : "5%"}{" "}
                           discount {billAnnually && "+"}
                         </p>
                       )}
@@ -363,17 +363,16 @@ const PricingPlan = () => {
 
                 {plan?.name !== "Eagle eye fleet" && (
                   <div className="flex items-center mt-5 justify-between">
-                    <h1 className="text-[14px] font-openSans leading-[155%] font-normal text-[#999]">
+                    <h3 className="text-[14px] font-openSans leading-[155%] font-normal text-[#999]">
                       All features in Eagle eye fleet
-                    </h1>
+                    </h3>
                   </div>
                 )}
 
                 {/* <p className="text-sm text-[#999]">{plan.discount}</p> */}
                 <ul
-                  className={`${
-                    plan?.name !== "Eagle eye fleet" ? "mt-2 " : "mt-5"
-                  } space-y-2`}
+                  className={`${plan?.name !== "Eagle eye fleet" ? "mt-2 " : "mt-5"
+                    } space-y-2`}
                 >
                   {plan?.description.map((feature: any, i: number) => (
                     <li key={i} className="flex items-start gap-[10px]">
