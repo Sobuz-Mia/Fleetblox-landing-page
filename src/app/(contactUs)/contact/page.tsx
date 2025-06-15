@@ -1,4 +1,5 @@
-import ContactUs from "./component/ContactUs";
+import FAQSection from "@/components/modules/home/FAQSection";
+import Cards from "./component/Cards";
 
 export const metadata = {
   title: "Contact Us | FleetBlox",
@@ -67,7 +68,8 @@ export const metadata = {
 const ContactPage = () => {
   return (
     <div>
-      <ContactUs />
+      <Cards />
+      <FAQSection />
     </div>
   );
 };
