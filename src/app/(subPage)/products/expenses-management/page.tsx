@@ -219,9 +219,9 @@ const page = () => {
       </section>
       {/* why fleet owner partner section*/}
       <section className="max-w-[1200px] mx-auto w-full mb-[60px] px-5">
-        <h1 className="mb-[40px] lg:mb-[60px] text-center max-w-[700px] w-full mx-auto text-[#04082C] text-[28px] lg:text-[36px] font-bold">
+        <h2 className="mb-[40px] lg:mb-[60px] text-center max-w-[700px] w-full mx-auto text-[#04082C] text-[28px] lg:text-[36px] font-bold">
           Maximize Fleet ROI with Real-Time Budget Control
-        </h1>
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center items-center lg:gap-[30px] gap-[20px]">
           {FleetsFit?.map((data, index) => (
             <FeatureCard
@@ -229,10 +229,9 @@ const page = () => {
               icon={<data.icon />}
               title={data.title}
               description={data.description}
-              className={`w-full h-[210px] ${
-                index === 6 &&
+              className={`w-full h-[210px] ${index === 6 &&
                 "md:col-span-2 lg:col-span-3 md:max-w-[380px] mx-auto "
-              }`}
+                }`}
             />
           ))}
         </div>

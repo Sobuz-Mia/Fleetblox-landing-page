@@ -127,7 +127,7 @@ const page = () => {
               Fast Issue Resolution
             </h4>
           </div>
-          <div className="p-10 text-center flex flex-col items-center rounded-[16px] border border-[#DFDFDF]">
+          <div className="py-10 px-12 text-center flex flex-col items-center rounded-[16px] border border-[#DFDFDF]">
             <ReduceManualWork />
             <h4 className="text-[#333] text-[22px] font-bold font-openSans mt-4">
               Reduces Manual Work
@@ -179,7 +179,7 @@ const page = () => {
             insights without the noise or confusion.
           </p>
         </div>
-        <div className="max-w-[1200px] hidden md:block w-full mx-auto mt-[60px] px-5">
+        <div className="max-w-[860px] hidden md:block w-full mx-auto mt-[60px] px-5">
           <Image
             src="/images/products/Ask-Bee-Get-Answer.svg"
             alt="Remote Scalability Hero"
@@ -203,9 +203,9 @@ const page = () => {
 
       {/* why fleet owner partner section*/}
       <section className="max-w-[1200px] mx-auto w-full mb-[60px] px-5">
-        <h1 className="mb-[40px] lg:mb-[60px] text-center max-w-[840px] w-full mx-auto text-[#04082C] text-[28px] lg:text-[36px] font-bold">
+        <h2 className="mb-[40px] lg:mb-[60px] text-center max-w-[840px] w-full mx-auto text-[#04082C] text-[28px] lg:text-[36px] font-bold">
           Why Fleet Teams Choose Bee
-        </h1>
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center items-center lg:gap-[30px] gap-[20px]">
           {whyFleetTeamChoose?.map((data, index) => (
             <FeatureCard
@@ -213,10 +213,9 @@ const page = () => {
               icon={<data.icon />}
               title={data.title}
               description={data.description}
-              className={`w-full h-[210px] ${
-                index === 6 &&
+              className={`w-full h-[210px] ${index === 6 &&
                 "md:col-span-2 lg:col-span-3 md:max-w-[380px] mx-auto "
-              }`}
+                }`}
             />
           ))}
         </div>

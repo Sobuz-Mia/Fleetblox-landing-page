@@ -87,9 +87,9 @@ const GlobalCoverageAndCompatibility = () => {
                   key={index}
                   className="flex w-[247px] flex-col items-center justify-between border-r-[2px] border-[#FBEECA] last:border-r-0"
                 >
-                  <h1 className="text-[#0336BC] text-[22px] font-openSans font-bold">
+                  <h2 className="text-[#0336BC] text-[22px] font-openSans font-bold">
                     {car.value}
-                  </h1>
+                  </h2>
                   <p className="text-[#7D7D7D] font-semibold text-[14px] font-openSans leading-5">
                     {car.title}
                   </p>
@@ -130,9 +130,9 @@ const GlobalCoverageAndCompatibility = () => {
         {/* Diverse and compatibility section */}
         <div className="mt-[60px] flex flex-col md:flex-row justify-items-center items-center gap-5 max-w-[1200px] w-full mx-auto">
           <div className="px-10 text-center md:border-r-[2px] border-[#FBEECA]">
-            <h1 className="text-[#04082C] font-openSans text-[22px] font-bold">
+            <h2 className="text-[#04082C] font-openSans text-[22px] font-bold">
               Diverse Market Adaptability
-            </h1>
+            </h2>
             <p className="text-[14px] text-[#333] font-openSans leading-5">
               Whether in North America, Europe, or beyond, our platform supports
               a wide range of fleet types and sizes, meeting local standards
@@ -162,9 +162,9 @@ const GlobalCoverageAndCompatibility = () => {
             />
           </svg>
           <div className="px-10 text-center">
-            <h1 className="text-[#04082C] font-openSans text-[22px] font-bold">
+            <h2 className="text-[#04082C] font-openSans text-[22px] font-bold">
               EV Fleet compatibility
-            </h1>
+            </h2>
             <p className="text-[14px] text-[#333] font-openSans leading-5">
               Seamlessly manage your electric vehicles with tools designed to
               support eco-friendly fleets. Optimize EV performance for greater

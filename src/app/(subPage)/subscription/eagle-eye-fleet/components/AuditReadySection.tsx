@@ -87,9 +87,9 @@ const AuditReadySection = () => {
           <div className="flex justify-center mb-4">
             <AiAssistance />
           </div>
-          <h1 className="text-[#04082C] font-openSans text-[22px] font-bold mb-[10px]">
+          <h2 className="text-[#04082C] font-openSans text-[22px] font-bold mb-[10px]">
             Bee –AI assistant
-          </h1>
+          </h2>
           <p className="text-[14px] text-[#7D7D7D] font-openSans leading-5">
             Your intelligent AI chatbot assistant for real-time operational
             support and compliance guidance

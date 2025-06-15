@@ -20,48 +20,59 @@ import my_fleet_3 from "../assets/my-fleet-3.png";
 const cards = [
   {
     number: 1,
-    title: "Hardware Installation",
-    fleetbloxText: "No hardware needed; fully cloud-based",
-    traditionalText: "Requires costly, time-consuming hardware setups",
+    title: "Setup Time",
+    fleetbloxText:
+      "Minutes, not months — Activate vehicles instantly through OEM sync and smart onboarding.",
+    traditionalText:
+      "Requires physical hardware, onsite configuration, and weeks or months to deploy.",
   },
   {
     number: 2,
-    title: "Setup Time",
-    fleetbloxText: "Minutes; intuitive, hassle-free setup",
-    traditionalText: "Takes weeks or months for installation and configuration",
+    title: "Hardware Dependency",
+    fleetbloxText:
+      "100% cloud-native — no physical devices or black boxes needed.",
+    traditionalText:
+      "Requires OBD devices, tracking hardware, and vendor-specific installations.",
   },
   {
     number: 3,
-    title: "Scalability",
-    fleetbloxText: "Unlimited; scale up or down instantly without added costs",
-    traditionalText: "Limited by physical hardware and infrastructure",
+    title: "EV & Multi-Powertrain Compatibility",
+    fleetbloxText:
+      "Fully supports gas, diesel, hybrid, and EVs — all managed in one ecosystem.",
+    traditionalText:
+      "Often lacks EV readiness, requiring third-party tools or separate platforms.",
   },
   {
     number: 4,
-    title: "Expenses",
-    fleetbloxText: "Low, subscription-based model",
-    traditionalText: "High upfront investment with ongoing maintenance fees",
+    title: "Operational Visibility",
+    fleetbloxText:
+      "Live vehicle profile with real-time telematics, health, compliance, and location data.",
+    traditionalText:
+      "Visibility is fragmented, delayed, or requires manual reports and phone calls.",
   },
   {
     number: 5,
-    title: "Real-Time Data Access",
+    title: "Cost of Ownership",
     fleetbloxText:
-      "Comprehensive, real-time access across all fleet operations",
-    traditionalText: "Often delayed or partial due to outdated systems",
+      "No hardware, no IT burden, lower long-term costs with automated scaling.",
+    traditionalText:
+      "Hidden costs from devices, support, installation, and integration fees.",
   },
   {
     number: 6,
-    title: "EV Compatibility",
-    fleetbloxText: "Seamless EV fleet connectivity and  management",
+    title: "Scalability",
+    fleetbloxText:
+      "Launch new sites and onboard vehicles remotely without physical presence.",
     traditionalText:
-      "Requires separate, expensive integrations with limited functionality",
+      "Scaling requires logistics teams, hardware shipment, local IT, and time investment.",
   },
   {
     number: 7,
-    title: "Global Compatibility",
+    title: "Automation & Intelligence",
     fleetbloxText:
-      "Operates in 20+ countries; supports 25+ Makes and 500+ wide range of vehicles models, including EVs",
-    traditionalText: "Limited makes and models compatibility",
+      "Smart alerts, AI predictions, automated workflows and asset grouping by location.",
+    traditionalText:
+      "Heavy reliance on manual entries, phone updates, and reactive decision-making.",
   },
 ];
 

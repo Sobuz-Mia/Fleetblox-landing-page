@@ -13,9 +13,9 @@ const BlogSection = () => {
             Latest Blogs
           </h2>
           <div className="hidden lg:block w-1/2">
-            <h1 className="font-openSans text-[22px] font-bold text-[#0336BC]">
+            <h3 className="font-openSans text-[22px] font-bold text-[#0336BC]">
               Latest Blogs
-            </h1>
+            </h3>
             {/* left side */}
             <h1 className="font-montserrat text-[36px] font-bold leading-normal text-[#04082C]">
               How to Build Your Perfect Fleet in 2025 (10-Step Guide)
@@ -40,9 +40,9 @@ const BlogSection = () => {
                   className="flex gap-x-[60px] border-b py-4 border-[#DFDFDF]"
                 >
                   <div className="flex-1 space-y-[10px]  hover:cursor-pointer">
-                    <h1 className="font-openSans text-[18px] font-bold text-[#04082C] transition-all duration-500 hover:text-[#7D7D7D]">
+                    <h2 className="font-openSans text-[18px] font-bold text-[#04082C] transition-all duration-500 hover:text-[#7D7D7D]">
                       {item.title}
-                    </h1>
+                    </h2>
                     <h5 className="font-openSans xl:text-[14px] 2.5xl:text-[16px] font-semibold leading-[24px] text-[#7D7D7D]">
                       {item.date}
                     </h5>
