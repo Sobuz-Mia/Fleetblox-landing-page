@@ -6,18 +6,35 @@ import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import Link from "next/link";
 
 const HeroSection = () => {
+  const features = [
+    {
+      title: "Intelligent Onboarding",
+      description:
+        "Integrate your fleet in minutes with zero hassle and minimal setup.",
+    },
+    {
+      title: "Instant Control",
+      description:
+        "Manage every vehicle and operation remotely from one unified platform.",
+    },
+    {
+      title: "Remote Operations",
+      description:
+        "Run and scale your fleet across locations without being on-site.",
+    },
+  ];
   const benefits = [
     { text: "Cloud-Native Architecture" },
     { text: "Multi-Powertrain Integration" },
-    { text: "Multi-Location Fleet Control" },
-    { text: "AI-Powered Intelligence" },
+    { text: "Geo-based Fleet Control" },
+    { text: "AI-Powered Workflows" },
   ];
   return (
     <section className="bg-[#FAFAFF] flex flex-col justify-center items-center z-50 overflow-hidden">
       {/* Main content section */}
-      <div className="mt-[120px] pb-3 flex flex-col items-center justify-center">
+      <div className="mt-[120px] pb-3 flex flex-col items-center justify-center px-5">
         {/* Text content remains the same */}
-        <div className="max-w-[840px] w-full mx-auto text-center flex flex-col items-start md:items-center px-5">
+        <div className="max-w-[840px] w-full mx-auto text-center flex flex-col items-start md:items-center ">
           <p className="text-[18px] md:text-[28px] lg:text-[28px] text-left md:text-center font-bold text-[#0336BC] mb-[5px]">
             Fleet Moderniser Platform
           </p>
@@ -30,7 +47,7 @@ const HeroSection = () => {
             today’s automotive technology
           </p>
         </div>
-        <div className="flex flex-col lg:flex-row md:justify-center md:items-center gap-4 mt-5 pb-[30px] font-openSans w-full px-5">
+        <div className="flex flex-col lg:flex-row md:justify-center md:items-center gap-4 mt-5 pb-[30px] font-openSans w-full ">
           {benefits?.map((benefit, index) => (
             <div
               key={index}
@@ -51,7 +68,7 @@ const HeroSection = () => {
         </Link>
         <div className="w-full">
           <Link aria-label="Get started with FleetBlox" href="/getting-started">
-            <button className="px-5 py-3 rounded-md w-full text-center bg-[#2D65F2] font-openSans text-[14px] font-bold text-[#fff] flex justify-center md:hidden">
+            <button className=" py-3 rounded-md w-full text-center bg-[#2D65F2] font-openSans text-[14px] font-bold text-[#fff] flex justify-center md:hidden">
               Start Today
             </button>
           </Link>
@@ -94,23 +111,7 @@ const HeroSection = () => {
 
           {/* Features section remains unchanged */}
           <div className="absolute -bottom-[10px] z-50 left-1/2 max-w-[880px] w-full gap-5 -translate-x-1/2 py-[30px] grid grid-cols-1 lg:grid-cols-3 text-center items-start justify-items-center">
-            {[
-              {
-                title: "Remote Integration",
-                description:
-                  "Gain instant visibility by seamlessly linking all your fleet assets across your entire ecosystem",
-              },
-              {
-                title: "Remote Operations",
-                description:
-                  "Control your entire fleet ecosystem leveraging AI across every asset and location",
-              },
-              {
-                title: "Remote Scalability",
-                description:
-                  "Deploy and manage new branches without physical presence or operational delay.",
-              },
-            ].map((feature, index, arr) => (
+            {features?.map((feature, index, arr) => (
               <div
                 key={feature.title}
                 className="flex items-center justify-center gap-5"
@@ -169,23 +170,7 @@ const HeroSection = () => {
 
         {/* Features section with proper spacing */}
         <div className="px-4 pt-10 pb-6 space-y-6">
-          {[
-            {
-              title: "Instant Onboarding",
-              description:
-                "Integrate your fleet in minutes with no hassle and minimal setup.",
-            },
-            {
-              title: "Unified Ecosystem",
-              description:
-                "Unify all fleet locations and operations into a single platform",
-            },
-            {
-              title: "Remote Scalability",
-              description:
-                "Scale your fleet remotely with ease, without limits.",
-            },
-          ].map((feature, index) => (
+          {features?.map((feature, index) => (
             <div
               key={index}
               className="flex flex-col pb-4 items-center last:border-0"

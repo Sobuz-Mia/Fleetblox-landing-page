@@ -17,7 +17,7 @@ export const platformFeatures: NavbarItem[] = [
     href: "/products/fleet-integration",
   },
   {
-    title: "Fleet Expansion",
+    title: "Fleet Locations ",
     description: "Multiple locations and management ",
     href: "/products/fleet-expansion",
   },
@@ -28,7 +28,7 @@ export const platformFeatures: NavbarItem[] = [
     isUpcoming: true,
   },
   {
-    title: "Maintenance & Diagnostics",
+    title: "Maintenance Management",
     description: "Fleet’s performance and guidelines",
     href: "/products/maintenance-diagnostics",
     isUpcoming: true,
