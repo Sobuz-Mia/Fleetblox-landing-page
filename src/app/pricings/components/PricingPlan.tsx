@@ -2,15 +2,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { Button } from "@/components/ui/button";
+
 import { FaCircleCheck } from "react-icons/fa6";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Container from "@/components/ui/Container";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import FAQSection from "@/components/modules/home/FAQSection";
+
 import AccurateSlider from "./AccurateSlider";
 import Link from "next/link";
 import VehicleIcon from "@/components/icons/VehicleIcon";
@@ -21,7 +20,15 @@ import axios from "axios";
 import { TStaterPlanData } from "@/types/types";
 import LocationIcon from "@/components/icons/LocationIcon";
 import config from "@/utils/config";
-import FeaturesComparison from "./FeaturesComparison";
+import dynamic from "next/dynamic";
+
+const FeaturesComparisonDynamic = dynamic(() => import("./FeaturesComparison"), {
+  ssr: false,
+});
+
+const FAQSection = dynamic(() => import("@/components/modules/home/FAQSection"), {
+  ssr: false,
+});
 
 type TSelectedPlan = {
   price: number;
@@ -425,7 +432,7 @@ const PricingPlan = () => {
       {/* connect vehicle section end */}
 
       {/* ***************Full features comparison************ */}
-      <FeaturesComparison />
+      <FeaturesComparisonDynamic />
       <FAQSection />
     </main>
   );

@@ -1,9 +1,8 @@
-import React from 'react'
-import AboutUsPage from './AboutUs'
+import { AboutLazyComponent } from "./lazy"
 
 const page = () => {
     return (
-        <AboutUsPage />
+        <AboutLazyComponent />
     )
 }
 
