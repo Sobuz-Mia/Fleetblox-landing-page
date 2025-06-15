@@ -126,7 +126,7 @@ const Onboarding = () => {
         </div>
       </section>
       {/* how to connect and connect step started */}
-      <section className="bg-[#FAFAFF] py-[100px]">
+      <section className="bg-[#FAFAFF] py-[100px] px-5">
         <h3 className="text-[#04082C] text-[36px] font-bold leading-[1.1] text-center ">
           Get Total Fleet Visibility in 3 Simple Steps
         </h3>
@@ -136,7 +136,7 @@ const Onboarding = () => {
         <div className="max-w-[1200px] w-full mx-auto mt-[60px] mb-10 px-5">
           <FleetConnectionStep />
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-3 relative max-w-[1200px] mx-auto w-full gap-5 justify-items-center items-center px-5">
+        <div className="grid grid-cols-1 lg:grid-cols-3 relative max-w-[1200px] mx-auto w-full gap-5 justify-items-center items-center ">
           <div className="absolute hidden lg:block left-1/2 top-1/2 mt-[90px] max-w-[664px] max-h-[664px] h-full w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FBEECA] opacity-40 blur-[200px]"></div>
           <StepCard
             title="Set Your Location"

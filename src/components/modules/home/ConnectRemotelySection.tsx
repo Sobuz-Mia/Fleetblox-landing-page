@@ -10,7 +10,7 @@ const ConnectRemotelySection = () => {
             {/* Connect Remotely Section */}
             <section className="flex flex-col text-left md:text-center md:items-center items-start">
               <h3 className="text-[#0336BC] text-[22px] font-openSans font-bold mb-[10px]">
-                Plug-and-go live
+                Instant Visibility
               </h3>
               <h1 className="text-[28px] md:text-[36px] font-bold text-[#04082C] leading-tight font-montserrat">
                 Deploy Your Fleet in Minutes <br className="hidden md:block" />{" "}

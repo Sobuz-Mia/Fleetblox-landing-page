@@ -88,15 +88,6 @@ const ContactUs = () => {
 
   return (
     <div>
-      <section className="w-full bg-[#FAFAFF] pt-[140px] pb-[60px] flex flex-col justify-center items-center">
-        <h1 className="text-center text-[32px] md:text-[52px] text-[#04082C] font-bold">
-          Contact Us
-        </h1>
-        <p className="text-center font-[400] text-[14px] md:text-[16px] text-[#333] mt-[10px] font-openSans leading-6">
-          {` Feel free to reach out to us with a message, and we'll get back to you
-          promptly.`}
-        </p>
-      </section>
       <section className="flex justify-between  flex-col-reverse lg:flex-row max-w-[1120px] mx-auto w-full py-5 lg:py-[100px] gap-10 lg:gap-[100px] items-start px-5">
         <div className="flex lg:flex-col justify-between flex-col-reverse gap-10 lg:gap-[60px] w-full lg:w-1/2 ">
           <div>

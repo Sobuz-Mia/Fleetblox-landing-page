@@ -78,8 +78,20 @@ const Footer = () => {
                   Download Fleetblox Apps
                 </h2>
                 <div className="flex gap-[10px]">
-                  <AppleStore />
-                  <GoogleStore />
+                  <Link
+                    href={
+                      "https://apps.apple.com/us/app/fleetblox-crew/id6742507808"
+                    }
+                  >
+                    <AppleStore />
+                  </Link>
+                  <Link
+                    href={
+                      "https://play.google.com/store/apps/details?id=com.fleetblox.employee_app"
+                    }
+                  >
+                    <GoogleStore />
+                  </Link>
                 </div>
               </div>
             </div>
@@ -145,10 +157,6 @@ const Footer = () => {
                     AI Assistant
                   </h5>
                 </Link>
-
-                {/* <div className="mt-[10px] text-white text-[14px] font-openSans leading-5 font-semibold">
-                  <button className="pt-2">View All Features</button>
-                </div> */}
               </div>
               {/* solutions */}
               <div className=" text-[14px] leading-5 ">
@@ -335,8 +343,20 @@ const Footer = () => {
               Download Fleetblox Apps
             </h2>
             <div className="flex gap-[10px] justify-center">
-              <AppleStore />
-              <GoogleStoreMobile />
+              <Link
+                href={
+                  "https://apps.apple.com/us/app/fleetblox-crew/id6742507808"
+                }
+              >
+                <AppleStore />
+              </Link>
+              <Link
+                href={
+                  "https://play.google.com/store/apps/details?id=com.fleetblox.employee_app"
+                }
+              >
+                <GoogleStoreMobile />
+              </Link>
             </div>
           </div>
           <div className="flex items-center flex-col lg:flex-row justify-between pb-[40px] mt-10">
