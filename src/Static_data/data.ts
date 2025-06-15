@@ -132,19 +132,24 @@ const cars = [
 const blogs_data = [
   {
     title:
-      "Elevating Fleet Performance: The Cutting-Edge Technology of FleetBlox",
-    date: "03 May 2024",
+      "How to Build a Winning Fleet Safety Program in 2025 - Fleetblox Blo...",
+    date: "12 May 2025",
     image: blog_image_1,
+    link: "https://fleetblox.site/2024/05/26/how-to-build-a-winning-fleet-safety",
   },
   {
-    title: "How Reputation Management Helps Improve Brand Perception",
+    title:
+      "Proactive Maintenance and Diagnostics for Smarter Fleet Operations ...",
     date: "17 Jan 2024",
     image: blog_image_3,
+    link: "https://fleetblox.site/2024/05/24/maintenance-and-diagnostics",
   },
   {
-    title: "What Is Product Distribution? How To Choose a Partner",
+    title:
+      "Fleet Maintenance Management: Solving Today’s Challenges with Sma...",
     date: "23 Nov 2023",
     image: blog_image_2,
+    link: "https://fleetblox.site/2024/05/29/fleet-maintenance-management-solving/",
   },
 ];
 const faqData = {

@@ -56,7 +56,7 @@ const AuditReadySection = () => {
         priority
       />
       <div className="mt-5 lg:mt-[60px] flex flex-col md:flex-row justify-items-center items-center gap-5 max-w-[900px] w-full mx-auto px-5">
-        <div className="text-center md:border-r-[2px] border-[#FBEECA]">
+        <div className="text-center ">
           <div className="flex justify-center mb-4">
             <DigitalDocument />
           </div>
@@ -68,6 +68,7 @@ const AuditReadySection = () => {
             files in one place
           </p>
         </div>
+        <div className="border-[#FBEECA] border-[1px] hidden md:block h-[64px]"></div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="35"

@@ -17,11 +17,20 @@ const BlogSection = () => {
               Latest Blogs
             </h3>
             {/* left side */}
+<<<<<<< HEAD
+            <Link href="https://fleetblox.site/2024/05/26/smart-alerts-fleetbloxs-cloudte-chnology">
+              <h1 className="font-montserrat text-[36px] font-bold leading-normal md:leading-[1.1] text-[#04082C] hover:text-opacity-70">
+                {`Smart Alerts: How Fleetblox's Eagle Eye Technology Makes Your
+              Fleet...`}
+              </h1>
+            </Link>
+=======
             <h3 className="font-montserrat text-[36px] font-bold leading-normal text-[#04082C]">
               How to Build Your Perfect Fleet in 2025 (10-Step Guide)
             </h3>
+>>>>>>> 11c8d2053f09186f6f06e3d45a35f22c4c40f4d3
             <h5 className="font-openSans text-[16px] font-semibold leading-[24px] text-[#7D7D7D] my-4">
-              12 May 2024
+              12 Jun 2025
             </h5>
           </div>
           <div className="hidden lg:flex  flex-col items-center lg:items-start lg:flex-row justify-between gap-x-[40px]">
@@ -40,18 +49,26 @@ const BlogSection = () => {
                   className="flex gap-x-[60px] border-b py-4 border-[#DFDFDF]"
                 >
                   <div className="flex-1 space-y-[10px]  hover:cursor-pointer">
+<<<<<<< HEAD
+                    <Link href={item.link}>
+                      <h1 className="font-openSans text-[18px] font-bold text-[#04082C] transition-all duration-500 hover:text-[#7D7D7D]">
+                        {item.title}
+                      </h1>
+                    </Link>
+=======
                     <h2 className="font-openSans text-[18px] font-bold text-[#04082C] transition-all duration-500 hover:text-[#7D7D7D]">
                       {item.title}
                     </h2>
+>>>>>>> 11c8d2053f09186f6f06e3d45a35f22c4c40f4d3
                     <h5 className="font-openSans xl:text-[14px] 2.5xl:text-[16px] font-semibold leading-[24px] text-[#7D7D7D]">
                       {item.date}
                     </h5>
                   </div>
-                  <div className="overflow-hidden rounded-md ">
+                  <div className="overflow-hidden rounded-md w-[133px] h-[100px]">
                     <Image
                       src={item.image}
                       alt="image"
-                      className="  transition-all duration-500 hover:scale-110"
+                      className="transition-all duration-500 hover:scale-110"
                     />
                   </div>
                 </div>
@@ -94,11 +111,13 @@ const BlogSection = () => {
                   />
                 </div>
                 <div className="p-4 flex flex-col justify-between flex-1">
-                  <h3 className="font-openSans text-[18px] font-bold text-[#333] line-clamp-2 h-[54px]">
-                    How to Build Your Perfect Fleet in 2025 (10-Step Guide)
-                  </h3>
+                  <Link href="https://fleetblox.site/2024/05/26/smart-alerts-fleetbloxs-cloudte-chnology">
+                    <h3 className="font-openSans text-[18px] font-bold text-[#333] line-clamp-2 h-[54px]">
+                      {`Smart Alerts: How Fleetblox's Eagle Eye Technology Makes Your Fleet...`}
+                    </h3>
+                  </Link>
                   <p className="font-openSans text-[14px] font-semibold text-[#7D7D7D] mt-2">
-                    12 May 2024
+                    12 Jun 2025
                   </p>
                 </div>
               </div>
@@ -118,9 +137,11 @@ const BlogSection = () => {
                     />
                   </div>
                   <div className="p-4 flex flex-col justify-between flex-1">
-                    <h3 className="font-openSans text-[18px] font-bold text-[#333] line-clamp-2 h-[54px]">
-                      {blog.title}
-                    </h3>
+                    <Link href={blog.link}>
+                      <h3 className="font-openSans text-[18px] font-bold text-[#333] line-clamp-2 h-[54px]">
+                        {blog.title}
+                      </h3>
+                    </Link>
                     <p className="font-openSans text-[14px] font-semibold text-[#7D7D7D] mt-2">
                       {blog.date}
                     </p>
