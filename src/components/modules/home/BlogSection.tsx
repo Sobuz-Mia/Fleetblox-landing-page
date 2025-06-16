@@ -48,9 +48,9 @@ const BlogSection = () => {
                 >
                   <div className="flex-1 space-y-[10px]  hover:cursor-pointer">
                     <Link href={item.link}>
-                      <h1 className="font-openSans text-[18px] font-bold text-[#04082C] transition-all duration-500 hover:text-[#7D7D7D]">
+                      <h2 className="font-openSans text-[18px] font-bold text-[#04082C] transition-all duration-500 hover:text-[#7D7D7D]">
                         {item.title}
-                      </h1>
+                      </h2>
                     </Link>
                     <div className="flex items-center gap-[5px]">
                       <CircleUser color="#7D7D7D" />

@@ -1,13 +1,13 @@
-import React from "react";
-import PricingPlan from "./components/PricingPlan";
+
 import Navbar from "@/components/ui/shared/Navbar";
 import Footer from "@/components/ui/shared/Footer";
+import { PricingPageDynamic } from "./lazy";
 
 const Price = () => {
   return (
     <>
       <Navbar />
-      <PricingPlan />
+      <PricingPageDynamic />
       <Footer />
     </>
   );

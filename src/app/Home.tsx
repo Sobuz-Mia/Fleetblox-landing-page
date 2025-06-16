@@ -87,37 +87,5 @@ export default function Home() {
     </div>
   );
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("country");
-      localStorage.removeItem("countries");
-      localStorage.removeItem("selectedPlan");
-      localStorage.removeItem("brands");
-      localStorage.removeItem("brandCarList");
-      localStorage.removeItem("brandModels");
-      localStorage.removeItem("VINS");
-      localStorage.removeItem("VINS_RESULT");
-      localStorage.removeItem("compatibility");
-      localStorage.removeItem("selectedCountries");
-    }
-  }, []);
 
-  return (
-    <div>
-      <Navbar />
-      <HeroSection />
-      <FleetSolution />
-      <ConnectRemotelySection />
-      <VirtualSlot />
-      <UnifiedFleetManagement />
-      <WorkforceManageSection />
-      <FleetBloxVerseSection />
-      <AiSupportSection />
-      <GlobalCoverageAndCompatibility />
-      <SlideShowSection />
-      <BlogSection />
-      <FAQSection />
-      <Footer />
-    </div>
-  );
 }
