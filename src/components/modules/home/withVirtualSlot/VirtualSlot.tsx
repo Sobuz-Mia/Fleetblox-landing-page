@@ -106,7 +106,10 @@ const VirtualSlot = () => {
                 <div className="absolute top-[15vh] sm:top-[10vh] z-[200] max-w-[600px] w-full mx-auto h-full">
                   <section
                     key={item?.id}
-                    className="relative bg-white h-[540px] xs:h-[700px]  w-full  rounded-[16px]  gap-5 "
+                    className="relative bg-white h-[540px] xs:h-[700px]  w-full  rounded-[16px]  gap-5  "
+                    style={{
+                      boxShadow: "0px 4px 12px 0px rgba(0, 0, 0, 0.14)",
+                    }}
                   >
                     <div className="overflow-hidden w-full rounded-t-[16px]">
                       <Image

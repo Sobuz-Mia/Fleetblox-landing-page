@@ -80,7 +80,7 @@ export default function Home() {
       <FleetBloxVerseSection />
       <AiSupportSection />
       <GlobalCoverageAndCompatibility />
-      <SlideShowSection />
+      {/* <SlideShowSection /> */}
       <BlogSection />
       <FAQSection />
       <Footer />
