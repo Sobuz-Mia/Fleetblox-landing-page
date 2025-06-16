@@ -327,7 +327,7 @@ const Footer = () => {
                 <h5 className=" font-openSans text-[#DFDFDF] text-[12px] leading-normal mb-[10px] ">
                   Resources
                 </h5>
-                <Link href="/under-development">
+                <Link href="/blogs">
                   <h5 className=" font-openSans py-[2px] mb-[5px]">Blogs</h5>
                 </Link>
                 <Link href="/under-development">
@@ -362,8 +362,12 @@ const Footer = () => {
           <div className="flex items-center flex-col lg:flex-row justify-between pb-[40px] mt-10">
             <div className="flex md:space-x-[20px] space-y-[10px] md:space-y-0 items-center justify-center flex-col md:flex-row">
               <div className="flex cursor-pointer items-center gap-[10px]">
-                <FacebookIcon />
-                <LinkdinIcon />
+                <Link href="https://www.facebook.com/profile.php?id=61571801825472&mibextid=ZbWKwL">
+                  <FacebookIcon />
+                </Link>
+                <Link href="https://www.linkedin.com/company/fleetblox">
+                  <LinkdinIcon />
+                </Link>
                 {/* <InstagramIcon />
             <XIcon /> */}
               </div>

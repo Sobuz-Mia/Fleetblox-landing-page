@@ -35,10 +35,10 @@ const GlobalCoverageAndCompatibility = dynamic(
   () => import("@/components/modules/home/GlobalCoverageAndCompatibility"),
   { ssr: true }
 );
-const SlideShowSection = dynamic(
-  () => import("@/components/modules/home/SlideShowSection"),
-  { ssr: true }
-);
+// const SlideShowSection = dynamic(
+//   () => import("@/components/modules/home/SlideShowSection"),
+//   { ssr: true }
+// );
 const BlogSection = dynamic(
   () => import("@/components/modules/home/BlogSection"),
   { ssr: true }
@@ -80,12 +80,10 @@ export default function Home() {
       <FleetBloxVerseSection />
       <AiSupportSection />
       <GlobalCoverageAndCompatibility />
-      <SlideShowSection />
+      {/* <SlideShowSection /> */}
       <BlogSection />
       <FAQSection />
       <Footer />
     </div>
   );
-
-
 }

@@ -4,6 +4,7 @@ import { blogs_data } from "@/Static_data/data";
 import Container from "@/components/ui/Container";
 import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import Link from "next/link";
+import { CircleUser } from "lucide-react";
 const BlogSection = () => {
   return (
     <div className="bg-[#FAFAFF]">
@@ -23,9 +24,12 @@ const BlogSection = () => {
               Fleet...`}
               </h1>
             </Link>
-            <h5 className="font-openSans text-[16px] font-semibold leading-[24px] text-[#7D7D7D] my-4">
-              12 Jun 2025
-            </h5>
+            <div className="flex items-center gap-[5px]">
+              <CircleUser color="#7D7D7D" />
+              <h5 className="font-openSans text-[16px] font-semibold leading-[24px] text-[#7D7D7D] my-4">
+                fleetbloxAdmin
+              </h5>
+            </div>
           </div>
           <div className="hidden lg:flex  flex-col items-center lg:items-start lg:flex-row justify-between gap-x-[40px]">
             <div className="w-1/2 overflow-hidden rounded-md">
@@ -48,9 +52,13 @@ const BlogSection = () => {
                         {item.title}
                       </h2>
                     </Link>
-                    <h5 className="font-openSans xl:text-[14px] 2.5xl:text-[16px] font-semibold leading-[24px] text-[#7D7D7D]">
-                      {item.date}
-                    </h5>
+                    <div className="flex items-center gap-[5px]">
+                      <CircleUser color="#7D7D7D" />
+                      <h5 className="font-openSans xl:text-[14px] 2.5xl:text-[16px] font-semibold leading-[24px] text-[#7D7D7D]">
+                        {/* {item.date} */}
+                        fleetbloxAdmin
+                      </h5>
+                    </div>
                   </div>
                   <div className="overflow-hidden rounded-md w-[133px] h-[100px]">
                     <Image
@@ -104,9 +112,12 @@ const BlogSection = () => {
                       {`Smart Alerts: How Fleetblox's Eagle Eye Technology Makes Your Fleet...`}
                     </h3>
                   </Link>
-                  <p className="font-openSans text-[14px] font-semibold text-[#7D7D7D] mt-2">
-                    12 Jun 2025
-                  </p>
+                  <div className="flex items-center gap-[5px]">
+                    <CircleUser color="#7D7D7D" />
+                    <p className="font-openSans text-[14px] font-semibold text-[#7D7D7D]">
+                      fleetbloxAdmin
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -130,9 +141,12 @@ const BlogSection = () => {
                         {blog.title}
                       </h3>
                     </Link>
-                    <p className="font-openSans text-[14px] font-semibold text-[#7D7D7D] mt-2">
-                      {blog.date}
-                    </p>
+                    <div className="flex items-center gap-[5px]">
+                      <CircleUser color="#7D7D7D" />
+                      <p className="font-openSans text-[14px] font-semibold text-[#7D7D7D]">
+                        fleetbloxAdmin
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
