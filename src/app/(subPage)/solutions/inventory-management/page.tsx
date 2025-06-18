@@ -88,7 +88,7 @@ const page = () => {
       </section>
 
       {/* Key Benefits */}
-      <section className="max-w-[1200px] mx-auto w-full my-[60px] px-5">
+      <section className="max-w-[1200px] mx-auto w-full my-[100px] px-5">
         <h2 className="mb-[40px] lg:mb-[60px] text-center text-[#04082C] text-[28px] lg:text-[36px] font-bold">
           Key Benefits
         </h2>
@@ -106,20 +106,87 @@ const page = () => {
       {/* why Key Benefits end */}
 
       {/* glove section start */}
-      <section>
-        <GlobeSection
-          title="Start Your Fleet Remote Diagnosing Today"
-          extraButton={
-            <div className="flex items-center gap-[10px] justify-items-center">
-              <button className="bg-white rounded-[6px] px-5 py-3 text-[#2D65F2] font-openSans text-[16px] font-bold border border-[#B8CBFC]">
-                Schedule A Demo
-              </button>
-              <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
-                Get The Product Sheet
-              </button>
-            </div>
-          }
-        />
+      <section className="relative pt-10">
+        {/* rainbow background image behind cards */}
+        <div className="absolute inset-0 flex justify-center items-start z-0">
+          <Image
+            src="/images/solutions/rainbow-sky.svg"
+            alt="AI assistant for fleet optimization"
+            width={512}
+            height={256}
+            className="object-contain mb-20"
+          />
+        </div>
+
+        {/* cards container */}
+        <div className="relative z-10 max-w-[800px] mx-auto space-y-[30px] px-5">
+          <div className="flex justify-center md:gap-[15px] gap-[10px]">
+            <p
+              className="p-2 md:py-[10px] md:px-5 max-w-[280px] w-full text-center  text-[12px] md:text-[16px] text-[#333] font-openSans font-semibold leading-6 rounded-[8px] bg-white"
+              style={{
+                boxShadow:
+                  "inset 0px -2px 2px 0px rgba(0, 0, 0, 0.25), 0px 7px 8.3px 0px rgba(0, 0, 0, 0.15)",
+              }}
+            >
+              Car-sharing hosts and agencies
+            </p>
+            <p
+              className="p-2 md:py-[10px] md:px-5 max-w-[280px] w-full text-center  text-[12px] md:text-[16px] text-[#333] font-openSans font-semibold leading-6 rounded-[8px] bg-white"
+              style={{
+                boxShadow:
+                  "inset 0px -2px 2px 0px rgba(0, 0, 0, 0.25), 0px 7px 8.3px 0px rgba(0, 0, 0, 0.15)",
+              }}
+            >
+              Rental and leasing operators
+            </p>
+          </div>
+          <div className="flex justify-center md:gap-20 gap-[10px]">
+            <p
+              className="p-2 md:py-[10px] md:px-5 max-w-[290px] w-full text-center text-[12px] md:text-[16px] text-[#333] font-openSans font-semibold leading-6 rounded-[8px] bg-white"
+              style={{
+                boxShadow:
+                  "inset 0px -2px 2px 0px rgba(0, 0, 0, 0.25), 0px 7px 8.3px 0px rgba(0, 0, 0, 0.15)",
+              }}
+            >
+              EV fleets and mixed powertrains
+            </p>
+            <p
+              className="p-2 md:py-[10px] md:px-5 max-w-[308px] w-full text-center  text-[12px] md:text-[16px] text-[#333] font-openSans font-semibold leading-6 rounded-[8px] bg-white"
+              style={{
+                boxShadow:
+                  "inset 0px -2px 2px 0px rgba(0, 0, 0, 0.25), 0px 7px 8.3px 0px rgba(0, 0, 0, 0.15)",
+              }}
+            >
+              Delivery, logistics, and utility fleets
+            </p>
+          </div>
+        </div>
+        {/*  */}
+        <div
+          style={{
+            boxShadow: "0px 3px 6px 0px #ECF1FD inset",
+          }}
+          className="flex justify-center max-w-[293px] mx-auto w-full py-10 px-[48px] rounded-[73px] z-20 bg-white relative mt-10"
+        >
+          <p className="text-[#0336BC] font-bold text-[28px]"> Designed For</p>
+        </div>
+        {/* call-to-action section */}
+        <div className="relative z-10">
+          <GlobeSection
+            paddingTop="pt-[40px]"
+            title="Start Your Fleet Remote Diagnosing Today"
+            extraButton={
+              <div className="flex items-center gap-[10px] justify-center">
+                <button className="bg-white rounded-[6px] px-5 py-3 text-[#2D65F2] font-openSans text-[16px] font-bold border border-[#B8CBFC]">
+                  Schedule A Demo
+                </button>
+                <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
+                  Get The Product Sheet
+                </button>
+              </div>
+            }
+          />
+        </div>
       </section>
     </div>
   );
