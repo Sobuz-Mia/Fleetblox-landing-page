@@ -1,42 +1,28 @@
 import RightArrowIcon from "@/components/icons/RightArrowIcon";
-import TickIcon from "@/components/icons/TickIcon";
 import GlobeSection from "@/components/modules/home/globe";
 import FeatureCard from "@/components/ui/FeatureCard";
-import { WhyCloudData } from "@/Static_data/solution";
+import { KeyBenefits } from "@/Static_data/solution";
 import Image from "next/image";
 import Link from "next/link";
+import SmartOnboarding from "./components/SmartOnboarding";
 
 const page = () => {
-  const items = [
+  const OnboardingData = [
     {
-      id: 1,
-      title: "One-Click Connectivity",
-      description:
-        "Effortlessly  connect or disconnect vehicles in seconds—right from your dashboard.",
+      title: "Automated technical profile generation",
+      content:
+        "Utilize AI-enhanced decoding to extract full specifications, configurations, and visual assets with one VIN scan.",
+    },
+
+    {
+      title: "AI-based entry inspections",
+      content:
+        "Identify and record damages immediately with pictures and smart condition detection.",
     },
     {
-      id: 2,
-      title: "Real-Time Data Updates",
-      description:
-        "Track vehicle location, performance, and status—anytime, anywhere",
-    },
-    {
-      id: 3,
-      title: "Global Accessibility",
-      description:
-        "Access fleet data anytime—at the office, at home, or on the go.",
-    },
-    {
-      id: 4,
-      title: "User-Friendly Interface",
-      description:
-        "Intuitive design lets fleet managers monitor and control everything from one place.",
-    },
-    {
-      id: 5,
-      title: "Instant Scalability",
-      description:
-        "Easily add or remove vehicles as your fleet grows—no hassle, just simple management.",
+      title: "OEM system integration",
+      content:
+        "Link to manufacturer systems directly — no OBD hardware required",
     },
   ];
   return (
@@ -89,99 +75,52 @@ const page = () => {
         </div>
       </section>
       {/* hero section end */}
-      {/* <section className="max-w-[1200px] mx-auto w-full mt-[60px] lg:mt-[100px] px-5">
+      <section className=" mx-auto w-full py-[60px] lg:py-[120px] px-5">
         <div className="max-w-[840px] mx-auto w-full text-center">
           <h2 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold text-center leading-[1.1] mb-[10px]">
-            How Cloud Telematics Sets Us Apart with Innovative Fleet Solutions
+            Fleet Smart Onboarding
           </h2>
           <p className="text-[#333] text-[16px] leading-6 font-openSans">
-            Unlocking the power of real-time data, advanced insights, and
-            seamless fleet management for unmatched efficiency and control
+            Streamline your remote onboarding with an intelligent workflow
           </p>
         </div>
-        <div className="flex flex-col lg:flex-row items-center py-8 lg:py-[60px] justify-between">
-          <div className="py-10">
-            <Image
-              src="/images/howTelamaticsSet.png"
-              alt="how telematics set us apart"
-              width={600}
-              height={387}
-              className="object-contain w-full"
-            />
-          </div>
-          <div className="flex flex-col w-[350px] md:w-[600px] mx-auto md:ml-10 pt-10 gap-5">
-            {items.map((item) => (
-              <div key={item.id} className="flex items-center w-full gap-x-4">
-                <div className="w-8 h-8 min-w-[32px]">
-                  <TickIcon />
-                </div>
-                <div>
-                  <h2 className="text-[18px] font-openSans font-bold text-[#333]">
-                    {item.title}
-                  </h2>
-                  <p className="text-[#7D7D7D] leading-6 font-normal font-openSans text-[14px] ">
-                    {item.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section> */}
-      {/* why Cloud section */}
-      <section className="max-w-[1200px] mx-auto w-full my-10 lg:my-[100px] px-5">
+        <SmartOnboarding OnboardingData={OnboardingData} />
+      </section>
+
+      {/* Key Benefits */}
+      <section className="max-w-[1200px] mx-auto w-full my-[60px] px-5">
         <h2 className="mb-[40px] lg:mb-[60px] text-center text-[#04082C] text-[28px] lg:text-[36px] font-bold">
-          Why Cloud Telematics is the Future
+          Key Benefits
         </h2>
-        <div className="lg:grid hidden grid-cols-1 lg:grid-cols-3 justify-items-center gap-[30px]">
-          {WhyCloudData?.slice(0, 3).map((data, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-[30px]">
+          {KeyBenefits?.map((data, index) => (
             <FeatureCard
               key={index}
               icon={<data.icon />}
-              title={data.title}
-              description={data.description}
-              className="max-w-[380px] w-full"
-            />
-          ))}
-        </div>
-        <div className="grid lg:hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center lg:gap-[30px] gap-[20px]">
-          {WhyCloudData?.map((data, index) => (
-            <FeatureCard
-              key={index}
-              icon={<data.icon />}
-              title={data.title}
-              description={data.description}
-              // className="w-full"
-            />
-          ))}
-        </div>
-        <div className="lg:flex hidden flex-col items-center justify-items-center justify-center lg:flex-row mt-[30px] gap-[30px]">
-          {WhyCloudData?.slice(3, 5).map((data, index) => (
-            <FeatureCard
-              key={index}
-              icon={<data.icon />}
-              title={data.title}
-              description={data.description}
+              title2={data.title}
               className="max-w-[380px] w-full"
             />
           ))}
         </div>
       </section>
-      {/* why Cloud section end */}
+      {/* why Key Benefits end */}
 
-      <GlobeSection
-        title="Start Your Fleet Remote Diagnosing Today"
-        extraButton={
-          <div className="flex items-center gap-[10px] justify-items-center">
-            <button className="bg-white rounded-[6px] px-5 py-3 text-[#2D65F2] font-openSans text-[16px] font-bold border border-[#B8CBFC]">
-              Schedule A Demo
-            </button>
-            <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
-              Get The Product Sheet
-            </button>
-          </div>
-        }
-      />
+      {/* glove section start */}
+      <section>
+        <GlobeSection
+          title="Start Your Fleet Remote Diagnosing Today"
+          extraButton={
+            <div className="flex items-center gap-[10px] justify-items-center">
+              <button className="bg-white rounded-[6px] px-5 py-3 text-[#2D65F2] font-openSans text-[16px] font-bold border border-[#B8CBFC]">
+                Schedule A Demo
+              </button>
+              <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
+                Get The Product Sheet
+              </button>
+            </div>
+          }
+        />
+      </section>
     </div>
   );
 };
