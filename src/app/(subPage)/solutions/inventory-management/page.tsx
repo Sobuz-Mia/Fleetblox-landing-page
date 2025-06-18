@@ -76,19 +76,60 @@ const page = () => {
       </section>
       {/* hero section end */}
       <section className=" mx-auto w-full py-[60px] lg:py-[120px] px-5">
-        <div className="max-w-[840px] mx-auto w-full text-center">
+        <div className="max-w-[840px] mx-auto w-full text-center mb-[60px]">
           <h2 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold text-center leading-[1.1] mb-[10px]">
             Fleet Smart Onboarding
           </h2>
-          <p className="text-[#333] text-[16px] leading-6 font-openSans">
+          <p className="text-[#333] text-[16px] leading-6 font-openSans ">
             Streamline your remote onboarding with an intelligent workflow
           </p>
         </div>
         <SmartOnboarding OnboardingData={OnboardingData} />
       </section>
-
+      {/* vehicle status monitoring section */}
+      <section className="max-w-[1200px] mx-auto w-full pb-20 lg:pb-[120px]">
+        <div className="text-right">
+          <h3 className="text-[44px] font-semibold text-[#04082C]">
+            Live <span className="text-[#0336BC]">Vehicle Status</span>{" "}
+            Monitoring
+          </h3>
+          <p className="text-[14px] font-openSans text-[#333] leading-5">
+            Gain total fleet awareness with real-time vehicle data and location
+            insights
+          </p>
+        </div>
+      </section>
+      {/* Multi Powertrain section */}
+      <section className="bg-[#0A2540] relative overflow-hidden">
+        <div className="absolute inset-0 bg-[#2D65F2] opacity-30 rounded-[870px] blur-[250px] max-w-[870px] w-full mx-auto"></div>
+        <div className="absolute inset-0 flex justify-center items-start z-0 mt-20">
+          <Image
+            src="/images/solutions/multi-powered-train.svg"
+            alt="multi powered train"
+            width={830}
+            height={383}
+            className="object-contain"
+          />
+        </div>
+        <div className="max-w-[1000px] w-full mx-auto py-[160px] text-center relative z-50">
+          <h2 className="text-[28px] lg:text-[36px] font-bold text-[#2D65F2] leading-tight lg:leading-[1.3]">
+            Multi Powertrain <br />{" "}
+            <span className="text-white">Compatibility Integration</span>
+          </h2>
+          <p className="mb-[30px] mt-[10px] text-[#DFDFDF] font-openSans text-[16px] leading-6">
+            Start your on boarding journey with a simple compatibility flow to
+            check that every vehicle, whether electric, hybrid, or combustion
+            engine is 100% compatible with Fleetblox.
+          </p>
+          <Link href={"/under-development"}>
+            <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
+              Check Compatibility
+            </button>
+          </Link>
+        </div>
+      </section>
       {/* Key Benefits */}
-      <section className="max-w-[1200px] mx-auto w-full my-[100px] px-5">
+      <section className="max-w-[1200px] mx-auto w-full mt-16 mb-[100px] px-5">
         <h2 className="mb-[40px] lg:mb-[60px] text-center text-[#04082C] text-[28px] lg:text-[36px] font-bold">
           Key Benefits
         </h2>
