@@ -86,10 +86,68 @@ const page = () => {
         </div>
         <SmartOnboarding OnboardingData={OnboardingData} />
       </section>
+      {/* fleet location management monitoring section */}
+      <section className="max-w-[1200px] mx-auto w-full pb-20 lg:pb-[120px] px-5">
+        <div className="text-left mb-10">
+          <h3 className="text-[28px] lg:text-[44px] font-semibold text-[#04082C]">
+            Fleet <span className="text-[#0336BC]">Location</span> Management
+          </h3>
+          <p className="text-[14px] font-openSans text-[#333] leading-5">
+            Optimize fleet organization through strategic zone and branch
+            assignments
+          </p>
+        </div>
+        <div className="flex justify-between flex-col md:flex-row items-center gap-10 xl:gap-0">
+          <div className=" max-w-[500px] w-full space-y-[30px]">
+            <div>
+              <h3 className="text-[#333] font-openSans text-[18px] font-bold mb-[5px] leading-6">
+                1. Simplify vehicle relocation and transfers
+              </h3>
+              <p className="text-[16px] leading-6 text-[#7D7D7D] font-openSans">
+                Easily reassign vehicles between branches or regions as
+                operational needs shift.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-[#333] font-openSans text-[18px] font-bold mb-[5px] leading-6">
+                2. Improve dispatch and local task planning
+              </h3>
+              <p className="text-[16px] leading-6 text-[#7D7D7D] font-openSans">
+                Access location based fleet and assign tasks to on-site crews
+                for faster service.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-[#333] font-openSans text-[18px] font-bold mb-[5px] leading-6">
+                3. Geo-based insights
+              </h3>
+              <p className="text-[16px] leading-6 text-[#7D7D7D] font-openSans">
+                Access operational analytics and insights per site - monitor
+                performance, utilization and availability.
+              </p>
+            </div>
+          </div>
+          <div className=" ">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              className="w-full h-full"
+            >
+              <source
+                src="/videos/solutions/fleet-location-management.mp4"
+                type="video/webm"
+              />
+            </video>
+          </div>
+        </div>
+      </section>
       {/* vehicle status monitoring section */}
-      <section className="max-w-[1200px] mx-auto w-full pb-20 lg:pb-[120px]">
-        <div className="text-right">
-          <h3 className="text-[44px] font-semibold text-[#04082C]">
+      <section className="max-w-[1200px] mx-auto w-full pb-20 lg:pb-[120px] px-5">
+        <div className="md:text-right mb-10">
+          <h3 className="text-[28px] lg:text-[44px] font-semibold text-[#04082C]">
             Live <span className="text-[#0336BC]">Vehicle Status</span>{" "}
             Monitoring
           </h3>
@@ -98,11 +156,51 @@ const page = () => {
             insights
           </p>
         </div>
+        <div className="flex justify-between flex-col md:flex-row items-center gap-10 xl:gap-0">
+          <div className=" ">
+            <Image
+              src="/images/solutions/vehicle-status-monitoring.png"
+              alt="AI assistant for fleet optimization"
+              width={680}
+              height={383}
+              className="object-contain max-w-[550px] w-full"
+            />
+          </div>
+          <div className=" max-w-[560px] w-full space-y-[30px]">
+            <div>
+              <h3 className="text-[#333] font-openSans text-[18px] font-bold mb-[5px] leading-6">
+                1. Visual Readiness Diagram
+              </h3>
+              <p className="text-[16px] leading-6 text-[#7D7D7D] font-openSans">
+                Quickly assess vehicle health and status for improved
+                operational decision making.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-[#333] font-openSans text-[18px] font-bold mb-[5px] leading-6">
+                2. Accurate Last Reported Position
+              </h3>
+              <p className="text-[16px] leading-6 text-[#7D7D7D] font-openSans">
+                Access the last ping location, even if the vehicle is currently
+                offline.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-[#333] font-openSans text-[18px] font-bold mb-[5px] leading-6">
+                3. Location Logs
+              </h3>
+              <p className="text-[16px] leading-6 text-[#7D7D7D] font-openSans">
+                View the last recorded positions to see where vehicles were last
+                seen.
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
       {/* Multi Powertrain section */}
-      <section className="bg-[#0A2540] relative overflow-hidden">
+      <section className="bg-[#0A2540] relative overflow-hidden px-5">
         <div className="absolute inset-0 bg-[#2D65F2] opacity-30 rounded-[870px] blur-[250px] max-w-[870px] w-full mx-auto"></div>
-        <div className="absolute inset-0 flex justify-center items-start z-0 mt-20">
+        <div className="absolute inset-0 flex justify-center items-start z-0 md:mt-20 mt-32 px-2">
           <Image
             src="/images/solutions/multi-powered-train.svg"
             alt="multi powered train"

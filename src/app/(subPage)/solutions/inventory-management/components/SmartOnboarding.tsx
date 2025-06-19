@@ -94,7 +94,7 @@ const SmartOnboarding = ({
         </div>
 
         {/* loading deal section */}
-        <div className="flex-1 space-y-[10px] sm:space-y-[12px] ml-0 sm:ml-4 lg:ml-10 py-2 sm:py-4 w-full ">
+        <div className="max-w-[520px]  space-y-[10px] sm:space-y-[12px] ml-0 sm:ml-4 lg:ml-10 py-2 sm:py-4 w-full ">
           {OnboardingData.map((item, index) => (
             <div key={index} className="overflow-hidden flex">
               {/* Loader Indicator */}
@@ -113,7 +113,7 @@ const SmartOnboarding = ({
               </div>
 
               {/* Content Container */}
-              <div className="flex-1 px-[12px] sm:px-[16px] py-[8px] sm:py-[10px]">
+              <div className="max-w-[520px] w-full px-[12px] sm:px-[16px] py-[8px] sm:py-[10px]">
                 {/* Question Section */}
                 <div
                   onClick={() => handleItemClick(index)}
