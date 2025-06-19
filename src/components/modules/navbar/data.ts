@@ -63,8 +63,8 @@ export const platformFeatures: NavbarItem[] = [
 ];
 export const solutionsItems: NavbarItem[] = [
   {
-    title: "Cloud Telematics",
-    href: "/solutions/cloud-telematic",
+    title: "Inventory Management",
+    href: "/solutions/inventory-management",
   },
   {
     title: "Remote Access",
