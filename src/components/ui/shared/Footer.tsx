@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image";
 import FooterLogo from "../../../../public/images/footerLogo.png";
 import FacebookIcon from "@/components/icons/FacebookIcon";
@@ -8,7 +10,12 @@ import AppleStore from "@/components/icons/AppleStore";
 import GoogleStore from "@/components/icons/GoogleStore";
 import GoogleStoreMobile from "@/components/icons/GoogleStoreMobile";
 import { RequestDemoModal } from "../RequestDemoModal";
+import { usePathname } from "next/navigation";
+import { buildSchemaData, renderSchemaMarkup } from "@/utils/schema";
+
 const Footer = () => {
+  const pathname = usePathname();
+  const isHomepage = pathname === "/";
   return (
     <div className="bg-[#0A2540]">
       <div className="md:block h-auto w-full text-[#fff] max-w-[1450px] mx-auto px-4">
@@ -417,6 +424,39 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      
+      {/* Schema.org structured data */}
+      {isHomepage && (
+        <>
+          {renderSchemaMarkup(
+            buildSchemaData({
+              type: 'WebSite',
+              url: `https://fleetblox.site${pathname}`,
+              title: 'FleetBlox - Advanced AI-Powered Fleet Management Solution',
+              description: 'FleetBlox is an advanced AI-powered, cloud-based fleet connectivity solution that eliminates the need for traditional hardware.'
+            })
+          )}
+          {renderSchemaMarkup(
+            buildSchemaData({
+              type: 'Organization',
+              url: `https://fleetblox.site${pathname}`
+            })
+          )}
+          {renderSchemaMarkup(
+            buildSchemaData({
+              type: 'Product',
+              title: 'FleetBlox Fleet Management Solution',
+              url: `https://fleetblox.site${pathname}`
+            })
+          )}
+          {renderSchemaMarkup(
+            buildSchemaData({
+              type: 'FAQPage',
+              url: `https://fleetblox.site${pathname}`
+            })
+          )}
+        </>
+      )}
     </div>
   );
 };

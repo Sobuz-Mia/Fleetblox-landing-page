@@ -120,6 +120,12 @@ const GoogleAnalyticsComponent = dynamic(
   { ssr: true }
 );
 
+// Import Schema.org implementation
+const GlobalSchema = dynamic(
+  () => import('@/components/seo/GlobalSchema'),
+  { ssr: true }
+);
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -158,6 +164,7 @@ export default function RootLayout({
             <CookieBanner />
             <FacebookPixel />
             <GoogleAnalyticsComponent />
+            <GlobalSchema /> {/* Add GlobalSchema component here */}
           </ClientSideInitialization>
         </CookieConsentProvider>
       </body>
