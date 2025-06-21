@@ -1,10 +1,15 @@
 "use client";
 import dynamic from "next/dynamic";
 import Navbar from "@/components/ui/shared/Navbar";
-import HeroSection from "@/components/modules/home/HeroSection";
+
 import { useEffect } from "react";
 
 import UnifiedFleetManagement from "@/components/modules/home/UnifiedFleetManagement";
+
+const HeroSection = dynamic(
+  () => import("@/components/modules/home/HeroSection"),
+  { ssr: true }
+);
 
 const FleetSolution = dynamic(
   () => import("@/components/modules/home/FleetSolution"),
