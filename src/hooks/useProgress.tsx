@@ -12,6 +12,7 @@ interface ProgressContextType {
   setCurrentStep: (step: number) => void;
   steps: {
     SELECT_COUNTRY: string;
+    SUBMIT_DETAILS: string;
     SELECT_BRAND: string;
     SELECT_BRAND_MODEL: (model: string) => string;
     COMPATIBLE: string;
@@ -31,6 +32,7 @@ const ProgressContext = createContext<ProgressContextType>({
   setCurrentStep: () => {},
   steps: {
     SELECT_COUNTRY: "/getting-started",
+    SUBMIT_DETAILS: "/submit-details",
     SELECT_BRAND: "/collections/select-brand",
     SELECT_BRAND_MODEL: (model: string) => `/collections/select-brand/${model}`,
     COMPATIBLE: "/collections/compatible",
@@ -78,6 +80,7 @@ export const ProgressProvider = ({
 
   const steps = {
     SELECT_COUNTRY: "/getting-started",
+    SUBMIT_DETAILS: "/submit-details",
     SELECT_BRAND: "/collections/select-brand",
     SELECT_BRAND_MODEL: (model: string) => `/collections/select-brand/${model}`,
     COMPATIBLE: "/collections/compatible",
