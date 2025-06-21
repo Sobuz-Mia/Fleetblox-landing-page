@@ -120,6 +120,12 @@ const GoogleAnalyticsComponent = dynamic(
   { ssr: true }
 );
 
+// Import Schema.org implementation
+const GlobalSchema = dynamic(
+  () => import('@/components/seo/GlobalSchema'),
+  { ssr: true }
+);
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -144,6 +150,21 @@ export default function RootLayout({
 
         <link rel="preload" href={imageUrl.src} as="image" />
         <link rel="preload" href="/images/hero-2.webp" as="image" />
+
+        {/* Preload critical mobile hero image for better LCP */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hero-2.webp"
+          media="(max-width: 1023px)"
+        />
+        {/* Preload desktop hero image */}
+        <link
+          rel="preload"
+          as="image"
+          href="/assets/heroCardImage.png"
+          media="(min-width: 1024px)"
+        />
       </head>
 
       {/* Script tags are moved to GoogleAnalytics component with consent management */}
@@ -158,6 +179,7 @@ export default function RootLayout({
             <CookieBanner />
             <FacebookPixel />
             <GoogleAnalyticsComponent />
+            <GlobalSchema /> {/* Add GlobalSchema component here */}
           </ClientSideInitialization>
         </CookieConsentProvider>
       </body>

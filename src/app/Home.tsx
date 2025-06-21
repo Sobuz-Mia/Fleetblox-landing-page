@@ -1,39 +1,38 @@
 "use client";
 import dynamic from "next/dynamic";
 import Navbar from "@/components/ui/shared/Navbar";
-import HeroSection from "@/components/modules/home/HeroSection";
 import { useEffect } from "react";
-
+import HeroSection from "@/components/modules/home/HeroSection";
 import UnifiedFleetManagement from "@/components/modules/home/UnifiedFleetManagement";
 
 const FleetSolution = dynamic(
   () => import("@/components/modules/home/FleetSolution"),
-  { ssr: true }
+  { ssr: false }
 );
 const VirtualSlot = dynamic(
   () => import("@/components/modules/home/withVirtualSlot/VirtualSlot"),
-  { ssr: true }
+  { ssr: false }
 );
 const FleetBloxVerseSection = dynamic(
   () =>
     import("@/components/modules/home/fleetBloxVersus/FleetBloxVerseSection"),
-  { ssr: true }
+  { ssr: false }
 );
 const ConnectRemotelySection = dynamic(
   () => import("@/components/modules/home/ConnectRemotelySection"),
-  { ssr: true }
+  { ssr: false }
 );
 const WorkforceManageSection = dynamic(
   () => import("@/components/modules/home/WorkforceManageSection"),
-  { ssr: true }
+  { ssr: false }
 );
 const AiSupportSection = dynamic(
   () => import("@/components/modules/home/AiSupportSection"),
-  { ssr: true }
+  { ssr: false }
 );
 const GlobalCoverageAndCompatibility = dynamic(
   () => import("@/components/modules/home/GlobalCoverageAndCompatibility"),
-  { ssr: true }
+  { ssr: false }
 );
 // const SlideShowSection = dynamic(
 //   () => import("@/components/modules/home/SlideShowSection"),
@@ -41,14 +40,14 @@ const GlobalCoverageAndCompatibility = dynamic(
 // );
 const BlogSection = dynamic(
   () => import("@/components/modules/home/BlogSection"),
-  { ssr: true }
+  { ssr: false }
 );
 const FAQSection = dynamic(
   () => import("@/components/modules/home/FAQSection"),
-  { ssr: true }
+  { ssr: false }
 );
 const Footer = dynamic(() => import("@/components/ui/shared/Footer"), {
-  ssr: true,
+  ssr: false,
 });
 
 export default function Home() {
@@ -68,6 +67,8 @@ export default function Home() {
       localStorage.removeItem("selectedCountries");
     }
   }, []);
+
+
   return (
     <div>
       <Navbar />

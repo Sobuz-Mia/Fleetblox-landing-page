@@ -11,7 +11,6 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://fleetblox.com';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  siteUrl,
 
   // Environment variables that will be available on the client
   env: {
@@ -53,6 +52,26 @@ const nextConfig: NextConfig = {
           {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=()',
+          },
+        ],
+      },
+      // Cache headers for static images
+      {
+        source: '/(.*).(jpg|jpeg|png|gif|ico|svg|webp|avif)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Cache headers for static assets in the public folder
+      {
+        source: '/public/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
           },
         ],
       },
