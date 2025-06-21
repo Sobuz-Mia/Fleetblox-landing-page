@@ -1,13 +1,14 @@
 import { faqData } from '@/Static_data/data';
 
 interface SchemaBuilderOptions {
-  type: 'WebSite' | 'Organization' | 'Product' | 'FAQPage' | 'BlogPosting';
+  type: 'WebSite' | 'Organization' | 'Product' | 'FAQPage' | 'BlogPosting' | 'BreadcrumbList';
   title?: string;
   description?: string;
   url?: string;
   imageUrl?: string;
   datePublished?: string;
   authorName?: string;
+  breadcrumbs?: Array<{ name: string, item: string }>;
 }
 
 export const buildSchemaData = (options: SchemaBuilderOptions) => {
@@ -122,6 +123,18 @@ export const buildSchemaData = (options: SchemaBuilderOptions) => {
           '@type': 'WebPage',
           '@id': url,
         },
+      };
+
+    case 'BreadcrumbList':
+      return {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: options.breadcrumbs?.map((breadcrumb, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: breadcrumb.name,
+          item: breadcrumb.item,
+        })) || [],
       };
 
     default:
