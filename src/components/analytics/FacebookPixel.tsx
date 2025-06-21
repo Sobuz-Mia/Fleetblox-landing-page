@@ -93,7 +93,7 @@ export default function FacebookPixel() {
                             height="1" 
                             width="1" 
                             style="display:none" 
-                            alt="" 
+                            alt="facebook pixelId" 
                             src="https://www.facebook.com/tr?id=${FB_PIXEL_ID}&ev=PageView&noscript=1"
                         />
                         `
