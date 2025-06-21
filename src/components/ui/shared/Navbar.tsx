@@ -38,15 +38,14 @@ const Navbar = () => {
   return (
     <nav
       aria-label="Primary navigation"
-      className={`fixed left-0 right-0 top-0 z-[9999]  lg:mt-5 mt-0 transition-all duration-200 ease-in-out py-[18px] md:py-[16px] px-[20px] lg:rounded-[10px] mx-auto w-full lg:max-w-[calc(100vw-30px)] xxl:max-w-[1440px] ${
-        isScrolled || mobileMenuOpen ? "bg-white" : "bg-transparent"
-      }`}
+      className={`fixed left-0 right-0 top-0 z-[9999]  lg:mt-5 mt-0 transition-all duration-200 ease-in-out py-[18px] md:py-[16px] px-[20px] lg:rounded-[10px] mx-auto w-full lg:max-w-[calc(100vw-30px)] xxl:max-w-[1440px] ${isScrolled || mobileMenuOpen ? "bg-white" : "bg-transparent"
+        }`}
       style={
         isScrolled
           ? { boxShadow: "0px 4px 12px 0px rgba(0, 0, 0, 0.14)" }
           : mobileMenuOpen
-          ? { boxShadow: "0px 2px 5px 0px rgba(0, 0, 0, 0.05)" }
-          : {}
+            ? { boxShadow: "0px 2px 5px 0px rgba(0, 0, 0, 0.05)" }
+            : {}
       }
     >
       <div className="flex items-center">
@@ -65,9 +64,8 @@ const Navbar = () => {
               <Resources />
               <Link
                 href="/pricings"
-                className={`cursor-pointer text-[16px] font-semibold py-[10px] px-3 transition-all duration-300 ease-in-out text-[#04082C] hover:text-[#7D7D7D]  font-openSans  ${
-                  pathname === "/pricings" ? "text-ti_grey" : ""
-                }`}
+                className={`cursor-pointer text-[16px] font-semibold py-[10px] px-3 transition-all duration-300 ease-in-out text-[#04082C] hover:text-[#7D7D7D]  font-openSans  ${pathname === "/pricings" ? "text-ti_grey" : ""
+                  }`}
               >
                 Pricings
               </Link>
@@ -77,9 +75,9 @@ const Navbar = () => {
           <div className="hidden lg:flex text-[#04082C] text-[14px] font-semibold items-center gap-[20px]">
             <RequestDemoModal
               button={
-                <h1 className="cursor-pointer text-[16px] transition-all duration-300 ease-in-out hover:text-[#7D7D7D0] py-[10px] px-5 text-[#04082C]  font-openSans">
+                <h3 className="cursor-pointer text-[16px] transition-all duration-300 ease-in-out hover:text-[#7D7D7D0] py-[10px] px-5 text-[#04082C]  font-openSans">
                   Request Demo
-                </h1>
+                </h3>
               }
             />
             {/* <NotCompatibilityDialog title="Request demo" /> */}

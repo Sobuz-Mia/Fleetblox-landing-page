@@ -10,12 +10,12 @@ const ConnectRemotelySection = () => {
             {/* Connect Remotely Section */}
             <section className="flex flex-col text-left md:text-center md:items-center items-start">
               <h3 className="text-[#0336BC] text-[22px] font-openSans font-bold mb-[10px]">
-                Plug-and-go live
+                Instant Visibility
               </h3>
-              <h1 className="text-[28px] md:text-[36px] font-bold text-[#04082C] leading-tight font-montserrat">
+              <h3 className="text-[28px] md:text-[36px] font-bold text-[#04082C] leading-tight font-montserrat">
                 Deploy Your Fleet in Minutes <br className="hidden md:block" />{" "}
                 From Your Desk
-              </h1>
+              </h3>
               <p className="my-4  text-[#333] leading-6 font-openSans text-[14px] md:text-[16px]">
                 Fleetblox is built to simplify-what used to take weeks, by
                 providing instant fleet activation, and real-time visibility for
@@ -24,7 +24,7 @@ const ConnectRemotelySection = () => {
                 is onboarded it is 100% visible on the platform, with instant
                 accessibility to status, location , and readiness.
               </p>
-              <Link href="/features/fleet-integration">
+              <Link href="/products/fleet-integration">
                 <button className="hidden md:flex lg:flex mb-10 transition-all bg-[#2D65F2] hover:bg-[#0336BC] text-white duration-300 hover:w-[144.16px] w-[122.16px] items-center px-4 py-3 text-[16px] font-bold rounded-md group">
                   <div className="z-20 whitespace-nowrap font-openSans font-bold">
                     Learn More
@@ -62,7 +62,7 @@ const ConnectRemotelySection = () => {
             </section>
 
             {/* <div className=" flex md:hidden lg:hidden justify-center w-full"> */}
-            <Link href="/features/fleet-integration">
+            <Link href="/products/fleet-integration">
               <button className="lg:hidden mt-10 bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
                 Learn More
               </button>
@@ -90,7 +90,7 @@ const ConnectRemotelySection = () => {
               with CCPA & GDPR, ensuring top-notch security and privacy
               standards.
             </p>
-            <Link href="/features/documents-management">
+            <Link href="/products/documents-management">
               <button className="hidden lg:flex font-openSans transition-all bg-[#2D65F2] text-white-primary text-white duration-300 hover:w-[144.16px] w-[122.16px]  items-center px-[13px] hover:px-4 py-3 text-base font-bold rounded-md group">
                 <div className="z-20 whitespace-nowrap">Learn More</div>
                 <div className="z-10 transform transition-transform opacity-0 group-hover:opacity-100 -translate-x-4 duration-300 group-hover:translate-x-0">
@@ -111,7 +111,7 @@ const ConnectRemotelySection = () => {
             priority
           />
           <div className="lg:hidden block w-full">
-            <Link href="/features/document-management">
+            <Link href="/products/document-management">
               <button className="bg-[#2D65F2] mt-5 hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
                 Learn More
               </button>

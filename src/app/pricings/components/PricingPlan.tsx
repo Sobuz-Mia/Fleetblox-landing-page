@@ -2,17 +2,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { Button } from "@/components/ui/button";
+
 import { FaCircleCheck } from "react-icons/fa6";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Container from "@/components/ui/Container";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import FAQSection from "@/components/modules/home/FAQSection";
+
 import AccurateSlider from "./AccurateSlider";
-import FeaturesComparison from "./FeaturesComparison";
 import Link from "next/link";
 import VehicleIcon from "@/components/icons/VehicleIcon";
 import DollarIcon from "@/components/icons/DollarIcon";
@@ -22,6 +20,15 @@ import axios from "axios";
 import { TStaterPlanData } from "@/types/types";
 import LocationIcon from "@/components/icons/LocationIcon";
 import config from "@/utils/config";
+import dynamic from "next/dynamic";
+
+const FeaturesComparisonDynamic = dynamic(() => import("./FeaturesComparison"), {
+  ssr: false,
+});
+
+const FAQSection = dynamic(() => import("@/components/modules/home/FAQSection"), {
+  ssr: false,
+});
 
 type TSelectedPlan = {
   price: number;
@@ -47,7 +54,6 @@ const PricingPlan = () => {
   const [staterPlanError, setStarterPlanError] = useState<string | null>(null);
   const baseUrl = config.api.baseUrl;
   useEffect(() => {
-
     if (typeof window !== "undefined") {
       localStorage.removeItem("country");
       localStorage.removeItem("countries");
@@ -66,10 +72,7 @@ const PricingPlan = () => {
   useEffect(() => {
     const fetchPlans = async () => {
       try {
-        const response = await fetch(
-
-          `${baseUrl}/api/subscription/plans`
-        );
+        const response = await fetch(`${baseUrl}/api/subscription/plans`);
         if (!response.ok) throw new Error("Failed to fetch plans");
         const data = await response.json();
         setCurrentPlans(data);
@@ -120,7 +123,6 @@ const PricingPlan = () => {
     setBillingMonthly(!billMonthly);
   };
 
-
   const handlePriceAndModal = ({ fleet, slot, annually, price }: any) => {
     setSelectedPlan({
       price: price,
@@ -161,7 +163,6 @@ const PricingPlan = () => {
     decimal = parts[1] || "00";
   }
 
-
   const handleStarterPlan = async (starterPlan: TStaterPlanData) => {
     const planData = {
       price: starterPlan?.price,
@@ -171,12 +172,9 @@ const PricingPlan = () => {
       id: starterPlan?.id, // Replace with actual ID from your backend
     };
 
-    localStorage.setItem(
-      "selectedPlan",
-      JSON.stringify(planData)
-    );
+    localStorage.setItem("selectedPlan", JSON.stringify(planData));
     router.push("/getting-started");
-  }
+  };
   return (
     <main className="h-full">
       {/* connect vehicle section start */}
@@ -191,9 +189,9 @@ const PricingPlan = () => {
           <div className="max-w-[1200px] w-full mx-auto px-5 pt-[80px] pb-[80px] md:pb-[60px] flex flex-col md:flex-row gap-[60px] items-center relative">
             <div className="absolute top-[9vh] right-[30px] hidden md:block z-[10] rounded-[24px] bg-[#000] opacity-[0.07] blur-[20px] h-[360px] w-[340px] "></div>
             <div className="">
-              <h1 className="text-[#0336BC] font-openSans text-[18px] lg:text-[22px] font-bold">
+              <h3 className="text-[#0336BC] font-openSans text-[18px] lg:text-[22px] font-bold">
                 {starterPlan[0]?.name}
-              </h1>
+              </h3>
               <h2 className="text-[#04082C] font-bold text-[36px] lg:text-[52px] leading-[1.1] my-[10px]">
                 {starterPlan[0]?.subHeading}
               </h2>
@@ -204,7 +202,7 @@ const PricingPlan = () => {
                 <button
                   aria-label="Get started with Starter Fleet"
                   onClick={() => {
-                    handleStarterPlan(starterPlan[0])
+                    handleStarterPlan(starterPlan[0]);
                   }}
                   className="transition-all font-openSans bg-[#2D65F2] hover:bg-[#0336BC] rounded-md text-white-primary text-white duration-300 hover:w-[144.16px] w-[122.16px] hidden md:flex items-center px-4 py-3 text-base font-bold  group "
                 >
@@ -216,7 +214,7 @@ const PricingPlan = () => {
                 <button
                   aria-label="Get started with Starter Fleet"
                   onClick={() => {
-                    handleStarterPlan(starterPlan[0])
+                    handleStarterPlan(starterPlan[0]);
                   }}
                   className="md:hidden mt-[30px] bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center"
                 >
@@ -319,9 +317,9 @@ const PricingPlan = () => {
               <CardContent>
                 {plan?.name === "Smart fleet" ? (
                   <div className="">
-                    <h1 className="text-[32px] font-semibold text-[#999]">
+                    <h3 className="text-[32px] font-semibold text-[#999]">
                       Custom
-                    </h1>
+                    </h3>
                   </div>
                 ) : (
                   <div>
@@ -372,9 +370,9 @@ const PricingPlan = () => {
 
                 {plan?.name !== "Eagle eye fleet" && (
                   <div className="flex items-center mt-5 justify-between">
-                    <h1 className="text-[14px] font-openSans leading-[155%] font-normal text-[#999]">
+                    <h3 className="text-[14px] font-openSans leading-[155%] font-normal text-[#999]">
                       All features in Eagle eye fleet
-                    </h1>
+                    </h3>
                   </div>
                 )}
 
@@ -434,7 +432,7 @@ const PricingPlan = () => {
       {/* connect vehicle section end */}
 
       {/* ***************Full features comparison************ */}
-      <FeaturesComparison />
+      <FeaturesComparisonDynamic />
       <FAQSection />
     </main>
   );

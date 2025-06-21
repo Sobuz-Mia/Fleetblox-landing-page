@@ -35,17 +35,17 @@ const ProductSubpage = () => {
         </p>
         <div className="flex flex-col space-y-[5px] lg:space-y-[8px]">
           <Link href="/mobile-apps/fleetblox-crew">
-            <h1 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#0336BC]">
+            <h3 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#0336BC]">
               Fleetblox Crew
-            </h1>
+            </h3>
           </Link>
           <Link href="/under-development">
-            <h1 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#0336BC] flex gap-[10px]">
+            <h3 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#0336BC] flex gap-[10px]">
               Fleetblox Drive{" "}
               <button className="text-[8px] rounded-[4px] py-[0px] px-[6px] bg-[#2D65F2] text-white">
                 Upcoming
               </button>
-            </h1>
+            </h3>
           </Link>
         </div>
       </div>
@@ -55,15 +55,15 @@ const ProductSubpage = () => {
           Subscription
         </p>
         <div className="flex flex-col lg:space-y-[8px] space-y-[5px]">
-          <Link href="/under-development">
-            <h1 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#0336BC]">
+          <Link href="/subscription/starter-fleet-plan">
+            <h3 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#0336BC]">
               Starter Fleet
-            </h1>
+            </h3>
           </Link>
           <Link href="/subscription/eagle-eye-fleet">
-            <h1 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#0336BC]">
+            <h3 className="text-[#333] text-[14px] leading-5 font-openSans py-[10px] lg:py-0 font-bold lg:font-semibold hover:text-[#0336BC]">
               Eagle Eye Fleet
-            </h1>
+            </h3>
           </Link>
         </div>
       </div>

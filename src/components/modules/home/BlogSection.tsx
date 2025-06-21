@@ -4,6 +4,7 @@ import { blogs_data } from "@/Static_data/data";
 import Container from "@/components/ui/Container";
 import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import Link from "next/link";
+import { CircleUser } from "lucide-react";
 const BlogSection = () => {
   return (
     <div className="bg-[#FAFAFF]">
@@ -13,16 +14,22 @@ const BlogSection = () => {
             Latest Blogs
           </h2>
           <div className="hidden lg:block w-1/2">
-            <h1 className="font-openSans text-[22px] font-bold text-[#0336BC]">
+            <h3 className="font-openSans text-[22px] font-bold text-[#0336BC]">
               Latest Blogs
-            </h1>
+            </h3>
             {/* left side */}
-            <h1 className="font-montserrat text-[36px] font-bold leading-normal text-[#04082C]">
-              How to Build Your Perfect Fleet in 2025 (10-Step Guide)
-            </h1>
-            <h5 className="font-openSans text-[16px] font-semibold leading-[24px] text-[#7D7D7D] my-4">
-              12 May 2024
-            </h5>
+            <Link href="https://fleetblox.site/2024/05/26/smart-alerts-fleetbloxs-cloudte-chnology">
+              <h1 className="font-montserrat text-[36px] font-bold leading-normal md:leading-[1.1] text-[#04082C] hover:text-opacity-70">
+                {`Smart Alerts: How Fleetblox's Eagle Eye Technology Makes Your
+              Fleet...`}
+              </h1>
+            </Link>
+            <div className="flex items-center gap-[5px]">
+              <CircleUser color="#7D7D7D" />
+              <h5 className="font-openSans text-[16px] font-semibold leading-[24px] text-[#7D7D7D] my-4">
+                fleetbloxAdmin
+              </h5>
+            </div>
           </div>
           <div className="hidden lg:flex  flex-col items-center lg:items-start lg:flex-row justify-between gap-x-[40px]">
             <div className="w-1/2 overflow-hidden rounded-md">
@@ -40,18 +47,24 @@ const BlogSection = () => {
                   className="flex gap-x-[60px] border-b py-4 border-[#DFDFDF]"
                 >
                   <div className="flex-1 space-y-[10px]  hover:cursor-pointer">
-                    <h1 className="font-openSans text-[18px] font-bold text-[#04082C] transition-all duration-500 hover:text-[#7D7D7D]">
-                      {item.title}
-                    </h1>
-                    <h5 className="font-openSans xl:text-[14px] 2.5xl:text-[16px] font-semibold leading-[24px] text-[#7D7D7D]">
-                      {item.date}
-                    </h5>
+                    <Link href={item.link}>
+                      <h2 className="font-openSans text-[18px] font-bold text-[#04082C] transition-all duration-500 hover:text-[#7D7D7D]">
+                        {item.title}
+                      </h2>
+                    </Link>
+                    <div className="flex items-center gap-[5px]">
+                      <CircleUser color="#7D7D7D" />
+                      <h5 className="font-openSans xl:text-[14px] 2.5xl:text-[16px] font-semibold leading-[24px] text-[#7D7D7D]">
+                        {/* {item.date} */}
+                        fleetbloxAdmin
+                      </h5>
+                    </div>
                   </div>
-                  <div className="overflow-hidden rounded-md ">
+                  <div className="overflow-hidden rounded-md w-[133px] h-[100px]">
                     <Image
                       src={item.image}
                       alt="image"
-                      className="  transition-all duration-500 hover:scale-110"
+                      className="transition-all duration-500 hover:scale-110"
                     />
                   </div>
                 </div>
@@ -94,12 +107,17 @@ const BlogSection = () => {
                   />
                 </div>
                 <div className="p-4 flex flex-col justify-between flex-1">
-                  <h3 className="font-openSans text-[18px] font-bold text-[#333] line-clamp-2 h-[54px]">
-                    How to Build Your Perfect Fleet in 2025 (10-Step Guide)
-                  </h3>
-                  <p className="font-openSans text-[14px] font-semibold text-[#7D7D7D] mt-2">
-                    12 May 2024
-                  </p>
+                  <Link href="https://fleetblox.site/2024/05/26/smart-alerts-fleetbloxs-cloudte-chnology">
+                    <h3 className="font-openSans text-[18px] font-bold text-[#333] line-clamp-2 h-[54px]">
+                      {`Smart Alerts: How Fleetblox's Eagle Eye Technology Makes Your Fleet...`}
+                    </h3>
+                  </Link>
+                  <div className="flex items-center gap-[5px]">
+                    <CircleUser color="#7D7D7D" />
+                    <p className="font-openSans text-[14px] font-semibold text-[#7D7D7D]">
+                      fleetbloxAdmin
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -118,12 +136,17 @@ const BlogSection = () => {
                     />
                   </div>
                   <div className="p-4 flex flex-col justify-between flex-1">
-                    <h3 className="font-openSans text-[18px] font-bold text-[#333] line-clamp-2 h-[54px]">
-                      {blog.title}
-                    </h3>
-                    <p className="font-openSans text-[14px] font-semibold text-[#7D7D7D] mt-2">
-                      {blog.date}
-                    </p>
+                    <Link href={blog.link}>
+                      <h3 className="font-openSans text-[18px] font-bold text-[#333] line-clamp-2 h-[54px]">
+                        {blog.title}
+                      </h3>
+                    </Link>
+                    <div className="flex items-center gap-[5px]">
+                      <CircleUser color="#7D7D7D" />
+                      <p className="font-openSans text-[14px] font-semibold text-[#7D7D7D]">
+                        fleetbloxAdmin
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>

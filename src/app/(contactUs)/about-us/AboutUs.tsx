@@ -6,8 +6,8 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import GlobeSection from "@/components/modules/home/globe";
 import RightArrowIcon from "@/components/icons/RightArrowIcon";
-import FAQSection from "@/components/modules/home/FAQSection";
 import AboutSteps from "./component/AboutSteps";
+import { FAQDynamic } from "@/app/lazy";
 // import TimelineScrollSection from "./component/ScrollingAboutSteps";
 
 
@@ -141,7 +141,7 @@ const AboutUsPage = () => {
             />
             {/* FAQS */}
 
-            <FAQSection />
+            <FAQDynamic />
 
 
             {/* Footer Call to Action section */}

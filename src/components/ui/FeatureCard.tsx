@@ -2,14 +2,16 @@ import { ReactNode } from "react";
 
 type TFeaturesCardProps = {
   icon: ReactNode;
-  title: string;
-  description: string;
+  title?: string;
+  title2?: string;
+  description?: string;
   className?: string;
 };
 
 const FeatureCard = ({
   icon,
   title,
+  title2,
   description,
   className = "",
 }: TFeaturesCardProps) => {
@@ -19,9 +21,15 @@ const FeatureCard = ({
       {/* right card */}
       <div className="z-50 p-[30px] bg-white w-full rounded-[16px] flex flex-col items-center text-center">
         {icon}
-        <h1 className="text-[#333] text-[18px] font-bold font-openSans mt-[10px] mb-[5px]">
-          {title}
-        </h1>
+        {title2 ? (
+          <h3 className="text-[#333] text-[16px] font-semibold font-openSans mt-[10px] mb-[5px] leading-6">
+            {title2}
+          </h3>
+        ) : (
+          <h3 className="text-[#333] text-[18px] font-bold font-openSans mt-[10px] mb-[5px]">
+            {title}
+          </h3>
+        )}
         <p className="text-[#7D7D7D] font-openSans text-[14px] leading-5 text-center">
           {description}
         </p>

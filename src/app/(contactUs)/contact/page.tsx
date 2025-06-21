@@ -1,5 +1,6 @@
-import FAQSection from "@/components/modules/home/FAQSection";
+
 import Cards from "./component/Cards";
+import { FAQDynamic } from "@/app/lazy";
 
 export const metadata = {
   title: "Contact Us | FleetBlox",
@@ -69,7 +70,7 @@ const ContactPage = () => {
   return (
     <div>
       <Cards />
-      <FAQSection />
+      <FAQDynamic />
     </div>
   );
 };

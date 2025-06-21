@@ -1,8 +1,8 @@
+"use client"
+
 import Image from "next/image";
 import FooterLogo from "../../../../public/images/footerLogo.png";
 import FacebookIcon from "@/components/icons/FacebookIcon";
-// import InstagramIcon from "@/components/icons/InstagramIcon";
-// import XIcon from "@/components/icons/XIcon";
 import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import LinkdinIcon from "@/components/icons/LinkdinIcon";
 import Link from "next/link";
@@ -10,7 +10,12 @@ import AppleStore from "@/components/icons/AppleStore";
 import GoogleStore from "@/components/icons/GoogleStore";
 import GoogleStoreMobile from "@/components/icons/GoogleStoreMobile";
 import { RequestDemoModal } from "../RequestDemoModal";
+import { usePathname } from "next/navigation";
+import { buildSchemaData, renderSchemaMarkup } from "@/utils/schema";
+
 const Footer = () => {
+  const pathname = usePathname();
+  const isHomepage = pathname === "/";
   return (
     <div className="bg-[#0A2540]">
       <div className="md:block h-auto w-full text-[#fff] max-w-[1450px] mx-auto px-4">
@@ -18,9 +23,9 @@ const Footer = () => {
           {/* animation */}
           <div className="relative flex flex-col items-center justify-center py-[120px]">
             <div className="max-w-[860px] w-full text-center z-[200] flex flex-col mt-[20px] lg:mt-[30px]">
-              <h1 className="z-50 font-montserrat text-[28px] lg:text-[52px] font-bold mb-[32px] lg:mb-0 leading-[1.1]">
+              <h3 className="z-50 font-montserrat text-[28px] lg:text-[52px] font-bold mb-[32px] lg:mb-0 leading-[1.1]">
                 Fleet Management Has Never Been This Easy
-              </h1>
+              </h3>
               <div className="md:flex hidden justify-center z-[100] lg:mt-8">
                 <Link
                   aria-label="Get started with FleetBlox"
@@ -80,8 +85,20 @@ const Footer = () => {
                   Download Fleetblox Apps
                 </h2>
                 <div className="flex gap-[10px]">
-                  <AppleStore />
-                  <GoogleStore />
+                  <Link
+                    href={
+                      "https://apps.apple.com/us/app/fleetblox-crew/id6742507808"
+                    }
+                  >
+                    <AppleStore />
+                  </Link>
+                  <Link
+                    href={
+                      "https://play.google.com/store/apps/details?id=com.fleetblox.employee_app"
+                    }
+                  >
+                    <GoogleStore />
+                  </Link>
                 </div>
               </div>
             </div>
@@ -92,65 +109,61 @@ const Footer = () => {
                 <h5 className=" font-openSans text-[#DFDFDF] text-[12px] leading-normal mb-[10px] ">
                   Products
                 </h5>
-                <Link className="cursor-pointer" href="/features/dashboard">
+                <Link className="cursor-pointer" href="/products/dashboard">
                   <h5 className="font-openSans py-[2px] mb-[5px] cursor-pointer">
                     Dashboard
                   </h5>
                 </Link>
-                <Link href="/features/getting-started">
+                <Link href="/products/getting-started">
                   <h5 className="font-openSans py-[2px] mb-[5px]">
                     Getting Started
                   </h5>
                 </Link>
-                <Link href="/features/fleet-integration">
+                <Link href="/products/fleet-integration">
                   <h5 className="font-openSans py-[2px] mb-[5px]">
                     Fleet Integration
                   </h5>
                 </Link>
-                <Link href="/features/fleet-expansion">
+                <Link href="/products/fleet-expansion">
                   <h5 className="font-openSans py-[2px] mb-[5px]">
                     Fleet Expansion
                   </h5>
                 </Link>
-                <Link href="/features/digital-inspections">
+                <Link href="/products/digital-inspections">
                   <h5 className="font-openSans py-[2px] mb-[5px]">
                     Digital Inspections
                   </h5>
                 </Link>
-                <Link href="/features/maintenance-diagnostics">
+                <Link href="/products/maintenance-diagnostics">
                   <h5 className="font-openSans py-[2px] mb-[5px]">
                     Maintenance & Diagnostics
                   </h5>
                 </Link>
-                <Link href="/features/expenses-management">
+                <Link href="/products/expenses-management">
                   <h5 className="font-openSans py-[2px] mb-[5px]">
                     Expenses Management
                   </h5>
                 </Link>
-                <Link href="/features/documents-management">
+                <Link href="/products/documents-management">
                   <h5 className="font-openSans py-[2px] mb-[5px]">
                     Documents Management
                   </h5>
                 </Link>
-                <Link href="/features/intelligent-alerts">
+                <Link href="/products/intelligent-alerts">
                   <h5 className="font-openSans py-[2px] mb-[5px]">
                     Intelligent Alerts
                   </h5>
                 </Link>
-                <Link href="/features/team-management">
+                <Link href="/products/team-management">
                   <h5 className="font-openSans py-[2px] mb-[5px]">
                     Team Management
                   </h5>
                 </Link>
-                <Link href="/features/ai-assistant">
+                <Link href="/products/ai-assistant">
                   <h5 className="font-openSans py-[2px] mb-[5px]">
                     AI Assistant
                   </h5>
                 </Link>
-
-                {/* <div className="mt-[10px] text-white text-[14px] font-openSans leading-5 font-semibold">
-                  <button className="pt-2">View All Features</button>
-                </div> */}
               </div>
               {/* solutions */}
               <div className=" text-[14px] leading-5 ">
@@ -312,7 +325,7 @@ const Footer = () => {
                 <Link href="/contact">
                   <h5 className=" font-openSans py-[2px] mb-[5px]">Contact</h5>
                 </Link>
-                <Link href="/under-development">
+                <Link href="/about-us">
                   <h5 className=" font-openSans py-[2px] mb-[5px]">About</h5>
                 </Link>
               </div>
@@ -321,7 +334,7 @@ const Footer = () => {
                 <h5 className=" font-openSans text-[#DFDFDF] text-[12px] leading-normal mb-[10px] ">
                   Resources
                 </h5>
-                <Link href="/under-development">
+                <Link href="/blogs">
                   <h5 className=" font-openSans py-[2px] mb-[5px]">Blogs</h5>
                 </Link>
                 <Link href="/under-development">
@@ -337,15 +350,31 @@ const Footer = () => {
               Download Fleetblox Apps
             </h2>
             <div className="flex gap-[10px] justify-center">
-              <AppleStore />
-              <GoogleStoreMobile />
+              <Link
+                href={
+                  "https://apps.apple.com/us/app/fleetblox-crew/id6742507808"
+                }
+              >
+                <AppleStore />
+              </Link>
+              <Link
+                href={
+                  "https://play.google.com/store/apps/details?id=com.fleetblox.employee_app"
+                }
+              >
+                <GoogleStoreMobile />
+              </Link>
             </div>
           </div>
           <div className="flex items-center flex-col lg:flex-row justify-between pb-[40px] mt-10">
             <div className="flex md:space-x-[20px] space-y-[10px] md:space-y-0 items-center justify-center flex-col md:flex-row">
               <div className="flex cursor-pointer items-center gap-[10px]">
-                <FacebookIcon />
-                <LinkdinIcon />
+                <Link href="https://www.facebook.com/profile.php?id=61571801825472&mibextid=ZbWKwL">
+                  <FacebookIcon />
+                </Link>
+                <Link href="https://www.linkedin.com/company/fleetblox">
+                  <LinkdinIcon />
+                </Link>
                 {/* <InstagramIcon />
             <XIcon /> */}
               </div>
@@ -395,6 +424,39 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      
+      {/* Schema.org structured data */}
+      {isHomepage && (
+        <>
+          {renderSchemaMarkup(
+            buildSchemaData({
+              type: 'WebSite',
+              url: `https://fleetblox.site${pathname}`,
+              title: 'FleetBlox - Advanced AI-Powered Fleet Management Solution',
+              description: 'FleetBlox is an advanced AI-powered, cloud-based fleet connectivity solution that eliminates the need for traditional hardware.'
+            })
+          )}
+          {renderSchemaMarkup(
+            buildSchemaData({
+              type: 'Organization',
+              url: `https://fleetblox.site${pathname}`
+            })
+          )}
+          {renderSchemaMarkup(
+            buildSchemaData({
+              type: 'Product',
+              title: 'FleetBlox Fleet Management Solution',
+              url: `https://fleetblox.site${pathname}`
+            })
+          )}
+          {renderSchemaMarkup(
+            buildSchemaData({
+              type: 'FAQPage',
+              url: `https://fleetblox.site${pathname}`
+            })
+          )}
+        </>
+      )}
     </div>
   );
 };

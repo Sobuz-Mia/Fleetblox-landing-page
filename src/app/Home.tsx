@@ -1,98 +1,60 @@
 "use client";
 import dynamic from "next/dynamic";
 import Navbar from "@/components/ui/shared/Navbar";
-import HeroSection from "@/components/modules/home/HeroSection";
 import { useEffect } from "react";
-
+import HeroSection from "@/components/modules/home/HeroSection";
 import UnifiedFleetManagement from "@/components/modules/home/UnifiedFleetManagement";
-
 
 const FleetSolution = dynamic(
   () => import("@/components/modules/home/FleetSolution"),
-  { ssr: true }
+  { ssr: false }
 );
 const VirtualSlot = dynamic(
   () => import("@/components/modules/home/withVirtualSlot/VirtualSlot"),
-  { ssr: true }
+  { ssr: false }
 );
 const FleetBloxVerseSection = dynamic(
   () =>
     import("@/components/modules/home/fleetBloxVersus/FleetBloxVerseSection"),
-  { ssr: true }
+  { ssr: false }
 );
 const ConnectRemotelySection = dynamic(
   () => import("@/components/modules/home/ConnectRemotelySection"),
-  { ssr: true }
+  { ssr: false }
 );
 const WorkforceManageSection = dynamic(
   () => import("@/components/modules/home/WorkforceManageSection"),
-  { ssr: true }
+  { ssr: false }
 );
 const AiSupportSection = dynamic(
   () => import("@/components/modules/home/AiSupportSection"),
-  { ssr: true }
+  { ssr: false }
 );
 const GlobalCoverageAndCompatibility = dynamic(
   () => import("@/components/modules/home/GlobalCoverageAndCompatibility"),
-  { ssr: true }
+  { ssr: false }
 );
-const SlideShowSection = dynamic(
-  () => import("@/components/modules/home/SlideShowSection"),
-  { ssr: true }
-);
+// const SlideShowSection = dynamic(
+//   () => import("@/components/modules/home/SlideShowSection"),
+//   { ssr: true }
+// );
 const BlogSection = dynamic(
   () => import("@/components/modules/home/BlogSection"),
-  { ssr: true }
+  { ssr: false }
 );
 const FAQSection = dynamic(
   () => import("@/components/modules/home/FAQSection"),
-  { ssr: true }
+  { ssr: false }
 );
 const Footer = dynamic(() => import("@/components/ui/shared/Footer"), {
-  ssr: true,
+  ssr: false,
 });
 
 export default function Home() {
-
-
-
-    useEffect(() => {
-        // Check if we're in browser context
-        if (typeof window !== "undefined") {
-            // Clear localStorage items
-            localStorage.removeItem("country");
-            localStorage.removeItem("countries");
-            localStorage.removeItem("selectedPlan");
-            localStorage.removeItem("brands");
-            localStorage.removeItem("brandCarList");
-            localStorage.removeItem("brandModels");
-            localStorage.removeItem("VINS");
-            localStorage.removeItem("VINS_RESULT");
-            localStorage.removeItem("compatibility");
-            localStorage.removeItem("selectedCountries");
-            localStorage.removeItem("isGetDemo");
-        }
-    }, []);
-    return (
-        <div>
-            <Navbar />
-            <HeroSection />
-            <FleetSolution />
-            <VirtualSlot />
-            <FleetBloxVerseSection />
-            <ConnectRemotelySection />
-            <WorkforceManageSection />
-            <AiSupportSection />
-            <GlobalCoverageAndCompatibility />
-            <SlideShowSection />
-            <BlogSection />
-            <FAQSection />
-            <Footer />
-        </div>
-    );
-
   useEffect(() => {
+    // Check if we're in browser context
     if (typeof window !== "undefined") {
+      // Clear localStorage items
       localStorage.removeItem("country");
       localStorage.removeItem("countries");
       localStorage.removeItem("selectedPlan");
@@ -103,6 +65,7 @@ export default function Home() {
       localStorage.removeItem("VINS_RESULT");
       localStorage.removeItem("compatibility");
       localStorage.removeItem("selectedCountries");
+      localStorage.removeItem("isGetDemo");
     }
   }, []);
 
@@ -118,7 +81,7 @@ export default function Home() {
       <FleetBloxVerseSection />
       <AiSupportSection />
       <GlobalCoverageAndCompatibility />
-      <SlideShowSection />
+      {/* <SlideShowSection /> */}
       <BlogSection />
       <FAQSection />
       <Footer />

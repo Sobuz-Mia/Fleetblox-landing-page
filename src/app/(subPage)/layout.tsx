@@ -1,7 +1,8 @@
-import BlogSection from "@/components/modules/home/BlogSection";
-import FAQSection from "@/components/modules/home/FAQSection";
+
+
 import Footer from "@/components/ui/shared/Footer";
 import Navbar from "@/components/ui/shared/Navbar";
+import { BlogSectionDynamic, FAQDynamic } from "../lazy";
 
 const SubPageLayout = ({ children }: { children: React.ReactNode }) => {
 
@@ -11,8 +12,8 @@ const SubPageLayout = ({ children }: { children: React.ReactNode }) => {
     <div>
       <Navbar />
       {children}
-      <BlogSection />
-      <FAQSection />
+      <BlogSectionDynamic />
+      <FAQDynamic />
       <Footer />
     </div>
   );

@@ -25,7 +25,7 @@ export function Resources() {
         >
           {" "}
           <div className="flex cursor-pointer items-center gap-[2px] text-[16px] font-openSans font-semibold leading-6 transition-all duration-300 ease-in-out hover:text-[#7D7D7D] active:bg-transparent">
-            <h1>Resources</h1>
+            <h4>Resources</h4>
             <div className="mt-[3px] flex items-center justify-center">
               <ChevronDown size={18} />
             </div>

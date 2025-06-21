@@ -47,9 +47,9 @@ const page = () => {
             <h3 className="text-[#0336BC] font-openSans font-bold text-[22px]">
               Remote Scalability
             </h3>
-            <h1 className="text-[#04082C] text-[36px] lg:text-[52px] font-bold leading-[1.1]">
+            <h2 className="text-[#04082C] text-[36px] lg:text-[52px] font-bold leading-[1.1]">
               Effortless Fleet Expansion Across Regions
-            </h1>
+            </h2>
             <p className="text-[#333] text-[16px] leading-6 mt-[10px] lg:mt-4 mb-5 font-openSans">
               {`Expanding your fleet is simpler than ever—no matter where you are.
               Whether you're managing a fleet in North America, Europe, or
@@ -73,7 +73,7 @@ const page = () => {
               href="/getting-started"
             >
               <button className="lg:hidden bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
-              Start today
+                Start today
               </button>
             </Link>
           </div>
@@ -91,9 +91,9 @@ const page = () => {
       {/* hero section end */}
       <section className="max-w-[1200px] mx-auto w-full mt-[60px] lg:mt-[100px] px-5">
         <div className=" text-center">
-          <h1 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold text-center leading-[1.1] mb-[10px]">
+          <h2 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold text-center leading-[1.1] mb-[10px]">
             Effortless Global Fleet Scaling with Fleetblox
-          </h1>
+          </h2>
           <p className="text-[#333] text-[16px] leading-6 font-openSans">
             Scale your fleet across multiple locations in 20+ countries with 25+
             compatible car brands.
@@ -117,9 +117,9 @@ const page = () => {
                   <TickIcon />
                 </div>
                 <div>
-                  <h1 className="text-[18px] font-openSans font-bold text-[#333]">
+                  <h2 className="text-[18px] font-openSans font-bold text-[#333]">
                     {item.title}
-                  </h1>
+                  </h2>
                   <p className="text-[#7D7D7D] leading-6 font-normal font-openSans text-[14px] ">
                     {item.description}
                   </p>
@@ -152,7 +152,7 @@ const page = () => {
               icon={<data.icon />}
               title={data.title}
               description={data.description}
-              // className="w-full"
+            // className="w-full"
             />
           ))}
         </div>

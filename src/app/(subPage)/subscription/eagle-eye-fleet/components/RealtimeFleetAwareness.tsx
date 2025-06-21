@@ -35,13 +35,13 @@ const RealtimeFleetAwareness = () => {
             <div key={index} className={`flex relative max-w-[480px] w-full`}>
               <div className="absolute top-[8px] left-[8px] right-[8px] z-[10] rounded-[24px] bg-[rgba(0,0,0,0.08)] blur-[10px] h-[calc(100%+8px)]"></div>
               {/* right card */}
-              <div className="z-50 p-[20px] bg-white w-full rounded-[16px] flex items-center text-center gap-5">
+              <div className="z-50 p-[20px] bg-white w-full rounded-[16px] flex items-center  gap-5">
                 <div>{data?.icon}</div>
                 <div className="text-left">
-                  <h1 className="text-[#333] text-[18px] font-bold font-openSans mt-[10px] mb-[5px]">
+                  <h3 className="text-[#333] text-[18px] font-bold font-openSans mt-[10px] mb-[5px]">
                     {data?.title}
-                  </h1>
-                  <p className="text-[#7D7D7D] font-openSans text-[14px] leading-5 text-center">
+                  </h3>
+                  <p className="text-[#7D7D7D] font-openSans text-[14px] leading-5">
                     {data?.description}
                   </p>
                 </div>

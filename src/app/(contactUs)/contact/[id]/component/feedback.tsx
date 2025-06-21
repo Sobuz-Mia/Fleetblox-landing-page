@@ -3,9 +3,9 @@ import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import CountryCodeSelection from "@/app/(contactUs)/contact/component/CountryCodeSelection";
 import { useState } from "react";
 import Canada from "@/../public/images/canada.png";
-import {  TFeedbackFormData } from "@/types/types";
+import { TFeedbackFormData } from "@/types/types";
 import { toast } from "react-hot-toast";
-import axios from "axios"; 
+import axios from "axios";
 import { AxiosErrorResponse } from "@/interface/AxiosErrorResponse";
 const Feedback = () => {
   const [loading, setLoading] = useState(false);
@@ -82,9 +82,9 @@ const Feedback = () => {
       <section className="flex justify-between  flex-col-reverse lg:flex-row max-w-[1120px] mx-auto w-full py-5 lg:py-[100px] gap-10 lg:gap-[100px] items-start px-5">
         <div className="flex lg:flex-col justify-between flex-col-reverse gap-10 lg:gap-[60px] w-full lg:w-1/2 ">
           <div>
-            <h1 className="text-[#04082C] text-[18px] font-openSans font-bold mb-[8px]">
+            <h4 className="text-[#04082C] text-[18px] font-openSans font-bold mb-[8px]">
               Customer Support
-            </h1>
+            </h4>
             <p className="text-[#333] text-[14px] font-openSans leading-5 mb-[5px]">
               {" "}
               +1 (888) 870 2004
@@ -94,18 +94,18 @@ const Feedback = () => {
             </p>
           </div>
           <div>
-            <h1 className="text-[#04082C] text-[18px] font-openSans font-bold mb-[8px]">
+            <h2 className="text-[#04082C] text-[18px] font-openSans font-bold mb-[8px]">
               Connect with Fleetblox
-            </h1>
+            </h2>
             <p className="text-[#7D7D7D] text-[16px] font-openSans leading-[24px] mb-[5px]">
               Fleetblox is an AI-powered, cloud-based fleet connectivity
               solution that reduces costs, minimizes downtime, and
               revolutionizes fleet management for smarter, more efficient
               operations.
             </p>
-            <h1 className="text-[#04082C] text-[14px] font-openSans font-semibold leading-5 mt-4">
+            <h5 className="text-[#04082C] text-[14px] font-openSans font-semibold leading-5 mt-4">
               Want to learn more? Contact us
-            </h1>
+            </h5>
           </div>
         </div>
         <form onSubmit={handleSubmit} className="space-y-[10px] w-full">
@@ -122,9 +122,8 @@ const Feedback = () => {
                 maxLength={20}
                 value={formData.brandName}
                 onChange={handleChange}
-                className={`p-4 text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${
-                  formData.brandName ? "has-value" : ""
-                }`}
+                className={`p-4 text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${formData.brandName ? "has-value" : ""
+                  }`}
               />
               <span className="absolute left-0 top-0 text-[#333] font-openSans text-[14px] leading-5 tracking-wide peer-focus:text-[#2D65F2] pointer-events-none duration-200 peer-focus:text-sm peer-focus:-translate-y-[27px] bg-white ml-4 peer-[.has-value]:text-[#2D65F2] peer-[.has-value]:-translate-y-[27px] peer-[.has-value]:text-sm">
                 Brand Name
@@ -142,9 +141,8 @@ const Feedback = () => {
                 maxLength={20}
                 value={formData.brandEmail}
                 onChange={handleChange}
-                className={`p-4 text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${
-                  formData.brandEmail ? "has-value" : ""
-                }`}
+                className={`p-4 text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${formData.brandEmail ? "has-value" : ""
+                  }`}
               />
               <span className="absolute left-0 top-0 text-[#333] font-openSans text-[14px] leading-5 tracking-wide peer-focus:text-[#2D65F2] pointer-events-none duration-200 peer-focus:text-sm peer-focus:-translate-y-[27px] bg-white ml-4 peer-[.has-value]:text-[#2D65F2] peer-[.has-value]:-translate-y-[27px] peer-[.has-value]:text-sm">
                 Brand Email
@@ -163,9 +161,8 @@ const Feedback = () => {
                 maxLength={40}
                 value={formData.brandPhoneNumber}
                 onChange={handleChange}
-                className={`p-4 text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${
-                  formData.brandPhoneNumber ? "has-value" : ""
-                }`}
+                className={`p-4 text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${formData.brandPhoneNumber ? "has-value" : ""
+                  }`}
               />
               <span className="absolute left-0 top-0 text-[#333] font-openSans text-[14px] leading-5 tracking-wide peer-focus:text-[#2D65F2] pointer-events-none duration-200 peer-focus:text-sm peer-focus:-translate-y-[27px] bg-white ml-4 peer-[.has-value]:text-[#2D65F2] peer-[.has-value]:-translate-y-[27px] peer-[.has-value]:text-sm">
                 Brand Phone Number
@@ -184,20 +181,17 @@ const Feedback = () => {
                 pattern="[0-9]*"
                 value={formData.brandPhoneNumber}
                 onChange={handleChange}
-                className={`py-4  ${
-                  formData?.countryCode?.length === 4
-                    ? "px-[110px]"
-                    : "px-[100px]"
-                } text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${
-                  formData.brandPhoneNumber ? "has-value" : ""
-                }`}
+                className={`py-4  ${formData?.countryCode?.length === 4
+                  ? "px-[110px]"
+                  : "px-[100px]"
+                  } text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${formData.brandPhoneNumber ? "has-value" : ""
+                  }`}
               />
               <span
-                className={`absolute  ${
-                  formData?.countryCode?.length === 4
-                    ? "left-[90px]"
-                    : "left-[85px]"
-                }  top-0 text-[#333] font-openSans text-[14px] leading-5 tracking-wide peer-focus:text-[#2D65F2] pointer-events-none duration-200 peer-focus:text-sm peer-focus:-translate-y-[27px] bg-white ml-4 peer-[.has-value]:text-[#2D65F2] peer-[.has-value]:-translate-y-[27px] peer-[.has-value]:text-sm`}
+                className={`absolute  ${formData?.countryCode?.length === 4
+                  ? "left-[90px]"
+                  : "left-[85px]"
+                  }  top-0 text-[#333] font-openSans text-[14px] leading-5 tracking-wide peer-focus:text-[#2D65F2] pointer-events-none duration-200 peer-focus:text-sm peer-focus:-translate-y-[27px] bg-white ml-4 peer-[.has-value]:text-[#2D65F2] peer-[.has-value]:-translate-y-[27px] peer-[.has-value]:text-sm`}
               >
                 Phone number
               </span>
@@ -220,9 +214,8 @@ const Feedback = () => {
                 aria-describedby="Enter your message"
                 value={formData.message}
                 onChange={handleChange}
-                className={`p-4 text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${
-                  formData.message ? "has-value" : ""
-                }`}
+                className={`p-4 text-[#333] font-openSans text-[14px] leading-5 outline-none border border-[#DFDFDF] rounded-md focus:border-[#B8CBFC] duration-200 peer bg-white w-full ${formData.message ? "has-value" : ""
+                  }`}
               />
               <span className="absolute left-0 bottom-[50px] text-[#333] font-openSans text-[14px] leading-5 tracking-wide peer-focus:text-[#2D65F2] pointer-events-none duration-200 peer-focus:text-sm peer-focus:-translate-y-[58px] bg-white ml-4 peer-[.has-value]:text-[#2D65F2] peer-[.has-value]:-translate-y-[58px] peer-[.has-value]:text-sm">
                 Message

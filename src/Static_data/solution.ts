@@ -40,6 +40,11 @@ import FutureProofIcon from "@/components/icons/solution/remoteScalability/Futur
 import GlobalExpansion from "@/components/icons/solution/remoteScalability/GlobalExpansion";
 import MarketAdaptability from "@/components/icons/solution/remoteScalability/MarketAdaptability";
 import VehicleAccessIcon from "@/components/icons/solution/VehicleAccessIcon";
+import AiPoweredWorkflow from "@/components/icons/solution/inventoryManagement/AiPoweredWorkflow";
+import GeoZonedFleet from "@/components/icons/solution/inventoryManagement/GeoZonedFleet";
+import BuiltInEVSupport from "@/components/icons/solution/inventoryManagement/BuiltInEVSupport";
+import LiveVehicleHealth from "@/components/icons/solution/inventoryManagement/LiveVehicleHealth";
+import LocationBasedPerformance from "@/components/icons/solution/inventoryManagement/LocationBasedPerformance";
 
 const WhyCloudData = [
   {
@@ -285,7 +290,6 @@ const WhyRemoteInspectionData = [
     description:
       "Leverage AI technology to ensure accurate and consistent inspections that help maintain fleet health and improve decision-making on repairs and maintenance.",
   },
-
 ];
 
 const WhyAiFleetAssistantData = [
@@ -319,7 +323,7 @@ const WhyAiFleetAssistantData = [
     description:
       "Get an overview of fleet performance with data-driven insights that help you understand trends and take action to improve fleet operations at every level.",
   },
-]
+];
 
 const WhyWorkforceConnectivityData = [
   {
@@ -352,7 +356,33 @@ const WhyWorkforceConnectivityData = [
     description:
       "Empower your workforce to work remotely or on the go, while still having access to all tools, data, and communication channels needed to stay connected and effective.",
   },
-]
+];
+const KeyBenefits = [
+  {
+    icon: AiPoweredWorkflow,
+    title: "AI-powered workflows for 10x faster vehicle onboarding",
+  },
+  {
+    icon: GeoZonedFleet,
+    title: "Geo-zoned fleet structuring for smarter dispatch & control",
+  },
+  {
+    icon: InstantConnectivityIcon,
+    title: "Instant vehicle data sync with no hardware or OBD devices needed",
+  },
+  {
+    icon: BuiltInEVSupport,
+    title: "Built-in support for EV, hybrid, and combustion powertrains",
+  },
+  {
+    icon: LiveVehicleHealth,
+    title: "Live vehicle health and location monitoring in real time",
+  },
+  {
+    icon: LocationBasedPerformance,
+    title: "Location-based performance analytics for smarter decisions",
+  },
+];
 
 export {
   WhyCloudData,
@@ -365,4 +395,5 @@ export {
   WhyRemoteInspectionData,
   WhyAiFleetAssistantData,
   WhyWorkforceConnectivityData,
+  KeyBenefits,
 };

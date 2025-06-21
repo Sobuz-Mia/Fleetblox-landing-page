@@ -55,10 +55,6 @@ export const AccurateSlider = ({
             className="absolute top-1/2 z-20 h-[10px] w-[10px] -translate-y-1/2 transform rounded-full bg-[#DDD]"
             style={{ left: "72%" }}
           ></div>
-          {/* <div
-            className="absolute top-1/2 z-20 h-[10px] w-[10px] -translate-y-1/2 transform rounded-full bg-[#DDD]"
-            style={{ left: "99%" }}
-          ></div> */}
 
           {/* Progress (filled with #0336BC) */}
           <div
@@ -109,16 +105,14 @@ export const AccurateSlider = ({
             10
           </span>
           <span
-            className={`absolute left-[48%] transform -translate-x-1/2 text-[10px] sm:text-[12px] font-medium ${
-              value >= 100 ? "text-black" : "text-[#999]"
-            }`}
+            className={`absolute left-[48%] transform -translate-x-1/2 text-[10px] sm:text-[12px] font-medium ${value >= 100 ? "text-black" : "text-[#999]"
+              }`}
           >
             100
           </span>
           <span
-            className={`absolute right-0 transform translate-x-1/2 text-[10px] sm:text-[12px] font-medium ${
-              value >= 200 ? "text-black" : "text-[#999]"
-            }`}
+            className={`absolute right-0 transform translate-x-1/2 text-[10px] sm:text-[12px] font-medium ${value >= 200 ? "text-black" : "text-[#999]"
+              }`}
           >
             200
           </span>

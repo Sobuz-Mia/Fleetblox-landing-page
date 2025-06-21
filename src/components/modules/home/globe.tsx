@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { ReactNode } from "react";
 import image1 from "../../../../public/brand/Frame 1707481648.svg";
 import image2 from "../../../../public/brand/Frame 1707481652.svg";
 import image3 from "../../../../public/brand/Frame 1707481662.png";
@@ -36,9 +36,16 @@ import image32 from "../../../../public/brand/Frame 1707481680.svg";
 import image33 from "../../../../public/brand/Frame 1707481661.svg";
 type GlobeSectionProps = {
   title: string;
-  description: string;
+  description?: string;
+  extraButton?: ReactNode;
+  paddingTop?: string;
 };
-const GlobeSection = ({ title, description }: GlobeSectionProps) => {
+const GlobeSection = ({
+  title,
+  description,
+  extraButton,
+  paddingTop,
+}: GlobeSectionProps) => {
   const images = [
     image1,
     image2,
@@ -75,25 +82,29 @@ const GlobeSection = ({ title, description }: GlobeSectionProps) => {
     image33,
   ];
   return (
-    <section className="pt-[100px]">
+    <section className={`${paddingTop ? paddingTop : "pt-[100px]"} `}>
       <div className="z-[100] mx-auto max-w-[1300px] lg:w-[1000px] 2xl:w-[1300px] space-y-[20px] overflow-hidden">
         <div className="relative z-[1000] px-5 max-w-[842px] w-full mx-auto text-center">
-          <h1 className="font-montserrat text-[#04082C] text-[28px] md:text-[36px] font-bold  text-center leading-[1.1]">
+          <h3 className="font-montserrat text-[#04082C] text-[28px] md:text-[36px] font-bold  text-center leading-[1.1]">
             {title.split("<br />").map((line, index) => (
               <React.Fragment key={index}>
                 {line}
                 {index !== title.split("<br />").length - 1 && <br />}
               </React.Fragment>
             ))}
-          </h1>
+          </h3>
           <p className="mt-[10px] text-[#333] text-[16px] font-normal leading-6 font-openSans mb-5">
             {description}
           </p>
-          <Link href={"/under-development"}>
-            <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
-              Check Compatibility
-            </button>
-          </Link>
+          {extraButton ? (
+            <div className="flex justify-center">{extraButton}</div>
+          ) : (
+            <Link href={"/under-development"}>
+              <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
+                Check Compatibility
+              </button>
+            </Link>
+          )}
         </div>
         <div className="flex relative h-[376px] w-full items-center justify-center overflow-hidden">
           <video

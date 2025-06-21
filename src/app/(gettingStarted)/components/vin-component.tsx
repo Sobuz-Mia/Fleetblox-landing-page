@@ -201,9 +201,9 @@ const VIN = () => {
               className="flex w-1/4 items-center justify-center gap-1 rounded-md border border-p_light_blue px-[10px] py-[12px] outline-none"
             >
               <Image src={AddIcon} alt="Add Icon" />
-              <h1 className="font-openSans text-[#2D65F2] text-[14px] font-semibold text-p_blue">
+              <h2 className="font-openSans text-[#2D65F2] text-[14px] font-semibold text-p_blue">
                 Add
-              </h1>
+              </h2>
             </button>
           </div>
 

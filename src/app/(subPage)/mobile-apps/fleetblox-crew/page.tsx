@@ -99,9 +99,9 @@ const EMobilityServices = () => {
             <h3 className="text-[#0336BC] font-openSans font-bold text-[22px] w-full">
               Fleetblox crew
             </h3>
-            <h1 className="text-[#04082C] text-[36px] lg:text-[50px] font-bold leading-[1.1] w-full">
+            <h2 className="text-[#04082C] text-[36px] lg:text-[50px] font-bold leading-[1.1] w-full">
               Assemble Your fleet coordinators
-            </h1>
+            </h2>
             <p className="text-[#333] text-[16px] leading-6 mt-[10px] lg:mt-4 mb-5 font-openSans">
               Fleetblox makes your dispersed team become a coordinated team —
               with intelligent task streams, real-time notifications, and
@@ -144,9 +144,9 @@ const EMobilityServices = () => {
 
       <section className=" mx-auto w-full mt-[60px] lg:mt-[100px] px-5">
         <div className="max-w-[840px] mx-auto w-full text-center">
-          <h1 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold text-center leading-[1.1] mb-[10px]">
+          <h2 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold text-center leading-[1.1] mb-[10px]">
             Electrify Smarter
-          </h1>
+          </h2>
           <p className="text-[#333] text-[16px] leading-6 font-openSans">
             Unify charging, battery health, and remote control across your
             entire EV fleet
@@ -219,7 +219,6 @@ const EMobilityServices = () => {
               alt="Fleet Operations Sync"
               width={720}
               height={630}
-              priority
               className="object-contain w-full h-full max-w-[600px] lg:max-w-[700px]"
             />
           </div>
@@ -229,9 +228,9 @@ const EMobilityServices = () => {
       {/* animations section with GSAP scrolling */}
       <section className="mx-auto py-20 h-full  mt-[60px] lg:mt-[100px] px-5">
         <div className="max-w-[840px] mx-auto w-full text-center">
-          <h1 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold text-center leading-[1.1] mb-[10px]">
+          <h2 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold text-center leading-[1.1] mb-[10px]">
             Remote Operations That Moves You Beyond
-          </h1>
+          </h2>
           <p className="text-[#333] text-[16px] leading-6 font-openSans">
             Enhance team connectivity and accelerate operations through
             real-time monitoring.
@@ -241,9 +240,9 @@ const EMobilityServices = () => {
       </section>
 
       <section className="max-w-[1200px] mx-auto w-full mb-[60px] px-5">
-        <h1 className="mb-[40px] lg:mb-[60px] text-center max-w-[700px] w-full mx-auto text-[#04082C] text-[28px] lg:text-[36px] font-bold">
+        <h2 className="mb-[40px] lg:mb-[60px] text-center max-w-[700px] w-full mx-auto text-[#04082C] text-[28px] lg:text-[36px] font-bold">
           A Dashboard That Moves Business Forward
-        </h1>
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center items-center lg:gap-[30px] gap-[20px]">
           {FleetsFit?.map((data, index) => (
             <FeatureCard
@@ -251,10 +250,9 @@ const EMobilityServices = () => {
               icon={<data.icon />}
               title={data.title}
               description={data.description}
-              className={`w-full h-[250px] ${
-                index === 8 &&
+              className={`w-full h-[250px] ${index === 8 &&
                 "md:col-span-2 lg:col-span-3 md:max-w-[380px] mx-auto "
-              }`}
+                }`}
             />
           ))}
         </div>
@@ -529,10 +527,6 @@ const ScalableandFlexibleOperations = () => {
         d="M43.1777 13.4717C43.9234 13.0703 44.854 13.3442 45.2588 14.0918C50.0675 22.9667 48.4318 34.1541 41.2822 41.2988L40.8711 41.7002C36.5735 45.7885 30.9606 48.0342 25.002 48.0342C20.0098 48.0341 15.2763 46.4346 11.3398 43.5195V46.502C11.3398 47.3496 10.652 48.0351 9.80469 48.0352C8.95695 48.0352 8.26953 47.3492 8.26953 46.502V40.2148C8.26953 39.3672 8.95735 38.6816 9.80469 38.6816H16.0986C16.9464 38.6816 17.6338 39.3676 17.6338 40.2148C17.6335 41.0623 16.9458 41.7471 16.0986 41.7471H14.1328C21.8637 46.7651 32.3365 45.8968 39.1113 39.1299C45.3077 32.9382 46.7256 23.2418 42.5586 15.5498C42.1556 14.8057 42.4319 13.876 43.1777 13.4717ZM40.1953 2.03516C41.0426 2.03516 41.7305 2.72074 41.7305 3.56836V9.85547C41.7305 10.7027 41.043 11.3887 40.1953 11.3887H33.9014C33.0542 11.3885 32.3672 10.703 32.3672 9.85547C32.3672 9.00838 33.0538 8.32243 33.9014 8.32227H35.8672C32.6606 6.23357 28.918 5.10352 24.998 5.10352C19.6665 5.10356 14.6553 7.17748 10.8877 10.9404L10.8896 10.9395C4.69239 17.1317 3.27494 26.8275 7.44238 34.5186C7.84517 35.2627 7.56789 36.1923 6.82227 36.5967C6.59012 36.721 6.33996 36.7812 6.09375 36.7812C5.54843 36.7812 5.0202 36.4902 4.74219 35.9766C-0.0671044 27.1032 1.56812 15.9167 8.71875 8.77246C16.8721 0.62795 29.6552 -0.092984 38.6611 6.55566V3.56836C38.6611 2.72128 39.3478 2.03538 40.1953 2.03516Z"
         fill="#2D65F2"
         fillOpacity="0.5"
-      />
-      <path
-        d="M43.1777 13.4717C43.9234 13.0703 44.854 13.3442 45.2588 14.0918C50.0675 22.9667 48.4318 34.1541 41.2822 41.2988L40.8711 41.7002C36.5735 45.7885 30.9606 48.0342 25.002 48.0342C20.0098 48.0341 15.2763 46.4346 11.3398 43.5195V46.502C11.3398 47.3496 10.652 48.0351 9.80469 48.0352C8.95695 48.0352 8.26953 47.3492 8.26953 46.502V40.2148C8.26953 39.3672 8.95735 38.6816 9.80469 38.6816H16.0986C16.9464 38.6816 17.6338 39.3676 17.6338 40.2148C17.6335 41.0623 16.9458 41.7471 16.0986 41.7471H14.1328C21.8637 46.7651 32.3365 45.8968 39.1113 39.1299C45.3077 32.9382 46.7256 23.2418 42.5586 15.5498C42.1556 14.8057 42.4319 13.876 43.1777 13.4717ZM40.1953 2.03516C41.0426 2.03516 41.7305 2.72074 41.7305 3.56836V9.85547C41.7305 10.7027 41.043 11.3887 40.1953 11.3887H33.9014C33.0542 11.3885 32.3672 10.703 32.3672 9.85547C32.3672 9.00838 33.0538 8.32243 33.9014 8.32227H35.8672C32.6606 6.23357 28.918 5.10352 24.998 5.10352C19.6665 5.10356 14.6553 7.17748 10.8877 10.9404L10.8896 10.9395C4.69239 17.1317 3.27494 26.8275 7.44238 34.5186C7.84517 35.2627 7.56789 36.1923 6.82227 36.5967C6.59012 36.721 6.33996 36.7812 6.09375 36.7812C5.54843 36.7812 5.0202 36.4902 4.74219 35.9766C-0.0671044 27.1032 1.56812 15.9167 8.71875 8.77246C16.8721 0.62795 29.6552 -0.092984 38.6611 6.55566V3.56836C38.6611 2.72128 39.3478 2.03538 40.1953 2.03516Z"
-        stroke="#2D65F2"
       />
     </svg>
   );

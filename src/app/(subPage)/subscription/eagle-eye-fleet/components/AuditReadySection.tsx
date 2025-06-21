@@ -56,18 +56,19 @@ const AuditReadySection = () => {
         priority
       />
       <div className="mt-5 lg:mt-[60px] flex flex-col md:flex-row justify-items-center items-center gap-5 max-w-[900px] w-full mx-auto px-5">
-        <div className="text-center md:border-r-[2px] border-[#FBEECA]">
+        <div className="text-center ">
           <div className="flex justify-center mb-4">
             <DigitalDocument />
           </div>
-          <h1 className="text-[#04082C] font-openSans text-[22px] font-bold mb-[10px]">
+          <h2 className="text-[#04082C] font-openSans text-[22px] font-bold mb-[10px]">
             Digital Documents
-          </h1>
+          </h2>
           <p className="text-[14px] text-[#333] font-openSans leading-5 pr-10">
             Store, manage, and retrieve insurance, inspection, and registration
             files in one place
           </p>
         </div>
+        <div className="border-[#FBEECA] border-[1px] hidden md:block h-[64px]"></div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="35"
@@ -87,9 +88,9 @@ const AuditReadySection = () => {
           <div className="flex justify-center mb-4">
             <AiAssistance />
           </div>
-          <h1 className="text-[#04082C] font-openSans text-[22px] font-bold mb-[10px]">
+          <h2 className="text-[#04082C] font-openSans text-[22px] font-bold mb-[10px]">
             Bee –AI assistant
-          </h1>
+          </h2>
           <p className="text-[14px] text-[#7D7D7D] font-openSans leading-5">
             Your intelligent AI chatbot assistant for real-time operational
             support and compliance guidance

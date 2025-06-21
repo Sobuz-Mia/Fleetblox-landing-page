@@ -37,12 +37,12 @@ const roboto = Roboto({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.fleetblox.com"),
   title: {
-    template: `&s | FleetBlox`,
-    default: "FleetBlox", // Default title
+    template: `%s | FleetBlox - AI-POWERED FLEET MANAGEMENT`,
+    default: "FleetBlox - AI-POWERED FLEET MANAGEMENT",
   },
 
   description:
-    "🚗 Fleetblox Cloud Garage is compatible with 43 car makes, seamlessly connecting to over 177 million vehicles through a single platform. 🌍 With global coverage across North America and Europe, our advanced AI-driven solution 🤖 optimizes fleet management, ensuring maximum operational efficiency ⚙️ and streamlined performance—all in one powerful platform.",
+    "AI-powered fleet management solution connecting to 43+ car makes across North America and Europe.",
   keywords: [
     "#fleetmanagement",
     "#advancedfleetmanagement",
@@ -80,7 +80,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AI-POWERED FLEET MANAGEMENT",
     description:
-      "🚗 Fleetblox Cloud Garage is compatible with 43 car makes, seamlessly connecting to over 177 million vehicles through a single platform. 🌍 With global coverage across North America and Europe, our advanced AI-driven solution 🤖 optimizes fleet management, ensuring maximum operational efficiency ⚙️ and streamlined performance—all in one powerful platform.",
+      "FleetBlox: AI-powered fleet management platform supporting 43+ car makes across North America and Europe. Optimize efficiency and streamline operations in one solution.",
     url: "https://www.fleetblox.com/",
     siteName: "Fleetblox",
     images: [
@@ -100,7 +100,7 @@ export const metadata: Metadata = {
   twitter: {
     title: "AI-POWERED FLEET MANAGEMENT",
     description:
-      "🚗 Fleetblox Cloud Garage is compatible with 43 car makes, seamlessly connecting to over 177 million vehicles through a single platform. 🌍 With global coverage across North America and Europe, our advanced AI-driven solution 🤖 optimizes fleet management, ensuring maximum operational efficiency ⚙️ and streamlined performance—all in one powerful platform.",
+      "FleetBlox: AI-powered fleet management platform supporting 43+ car makes across North America and Europe. Optimize efficiency and streamline operations.",
   },
 };
 
@@ -117,6 +117,12 @@ const FacebookPixel = dynamic(
 
 const GoogleAnalyticsComponent = dynamic(
   () => import('@/components/analytics/GoogleAnalytics'),
+  { ssr: true }
+);
+
+// Import Schema.org implementation
+const GlobalSchema = dynamic(
+  () => import('@/components/seo/GlobalSchema'),
   { ssr: true }
 );
 
@@ -144,6 +150,21 @@ export default function RootLayout({
 
         <link rel="preload" href={imageUrl.src} as="image" />
         <link rel="preload" href="/images/hero-2.webp" as="image" />
+
+        {/* Preload critical mobile hero image for better LCP */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hero-2.webp"
+          media="(max-width: 1023px)"
+        />
+        {/* Preload desktop hero image */}
+        <link
+          rel="preload"
+          as="image"
+          href="/assets/heroCardImage.png"
+          media="(min-width: 1024px)"
+        />
       </head>
 
       {/* Script tags are moved to GoogleAnalytics component with consent management */}
@@ -158,6 +179,7 @@ export default function RootLayout({
             <CookieBanner />
             <FacebookPixel />
             <GoogleAnalyticsComponent />
+            <GlobalSchema /> {/* Add GlobalSchema component here */}
           </ClientSideInitialization>
         </CookieConsentProvider>
       </body>
