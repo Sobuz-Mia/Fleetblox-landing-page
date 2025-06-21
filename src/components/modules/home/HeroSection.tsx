@@ -86,9 +86,7 @@ const HeroSection = () => {
               quality={80}
               sizes="(max-width: 1200px) 90vw, 1200px"
               priority={true}
-              placeholder="blur"
-              blurDataURL="data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA"
-              loading="eager"
+            
             />
 
             {/* Centered blur effect */}
@@ -165,9 +163,8 @@ const HeroSection = () => {
               height={550}
               quality={70}
               className="object-contain w-full h-auto max-w-[300px] max-h-[550px]"
-              sizes="(max-width: 400px) 300px, 50vw"
-              placeholder="blur"
-              blurDataURL="data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA"
+              sizes="(max-width: 400px) 300px, 50vw" 
+              loading="eager"
             />
           </div>
         </div>
