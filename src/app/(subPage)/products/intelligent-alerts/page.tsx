@@ -142,34 +142,11 @@ const page = () => {
             description="Set alerts based on time or mileage to adapt your fleet needs."
             imagePath="/images/products/alert-step-2.svg"
           />
-
-          <div
-            className={`relative z-[200] top-[0px] mx-auto transform flex-col h-[536px] w-full`}
-          >
-            <div className=" bg-white absolute z-50 rounded-[24px] pt-10 px-[30px] flex flex-col gap-[10px] w-full h-full">
-              {/* Card Header */}
-              <div className="font-openSans text-center lg:text-left">
-                <h3 className="text-[#04082C] text-[22px] font-bold">
-                  Get Alerted
-                </h3>
-                <p className="text-[14px] text-[#7D7D7D] leading-5 mt-[5px]">
-                  Receive timely alerts and stay ahead of your entire fleet
-                  operations.
-                </p>
-              </div>
-              <div className="w-full mt-[24px] overflow-hidden">
-                <Image
-                  src="/images/products/alert-step-3.svg"
-                  alt="Remote Scalability Hero"
-                  width={327}
-                  height={700}
-                  className="object-contain w-full h-[550px] lg:h-[390px]"
-                  quality={100}
-                />
-              </div>
-            </div>
-            <div className="absolute top-[1vh] z-[20] rounded-[2px] bg-black opacity-[0.07] blur-[20px] h-[565px] w-[calc(100%-15px)] max-w-[1000px] left-[8px]" />
-          </div>
+          <StepCard
+            title="Get Alerted"
+            description=" Receive timely alerts and stay ahead of your entire fleet operations."
+            imagePath="/images/products/alert-step-3.svg"
+          />
         </div>
       </section>
       {/* how fleetblox connected section */}
@@ -226,9 +203,10 @@ const page = () => {
               icon={<data.icon />}
               title={data.title}
               description={data.description}
-              className={`w-full ${index === 4 &&
+              className={`w-full ${
+                index === 4 &&
                 "md:col-span-2 md:max-w-[380px] mx-auto h-[210px]"
-                }`}
+              }`}
             />
           ))}
         </div>
