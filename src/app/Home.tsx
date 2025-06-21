@@ -2,17 +2,9 @@
 import dynamic from "next/dynamic";
 import Navbar from "@/components/ui/shared/Navbar";
 import { useEffect } from "react";
-
+import HeroSection from "@/components/modules/home/HeroSection";
 import UnifiedFleetManagement from "@/components/modules/home/UnifiedFleetManagement";
-import HeroSkeleton from "@/components/modules/home/HeroSkeleton";
 
-const HeroSection = dynamic(
-  () => import("@/components/modules/home/HeroSection"),
-  { 
-    ssr: false,
-    loading: () => <HeroSkeleton />
-  }
-);
 const FleetSolution = dynamic(
   () => import("@/components/modules/home/FleetSolution"),
   { ssr: false }
@@ -76,7 +68,7 @@ export default function Home() {
     }
   }, []);
 
-  
+
   return (
     <div>
       <Navbar />

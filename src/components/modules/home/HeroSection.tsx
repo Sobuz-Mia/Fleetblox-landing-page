@@ -4,8 +4,28 @@ import Image from "next/image";
 import VerticalDividerIcon from "@/components/icons/VerticalDividerIcon";
 import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 const HeroSection = () => {
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+
+  useEffect(() => {
+    // Preload critical mobile hero image
+    if (window.innerWidth < 1024) {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = '/images/hero-2.webp';
+      document.head.appendChild(link);
+    }
+    
+    // Delay video loading to improve LCP
+    const timer = setTimeout(() => {
+      setIsVideoLoaded(true);
+    }, 2000); // Increased delay for better LCP
+    
+    return () => clearTimeout(timer);
+  }, []);
   const features = [
     {
       title: "Intelligent Onboarding",
@@ -38,10 +58,10 @@ const HeroSection = () => {
           <p className="text-[18px] md:text-[28px] lg:text-[28px] text-left md:text-center font-bold text-[#0336BC] mb-[5px]">
             Fleet Moderniser Platform
           </p>
-          <h3
+          <h1
           className="text-[36px] md:text-[52px] lg:text-[52px] text-left md:text-center font-bold text-[#04082C] leading-[1.1] font-montserrat">
             Empower Your Fleet Ecosystem Potentials
-          </h3>
+          </h1>
           <p className="text-left md:text-center font-openSans text-[#333] leading-6 text-[16px] mt-[10px]">
             Fleetblox is a modern, AI-based platform designed to empower the
             next generation of fleet management—built to adapt the demands of
@@ -96,18 +116,20 @@ const HeroSection = () => {
                 max-w-[520px] w-full bg-[#2D65F2]"
             ></div>
 
-            {/* Centered video container */}
+            {/* Centered video container - optimized loading */}
             <div className="absolute inset-0 flex justify-center items-center bg-[#FAFAFF] w-full max-w-[1600px] mx-auto left-1/2 -translate-x-1/2 overflow-hidden sm:max-w-[90%] md:max-w-[1100px] lg:max-w-[1200px] xl:max-w-[1600px]">
-              <video
-                autoPlay
-                preload="none"
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover object-center opacity-5 mix-blend-difference absolute inset-0"
-              >
-                <source src="/videos/hero.webm" type="video/webm" />
-              </video>
+              {isVideoLoaded && (
+                <video
+                  autoPlay
+                  preload="none"
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover object-center opacity-5 mix-blend-difference absolute inset-0"
+                >
+                  <source src="/videos/hero.webm" type="video/webm" />
+                </video>
+              )}
             </div>
           </div>
 
@@ -133,38 +155,43 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Mobile hero with skeleton loader */}
+      {/* Mobile hero optimized for LCP */}
       <div className="lg:hidden mt-8 relative w-full flex flex-col items-center justify-center">
-        <div className="relative w-full h-full flex justify-center items-center overflow-hidden">
-          {/* Background blur */}
-          <div className="h-[150px] w-[150px] filter blur-sm left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 rounded-full bg-[#2D65F2] opacity-50 absolute"></div>
+        <div className="relative w-full flex justify-center items-center overflow-hidden h-[350px]">
+          {/* Optimized background - removed blur initially to improve paint */}
+          <div className="h-[150px] w-[150px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 rounded-full bg-[#2D65F2] opacity-30 absolute"></div>
 
-          {/* Background video */}
-          <div className="absolute h-full w-full inset-0 bg-[#FAFAFF]">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="none"
-              className="absolute top-0 left-0 w-full h-full object-cover opacity-5 mix-blend-difference"
-            >
-              <source src="/videos/hero.mp4" type="video/mp4" />
-            </video>
-          </div>
+          {/* Background video - lazy loaded after initial paint */}
+          {isVideoLoaded && (
+            <div className="absolute h-full w-full inset-0 bg-[#FAFAFF]">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="none"
+                className="absolute top-0 left-0 w-full h-full object-cover opacity-5 mix-blend-difference"
+              >
+                <source src="/videos/hero.mp4" type="video/mp4" />
+              </video>
+            </div>
+          )}
 
-          {/* Hero image with skeleton fallback */}
+          {/* Hero image optimized for LCP */}
           <div className="relative z-30 flex justify-center items-center h-full">
             <Image
               src="/images/hero-2.webp"
               priority={true}
               alt="Mobile hero"
-              width={300}
-              height={550}
-              quality={70}
-              className="object-contain w-full h-auto max-w-[300px] max-h-[550px]"
-              sizes="(max-width: 400px) 300px, 50vw" 
+              width={280}
+              height={350}
+              quality={90}
+              className="object-contain w-full h-auto max-w-[280px] max-h-[350px]"
+              sizes="280px"
               loading="eager"
+              fetchPriority="high"
+              placeholder="blur"
+              blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHh8f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyLDSzHq9VgbGhUrmr/AI5iDvOHD6KN8SrjPrt4a5AigfcZGBrcsJjBP6fM7+c/G/TlcmLO4XM6N1X/2Q=="
             />
           </div>
         </div>
