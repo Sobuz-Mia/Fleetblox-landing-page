@@ -15,34 +15,34 @@ const Cards = () => {
       title: "Get Demo",
       description: "Explore how Fleetblox simplifies your fleet management",
       linkText: "Get a Demo",
-      linkHref: "https://forms.gle/eS13RkXi5jdDCpjm7",
+      linkHref: "",
     },
     {
       title: "Customer Support",
       description:
         "Our support team is here to assist you with any issuse or questions",
       linkText: "Email Us",
-      linkHref: "mailto:info@fleetblox.com",
+      linkHref: "https://forms.gle/FhbEkrRpdgdhqFgz9",
     },
     {
       title: "Report as Issue or Bug",
       description: "Help us improve by reporting bugs or glitches",
       linkText: "Report",
-      linkHref: "https://forms.gle/eS13RkXi5jdDCpjm7",
+      linkHref: "https://forms.gle/FhbEkrRpdgdhqFgz9",
     },
     {
       title: "Press and Media",
       description:
         "Interested in the latest news or want to get in touch with our media team",
       linkText: "Email Us",
-      linkHref: "mailto:info@fleetblox.com",
+      linkHref: "mailto:press@fleetblox.com",
     },
     {
       title: "Feedback Or Suggestions",
       description:
         "Share your valuable suggestions and feedbacks to improve Fleetblox's user experience",
       linkText: "Submit Feedback",
-      linkHref: "https://forms.gle/cwTiaq5TChshqDc99",
+      linkHref: "https://forms.gle/vt8pJE7ynNhr71aQ6",
     },
   ];
 
