@@ -34,17 +34,12 @@ const HeroSection = () => {
       {/* Main content section */}
       <div className="mt-[120px] pb-3 flex flex-col items-center justify-center px-5">
         {/* Text content remains the same */}
-        <div className="relative max-w-[840px] w-full mx-auto text-center flex flex-col items-start md:items-center ">
+        <div className="max-w-[840px] w-full mx-auto text-center flex flex-col items-start md:items-center ">
           <p className="text-[18px] md:text-[28px] lg:text-[28px] text-left md:text-center font-bold text-[#0336BC] mb-[5px]">
             Fleet Moderniser Platform
           </p>
           <h3
-          className="hidden md:block md:text-[52px] lg:text-[52px] text-left md:text-center font-bold text-[#04082C] leading-[1.1] font-montserrat">
-            Empower Your Fleet Ecosystem Potentials
-          </h3>
-
-          <h3
-          className="block absolute z-50 md:hidden text-[32px] text-left  font-bold text-[#04082C] leading-[1.1] font-montserrat">
+          className="text-[36px] md:text-[52px] lg:text-[52px] text-left md:text-center font-bold text-[#04082C] leading-[1.1] font-montserrat">
             Empower Your Fleet Ecosystem Potentials
           </h3>
           <p className="text-left md:text-center font-openSans text-[#333] leading-6 text-[16px] mt-[10px]">
