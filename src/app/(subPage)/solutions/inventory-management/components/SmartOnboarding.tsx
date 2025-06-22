@@ -84,7 +84,7 @@ const SmartOnboarding = ({
                   className="w-full h-full"
                 >
                   <source
-                    src="/videos/solutions/smart-onboarding.mp4"
+                    src="/videos/solutions/smart-onboarding.mov"
                     type="video/webm"
                   />
                 </video>
@@ -94,7 +94,9 @@ const SmartOnboarding = ({
         </div>
 
         {/* loading deal section */}
-        <div className="max-w-[520px]  space-y-[10px] sm:space-y-[12px] ml-0 sm:ml-4 lg:ml-10 py-2 sm:py-4 w-full ">
+        <div
+          className={`max-w-[520px]  space-y-[10px] sm:space-y-[12px] ml-0 sm:ml-4 lg:ml-10 py-2 sm:py-4 w-full h-[280px]`}
+        >
           {OnboardingData.map((item, index) => (
             <div key={index} className="overflow-hidden flex">
               {/* Loader Indicator */}
@@ -113,7 +115,9 @@ const SmartOnboarding = ({
               </div>
 
               {/* Content Container */}
-              <div className="max-w-[520px] w-full px-[12px] sm:px-[16px] py-[8px] sm:py-[10px]">
+              <div
+                className={`max-w-[520px] w-full px-[12px] sm:px-[16px] py-[8px] sm:py-[10px]`}
+              >
                 {/* Question Section */}
                 <div
                   onClick={() => handleItemClick(index)}

@@ -90,19 +90,7 @@ const UnifiedFleetManagement = () => {
             </button>
           </Link>
         </div>
-        {/* <div data-aos="fade-right" data-aos-duration="2000">
-          <Image
-            src={"/images/stay-audit-ready.svg"}
-            height={480}
-            width={600}
-            alt="stay audit ready"
-          />
-          <Link href="/products/documents-management">
-            <button className="md:hidden mt-10 bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
-              Learn More
-            </button>
-          </Link>
-        </div> */}
+
         <div
           className="hidden md:block"
           data-aos="fade-right"
@@ -162,13 +150,37 @@ const UnifiedFleetManagement = () => {
             </button>
           </Link>
         </div>
-        <div data-aos="fade-left" data-aos-duration="2000">
+        <div
+          className=" hidden md:block"
+          data-aos="fade-left"
+          data-aos-duration="2000"
+        >
           <video
             autoPlay
             loop
             muted
             playsInline
-            className=" z-50 h-full w-fit object-contain mix-blend-plus-lighter "
+            className=" z-50 h-full w-fit object-contain"
+          >
+            <source src="/videos/roi-section-video.mp4" type="video/mp4" />
+          </video>
+          <Link href="/products/expenses-management">
+            <button className="md:hidden mt-10 bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
+              Learn More
+            </button>
+          </Link>
+        </div>
+        <div
+          className=" block md:hidden"
+          data-aos="fade-left"
+          data-aos-duration="2000"
+        >
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className=" z-50 h-full w-fit object-contain"
           >
             <source src="/videos/roi-section-video.mp4" type="video/mp4" />
           </video>
