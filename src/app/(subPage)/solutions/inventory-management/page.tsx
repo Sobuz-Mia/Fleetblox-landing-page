@@ -133,12 +133,12 @@ const page = () => {
               loop
               muted
               playsInline
-              preload="auto"
+              // preload="auto"
               className="w-full h-full"
             >
               <source
                 src="/videos/solutions/fleet-location-management.mov"
-                type="video/webm"
+                type="video/mp4"
               />
             </video>
           </div>
