@@ -137,7 +137,7 @@ const page = () => {
               className="w-full h-full"
             >
               <source
-                src="/videos/solutions/fleet-location-management.mp4"
+                src="/videos/solutions/fleet-location-management.mov"
                 type="video/webm"
               />
             </video>

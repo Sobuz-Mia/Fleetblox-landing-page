@@ -6,24 +6,24 @@ import Image from "next/image";
 import Link from "next/link";
 
 const page = () => {
-  const OnboardingData = [
-    {
-      title: "Automated technical profile generation",
-      content:
-        "Utilize AI-enhanced decoding to extract full specifications, configurations, and visual assets with one VIN scan.",
-    },
+  // const OnboardingData = [
+  //   {
+  //     title: "Automated technical profile generation",
+  //     content:
+  //       "Utilize AI-enhanced decoding to extract full specifications, configurations, and visual assets with one VIN scan.",
+  //   },
 
-    {
-      title: "AI-based entry inspections",
-      content:
-        "Identify and record damages immediately with pictures and smart condition detection.",
-    },
-    {
-      title: "OEM system integration",
-      content:
-        "Link to manufacturer systems directly — no OBD hardware required",
-    },
-  ];
+  //   {
+  //     title: "AI-based entry inspections",
+  //     content:
+  //       "Identify and record damages immediately with pictures and smart condition detection.",
+  //   },
+  //   {
+  //     title: "OEM system integration",
+  //     content:
+  //       "Link to manufacturer systems directly — no OBD hardware required",
+  //   },
+  // ];
   return (
     <div>
       {/* hero section */}
