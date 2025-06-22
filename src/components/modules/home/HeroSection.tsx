@@ -1,5 +1,5 @@
 import CheckboxIcon from "@/components/icons/CheckboxIcon";
-import heroCardImg from "../../../assets/heroCardImage.png";
+// import heroCardImg from "../../../assets/heroCardImage.png";
 import Image from "next/image";
 import VerticalDividerIcon from "@/components/icons/VerticalDividerIcon";
 import RightArrowIcon from "@/components/icons/RightArrowIcon";
@@ -12,18 +12,18 @@ const HeroSection = () => {
   useEffect(() => {
     // Preload critical mobile hero image
     if (window.innerWidth < 1024) {
-      const link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'image';
-      link.href = '/images/hero-2.webp';
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "image";
+      link.href = "/images/hero-2.webp";
       document.head.appendChild(link);
     }
-    
+
     // Delay video loading to improve LCP
     const timer = setTimeout(() => {
       setIsVideoLoaded(true);
     }, 2000); // Increased delay for better LCP
-    
+
     return () => clearTimeout(timer);
   }, []);
   const features = [
@@ -58,8 +58,7 @@ const HeroSection = () => {
           <p className="text-[18px] md:text-[28px] lg:text-[28px] text-left md:text-center font-bold text-[#0336BC] mb-[5px]">
             Fleet Moderniser Platform
           </p>
-          <h1
-          className="text-[36px] md:text-[52px] lg:text-[52px] text-left md:text-center font-bold text-[#04082C] leading-[1.1] font-montserrat">
+          <h1 className="text-[36px] md:text-[52px] lg:text-[52px] text-left md:text-center font-bold text-[#04082C] leading-[1.1] font-montserrat">
             Empower Your Fleet Ecosystem Potentials
           </h1>
           <p className="text-left md:text-center font-openSans text-[#333] leading-6 text-[16px] mt-[10px]">
@@ -98,7 +97,7 @@ const HeroSection = () => {
         <div className="hidden lg:block relative max-h-[800px] lg:h-[800px] md:h-[500px] lg:w-[1200px] xl:w-[1400px] z-[0] overflow-hidden">
           <div className="relative h-full w-full flex justify-center items-center">
             <Image
-              src={heroCardImg}
+              src="https://static-file.fleetblox.com/public/assets/heroCardImage.png"
               alt="Fleet management dashboard"
               className="w-full h-auto max-w-[1200px] max-h-[80vh] -mt-[70px] z-30 absolute xl:max-w-[1200px] lg:max-w-[1000px]"
               width={1200}
@@ -106,7 +105,7 @@ const HeroSection = () => {
               quality={80}
               sizes="(max-width: 1200px) 90vw, 1200px"
               priority={true}
-            
+              unoptimized
             />
 
             {/* Centered blur effect */}
