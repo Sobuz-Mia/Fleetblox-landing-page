@@ -1,29 +1,11 @@
-import RightArrowIcon from "@/components/icons/RightArrowIcon";
-import GlobeSection from "@/components/modules/home/globe";
-import FeatureCard from "@/components/ui/FeatureCard";
-import { KeyBenefits } from "@/Static_data/solution";
-import Image from "next/image";
-import Link from "next/link";
+import RightArrowIcon from "@/components/icons/RightArrowIcon"
+import GlobeSection from "@/components/modules/home/globe"
+import FeatureCard from "@/components/ui/FeatureCard"
+import { KeyBenefits } from "@/Static_data/solution"
+import Image from "next/image"
+import Link from "next/link"
 
-const page = () => {
-  // const OnboardingData = [
-  //   {
-  //     title: "Automated technical profile generation",
-  //     content:
-  //       "Utilize AI-enhanced decoding to extract full specifications, configurations, and visual assets with one VIN scan.",
-  //   },
-
-  //   {
-  //     title: "AI-based entry inspections",
-  //     content:
-  //       "Identify and record damages immediately with pictures and smart condition detection.",
-  //   },
-  //   {
-  //     title: "OEM system integration",
-  //     content:
-  //       "Link to manufacturer systems directly — no OBD hardware required",
-  //   },
-  // ];
+const RemoteOperation = () => {
   return (
     <div>
       {/* hero section */}
@@ -133,25 +115,10 @@ const page = () => {
               playsInline
               preload="auto"
               className="w-full h-full"
-              poster="/images/solutions/fleet-complience-hero.png"
             >
               <source
-                src="/videos/solutions/fleet-location-management.webm"
-                type="video/webm"
-              />
-              <source
                 src="/videos/solutions/fleet-location-management.mp4"
-                type="video/mp4"
-              />
-              <source
-                src="/videos/solutions/fleet-location-management.mov"
-                type="video/quicktime"
-              />
-              {/* Fallback image if video fails to load */}
-              <img
-                src="/images/solutions/fleet-complience-hero.png"
-                alt="Fleet location management demonstration"
-                className="w-full h-full object-contain"
+                type="video/webm"
               />
             </video>
           </div>
@@ -235,11 +202,11 @@ const page = () => {
         <GlobeSection
           paddingTop="pt-[40px]"
           title="Eliminate Risk. Grow with Confidence"
-          description="Your fleet doesn't slow down — and neither should your compliance."
+          description="Your fleet doesn’t slow down — and neither should your compliance."
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default page;
+export default RemoteOperation

@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 
 export const FAQDynamic = dynamic(() => import("@/components/modules/home/FAQSection"), {
+    loading: () => <div>Loading...</div>,
     ssr: false,
 });
 
