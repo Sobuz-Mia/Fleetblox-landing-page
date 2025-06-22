@@ -32,6 +32,10 @@ body {
   border-radius: 4px !important;
 }
 
+.input-form {
+  @apply w-full h-12 rounded bg-[#F7F7F7] px-4 font-openSans text-[14px] text-[#04082C] outline-none placeholder:text-[#7D7D7D]
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

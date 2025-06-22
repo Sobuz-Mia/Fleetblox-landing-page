@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 import FooterLogo from "../../../../public/images/footerLogo.png";
@@ -52,7 +52,7 @@ const Footer = () => {
                 </button>
               </Link>
             </div>
-            <div className="max-h-[520px] h-[400px] lg:h-[520px] md:h-[400px] filter blur-[210px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50  rounded-[520px] w-[400px] lg:w-[520px] bg-[#B8CBFC] absolute opacity-50 "></div>
+            <div className="max-h-[520px] h-[400px] lg:h-[520px] md:h-[400px] filter blur-[210px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50  rounded-[520px] w-[380px] lg:w-[520px] bg-[#B8CBFC] absolute opacity-50 "></div>
             <div className="absolute z-[100] mix-blend-multiply -top-14 h-[500px] lg:h-[660px]">
               <video
                 autoPlay
@@ -424,35 +424,37 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Schema.org structured data */}
       {isHomepage && (
         <>
           {renderSchemaMarkup(
             buildSchemaData({
-              type: 'WebSite',
+              type: "WebSite",
               url: `https://fleetblox.site${pathname}`,
-              title: 'FleetBlox - Advanced AI-Powered Fleet Management Solution',
-              description: 'FleetBlox is an advanced AI-powered, cloud-based fleet connectivity solution that eliminates the need for traditional hardware.'
+              title:
+                "FleetBlox - Advanced AI-Powered Fleet Management Solution",
+              description:
+                "FleetBlox is an advanced AI-powered, cloud-based fleet connectivity solution that eliminates the need for traditional hardware.",
             })
           )}
           {renderSchemaMarkup(
             buildSchemaData({
-              type: 'Organization',
-              url: `https://fleetblox.site${pathname}`
+              type: "Organization",
+              url: `https://fleetblox.site${pathname}`,
             })
           )}
           {renderSchemaMarkup(
             buildSchemaData({
-              type: 'Product',
-              title: 'FleetBlox Fleet Management Solution',
-              url: `https://fleetblox.site${pathname}`
+              type: "Product",
+              title: "FleetBlox Fleet Management Solution",
+              url: `https://fleetblox.site${pathname}`,
             })
           )}
           {renderSchemaMarkup(
             buildSchemaData({
-              type: 'FAQPage',
-              url: `https://fleetblox.site${pathname}`
+              type: "FAQPage",
+              url: `https://fleetblox.site${pathname}`,
             })
           )}
         </>

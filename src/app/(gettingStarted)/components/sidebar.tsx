@@ -9,7 +9,7 @@ const Sidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isStarterFleet, setIsStarterFleet] = useState(false);
-
+  const [isGetDemo, setIsGetDemo] = useState(false); // Placeholder for isGetDemo, if needed
   const { currentStep, setCurrentStep } = useProgressUpdater();
 
   console.log(isMobile);
@@ -19,6 +19,10 @@ const Sidebar = () => {
     if (typeof window !== "undefined") {
       try {
         const selectedPlanData = localStorage.getItem("selectedPlan");
+        const isGetDemo = localStorage.getItem("isGetDemo");
+        if (isGetDemo) {
+          setIsGetDemo(JSON.parse(isGetDemo));
+        }
         if (selectedPlanData) {
           const selectedPlan = JSON.parse(selectedPlanData);
           if (selectedPlan.fleet === "Starter Fleet") {
@@ -61,6 +65,10 @@ const Sidebar = () => {
   ];
 
   // Add pricing step only if NOT using Starter Fleet
+  const submitDetails = {
+    title: "Submit your details",
+    description: "Provide your personal and brand information.",
+  };
   const pricingStep = {
     title: "Select Pricing",
     description: "Choose Your Subscription Plan",
@@ -70,9 +78,10 @@ const Sidebar = () => {
     title: "Complete Checkout",
     description: "Review and Provide Your Info",
   };
-
   // Build the final steps array based on plan type
-  const sidebarSteps = isStarterFleet
+  const sidebarSteps = isGetDemo
+    ? [...baseSteps, submitDetails]
+    : isStarterFleet
     ? [...baseSteps, checkoutStep]
     : [...baseSteps, pricingStep, checkoutStep];
 

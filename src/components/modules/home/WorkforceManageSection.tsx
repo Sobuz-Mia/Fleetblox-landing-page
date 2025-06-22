@@ -18,16 +18,6 @@ const WorkforceManageSection = () => {
             Streamlines your day-to-day operations with intelligent automation
             and dynamic workflows.
           </p>
-          {/* <Link href="/products/team-management">
-              <button className=" hidden md:flex lg:flex transition-all bg-[#2D65F2] hover:bg-[#0336BC] text-white-primary text-white duration-300 hover:w-[144.16px] w-[122.16px] items-center px-4 py-3 text-[16px] font-bold rounded-md group ">
-                <div className="z-20 whitespace-nowrap font-openSans font-bold">
-                  Learn More
-                </div>
-                <div className="z-10 transform transition-transform opacity-0 group-hover:opacity-100 -translate-x-4 duration-300 group-hover:translate-x-0">
-                  <RightArrowIcon />
-                </div>
-              </button>
-            </Link> */}
         </div>
         {/* */}
         <div className="flex flex-col items-center lg:items-start lg:flex-row md:justify-between mt-20 md:gap-[60px]">
@@ -45,7 +35,7 @@ const WorkforceManageSection = () => {
 
           <div className="md:hidden w-full mb-8">
             <Image
-              src="/images/workforce-2.webp"
+              src="/images/workforce-2.png"
               alt="Workforce management mobile view"
               width={350}
               height={500}
