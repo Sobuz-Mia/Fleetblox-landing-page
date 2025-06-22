@@ -76,8 +76,8 @@ const page = () => {
       </section>
       {/* hero section end */}
       <section className=" mx-auto w-full py-[60px] lg:py-[120px] px-5">
-        <div className="max-w-[840px] mx-auto w-full text-center mb-[60px]">
-          <h2 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold text-center leading-[1.1] mb-[10px]">
+        <div className="max-w-[840px] mx-auto w-full md:text-center mb-[60px]">
+          <h2 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold md:text-center leading-[1.1] mb-[10px]">
             Fleet Smart Onboarding
           </h2>
           <p className="text-[#333] text-[16px] leading-6 font-openSans ">
@@ -97,7 +97,7 @@ const page = () => {
             assignments
           </p>
         </div>
-        <div className="flex justify-between flex-col md:flex-row items-center gap-10 xl:gap-0">
+        <div className="flex justify-between flex-col-reverse md:flex-row items-center gap-10 xl:gap-0">
           <div className=" max-w-[500px] w-full space-y-[30px]">
             <div>
               <h3 className="text-[#333] font-openSans text-[18px] font-bold mb-[5px] leading-6">
@@ -157,13 +157,13 @@ const page = () => {
           </p>
         </div>
         <div className="flex justify-between flex-col md:flex-row items-center gap-10 xl:gap-0">
-          <div className=" ">
+          <div className="w-full ">
             <Image
               src="/images/solutions/vehicle-status-monitoring.png"
               alt="AI assistant for fleet optimization"
               width={680}
               height={383}
-              className="object-contain max-w-[550px] w-full"
+              className="object-contain md:max-w-[550px] w-full"
             />
           </div>
           <div className=" max-w-[560px] w-full space-y-[30px]">
@@ -200,7 +200,16 @@ const page = () => {
       {/* Multi Powertrain section */}
       <section className="bg-[#0A2540] relative overflow-hidden px-5">
         <div className="absolute inset-0 bg-[#2D65F2] opacity-30 rounded-[870px] blur-[250px] max-w-[870px] w-full mx-auto"></div>
-        <div className="absolute inset-0 flex justify-center items-start z-0 md:mt-20 mt-32 px-2">
+        <div className="absolute md:hidden inset-0 flex justify-center items-start z-0 md:mt-20 mt-[90px] px-2">
+          <Image
+            src="/images/solutions/multi-powered-train-mobile.svg"
+            alt="multi powered train"
+            width={830}
+            height={383}
+            className="object-contain"
+          />
+        </div>
+        <div className="absolute hidden inset-0 md:flex justify-center items-start z-0 md:mt-20 mt-32 px-2">
           <Image
             src="/images/solutions/multi-powered-train.svg"
             alt="multi powered train"
@@ -315,7 +324,7 @@ const page = () => {
             paddingTop="pt-[40px]"
             title="Start Your Fleet Remote Diagnosing Today"
             extraButton={
-              <div className="flex items-center gap-[10px] justify-center">
+              <div className="flex items-center flex-col-reverse md:flex-row gap-[10px] justify-center">
                 <button className="bg-white rounded-[6px] px-5 py-3 text-[#2D65F2] font-openSans text-[16px] font-bold border border-[#B8CBFC]">
                   Schedule A Demo
                 </button>
