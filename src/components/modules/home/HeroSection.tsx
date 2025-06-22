@@ -157,7 +157,7 @@ const HeroSection = () => {
       <div className="lg:hidden mt-8 relative w-full flex flex-col items-center justify-center">
         <div className="relative w-full flex justify-center items-center overflow-hidden h-[350px]">
           {/* Optimized background - removed blur initially to improve paint */}
-          <div className="h-[150px] w-[150px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 rounded-full bg-[#2D65F2] opacity-30 absolute"></div>
+          <div className="h-[150px] w-[150px] left-1/2 top-1/2 -translate-x-1/2 blur-md -translate-y-1/2 z-20 rounded-full bg-[#2D65F2] opacity-30 absolute"></div>
 
           {/* Background video - lazy loaded after initial paint */}
           {isVideoLoaded && (

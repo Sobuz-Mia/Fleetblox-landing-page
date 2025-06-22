@@ -1,30 +1,11 @@
-import CheckIcon from "@/components/icons/CheckIcon";
-import RightArrowIcon from "@/components/icons/RightArrowIcon";
-import GlobeSection from "@/components/modules/home/globe";
-import FeatureCard from "@/components/ui/FeatureCard";
-import { KeyBenefits } from "@/Static_data/solution";
-import Image from "next/image";
-import Link from "next/link";
+import RightArrowIcon from "@/components/icons/RightArrowIcon"
+import GlobeSection from "@/components/modules/home/globe"
+import FeatureCard from "@/components/ui/FeatureCard"
+import { KeyBenefits } from "@/Static_data/solution"
+import Image from "next/image"
+import Link from "next/link"
 
-const page = () => {
-  // const OnboardingData = [
-  //   {
-  //     title: "Automated technical profile generation",
-  //     content:
-  //       "Utilize AI-enhanced decoding to extract full specifications, configurations, and visual assets with one VIN scan.",
-  //   },
-
-  //   {
-  //     title: "AI-based entry inspections",
-  //     content:
-  //       "Identify and record damages immediately with pictures and smart condition detection.",
-  //   },
-  //   {
-  //     title: "OEM system integration",
-  //     content:
-  //       "Link to manufacturer systems directly — no OBD hardware required",
-  //   },
-  // ];
+const RemoteOperation = () => {
   return (
     <div>
       {/* hero section */}
@@ -74,19 +55,58 @@ const page = () => {
         </div>
       </section>
       {/* hero section end */}
-
-      {/* fleet location management monitoring section */}
-      <section className="max-w-[1200px] mx-auto w-full py-[120px] px-5">
-        <div className="max-w-[840px] mx-auto w-full md:text-center mb-[60px]">
-          <h2 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold md:text-center leading-[1.1] mb-[10px]">
-            Regulatory Management
+      {/* <section className=" mx-auto w-full py-[60px] lg:py-[120px] px-5">
+        <div className="max-w-[840px] mx-auto w-full text-center mb-[60px]">
+          <h2 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold text-center leading-[1.1] mb-[10px]">
+            Fleet Smart Onboarding
           </h2>
           <p className="text-[#333] text-[16px] leading-6 font-openSans ">
-            Replace your folders and spreadsheets with a smart records
-            management solution.
+            Streamline your remote onboarding with an intelligent workflow
           </p>
         </div>
-        <div className="flex justify-between flex-col md:flex-row items-center gap-10">
+        <SmartOnboarding OnboardingData={OnboardingData} />
+      </section> */}
+      {/* fleet location management monitoring section */}
+      <section className="max-w-[1200px] mx-auto w-full py-[120px] px-5">
+        <div className="text-left mb-10">
+          <h3 className="text-[28px] lg:text-[44px] font-semibold text-[#04082C]">
+            Fleet <span className="text-[#0336BC]">Location</span> Management
+          </h3>
+          <p className="text-[14px] font-openSans text-[#333] leading-5">
+            Optimize fleet organization through strategic zone and branch
+            assignments
+          </p>
+        </div>
+        <div className="flex justify-between flex-col md:flex-row items-center gap-10 xl:gap-0">
+          <div className=" max-w-[500px] w-full space-y-[30px]">
+            <div>
+              <h3 className="text-[#333] font-openSans text-[18px] font-bold mb-[5px] leading-6">
+                1. Simplify vehicle relocation and transfers
+              </h3>
+              <p className="text-[16px] leading-6 text-[#7D7D7D] font-openSans">
+                Easily reassign vehicles between branches or regions as
+                operational needs shift.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-[#333] font-openSans text-[18px] font-bold mb-[5px] leading-6">
+                2. Improve dispatch and local task planning
+              </h3>
+              <p className="text-[16px] leading-6 text-[#7D7D7D] font-openSans">
+                Access location based fleet and assign tasks to on-site crews
+                for faster service.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-[#333] font-openSans text-[18px] font-bold mb-[5px] leading-6">
+                3. Geo-based insights
+              </h3>
+              <p className="text-[16px] leading-6 text-[#7D7D7D] font-openSans">
+                Access operational analytics and insights per site - monitor
+                performance, utilization and availability.
+              </p>
+            </div>
+          </div>
           <div className=" ">
             <video
               autoPlay
@@ -95,40 +115,12 @@ const page = () => {
               playsInline
               preload="auto"
               className="w-full h-full"
-              poster="/images/solutions/fleet-complience-hero.png"
             >
               <source
-                src="/videos/solutions/reglatory-management.mp4"
+                src="/videos/solutions/fleet-location-management.mp4"
                 type="video/webm"
               />
             </video>
-          </div>
-          <div className=" max-w-[580px] w-full space-y-[40px]">
-            <div className="flex items-center gap-5 w-full">
-              <CheckIcon />
-              <div>
-                <h3 className="text-[#333] font-openSans text-[18px] font-bold mb-[5px] leading-6">
-                  Insurance & Registration Validity
-                </h3>
-                <p className="text-[16px] leading-6 text-[#7D7D7D] font-openSans">
-                  Never miss an expiration and stay prepared to drive your
-                  vehicle with automated renewal alerts, and instant access to
-                  proof of insurance for each vehicle.
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-5">
-              <CheckIcon />
-              <div>
-                <h3 className="text-[#333] font-openSans text-[18px] font-bold mb-[5px] leading-6">
-                  Fleet Documents on schedule
-                </h3>
-                <p className="text-[16px] leading-6 text-[#7D7D7D] font-openSans">
-                  Manage your vehicle contracts and operational permits with
-                  easy reminders for key dates, renewals, and compliance checks.
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -210,11 +202,11 @@ const page = () => {
         <GlobeSection
           paddingTop="pt-[40px]"
           title="Eliminate Risk. Grow with Confidence"
-          description="Your fleet doesn't slow down — and neither should your compliance."
+          description="Your fleet doesn’t slow down — and neither should your compliance."
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default page;
+export default RemoteOperation
