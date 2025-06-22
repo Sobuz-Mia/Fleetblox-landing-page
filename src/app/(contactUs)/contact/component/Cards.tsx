@@ -15,7 +15,7 @@ const Cards = () => {
       title: "Get Demo",
       description: "Explore how Fleetblox simplifies your fleet management",
       linkText: "Get a Demo",
-      linkHref: "",
+      linkHref: "/getting-started",
     },
     {
       title: "Customer Support",

@@ -65,6 +65,7 @@ export default function Home() {
       localStorage.removeItem("VINS_RESULT");
       localStorage.removeItem("compatibility");
       localStorage.removeItem("selectedCountries");
+      localStorage.removeItem("isGetDemo");
     }
   }, []);
 

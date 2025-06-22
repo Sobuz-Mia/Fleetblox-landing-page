@@ -106,7 +106,7 @@ const Compatible = () => {
   const handleNext = () => {
     // Check if Starter Fleet plan is already selected in localStorage
     const selectedPlanData = localStorage.getItem("selectedPlan");
-
+    const isGetDemo = localStorage.getItem("isGetDemo");
     if (selectedPlanData) {
       try {
         const selectedPlan = JSON.parse(selectedPlanData);
@@ -123,9 +123,14 @@ const Compatible = () => {
       }
     }
 
+
     // Normal flow - proceed to pricing plan
     setCustomProgress(progress + 10);
-    router.push("/collections/pricing-plan");
+    if (isGetDemo) {
+      router.push("/collections/submit-details");
+    } else {
+      router.push("/collections/pricing-plan");
+    }
     setCurrentStep(currentStep + 1);
   };
 
