@@ -1,5 +1,5 @@
 import CheckboxIcon from "@/components/icons/CheckboxIcon";
-// import heroCardImg from "../../../assets/heroCardImage.png";
+import heroCardImg from "../../../assets/heroCardImage.png";
 import Image from "next/image";
 import VerticalDividerIcon from "@/components/icons/VerticalDividerIcon";
 import RightArrowIcon from "@/components/icons/RightArrowIcon";
@@ -8,7 +8,6 @@ import { useState, useEffect } from "react";
 
 const HeroSection = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const [isMobileImageLoaded, setIsMobileImageLoaded] = useState(false);
 
   useEffect(() => {
     // Preload critical mobile hero image
@@ -27,7 +26,6 @@ const HeroSection = () => {
 
     return () => clearTimeout(timer);
   }, []);
-
   const features = [
     {
       title: "Intelligent Onboarding",
@@ -66,7 +64,7 @@ const HeroSection = () => {
           <p className="text-left md:text-center font-openSans text-[#333] leading-6 text-[16px] mt-[10px]">
             Fleetblox is a modern, AI-based platform designed to empower the
             next generation of fleet management—built to adapt the demands of
-            today&apos;s automotive technology
+            today’s automotive technology
           </p>
         </div>
         <div className="flex flex-col lg:flex-row md:justify-center md:items-center gap-4 mt-5 pb-[30px] font-openSans w-full ">
@@ -99,7 +97,7 @@ const HeroSection = () => {
         <div className="hidden lg:block relative max-h-[800px] lg:h-[800px] md:h-[500px] lg:w-[1200px] xl:w-[1400px] z-[0] overflow-hidden">
           <div className="relative h-full w-full flex justify-center items-center">
             <Image
-              src="https://static-file.fleetblox.com/public/assets/heroCardImage.png"
+              src={heroCardImg}
               alt="Fleet management dashboard"
               className="w-full h-auto max-w-[1200px] max-h-[80vh] -mt-[70px] z-30 absolute xl:max-w-[1200px] lg:max-w-[1000px]"
               width={1200}
@@ -107,7 +105,6 @@ const HeroSection = () => {
               quality={80}
               sizes="(max-width: 1200px) 90vw, 1200px"
               priority={true}
-              unoptimized
             />
 
             {/* Centered blur effect */}
@@ -162,7 +159,7 @@ const HeroSection = () => {
           {/* Optimized background - removed blur initially to improve paint */}
           <div className="h-[150px] w-[150px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 rounded-full bg-[#2D65F2] opacity-30 absolute"></div>
 
-          {/* Background video - restored with optimized loading */}
+          {/* Background video - lazy loaded after initial paint */}
           {isVideoLoaded && (
             <div className="absolute h-full w-full inset-0 bg-[#FAFAFF]">
               <video
@@ -178,29 +175,19 @@ const HeroSection = () => {
             </div>
           )}
 
-          {/* Hero image optimized for LCP - restored original dimensions */}
+          {/* Hero image optimized for LCP */}
           <div className="relative z-30 flex justify-center items-center h-full">
-            {/* Skeleton loader */}
-            {!isMobileImageLoaded && (
-              <div className="w-[280px] h-[350px] bg-gray-200 animate-pulse rounded-lg flex items-center justify-center">
-                <div className="w-16 h-16 bg-gray-300 rounded-full animate-pulse"></div>
-              </div>
-            )}
-            
             <Image
               src="/images/hero-2.webp"
               priority={true}
               alt="Mobile hero"
               width={280}
               height={350}
-              quality={75}
-              className={`mobile-hero-image object-contain w-full h-auto max-w-[280px] max-h-[350px] transition-opacity duration-300 ${
-                isMobileImageLoaded ? 'opacity-100' : 'opacity-0'
-              }`}
-              sizes="(max-width: 768px) 280px, 280px"
+              quality={90}
+              className="object-contain w-full h-auto max-w-[280px] max-h-[350px]"
+              sizes="280px"
               loading="eager"
               fetchPriority="high"
-              onLoad={() => setIsMobileImageLoaded(true)}
               placeholder="blur"
               blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHh8f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyLDSzHq9VgbGhUrmr/AI5iDvOHD6KN8SrjPrt4a5AigfcZGBrcsJjBP6fM7+c/G/TlcmLO4XM6N1X/2Q=="
             />
