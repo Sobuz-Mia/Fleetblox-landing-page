@@ -85,7 +85,7 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     deviceSizes: [320, 420, 768, 1024, 1280, 1920],
     imageSizes: [200, 200, 200, 300, 500, 500, 500],
-    domains: ["fleetblox.com", "static-file.fleetblox.com"],
+    domains: ["fleetblox.com"],
     remotePatterns: [
       {
         protocol: "https",
@@ -102,10 +102,6 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "ibb.co",
-      },
-      {
-        protocol: "https",
-        hostname: "static-file.fleetblox.com",
       },
     ],
   },
