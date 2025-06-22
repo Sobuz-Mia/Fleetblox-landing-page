@@ -157,6 +157,7 @@ export default function RootLayout({
           as="image"
           href="/images/hero-2.webp"
           media="(max-width: 1023px)"
+          fetchPriority="high"
         />
         {/* Preload desktop hero image */}
         <link
@@ -165,6 +166,21 @@ export default function RootLayout({
           href="/assets/heroCardImage.png"
           media="(min-width: 1024px)"
         />
+        
+        {/* Critical CSS for mobile hero optimization */}
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            @media (max-width: 1023px) {
+              .mobile-hero-image {
+                width: 240px !important;
+                height: 300px !important;
+                max-width: 240px !important;
+                max-height: 300px !important;
+                object-fit: contain !important;
+              }
+            }
+          `
+        }} />
       </head>
 
       {/* Script tags are moved to GoogleAnalytics component with consent management */}
