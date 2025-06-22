@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useProgressUpdater } from "@/hooks/useProgress";
 import axios from "axios";
 import { AxiosError } from "axios";
+import config from "@/utils/config";
 
 export interface Country {
   country: string;
@@ -60,7 +61,7 @@ const SubmitDetails = () => {
 
     const getCountries = async () => {
       const countries = await fetch(
-        "https://api.fleetblox.com/api/utils/all-countries"
+        `${config.api.baseUrl}/api/utils/all-countries`,
       );
       const response = await countries.json();
 
@@ -142,13 +143,13 @@ const SubmitDetails = () => {
     try {
       setLoading(true);
       const { data } = await axios.post(
-        "https://api.fleetblox.com/api/InterestedUser/create",
+        `${config.api.baseUrl}/api/InterestedUser/create`,
         submitData
       );
       console.log(data);
       if (data.statusCode === 201) {
         localStorage.clear();
-        return router.push("/result/submitted-successfully");
+        return router.push("/");
       }
       setLoading(false);
     } catch (error) {
