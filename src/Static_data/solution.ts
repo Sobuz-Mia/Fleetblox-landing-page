@@ -45,6 +45,13 @@ import GeoZonedFleet from "@/components/icons/solution/inventoryManagement/GeoZo
 import BuiltInEVSupport from "@/components/icons/solution/inventoryManagement/BuiltInEVSupport";
 import LiveVehicleHealth from "@/components/icons/solution/inventoryManagement/LiveVehicleHealth";
 import LocationBasedPerformance from "@/components/icons/solution/inventoryManagement/LocationBasedPerformance";
+import AvoidFines from "@/components/icons/solution/fleet-compliance/AvoidFines";
+import ReduceOperationalRuntime from "@/components/icons/solution/fleet-compliance/ReduceOperationalRuntime";
+import MinimizeLiabalitics from "@/components/icons/solution/fleet-compliance/MinimizeLiabalitics";
+import AuditReady from "@/components/icons/solution/fleet-compliance/AuditReady";
+import FleetSafety from "@/components/icons/solution/fleet-compliance/FleetSafety";
+import LapsedDocument from "@/components/icons/solution/fleet-compliance/LapsedDocument";
+import RegulatoryDeadlines from "@/components/icons/solution/fleet-compliance/RegulatoryDeadlines";
 
 const WhyCloudData = [
   {
@@ -385,28 +392,32 @@ const KeyBenefits = [
 ];
 const KeepingComplianceData = [
   {
-    icon: AiPoweredWorkflow,
-    title: "AI-powered workflows for 10x faster vehicle onboarding",
+    icon: AvoidFines,
+    title: "Avoid Fines and Penalties",
   },
   {
-    icon: GeoZonedFleet,
-    title: "Geo-zoned fleet structuring for smarter dispatch & control",
+    icon: ReduceOperationalRuntime,
+    title: "Reduce Operational Downtime",
   },
   {
-    icon: InstantConnectivityIcon,
-    title: "Instant vehicle data sync with no hardware or OBD devices needed",
+    icon: MinimizeLiabalitics,
+    title: "Minimize Legal Liabilities",
   },
   {
-    icon: BuiltInEVSupport,
-    title: "Built-in support for EV, hybrid, and combustion powertrains",
+    icon: AuditReady,
+    title: "Always Be Audit-Ready",
   },
   {
-    icon: LiveVehicleHealth,
-    title: "Live vehicle health and location monitoring in real time",
+    icon: FleetSafety,
+    title: "Strengthen Fleet Safety Standards",
   },
   {
-    icon: LocationBasedPerformance,
-    title: "Location-based performance analytics for smarter decisions",
+    icon: LapsedDocument,
+    title: "Prevent Lapsed Documents",
+  },
+  {
+    icon: RegulatoryDeadlines,
+    title: "Meet Regulatory Deadlines with Ease",
   },
 ];
 

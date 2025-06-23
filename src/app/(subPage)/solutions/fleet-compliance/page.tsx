@@ -12,7 +12,7 @@ const page = () => {
       {/* hero section */}
       <section className="bg-[#FAFAFF] pt-[100px] lg:pt-[140px] pb-[30px] ">
         <div className="lg:max-w-[calc(100vw-30px)] xxl:max-w-[1440px] mx-auto w-full flex flex-col px-5 lg:flex-row items-center justify-between">
-          <div className="lg:pl-[100px] max-w-[660px] w-full">
+          <div className="lg:pl-[100px] md:max-w-[660px] w-full">
             <h3 className="text-[#0336BC] font-openSans font-bold text-[22px]">
               Fleet Compliance
             </h3>
@@ -58,7 +58,7 @@ const page = () => {
       {/* hero section end */}
 
       {/* Regulatory Management section */}
-      <section className="max-w-[1200px] mx-auto w-full py-[120px] px-5">
+      <section className="max-w-[1200px] mx-auto w-full py-[60px] md:py-[100px] px-5">
         <div className="max-w-[840px] mx-auto w-full md:text-center mb-[60px]">
           <h2 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold md:text-center leading-[1.1] mb-[10px]">
             Regulatory Management
@@ -75,12 +75,12 @@ const page = () => {
               loop
               muted
               playsInline
-              preload="auto"
+              // preload="auto"
               className="w-full h-full"
               poster="/images/solutions/fleet-complience-hero.png"
             >
               <source
-                src="/videos/solutions/reglatory-management.mp4"
+                src="/videos/solutions/reglatory-management.mov"
                 type="video/webm"
               />
             </video>
@@ -119,7 +119,7 @@ const page = () => {
         </div>
       </section>
       {/* Entry Inspection section */}
-      {/* <section className="max-w-[1200px] mx-auto w-full py-20 lg:py-[120px] px-5">
+      <section className="max-w-[1200px] mx-auto w-full py-[60px] md:py-[100px] px-5">
         <div className="text-left mb-10">
           <h3 className="text-[28px] lg:text-[44px] font-semibold text-[#04082C]">
             <span className="text-[#0336BC]">Entry</span> Inspection
@@ -169,25 +169,90 @@ const page = () => {
               className="w-full h-full"
             >
               <source
-                src="/videos/solutions/entry-inspection.mp4"
+                src="/videos/solutions/entry-inspection.mov"
                 type="video/mp4"
               />
             </video>
           </div>
         </div>
-      </section> */}
+      </section>
+      {/* Intelligent Reminders*/}
+      <section className="max-w-[1200px] mx-auto w-full py-[60px] md:py-[100px] px-5">
+        <div className="max-w-[900px] mx-auto w-full md:text-center mb-[60px]">
+          <h2 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold md:text-center leading-[1.1] mb-[10px]">
+            Intelligent Reminders
+          </h2>
+          <p className="text-[#333] text-[16px] leading-6 font-openSans ">
+            Ensure your fleet meets all regulatory requirements to keep every
+            vehicle roadworthy, compliant, and audit-ready.
+          </p>
+        </div>
+        <div className="flex justify-between flex-col md:flex-row items-center gap-10">
+          <div className=" ">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              // preload="auto"
+              className="w-full h-full"
+              poster="/images/solutions/intelligent-reminders.png"
+            >
+              <source
+                src="/videos/solutions/intelligent-reminders.mov"
+                type="video/webm"
+              />
+            </video>
+          </div>
+          <div className=" max-w-[580px] w-full space-y-[40px]">
+            <div className="flex items-center gap-5 w-full">
+              <div>
+                <CheckIcon />
+              </div>
+              <div>
+                <h3 className="text-[#333] font-openSans text-[18px] font-bold mb-[5px] leading-6">
+                  Time based reminders
+                </h3>
+                <p className="text-[16px] leading-6 text-[#7D7D7D] font-openSans">
+                  Schedule alerts that remind you about required safety
+                  inspections, emissions testing, and vehicle certifications
+                  related by their respective calendar due dates.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-5">
+              <div>
+                <CheckIcon />
+              </div>
+              <div>
+                <h3 className="text-[#333] font-openSans text-[18px] font-bold mb-[5px] leading-6">
+                  Mileage based reminders
+                </h3>
+                <p className="text-[16px] leading-6 text-[#7D7D7D] font-openSans">
+                  Set alerts that notify you about compliance specific vehicle
+                  maintenance events such as DOT inspections or safety audits at
+                  pre configured mileage thresholds.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       {/*  Keeping Compliance On Track */}
-      <section className="max-w-[1200px] mx-auto w-full pt-[120px] pb-[60px] px-5">
+      <section className="max-w-[1200px] mx-auto w-full py-[60px] md:pt-[100px] md:pb-[60px] px-5">
         <h2 className="mb-[40px] lg:mb-[60px] text-center text-[#04082C] text-[28px] lg:text-[36px] font-bold">
           Keeping Compliance On Track
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-[30px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center gap-[30px]">
           {KeepingComplianceData?.map((data, index) => (
             <FeatureCard
               key={index}
               icon={<data.icon />}
               title2={data.title}
-              className="max-w-[380px] w-full"
+              className={`max-w-[380px] w-full ${
+                index === 6 &&
+                "sm:col-span-2 lg:col-span-3 md:max-w-[380px] mx-auto "
+              }`}
             />
           ))}
         </div>

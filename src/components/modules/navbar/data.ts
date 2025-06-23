@@ -67,8 +67,8 @@ export const solutionsItems: NavbarItem[] = [
     href: "/solutions/inventory-management",
   },
   {
-    title: "Remote Access",
-    href: "/solutions/remote-access",
+    title: "Fleet Compliance",
+    href: "/solutions/fleet-compliance",
   },
   {
     title: "Remote Scalability",
