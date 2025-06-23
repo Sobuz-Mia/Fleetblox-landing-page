@@ -202,20 +202,22 @@ const page = () => {
         <div className="absolute inset-0 bg-[#2D65F2] opacity-30 rounded-[870px] blur-[250px] max-w-[870px] w-full mx-auto"></div>
         <div className="absolute md:hidden inset-0 flex justify-center items-start z-0 md:mt-20 mt-[90px] px-2">
           <Image
-            src="/images/solutions/multi-powered-train-mobile.svg"
+            src="/images/solutions/multi-powered-train-mobile.png"
             alt="multi powered train"
             width={830}
             height={383}
             className="object-contain"
+            quality={100}
           />
         </div>
         <div className="absolute hidden inset-0 md:flex justify-center items-start z-0 md:mt-20 mt-32 px-2">
           <Image
-            src="/images/solutions/multi-powered-train.svg"
+            src="/images/solutions/multi-powered-train.png"
             alt="multi powered train"
             width={830}
             height={383}
             className="object-contain"
+            quality={100}
           />
         </div>
         <div className="max-w-[1000px] w-full mx-auto py-[160px] text-center relative z-50">

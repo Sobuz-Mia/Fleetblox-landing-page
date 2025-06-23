@@ -383,6 +383,32 @@ const KeyBenefits = [
     title: "Location-based performance analytics for smarter decisions",
   },
 ];
+const KeepingComplianceData = [
+  {
+    icon: AiPoweredWorkflow,
+    title: "AI-powered workflows for 10x faster vehicle onboarding",
+  },
+  {
+    icon: GeoZonedFleet,
+    title: "Geo-zoned fleet structuring for smarter dispatch & control",
+  },
+  {
+    icon: InstantConnectivityIcon,
+    title: "Instant vehicle data sync with no hardware or OBD devices needed",
+  },
+  {
+    icon: BuiltInEVSupport,
+    title: "Built-in support for EV, hybrid, and combustion powertrains",
+  },
+  {
+    icon: LiveVehicleHealth,
+    title: "Live vehicle health and location monitoring in real time",
+  },
+  {
+    icon: LocationBasedPerformance,
+    title: "Location-based performance analytics for smarter decisions",
+  },
+];
 
 export {
   WhyCloudData,
@@ -396,4 +422,5 @@ export {
   WhyAiFleetAssistantData,
   WhyWorkforceConnectivityData,
   KeyBenefits,
+  KeepingComplianceData,
 };
