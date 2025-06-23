@@ -12,7 +12,7 @@ export const config = {
         baseUrl: process.env.NEXT_PUBLIC_API_URL || (
             process.env.NODE_ENV === 'production'
                 ? 'https://api.fleetblox.com'
-                : 'https://backend.illama360.com'
+                : 'https://dev-api.fleetblox.com'
         ),
     },
 
