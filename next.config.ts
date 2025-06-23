@@ -6,20 +6,18 @@ const withBundleAnalyzer = bundleAnalyzer({
 });
 
 // Determine if we're in production environment
-const isProd = process.env.NODE_ENV === "production";
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://fleetblox.com";
+const isProd = process.env.NODE_ENV === 'production';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://fleetblox.com';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  siteUrl,
 
   // Environment variables that will be available on the client
   env: {
     NEXT_PUBLIC_SITE_URL: siteUrl,
-    NEXT_PUBLIC_API_URL:
-      process.env.NEXT_PUBLIC_API_URL ||
-      (isProd ? "https://api.fleetblox.com" : "https://backend.illama360.com"),
-    NEXT_PUBLIC_ENV:
-      process.env.NEXT_PUBLIC_ENV || process.env.NODE_ENV || "development",
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || (isProd ? 'https://api.fleetblox.com' : 'https://backend.illama360.com'),
+    NEXT_PUBLIC_ENV: process.env.NEXT_PUBLIC_ENV || process.env.NODE_ENV || 'development',
   },
 
   // Apply different settings based on environment
@@ -29,8 +27,7 @@ const nextConfig: NextConfig = {
     compress: true,
   }),
 
-  // Security headers (including HSTS)
-  async headers() {
+   async headers() {
     return [
       {
         // Apply these headers to all routes
