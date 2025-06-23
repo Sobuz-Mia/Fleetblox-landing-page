@@ -77,7 +77,7 @@ const page = () => {
               playsInline
               // preload="auto"
               className="w-full h-full"
-              poster="/images/solutions/fleet-complience-hero.png"
+              // poster="/images/solutions/fleet-complience-hero.png"
             >
               <source
                 src="/videos/solutions/reglatory-management.mov"
@@ -196,7 +196,7 @@ const page = () => {
               playsInline
               // preload="auto"
               className="w-full h-full"
-              poster="/images/solutions/intelligent-reminders.png"
+              // poster="/images/solutions/intelligent-reminders.png"
             >
               <source
                 src="/videos/solutions/intelligent-reminders.mov"
