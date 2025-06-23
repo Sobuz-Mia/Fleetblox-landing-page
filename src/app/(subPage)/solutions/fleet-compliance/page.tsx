@@ -2,29 +2,11 @@ import CheckIcon from "@/components/icons/CheckIcon";
 import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import GlobeSection from "@/components/modules/home/globe";
 import FeatureCard from "@/components/ui/FeatureCard";
-import { KeyBenefits } from "@/Static_data/solution";
+import { KeepingComplianceData } from "@/Static_data/solution";
 import Image from "next/image";
 import Link from "next/link";
 
 const page = () => {
-  // const OnboardingData = [
-  //   {
-  //     title: "Automated technical profile generation",
-  //     content:
-  //       "Utilize AI-enhanced decoding to extract full specifications, configurations, and visual assets with one VIN scan.",
-  //   },
-
-  //   {
-  //     title: "AI-based entry inspections",
-  //     content:
-  //       "Identify and record damages immediately with pictures and smart condition detection.",
-  //   },
-  //   {
-  //     title: "OEM system integration",
-  //     content:
-  //       "Link to manufacturer systems directly — no OBD hardware required",
-  //   },
-  // ];
   return (
     <div>
       {/* hero section */}
@@ -75,7 +57,7 @@ const page = () => {
       </section>
       {/* hero section end */}
 
-      {/* fleet location management monitoring section */}
+      {/* Regulatory Management section */}
       <section className="max-w-[1200px] mx-auto w-full py-[120px] px-5">
         <div className="max-w-[840px] mx-auto w-full md:text-center mb-[60px]">
           <h2 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold md:text-center leading-[1.1] mb-[10px]">
@@ -105,7 +87,9 @@ const page = () => {
           </div>
           <div className=" max-w-[580px] w-full space-y-[40px]">
             <div className="flex items-center gap-5 w-full">
-              <CheckIcon />
+              <div>
+                <CheckIcon />
+              </div>
               <div>
                 <h3 className="text-[#333] font-openSans text-[18px] font-bold mb-[5px] leading-6">
                   Insurance & Registration Validity
@@ -118,7 +102,9 @@ const page = () => {
               </div>
             </div>
             <div className="flex items-center gap-5">
-              <CheckIcon />
+              <div>
+                <CheckIcon />
+              </div>
               <div>
                 <h3 className="text-[#333] font-openSans text-[18px] font-bold mb-[5px] leading-6">
                   Fleet Documents on schedule
@@ -132,67 +118,71 @@ const page = () => {
           </div>
         </div>
       </section>
-      {/* vehicle status monitoring section */}
-      <section className="max-w-[1200px] mx-auto w-full pb-20 lg:pb-[120px] px-5">
-        <div className="md:text-right mb-10">
+      {/* Entry Inspection section */}
+      {/* <section className="max-w-[1200px] mx-auto w-full py-20 lg:py-[120px] px-5">
+        <div className="text-left mb-10">
           <h3 className="text-[28px] lg:text-[44px] font-semibold text-[#04082C]">
-            Live <span className="text-[#0336BC]">Vehicle Status</span>{" "}
-            Monitoring
+            <span className="text-[#0336BC]">Entry</span> Inspection
           </h3>
           <p className="text-[14px] font-openSans text-[#333] leading-5">
-            Gain total fleet awareness with real-time vehicle data and location
-            insights
+            Always ensure that every vehicle is compliant before entering in the
+            service.
           </p>
         </div>
-        <div className="flex justify-between flex-col md:flex-row items-center gap-10 xl:gap-0">
-          <div className=" ">
-            <Image
-              src="/images/solutions/vehicle-status-monitoring.png"
-              alt="AI assistant for fleet optimization"
-              width={680}
-              height={383}
-              className="object-contain max-w-[550px] w-full"
-            />
+        <div className="flex justify-between flex-col-reverse md:flex-row items-center gap-10 xl:gap-24">
+          <div className=" max-w-[500px] w-full space-y-[30px]">
+            <div>
+              <h3 className="text-[#333] font-openSans text-[18px] font-bold mb-[5px] leading-6">
+                1. VIN verification and asset matching
+              </h3>
+              <p className="text-[16px] leading-6 text-[#7D7D7D] font-openSans">
+                Use the VIN scanner to automatically verify the vehicle’s
+                identity which is matched with the appropriate digital profile.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-[#333] font-openSans text-[18px] font-bold mb-[5px] leading-6">
+                2. Smart damage recognition
+              </h3>
+              <p className="text-[16px] leading-6 text-[#7D7D7D] font-openSans">
+                AI-powered image capture to identify, tag, and document visible
+                damages, with photographic proof.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-[#333] font-openSans text-[18px] font-bold mb-[5px] leading-6">
+                3. Entry inspection reports
+              </h3>
+              <p className="text-[16px] leading-6 text-[#7D7D7D] font-openSans">
+                Generate full inspection reports, with individual reports,
+                images, and status summaries.
+              </p>
+            </div>
           </div>
-          <div className=" max-w-[560px] w-full space-y-[30px]">
-            <div>
-              <h3 className="text-[#333] font-openSans text-[18px] font-bold mb-[5px] leading-6">
-                1. Visual Readiness Diagram
-              </h3>
-              <p className="text-[16px] leading-6 text-[#7D7D7D] font-openSans">
-                Quickly assess vehicle health and status for improved
-                operational decision making.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-[#333] font-openSans text-[18px] font-bold mb-[5px] leading-6">
-                2. Accurate Last Reported Position
-              </h3>
-              <p className="text-[16px] leading-6 text-[#7D7D7D] font-openSans">
-                Access the last ping location, even if the vehicle is currently
-                offline.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-[#333] font-openSans text-[18px] font-bold mb-[5px] leading-6">
-                3. Location Logs
-              </h3>
-              <p className="text-[16px] leading-6 text-[#7D7D7D] font-openSans">
-                View the last recorded positions to see where vehicles were last
-                seen.
-              </p>
-            </div>
+          <div className=" max-w-[507px] max-h-[380px] w-full h-full">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              // preload="auto"
+              className="w-full h-full"
+            >
+              <source
+                src="/videos/solutions/entry-inspection.mp4"
+                type="video/mp4"
+              />
+            </video>
           </div>
         </div>
-      </section>
-
-      {/* Key Benefits */}
-      <section className="max-w-[1200px] mx-auto w-full mt-16 mb-[100px] px-5">
+      </section> */}
+      {/*  Keeping Compliance On Track */}
+      <section className="max-w-[1200px] mx-auto w-full pt-[120px] pb-[60px] px-5">
         <h2 className="mb-[40px] lg:mb-[60px] text-center text-[#04082C] text-[28px] lg:text-[36px] font-bold">
-          Key Benefits
+          Keeping Compliance On Track
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-[30px]">
-          {KeyBenefits?.map((data, index) => (
+          {KeepingComplianceData?.map((data, index) => (
             <FeatureCard
               key={index}
               icon={<data.icon />}
@@ -202,10 +192,9 @@ const page = () => {
           ))}
         </div>
       </section>
-      {/* why Key Benefits end */}
+      {/* why  Keeping Compliance On Track end */}
 
       {/* glove section start */}
-
       <div>
         <GlobeSection
           paddingTop="pt-[40px]"
