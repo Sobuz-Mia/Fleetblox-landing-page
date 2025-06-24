@@ -108,7 +108,7 @@ const features2 = [
   {
     title: "Crew App for Field Tasks",
     description:
-      "Enable teams in the field to see, manage, and report on tasks instantly from the Crew App.",
+      "Enable teams in the field to manage tasks instantly from the Crew App, guided by predictive operational workflows.",
   },
   
 ]
