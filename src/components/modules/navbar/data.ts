@@ -91,6 +91,10 @@ export const solutionsItems: NavbarItem[] = [
     href: "/solutions/remote-inspection",
   },
   {
+    title: "Remote Operation",
+    href: "/solutions/remote-operation",
+  },
+  {
     title: "Maintenance and Diagnostics",
     href: "/solutions/maintenance-diagnostics",
   },
