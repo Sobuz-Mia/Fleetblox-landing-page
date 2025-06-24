@@ -81,7 +81,7 @@ const page = () => {
             >
               <source
                 src="/videos/solutions/reglatory-management.mov"
-                type="video/webm"
+                type="video/mp4"
               />
             </video>
           </div>
@@ -200,7 +200,7 @@ const page = () => {
             >
               <source
                 src="/videos/solutions/intelligent-reminders.mov"
-                type="video/webm"
+                type="video/mp4"
               />
             </video>
           </div>
@@ -258,7 +258,6 @@ const page = () => {
         </div>
       </section>
       {/* why  Keeping Compliance On Track end */}
-
       {/* glove section start */}
       <div>
         <GlobeSection
