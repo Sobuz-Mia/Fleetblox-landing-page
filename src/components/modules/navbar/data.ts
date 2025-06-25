@@ -63,7 +63,7 @@ export const platformFeatures: NavbarItem[] = [
 ];
 export const solutionsItems: NavbarItem[] = [
   {
-    title: "Inventory Management",
+    title: "Geo-Inventory Management",
     href: "/solutions/inventory-management",
   },
   {
@@ -71,40 +71,16 @@ export const solutionsItems: NavbarItem[] = [
     href: "/solutions/fleet-compliance",
   },
   {
-    title: "Remote Scalability",
-    href: "/solutions/remote-scalability",
-  },
-  {
-    title: "Cost Optimization",
-    href: "/solutions/cost-optimization",
-  },
-  {
-    title: "Compliance and Safety",
-    href: "/solutions/compliance-and-safety",
-  },
-  {
-    title: "EV Fleet Integration",
-    href: "/solutions/ev-fleet-integration",
-  },
-  {
-    title: "Remote Inspection",
-    href: "/solutions/remote-inspection",
-  },
-  {
     title: "Remote Operation",
     href: "/solutions/remote-operation",
   },
   {
-    title: "Maintenance and Diagnostics",
-    href: "/solutions/maintenance-diagnostics",
+    title: "Fleet intelligence",
+    href: "/under-development",
   },
   {
-    title: "Workforce Connectivity",
-    href: "/solutions/workforce-connectivity",
-  },
-  {
-    title: "AI Fleet Assistant",
-    href: "/solutions/ai-fleet-assistant",
+    title: "Sustainability Integration",
+    href: "/under-development",
   },
 ];
 export const industriesItems: NavbarItem[] = [
