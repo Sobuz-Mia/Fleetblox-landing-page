@@ -11,6 +11,7 @@ import { AxiosError } from "axios";
 import config from "@/utils/config";
 
 export interface Country {
+  id?: number;
   country: string;
   countryCode: string; // Add additional fields as needed
   countryFlag: string;
@@ -44,6 +45,7 @@ const SubmitDetails = () => {
     address: "",
     phone: "",
     countryCode: "+1",
+    countryId: 1,
     flag: Canada,
   });
   // console.log();
@@ -61,7 +63,7 @@ const SubmitDetails = () => {
 
     const getCountries = async () => {
       const countries = await fetch(
-        `${config.api.baseUrl}/api/utils/all-countries`,
+        `${config.api.baseUrl}/api/utils/all-countries`
       );
       const response = await countries.json();
 
@@ -74,13 +76,20 @@ const SubmitDetails = () => {
   useEffect(() => {
     if (countries?.length && country) {
       const selectedCountryFetch = countries.find((c) => c.country === country);
+      console.log(selectedCountryFetch?.id, 'id number');
+      console.log(selectedCountryFetch, 'contury');
+      
+      
       setFormData((prev) => ({
         ...prev,
+        countryId : selectedCountryFetch?.id || 0,
         countryCode: selectedCountryFetch?.phoneCode.toString() || "+1",
         flag: selectedCountryFetch?.countryFlag as unknown as StaticImageData,
       }));
     }
   }, [countries, country]);
+
+  console.log(formData, 'checking');
 
   const contactNumber = `${formData.countryCode}${formData.phone}`;
 
@@ -107,6 +116,13 @@ const SubmitDetails = () => {
     isFromPreLunching: true,
   };
 
+  const paidUserInfo = {
+    email: formData.email,
+    fullName: formData.fullName,
+    phone: formData.phone,
+    phoneCountryId: formData.countryId,
+  };
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -118,6 +134,7 @@ const SubmitDetails = () => {
   const selectCountryCode = (data: Country) => {
     setFormData((prev) => ({
       ...prev,
+      countryId : data.id!,
       countryCode: data.phoneCode,
       flag: data.countryFlag as unknown as StaticImageData,
     }));
@@ -138,7 +155,7 @@ const SubmitDetails = () => {
       return; // Prevent further execution if email is invalid
     }
 
-    console.log(submitData, 'submitData'); 
+    console.log(submitData, "submitData");
 
     try {
       setLoading(true);
@@ -146,6 +163,13 @@ const SubmitDetails = () => {
         `${config.api.baseUrl}/api/InterestedUser/create`,
         submitData
       );
+      const testing = await axios.post(
+        `${config.api.baseUrl}/api/subscription/plan/trail`,
+        paidUserInfo
+      );
+
+      console.log(testing.data, "checking response");
+
       console.log(data);
       if (data.statusCode === 201) {
         localStorage.clear();

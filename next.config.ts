@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
   // Environment variables that will be available on the client
   env: {
     NEXT_PUBLIC_SITE_URL: siteUrl,
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || (isProd ? 'https://api.fleetblox.com' : 'https://backend.illama360.com'),
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || (isProd ? 'https://api.fleetblox.com' : 'https://dev-api.fleetblox.com'),
     NEXT_PUBLIC_ENV: process.env.NEXT_PUBLIC_ENV || process.env.NODE_ENV || 'development',
   },
 
