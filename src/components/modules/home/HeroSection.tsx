@@ -184,7 +184,7 @@ const HeroSection = () => {
               alt="Mobile hero"
               width={280}
               height={350}
-              quality={75}
+              quality={60}
               className="object-contain w-full h-auto max-w-[280px] max-h-[350px]"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               loading="eager"
