@@ -178,7 +178,8 @@ const HeroSection = () => {
           {/* Hero image optimized for LCP */}
           <div className="relative z-30 flex justify-center items-center h-full">
             <Image
-              src="/images/hero-2.webp"
+              // src="/images/hero-2-mobile-ultra-optimized.webp"
+              src="/images/hero-2-3.webp"
               priority={true}
               alt="Mobile hero"
               width={280}
