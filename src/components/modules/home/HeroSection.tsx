@@ -15,7 +15,7 @@ const HeroSection = () => {
       const link = document.createElement("link");
       link.rel = "preload";
       link.as = "image";
-      link.href = "/images/hero-2.webp";
+      link.href = "/images/hero-2-3.webp";
       document.head.appendChild(link);
     }
 
@@ -58,7 +58,12 @@ const HeroSection = () => {
           <p className="text-[18px] md:text-[28px] lg:text-[28px] text-left md:text-center font-bold text-[#0336BC] mb-[5px]">
             Fleet Moderniser Platform
           </p>
-          <h1 className="text-[36px] md:text-[52px] lg:text-[52px] text-left md:text-center font-bold text-[#04082C] leading-[1.1] font-montserrat">
+          <h1
+            aria-label="Empower Your Fleet Ecosystem Potentials"
+            role="heading"
+            property="Hero"
+            className="text-[36px] md:text-[52px] lg:text-[52px] text-left md:text-center font-bold text-[#04082C] leading-[1.1] font-montserrat"
+          >
             Empower Your Fleet Ecosystem Potentials
           </h1>
           <p className="text-left md:text-center font-openSans text-[#333] leading-6 text-[16px] mt-[10px]">
