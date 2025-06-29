@@ -3,9 +3,7 @@ import "../styles/globals.css";
 import "aos/dist/aos.css";
 import ClientSideInitialization from "./ClientSideInitialization";
 import { Toaster } from "react-hot-toast";
-
 import { Montserrat, Open_Sans, Roboto } from "next/font/google";
-
 import { CookieConsentProvider } from "@/providers/CookieConsentProvider";
 
 // Configure primary font
