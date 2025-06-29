@@ -6,10 +6,7 @@ import { Toaster } from "react-hot-toast";
 
 import { Montserrat, Open_Sans, Roboto } from "next/font/google";
 
-import imageUrl from "../../public/images/hero-2.png";
-import AOSWrapper from "@/components/AOSWrapper";
 import { CookieConsentProvider } from "@/providers/CookieConsentProvider";
-import dynamic from "next/dynamic";
 
 // Configure primary font
 const montserrat = Montserrat({
@@ -104,27 +101,6 @@ export const metadata: Metadata = {
   },
 };
 
-// Dynamically import components that depend on client-side features
-const CookieBanner = dynamic(
-  () => import("@/components/ui/shared/CookieBanner"),
-  { ssr: true }
-);
-
-const FacebookPixel = dynamic(
-  () => import("@/components/analytics/FacebookPixel"),
-  { ssr: true }
-);
-
-const GoogleAnalyticsComponent = dynamic(
-  () => import("@/components/analytics/GoogleAnalytics"),
-  { ssr: true }
-);
-
-// Import Schema.org implementation
-const GlobalSchema = dynamic(() => import("@/components/seo/GlobalSchema"), {
-  ssr: true,
-});
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -135,7 +111,6 @@ export default function RootLayout({
       lang="en"
       className={`${montserrat.variable} ${openSans.variable} ${roboto.variable}`}
     >
-      <AOSWrapper />
       <head>
         {/* Favicon link */}
         <link rel="icon" href="/Favicon.png" />
@@ -147,9 +122,6 @@ export default function RootLayout({
         />
         <link rel="canonical" href="https://www.fleetblox.com/" />
 
-        <link rel="preload" href={imageUrl.src} as="image" />
-        <link rel="preload" href="/images/hero-2-3.webp" as="image" />
-
         {/* Preload critical mobile hero image for better LCP */}
         <link
           rel="preload"
@@ -158,15 +130,8 @@ export default function RootLayout({
           media="(max-width: 767px)"
           fetchPriority="high"
         />
-        {/* Preload desktop hero image */}
-        <link
-          rel="preload"
-          as="image"
-          href="/assets/heroCardImage.png"
-          media="(min-width: 1024px)"
-        />
 
-        {/* Critical CSS for mobile hero optimization */}
+        {/* Critical CSS for mobile optimization */}
         <style
           dangerouslySetInnerHTML={{
             __html: `
@@ -193,10 +158,6 @@ export default function RootLayout({
             {children}
             {/* <Footer /> */}
             <Toaster />
-            <CookieBanner />
-            <FacebookPixel />
-            <GoogleAnalyticsComponent />
-            <GlobalSchema /> {/* Add GlobalSchema component here */}
           </ClientSideInitialization>
         </CookieConsentProvider>
       </body>
