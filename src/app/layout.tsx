@@ -106,25 +106,24 @@ export const metadata: Metadata = {
 
 // Dynamically import components that depend on client-side features
 const CookieBanner = dynamic(
-  () => import('@/components/ui/shared/CookieBanner'),
+  () => import("@/components/ui/shared/CookieBanner"),
   { ssr: true }
 );
 
 const FacebookPixel = dynamic(
-  () => import('@/components/analytics/FacebookPixel'),
+  () => import("@/components/analytics/FacebookPixel"),
   { ssr: true }
 );
 
 const GoogleAnalyticsComponent = dynamic(
-  () => import('@/components/analytics/GoogleAnalytics'),
+  () => import("@/components/analytics/GoogleAnalytics"),
   { ssr: true }
 );
 
 // Import Schema.org implementation
-const GlobalSchema = dynamic(
-  () => import('@/components/seo/GlobalSchema'),
-  { ssr: true }
-);
+const GlobalSchema = dynamic(() => import("@/components/seo/GlobalSchema"), {
+  ssr: true,
+});
 
 export default function RootLayout({
   children,
@@ -149,14 +148,14 @@ export default function RootLayout({
         <link rel="canonical" href="https://www.fleetblox.com/" />
 
         <link rel="preload" href={imageUrl.src} as="image" />
-        <link rel="preload" href="/images/hero-2.webp" as="image" />
+        <link rel="preload" href="/images/hero-2-3.webp" as="image" />
 
         {/* Preload critical mobile hero image for better LCP */}
         <link
           rel="preload"
           as="image"
-          href="/images/hero-2.webp"
-          media="(max-width: 1023px)"
+          href="/images/hero-2-3.webp"
+          media="(max-width: 767px)"
           fetchPriority="high"
         />
         {/* Preload desktop hero image */}
@@ -166,10 +165,11 @@ export default function RootLayout({
           href="/assets/heroCardImage.png"
           media="(min-width: 1024px)"
         />
-        
+
         {/* Critical CSS for mobile hero optimization */}
-        <style dangerouslySetInnerHTML={{
-          __html: `
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
             @media (max-width: 1023px) {
               .mobile-hero-image {
                 width: 240px !important;
@@ -179,8 +179,9 @@ export default function RootLayout({
                 object-fit: contain !important;
               }
             }
-          `
-        }} />
+          `,
+          }}
+        />
       </head>
 
       {/* Script tags are moved to GoogleAnalytics component with consent management */}
