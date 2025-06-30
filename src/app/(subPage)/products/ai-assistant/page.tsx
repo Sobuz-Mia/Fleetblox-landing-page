@@ -154,16 +154,19 @@ const page = () => {
             title="Ask Bee Anything"
             description="From “How much did we spend on fuel this month?” to “Which vehicle had the most downtime?”"
             imagePath="/images/products/BEE-step-1.svg"
+            stepper={1}
           />
           <StepCard
             title="Get Instant Insights"
             description="Bee pulls data instantly from your system and gives you clear, actionable answers."
             imagePath="/images/products/BEE-step-2.svg"
+            stepper={2}
           />
           <StepCard
             title="Take Action Immediately"
             description="Use Bee to trigger tasks like generating reports, updating vehicle records, or alerting your team."
             imagePath="/images/products/BEE-step-3.svg"
+            stepper={3}
           />
         </div>
       </section>
@@ -213,9 +216,10 @@ const page = () => {
               icon={<data.icon />}
               title={data.title}
               description={data.description}
-              className={`w-full h-[210px] ${index === 6 &&
+              className={`w-full h-[210px] ${
+                index === 6 &&
                 "md:col-span-2 lg:col-span-3 md:max-w-[380px] mx-auto "
-                }`}
+              }`}
             />
           ))}
         </div>
