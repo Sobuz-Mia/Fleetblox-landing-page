@@ -5,6 +5,7 @@ import Image from "next/image";
 
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
+
 const Deal = ({
   Deals,
 }: {
@@ -81,8 +82,10 @@ const Deal = ({
                   alt={Deals[activeIndex].title}
                   width={420}
                   height={240}
+                  loading={activeIndex === 0 ? "eager" : "lazy"}
+                  quality={75}
+                  sizes="(max-width: 768px) 90vw, (max-width: 1024px) 80vw, 50vw"
                   className="object-contain w-full h-auto"
-                  priority
                 />
               </div>
             </motion.div>

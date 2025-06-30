@@ -11,6 +11,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://fleetblox.com';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  siteUrl,
 
   // Environment variables that will be available on the client
   env: {
@@ -26,52 +27,51 @@ const nextConfig: NextConfig = {
     compress: true,
   }),
 
-  // Security headers (including HSTS)
-  async headers() {
+   async headers() {
     return [
       {
         // Apply these headers to all routes
-        source: '/(.*)',
+        source: "/(.*)",
         headers: [
           {
-            key: 'Strict-Transport-Security',
-            value: 'max-age=63072000; includeSubDomains; preload',
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
           },
           {
-            key: 'X-Frame-Options',
-            value: 'DENY',
+            key: "X-Frame-Options",
+            value: "DENY",
           },
           {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
+            key: "X-Content-Type-Options",
+            value: "nosniff",
           },
           {
-            key: 'Referrer-Policy',
-            value: 'strict-origin-when-cross-origin',
+            key: "Referrer-Policy",
+            value: "strict-origin-when-cross-origin",
           },
           {
-            key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()',
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=()",
           },
         ],
       },
       // Cache headers for static images
       {
-        source: '/(.*).(jpg|jpeg|png|gif|ico|svg|webp|avif)',
+        source: "/(.*).(jpg|jpeg|png|gif|ico|svg|webp|avif)",
         headers: [
           {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
           },
         ],
       },
       // Cache headers for static assets in the public folder
       {
-        source: '/public/(.*)',
+        source: "/public/(.*)",
         headers: [
           {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
           },
         ],
       },
@@ -102,8 +102,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-
-
 };
 
 export default withBundleAnalyzer(nextConfig);

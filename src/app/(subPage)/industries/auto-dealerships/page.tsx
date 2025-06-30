@@ -1,7 +1,7 @@
-import AutoDealership from "./AutoDealership";
+import { AutoDealershipsDynamic } from "../lazy";
 
 const LazyAutoDealershipPage = () => {
-    return <AutoDealership />;
+  return <AutoDealershipsDynamic />;
 };
 
 export default LazyAutoDealershipPage;

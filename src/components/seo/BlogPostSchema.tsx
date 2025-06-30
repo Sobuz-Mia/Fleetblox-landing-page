@@ -1,4 +1,5 @@
-import React from 'react';
+import Script from "next/script";
+import React from "react";
 
 interface BlogPostSchemaProps {
   url: string;
@@ -15,35 +16,36 @@ const BlogPostSchema: React.FC<BlogPostSchemaProps> = ({
   description,
   imageUrl,
   datePublished,
-  authorName = 'FleetBlox Team',
+  authorName = "FleetBlox Team",
 }) => {
   const blogPostSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
     headline: title,
     description: description,
     image: imageUrl,
     datePublished: datePublished,
     author: {
-      '@type': 'Person',
+      "@type": "Person",
       name: authorName,
     },
     publisher: {
-      '@type': 'Organization',
-      name: 'FleetBlox',
+      "@type": "Organization",
+      name: "FleetBlox",
       logo: {
-        '@type': 'ImageObject',
-        url: 'https://fleetblox.site/brand/Frame%201707481662.png',
+        "@type": "ImageObject",
+        url: "https://fleetblox.site/brand/Frame%201707481662.png",
       },
     },
     mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': url,
+      "@type": "WebPage",
+      "@id": url,
     },
   };
 
   return (
-    <script
+    <Script
+      id="blog-post-schema"
       type="application/ld+json"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(blogPostSchema),

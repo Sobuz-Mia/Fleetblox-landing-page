@@ -3,13 +3,34 @@
 
 import { useEffect } from "react";
 import CookieUtils from "@/utils/cookies";
+import dynamic from "next/dynamic";
+import AOSWrapper from "@/components/AOSWrapper";
+
+// Dynamically import components with SSR disabled for better performance
+const CookieBanner = dynamic(
+  () => import("@/components/ui/shared/CookieBanner"),
+  { ssr: false }
+);
+
+const FacebookPixel = dynamic(
+  () => import("@/components/analytics/FacebookPixel"),
+  { ssr: false }
+);
+
+const GoogleAnalyticsComponent = dynamic(
+  () => import("@/components/analytics/GoogleAnalytics"),
+  { ssr: false }
+);
+
+const GlobalSchema = dynamic(() => import("@/components/seo/GlobalSchema"), {
+  ssr: false,
+});
 
 export default function ClientSideInitialization({
   children,
 }: {
   children: React.ReactNode;
 }) {
-
   useEffect(() => {
     // Check if we're in browser context
     if (typeof window !== "undefined") {
@@ -31,21 +52,15 @@ export default function ClientSideInitialization({
         const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
         // European timezones (simplified list)
-        const euTimezones = [
-          "Europe/",
-          "Arctic/Longyearbyen",
-        ];
+        const euTimezones = ["Europe/", "Arctic/Longyearbyen"];
 
         // North American timezones (simplified list)
-        const naTimezones = [
-          "America/",
-          "Canada/",
-        ];
+        const naTimezones = ["America/", "Canada/"];
 
-        if (euTimezones.some(tz => timezone.startsWith(tz))) {
+        if (euTimezones.some((tz) => timezone.startsWith(tz))) {
           CookieUtils.setUserRegion("eu");
           return "eu";
-        } else if (naTimezones.some(tz => timezone.startsWith(tz))) {
+        } else if (naTimezones.some((tz) => timezone.startsWith(tz))) {
           CookieUtils.setUserRegion("na");
           return "na";
         } else {
@@ -85,5 +100,14 @@ export default function ClientSideInitialization({
     });
   }, []);
 
-  return <>{children}</>;
+  return (
+    <>
+      <AOSWrapper />
+      {children}
+      <CookieBanner />
+      <FacebookPixel />
+      <GoogleAnalyticsComponent />
+      <GlobalSchema />
+    </>
+  );
 }

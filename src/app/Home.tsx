@@ -3,7 +3,6 @@ import dynamic from "next/dynamic";
 import Navbar from "@/components/ui/shared/Navbar";
 import { useEffect } from "react";
 import HeroSection from "@/components/modules/home/HeroSection";
-import UnifiedFleetManagement from "@/components/modules/home/UnifiedFleetManagement";
 
 const FleetSolution = dynamic(
   () => import("@/components/modules/home/FleetSolution"),
@@ -24,6 +23,11 @@ const ConnectRemotelySection = dynamic(
 );
 const WorkforceManageSection = dynamic(
   () => import("@/components/modules/home/WorkforceManageSection"),
+  { ssr: false }
+);
+
+const UnifiedFleetManagement = dynamic(
+  () => import("@/components/modules/home/UnifiedFleetManagement"),
   { ssr: false }
 );
 const AiSupportSection = dynamic(

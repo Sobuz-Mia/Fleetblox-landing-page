@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 import FooterLogo from "../../../../public/images/footerLogo.png";
@@ -12,6 +12,11 @@ import GoogleStoreMobile from "@/components/icons/GoogleStoreMobile";
 import { RequestDemoModal } from "../RequestDemoModal";
 import { usePathname } from "next/navigation";
 import { buildSchemaData, renderSchemaMarkup } from "@/utils/schema";
+import {
+  industriesItems,
+  platformFeatures,
+  solutionsItems,
+} from "@/components/modules/navbar/data";
 
 const Footer = () => {
   const pathname = usePathname();
@@ -52,7 +57,7 @@ const Footer = () => {
                 </button>
               </Link>
             </div>
-            <div className="max-h-[520px] h-[400px] lg:h-[520px] md:h-[400px] filter blur-[210px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50  rounded-[520px] w-[400px] lg:w-[520px] bg-[#B8CBFC] absolute opacity-50 "></div>
+            <div className="max-h-[520px] h-[400px] lg:h-[520px] md:h-[400px] filter blur-[210px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50  rounded-[520px] w-[380px] lg:w-[520px] bg-[#B8CBFC] absolute opacity-50 "></div>
             <div className="absolute z-[100] mix-blend-multiply -top-14 h-[500px] lg:h-[660px]">
               <video
                 autoPlay
@@ -109,144 +114,39 @@ const Footer = () => {
                 <h5 className=" font-openSans text-[#DFDFDF] text-[12px] leading-normal mb-[10px] ">
                   Products
                 </h5>
-                <Link className="cursor-pointer" href="/products/dashboard">
-                  <h5 className="font-openSans py-[2px] mb-[5px] cursor-pointer">
-                    Dashboard
-                  </h5>
-                </Link>
-                <Link href="/products/getting-started">
-                  <h5 className="font-openSans py-[2px] mb-[5px]">
-                    Getting Started
-                  </h5>
-                </Link>
-                <Link href="/products/fleet-integration">
-                  <h5 className="font-openSans py-[2px] mb-[5px]">
-                    Fleet Integration
-                  </h5>
-                </Link>
-                <Link href="/products/fleet-expansion">
-                  <h5 className="font-openSans py-[2px] mb-[5px]">
-                    Fleet Expansion
-                  </h5>
-                </Link>
-                <Link href="/products/digital-inspections">
-                  <h5 className="font-openSans py-[2px] mb-[5px]">
-                    Digital Inspections
-                  </h5>
-                </Link>
-                <Link href="/products/maintenance-diagnostics">
-                  <h5 className="font-openSans py-[2px] mb-[5px]">
-                    Maintenance & Diagnostics
-                  </h5>
-                </Link>
-                <Link href="/products/expenses-management">
-                  <h5 className="font-openSans py-[2px] mb-[5px]">
-                    Expenses Management
-                  </h5>
-                </Link>
-                <Link href="/products/documents-management">
-                  <h5 className="font-openSans py-[2px] mb-[5px]">
-                    Documents Management
-                  </h5>
-                </Link>
-                <Link href="/products/intelligent-alerts">
-                  <h5 className="font-openSans py-[2px] mb-[5px]">
-                    Intelligent Alerts
-                  </h5>
-                </Link>
-                <Link href="/products/team-management">
-                  <h5 className="font-openSans py-[2px] mb-[5px]">
-                    Team Management
-                  </h5>
-                </Link>
-                <Link href="/products/ai-assistant">
-                  <h5 className="font-openSans py-[2px] mb-[5px]">
-                    AI Assistant
-                  </h5>
-                </Link>
+                {platformFeatures.map((item, index) => (
+                  <Link key={index} className="cursor-pointer" href={item.href}>
+                    <h5 className="font-openSans py-[2px] mb-[5px] cursor-pointer">
+                      {item?.title}
+                    </h5>
+                  </Link>
+                ))}
               </div>
               {/* solutions */}
               <div className=" text-[14px] leading-5 ">
                 <h5 className=" font-openSans text-[#DFDFDF] text-[12px] leading-normal mb-[10px] ">
                   Solutions
                 </h5>
-                <Link href="/solutions/cloud-telematic">
-                  <h5 className=" font-openSans py-[2px] mb-[5px]">
-                    Cloud Telematics
-                  </h5>
-                </Link>
-                <Link href="/solutions/remote-access">
-                  <h5 className=" font-openSans py-[2px] mb-[5px]">
-                    Remote Access
-                  </h5>
-                </Link>
-                <Link href="/solutions/remote-scalability">
-                  <h5 className=" font-openSans py-[2px] mb-[5px]">
-                    Remote Scalability
-                  </h5>
-                </Link>
-                <Link href="/solutions/cost-optimization">
-                  <h5 className=" font-openSans py-[2px] mb-[5px]">
-                    Cost Optimization
-                  </h5>
-                </Link>
-                <Link href="/solutions/compliance-and-safety">
-                  <h5 className="font-openSans py-[2px] mb-[5px]">
-                    Compliance and Safety
-                  </h5>
-                </Link>
-
-                <Link href="/solutions/ev-fleet-integration">
-                  <h5 className=" font-openSans py-[2px] mb-[5px]">
-                    EV Fleet Integration
-                  </h5>
-                </Link>
-                <Link href="/solutions/remote-inspection">
-                  <h5 className="font-openSans py-[2px] mb-[5px]">
-                    Remote Inspection
-                  </h5>
-                </Link>
-                <Link href="/solutions/maintenance-diagnostics">
-                  <h5 className="font-openSans py-[2px] mb-[5px]">
-                    Maintenance and Diagnostics
-                  </h5>
-                </Link>
-                <Link href="/solutions/workforce-connectivity">
-                  <h5 className="font-openSans py-[2px] mb-[5px]">
-                    Workforce Connectivity
-                  </h5>
-                </Link>
-                <Link href="/solutions/ai-fleet-assistant">
-                  <h5 className="font-openSans py-[2px] mb-[5px]">
-                    AI Fleet Assistant
-                  </h5>
-                </Link>
+                {solutionsItems.map((item, index) => (
+                  <Link key={index} href={item.href}>
+                    <h5 className=" font-openSans py-[2px] mb-[5px]">
+                      {item?.title}
+                    </h5>
+                  </Link>
+                ))}
               </div>
               {/* Industries section */}
               <div className="text-[14px] leading-5 ">
                 <h5 className=" font-openSans text-[#DFDFDF] text-[12px] leading-normal mb-[10px] ">
                   Industries
                 </h5>
-                <Link href="/industries/fleet-management">
-                  <h5 className=" font-openSans py-[2px] mb-[5px]">
-                    Fleet Management
-                  </h5>
-                </Link>
-                <Link href="/industries/auto-dealerships">
-                  <h5 className=" font-openSans py-[2px] mb-[5px]">
-                    Auto Dealerships
-                  </h5>
-                </Link>
-                <Link href="/industries/car-rental-providers">
-                  <h5 className=" font-openSans py-[2px] mb-[5px]">
-                    Car Rental Providers
-                  </h5>
-                </Link>
-                <Link href="/industries/e-mobility-services">
-                  <h5 className=" font-openSans py-[2px] mb-[5px]">
-                    E-Mobility Services
-                  </h5>
-                </Link>
+                {industriesItems.map((item, index) => (
+                  <Link key={index} href={item.href}>
+                    <h5 className=" font-openSans py-[2px] mb-[5px]">
+                      {item?.title}
+                    </h5>
+                  </Link>
+                ))}
               </div>
               {/* mobile view company and resources */}
               <div className="flex md:hidden  flex-col gap-[35px] ">
@@ -424,35 +324,37 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Schema.org structured data */}
       {isHomepage && (
         <>
           {renderSchemaMarkup(
             buildSchemaData({
-              type: 'WebSite',
+              type: "WebSite",
               url: `https://fleetblox.site${pathname}`,
-              title: 'FleetBlox - Advanced AI-Powered Fleet Management Solution',
-              description: 'FleetBlox is an advanced AI-powered, cloud-based fleet connectivity solution that eliminates the need for traditional hardware.'
+              title:
+                "FleetBlox - Advanced AI-Powered Fleet Management Solution",
+              description:
+                "FleetBlox is an advanced AI-powered, cloud-based fleet connectivity solution that eliminates the need for traditional hardware.",
             })
           )}
           {renderSchemaMarkup(
             buildSchemaData({
-              type: 'Organization',
-              url: `https://fleetblox.site${pathname}`
+              type: "Organization",
+              url: `https://fleetblox.site${pathname}`,
             })
           )}
           {renderSchemaMarkup(
             buildSchemaData({
-              type: 'Product',
-              title: 'FleetBlox Fleet Management Solution',
-              url: `https://fleetblox.site${pathname}`
+              type: "Product",
+              title: "FleetBlox Fleet Management Solution",
+              url: `https://fleetblox.site${pathname}`,
             })
           )}
           {renderSchemaMarkup(
             buildSchemaData({
-              type: 'FAQPage',
-              url: `https://fleetblox.site${pathname}`
+              type: "FAQPage",
+              url: `https://fleetblox.site${pathname}`,
             })
           )}
         </>

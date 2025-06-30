@@ -12,18 +12,18 @@ const HeroSection = () => {
   useEffect(() => {
     // Preload critical mobile hero image
     if (window.innerWidth < 1024) {
-      const link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'image';
-      link.href = '/images/hero-2.webp';
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "image";
+      link.href = "/images/hero-2-3.webp";
       document.head.appendChild(link);
     }
-    
+
     // Delay video loading to improve LCP
     const timer = setTimeout(() => {
       setIsVideoLoaded(true);
     }, 2000); // Increased delay for better LCP
-    
+
     return () => clearTimeout(timer);
   }, []);
   const features = [
@@ -59,7 +59,11 @@ const HeroSection = () => {
             Fleet Moderniser Platform
           </p>
           <h1
-          className="text-[36px] md:text-[52px] lg:text-[52px] text-left md:text-center font-bold text-[#04082C] leading-[1.1] font-montserrat">
+            aria-label="Empower Your Fleet Ecosystem Potentials"
+            role="heading"
+            property="Hero"
+            className="text-[36px] md:text-[52px] lg:text-[52px] text-left md:text-center font-bold text-[#04082C] leading-[1.1] font-montserrat"
+          >
             Empower Your Fleet Ecosystem Potentials
           </h1>
           <p className="text-left md:text-center font-openSans text-[#333] leading-6 text-[16px] mt-[10px]">
@@ -106,7 +110,6 @@ const HeroSection = () => {
               quality={80}
               sizes="(max-width: 1200px) 90vw, 1200px"
               priority={true}
-            
             />
 
             {/* Centered blur effect */}
@@ -159,7 +162,7 @@ const HeroSection = () => {
       <div className="lg:hidden mt-8 relative w-full flex flex-col items-center justify-center">
         <div className="relative w-full flex justify-center items-center overflow-hidden h-[350px]">
           {/* Optimized background - removed blur initially to improve paint */}
-          <div className="h-[150px] w-[150px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 rounded-full bg-[#2D65F2] opacity-30 absolute"></div>
+          <div className="h-[150px] w-[150px] left-1/2 top-1/2 -translate-x-1/2 blur-md -translate-y-1/2 z-20 rounded-full bg-[#2D65F2] opacity-30 absolute"></div>
 
           {/* Background video - lazy loaded after initial paint */}
           {isVideoLoaded && (
@@ -180,14 +183,15 @@ const HeroSection = () => {
           {/* Hero image optimized for LCP */}
           <div className="relative z-30 flex justify-center items-center h-full">
             <Image
-              src="/images/hero-2.webp"
+              // src="/images/hero-2-mobile-ultra-optimized.webp"
+              src="/images/hero-2-3.webp"
               priority={true}
               alt="Mobile hero"
               width={280}
               height={350}
-              quality={90}
+              quality={60}
               className="object-contain w-full h-auto max-w-[280px] max-h-[350px]"
-              sizes="280px"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               loading="eager"
               fetchPriority="high"
               placeholder="blur"
