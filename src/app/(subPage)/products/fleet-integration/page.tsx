@@ -227,16 +227,19 @@ const page = () => {
             title="Scan The VIN"
             description="Add the vehicle using the VIN or scan it with the VIN scanner."
             imagePath="/images/products/connect-step-1.svg"
+            stepper={1}
           />
           <StepCard
             title="Connect The Vehicle"
             description="Use your manufacturer credentials to link your vehicle."
             imagePath="/images/products/connect-step-2.svg"
+            stepper={2}
           />
           <StepCard
             title="Enable Access"
             description=" Review and approve permissions to allow data streaming."
             imagePath="/images/products/connect-step-3.svg"
+            stepper={3}
           />
         </div>
       </section>

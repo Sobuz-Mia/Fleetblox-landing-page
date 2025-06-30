@@ -82,6 +82,7 @@ const page = () => {
               width={700}
               height={491}
               className="object-contain w-full"
+              priority
             />
           </div>
         </div>

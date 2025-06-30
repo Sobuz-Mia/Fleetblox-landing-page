@@ -136,16 +136,19 @@ const page = () => {
             title="Select Your Vehicle"
             description="Choose the car you want to track and manage."
             imagePath="/images/products/alert-step-1.svg"
+            stepper={1}
           />
           <StepCard
             title="Create the Reminder"
             description="Set alerts based on time or mileage to adapt your fleet needs."
             imagePath="/images/products/alert-step-2.svg"
+            stepper={2}
           />
           <StepCard
             title="Get Alerted"
             description=" Receive timely alerts and stay ahead of your entire fleet operations."
             imagePath="/images/products/alert-step-3.svg"
+            stepper={3}
           />
         </div>
       </section>

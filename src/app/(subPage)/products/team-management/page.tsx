@@ -148,17 +148,22 @@ const page = () => {
             title="Create Roles"
             description="Create customized roles with necessary access for each team member."
             imagePath="/images/products/team-management-step-1.svg"
+            stepper={1}
           />
           <StepCard
             title="Assign Tasks"
             description="Assign tasks through a shared calendar for seamless coordination."
             imagePath="/images/products/team-management-step-2.svg"
+            stepper={2}
           />
 
           <div
-            className={`relative z-[200] top-[0px] mx-auto transform flex-col h-[536px] w-full`}
+            className={`relative z-[200] top-[0px] mx-auto transform flex-col h-[600px]  md:h-[536px] w-full`}
           >
             <div className=" bg-white absolute z-50 rounded-[24px] pt-10 px-[30px] flex flex-col gap-[10px] w-full h-full">
+              <div className="max-w-[32px] max-h-[32px] w-full mx-auto mb-2 h-full border-2 border-[#0336BC] rounded-[60px] p-1 lg:hidden flex items-center justify-center text-[#0336BC] font-openSans text-[16px] font-bold">
+                3
+              </div>
               {/* Card Header */}
               <div className="font-openSans text-center lg:text-left">
                 <h3 className="text-[#04082C] text-[22px] font-bold">
@@ -175,7 +180,7 @@ const page = () => {
                   alt="Remote Scalability Hero"
                   width={327}
                   height={700}
-                  className="object-contain w-full h-[550px] lg:h-[390px]"
+                  className="object-contain w-full h-[400px] lg:h-[390px]"
                   quality={100}
                 />
               </div>
@@ -227,9 +232,10 @@ const page = () => {
               icon={<data.icon />}
               title={data.title}
               description={data.description}
-              className={`w-full h-[210px] ${index === 6 &&
+              className={`w-full h-[210px] ${
+                index === 6 &&
                 "md:col-span-2 lg:col-span-3 md:max-w-[380px] mx-auto "
-                }`}
+              }`}
             />
           ))}
         </div>
