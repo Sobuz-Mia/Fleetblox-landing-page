@@ -1,10 +1,7 @@
-import React from 'react'
-import StarterFleetPage from './StarterFleetPage'
+import { StarterFleetDynamic } from "../lazy";
 
 const page = () => {
-    return (
-        <StarterFleetPage />
-    )
-}
+  return <StarterFleetDynamic />;
+};
 
-export default page
+export default page;

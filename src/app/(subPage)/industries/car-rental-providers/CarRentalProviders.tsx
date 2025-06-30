@@ -1,85 +1,53 @@
-"use client";
 import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import Image from "next/image";
 import Link from "next/link";
 import GlobeSection from "@/components/modules/home/globe";
+import Deal from "../auto-dealerships/components/LoadingSection";
+import ScrollingSection from "../auto-dealerships/components/scrollingAnnimation";
 
-// Dynamic import for GSAP animations
-import dynamic from "next/dynamic";
-import Loader from "@/app/(gettingStarted)/components/Loader";
-
-// import ScrollingSection from "./components/scrollingAnnimation";
-
-// Importing the Deal component dynamically
-const Deal = dynamic(() => import("./components/LoadingSection"), {
-  ssr: false,
-  loading: () => (
-    <div className="flex items-center justify-center h-full">
-      <div className="loader">
-        <Loader />
-      </div>
-    </div>
-  ),
-});
-
-const ScrollingSection = dynamic(
-  () => import("./components/scrollingAnnimation"),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="flex items-center justify-center h-full">
-        <div className="loader">
-          <Loader />
-        </div>
-      </div>
-    ),
-  }
-);
-
-const AutoDealership = () => {
+const CarRentalProviders = () => {
   const animationItems = [
     {
-      title: "Keep All Vehicle Sales Ready and in Excellent Condition",
+      title: "Unleash Your Fleet’s Full Potential and Scale Your Sales ",
       content:
-        "Check the condition of every vehicle in your inventory on a consistent basis, whether it is a demo, loaner, or new vehicle. Use checks to track wear-and-tear, damage, or service needed, so that your inventory remains sale-ready.",
-      image: `/images/industries/slide-animation-1.svg`,
+        "Seamlessly integrate gas, hybrid, and electric vehicles into a single system. Fleetblox streamlines every aspect of your fleet operation, for greater efficiency, heightened profitability, and smarter management of all vehicle types.",
+      image: `/images/industries/unleash-fleet-1.svg`,
     },
     {
-      title: "Ensure Every Vehicle Is Compliant and Road-Ready",
+      title: "Compliance Simplified, Revenue Amplified",
       content:
-        "Monitor registrations, insurance, and servicing with a system that will maintain your entire fleet in immaculate compliance. Automated monitoring and on-time reminders ensure nothing slips through the cracks - so every vehicle remains legal, safe, and ready to roll.",
-      image: `/images/industries/slide-animation-2.svg`,
+        "Fleetblox simplifies compliance with digital inspections and auto-tracking of vehicle documents and status — keeping each vehicle in optimal condition, having your fleet ready to roll and reducing unnecessary operational cost",
+      image: `/images/industries/unleash-fleet-2.svg`,
     },
     {
-      title: "Maximize Customer Satisfaction and Fleet Health",
+      title: "Rev Up Your Revenue, Cut Down on Costs",
       content:
-        "Lease cars, demos, and courtesy cars shouldn't keep you in suspense - they should leave you with potential. Fleetblox gives you real-time visibility into the status, utilization, and health of every unit. Look to the future for service requirements, sidestep costly delays, and keep each vehicle road-ready and revenue-ready - no matter where it is in its life cycle.",
-      image: `/images/industries/slide-animation-3.svg`,
+        "Keep your fleet running at its best without overspending. Fleetblox helps you track costs with custom budgets and real-time alerts, while automated maintenance reminders prevent costly repairs and maximize uptime.",
+      image: `/images/industries/unleash-fleet-3.svg`,
     },
   ];
 
   const Deals = [
     {
-      title: "Centralized Inventory",
+      title: "Easy Scale",
       content:
-        "Manage your entire fleet from one dashboard. Monitor health, availability, and readiness across all locations in real time.",
-      image: "/images/industries/auto-dealership-a-1.svg",
+        "Expand your rental business without the complicity . Fleetblox adapts to your expanding fleet , bringing all your vehicles, locations, and crew together in one place",
+      image: "/images/industries/easy-scale-1.svg",
     },
 
     {
-      title: "Multi-Brand Sync",
+      title: "Reduce Downtime",
       content:
-        "Easily manage vehicles from different brands. Our platform integrates seamlessly with various manufacturers, ensuring a smooth experience.",
-      image: "/images/industries/auto-dealership-a-2.svg",
+        "Keep your fleet in peak condition. Fleetblox monitor fleet status,maintenance and service reminders to keep downtime to a minimum and have all your vehicles available to rent at all times.",
+      image: "/images/industries/easy-scale-2.svg",
     },
     {
-      title: "Cross-Location Logistics",
+      title: "Boost Security",
       content:
-        "Effortlessly move vehicles between branches. Our platform simplifies logistics, ensuring your fleet is always where it needs to be.",
-      image: "/images/industries/auto-dealership-a-3.svg",
+        "Protect your vehicles and your business with location logs, remote diagnostics, and automated compliance tools, ensuring your fleet stays fully compliant, and protected across all locations.",
+      image: "/images/industries/easy-scale-3.svg",
     },
   ];
-
   return (
     <div>
       {/* hero section */}
@@ -87,16 +55,17 @@ const AutoDealership = () => {
         <div className="lg:max-w-[calc(100vw-30px)] xxl:max-w-[1440px] mx-auto w-full flex flex-col px-5 lg:flex-row items-center justify-between">
           <div className="lg:pl-[130px] max-w-[700px] w-full">
             <h3 className="text-[#0336BC] font-openSans font-bold text-[22px] w-full">
-              Fleetblox for Auto Dealerships
+              Fleetblox for Car Rentals
             </h3>
             <h1 className="text-[#04082C] text-[36px] lg:text-[50px] font-bold leading-[1.1] w-full">
-              Build and Link Your Fleet Across Brands and Locations
+              Command Your Rental Empire
             </h1>
             <p className="text-[#333] text-[16px] leading-6 mt-[10px] lg:mt-4 mb-5 font-openSans">
-              Be in total control of your dealership&apos;s inventory - no
-              matter how many locations or brands you have. See availability in
-              real time, move vehicles between branches effortlessly, and keep
-              every unit sale-ready from one, integrated platform.
+              Fleetblox is your all-in-one command center - built to scale your
+              car rental business with precision. Whether you’re managing 30 or
+              3,000 vehicles, gas or electric, in one city or many, you’ll
+              unlock total control, smarter decisions, and higher returns - all
+              from one intelligent platform
             </p>
             <Link
               aria-label="Get started with FleetBlox"
@@ -120,12 +89,11 @@ const AutoDealership = () => {
           </div>
           <div className=" w-full py-10 lg:pl-[60px]">
             <Image
-              src="/images/industries/auto-dealership-hero.svg"
+              src="/images/industries/car-rental-hero.svg"
               alt="Remote Scalability Hero"
               width={560}
               height={420}
-              priority={true}
-              quality={75}
+              priority
               className="object-contain w-full"
             />
           </div>
@@ -137,10 +105,10 @@ const AutoDealership = () => {
       <section className=" mx-auto w-full mt-[60px] lg:mt-[100px] px-5">
         <div className="max-w-[840px] mx-auto w-full text-center">
           <h2 className="text-[#04082C] text-[28px] lg:text-[36px] font-bold text-center leading-[1.1] mb-[10px]">
-            Smarter Dealerships Network
+            Rental Ops, Refined
           </h2>
           <p className="text-[#333] text-[16px] leading-6 font-openSans">
-            Sync stock, move faster, and manage every branch with ease
+            Shift smarter, reduce idle time, and serve more customers
           </p>
         </div>
         <Deal Deals={Deals} />
@@ -157,15 +125,13 @@ const AutoDealership = () => {
           <div className="flex items-center justify-center">
             <div className="max-w-[500px] w-full">
               <h3 className="text-[#04082C] leading-[100%] font-bold text-[36px] font-montserrat">
-                Fill the Gaps Between Your Locations
+                Roam Beyond Boundaries, Your Fleet Always Visible
               </h3>
               <p className="text-[#333333] mt-4 text-[16px] leading-[150%] font-openSans text-justify">
-                Transferring vehicles from one location to another should never
-                be a guess. Give the right employees the right tasks, schedule
-                the pick-ups and drop-offs, and track each move - from dispatch
-                to delivery. Streamline internal processes and close the loop on
-                vehicle movement with smart task management and real-time
-                visibility.
+                Track the last known position of vehicles and view historical
+                location records, minimizing risk and enhancing security,
+                providing peace of mind while safeguarding your assets
+                throughout all business sites.
               </p>
             </div>
           </div>
@@ -173,12 +139,11 @@ const AutoDealership = () => {
           {/* Right side - Image */}
           <div className=" rounded-lg overflow-hidden flex items-center justify-center py-12">
             <Image
-              src="/images/industries/fill-the-gaps.png"
-              alt="Auto Dealership Management System"
+              src="/images/industries/Roam-Beyond-Boundaries.svg"
+              alt="Roam Beyond Boundaries, Your Fleet Always Visible"
               width={600}
               height={440}
-              priority={true}
-              quality={75}
+              priority
               className="object-contain w-full max-w-[600px]"
             />
           </div>
@@ -190,12 +155,11 @@ const AutoDealership = () => {
           {/* Left side - Image */}
           <div className="flex items-center justify-center">
             <Image
-              src="/images/industries/maximize-customer.png"
-              alt="Auto Dealership Management System"
+              src="/images/industries/move-your-fleet.svg"
+              alt="Move Your Fleet Where It’s Needed, When It’s Needed"
               width={500}
               height={280}
-              priority={true}
-              quality={75}
+              priority
               className="object-contain w-full max-w-[450px]"
             />
           </div>
@@ -204,25 +168,24 @@ const AutoDealership = () => {
           <div className="flex items-center justify-center">
             <div className="max-w-[500px] w-full">
               <h3 className="text-[#04082C] leading-[100%] font-bold text-[36px] font-montserrat">
-                Maximize Customer Satisfaction and Fleet Health
+                Move Your Fleet Where It’s Needed, When It’s Needed
               </h3>
               <p className="text-[#333333] mt-4 text-[16px] leading-[150%] font-openSans">
-                Monitor leased and demo vehicles in real-time to enable timely
-                maintenance and service. Let Your customers know exactly when
-                their vehicle needs service, and you maintain your fleet in
-                prime condition, reducing costs and maintaining vehicle value
-                for resale.
+                Shift idle vehicles to high-demand areas with ease. Fleetblox
+                unifies your team, vehicles, and workflows into one streamlined
+                system - so you always make the most of your fleet, wherever the
+                demand is.
               </p>
             </div>
           </div>
         </div>
       </section>
       <GlobeSection
-        title="Unify Your Dealership Network, Elevate Your Fleet Operations."
-        description="No more blind spots, missed inspections, or inventory imbalances. Fleetblox gives you total control of all brands and branches - so you can manage smarter, move faster, and sell more."
+        title="Get More Bookings, Fewer Headaches"
+        description="Fleetblox gives you the tools to move faster, rent smoother, and grow stronger - all while keeping your vehicles working and your customers coming back. It’s not just fleet management; it’s your competitive edge."
       />
     </div>
   );
 };
 
-export default AutoDealership;
+export default CarRentalProviders;

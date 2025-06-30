@@ -1,12 +1,11 @@
-import FleetManagement from "./FleetManagement";
+import { FleetManagementDynamic } from "../lazy";
 
 const FleetManagementPage = () => {
-    return (
-        <>
-            <FleetManagement />
-
-        </>
-    );
+  return (
+    <>
+      <FleetManagementDynamic />
+    </>
+  );
 };
 
 export default FleetManagementPage;

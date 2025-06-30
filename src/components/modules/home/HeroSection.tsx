@@ -15,7 +15,7 @@ const HeroSection = () => {
       const link = document.createElement("link");
       link.rel = "preload";
       link.as = "image";
-      link.href = "/images/hero-2.webp";
+      link.href = "/images/hero-2-3.webp";
       document.head.appendChild(link);
     }
 
@@ -58,7 +58,12 @@ const HeroSection = () => {
           <p className="text-[18px] md:text-[28px] lg:text-[28px] text-left md:text-center font-bold text-[#0336BC] mb-[5px]">
             Fleet Moderniser Platform
           </p>
-          <h1 className="text-[36px] md:text-[52px] lg:text-[52px] text-left md:text-center font-bold text-[#04082C] leading-[1.1] font-montserrat">
+          <h1
+            aria-label="Empower Your Fleet Ecosystem Potentials"
+            role="heading"
+            property="Hero"
+            className="text-[36px] md:text-[52px] lg:text-[52px] text-left md:text-center font-bold text-[#04082C] leading-[1.1] font-montserrat"
+          >
             Empower Your Fleet Ecosystem Potentials
           </h1>
           <p className="text-left md:text-center font-openSans text-[#333] leading-6 text-[16px] mt-[10px]">
@@ -178,14 +183,15 @@ const HeroSection = () => {
           {/* Hero image optimized for LCP */}
           <div className="relative z-30 flex justify-center items-center h-full">
             <Image
-              src="/images/hero-2.webp"
+              // src="/images/hero-2-mobile-ultra-optimized.webp"
+              src="/images/hero-2-3.webp"
               priority={true}
               alt="Mobile hero"
               width={280}
               height={350}
-              quality={90}
+              quality={60}
               className="object-contain w-full h-auto max-w-[280px] max-h-[350px]"
-              sizes="280px"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               loading="eager"
               fetchPriority="high"
               placeholder="blur"
