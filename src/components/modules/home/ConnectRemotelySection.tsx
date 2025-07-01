@@ -5,10 +5,10 @@ const ConnectRemotelySection = () => {
   return (
     <>
       <main className="bg-white lg:py-20 py-[60px] ">
-        <div className="container mx-auto w-full px-4 lg:max-w-7xl">
+        <div className="mx-auto w-full px-4 lg:max-w-[1200px]">
           <div className="flex flex-col z-50">
             {/* Connect Remotely Section */}
-            <section className="flex flex-col text-left md:text-center md:items-center items-start">
+            <section className="flex flex-col text-left md:text-center md:items-center items-start max-w-[900px] w-full mx-auto">
               <h3 className="text-[#0336BC] text-[22px] font-openSans font-bold mb-[10px]">
                 Instant Visibility
               </h3>
