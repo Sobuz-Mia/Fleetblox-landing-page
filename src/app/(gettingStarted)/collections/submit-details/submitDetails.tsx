@@ -29,6 +29,7 @@ const SubmitDetails = () => {
   const [country, setCountry] = useState("");
   const [countries, setCountries] = useState<Country[] | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -120,9 +121,8 @@ const SubmitDetails = () => {
     email: formData.email,
     fullName: formData.fullName,
     phone: formData.phone,
-    phoneCountryId: formData.countryId,
+    phoneCountryId: formData.countryId || 1,
   };
-  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -169,11 +169,12 @@ const SubmitDetails = () => {
       );
 
       console.log(testing.data, "checking response");
-
-      console.log(data);
+      // console.log(data);
       if (data.statusCode === 201) {
         localStorage.clear();
-        return router.push("/");
+        setShowSuccessModal(true);
+        setLoading(false);
+        return;
       }
       setLoading(false);
     } catch (error) {
@@ -207,6 +208,25 @@ const SubmitDetails = () => {
 
   return (
     <div className="flex flex-col h-[94vh] w-full max-w-[950px] mx-auto px-4 sm:px-6">
+      {/* Success Modal */}
+      {showSuccessModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
+          <div className="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full text-center">
+            <h2 className="text-xl font-semibold mb-4">Account Created</h2>
+            <p className="mb-6">Your account created successfully. Check your mail please.</p>
+            <button
+              className="bg-[#2D65F2] text-white px-6 py-2 rounded-md font-semibold"
+              onClick={() => {
+                setShowSuccessModal(false);
+                router.push("/");
+              }}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Header Section - Fixed */}
       <div className="flex-none mt-[30px]">
         <div className="text-center mb-8">
