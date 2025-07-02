@@ -8,15 +8,14 @@ const ConnectRemotelySection = () => {
         <div className="mx-auto w-full px-4 lg:max-w-[1200px]">
           <div className="flex flex-col z-50">
             {/* Connect Remotely Section */}
-            <section className="flex flex-col text-left md:text-center md:items-center items-start max-w-[900px] w-full mx-auto">
+            <section className="flex flex-col text-center items-center  max-w-[900px] w-full mx-auto">
               <h3 className="text-[#0336BC] text-[22px] font-openSans font-bold mb-[10px]">
                 Instant Visibility
               </h3>
-              <h3 className="text-[28px] md:text-[36px] font-bold text-[#04082C] leading-tight font-montserrat">
-                Deploy Your Fleet in Minutes <br className="hidden md:block" />{" "}
-                From Your Desk
+              <h3 className="text-[28px] md:text-[36px] font-bold text-[#04082C] leading-tight font-montserrat mb-[30px]">
+                Deploy Your Fleet in Minutes From Your Desk
               </h3>
-              <p className="my-4  text-[#333] leading-6 font-openSans text-[14px] md:text-[16px]">
+              {/* <p className="my-4  text-[#333] leading-6 font-openSans text-[14px] md:text-[16px]">
                 Fleetblox is built to simplify-what used to take weeks, by
                 providing instant fleet activation, and real-time visibility for
                 your entire fleet, without the headache of physical
@@ -33,11 +32,11 @@ const ConnectRemotelySection = () => {
                     <RightArrowIcon />
                   </div>
                 </button>
-              </Link>
+              </Link> */}
             </section>
 
             {/* Video Section */}
-            <section className="border border-[#DFDFDF] h-[250px] xs:h-[280px] sm:h-[350px] md:h-[425px] rounded-[24px] bg-white overflow-hidden">
+            <section className="border border-[#DFDFDF] w-full h-[250px] xs:h-[280px] sm:h-[350px] md:h-[425px] rounded-[24px] bg-white overflow-hidden">
               <div className="relative w-full h-full">
                 <video
                   autoPlay
@@ -60,7 +59,24 @@ const ConnectRemotelySection = () => {
                 </video>
               </div>
             </section>
-
+            <div className="text-center items-center max-w-[900px] w-full mx-auto flex flex-col mt-[20px]">
+              <p className="my-4  text-[#333] leading-6 font-openSans text-[14px] md:text-[16px]">
+                Fleetblox is built to simplify-what used to take weeks, by
+                providing instant fleet activation, and real-time visibility for
+                your entire fleet, without the headache of physical
+                installations and time-consuming configuration.
+              </p>
+              <Link href="/products/fleet-integration">
+                <button className="hidden md:flex lg:flex mb-10 transition-all bg-[#2D65F2] hover:bg-[#0336BC] text-white duration-300 hover:w-[144.16px] w-[122.16px] items-center px-4 py-3 text-[16px] font-bold rounded-md group">
+                  <div className="z-20 whitespace-nowrap font-openSans font-bold">
+                    Learn More
+                  </div>
+                  <div className="z-10 transform transition-transform opacity-0 group-hover:opacity-100 -translate-x-4 duration-300 group-hover:translate-x-0">
+                    <RightArrowIcon />
+                  </div>
+                </button>
+              </Link>
+            </div>
             {/* <div className=" flex md:hidden lg:hidden justify-center w-full"> */}
             <Link href="/products/fleet-integration">
               <button className="lg:hidden mt-10 bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
