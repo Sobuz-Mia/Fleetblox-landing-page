@@ -37,7 +37,7 @@ const ConnectRemotelySection = () => {
             </section>
 
             {/* Video Section */}
-            <section className="border border-[#DFDFDF] h-[250px] xs:h-[280px] sm:h-[350px] md:h-[425px] rounded-[24px] bg-white overflow-hidden">
+            <section className="border border-[#DFDFDF] w-full h-[250px] xs:h-[280px] sm:h-[350px] md:h-[425px] rounded-[24px] bg-white overflow-hidden">
               <div className="relative w-full h-full">
                 <video
                   autoPlay
