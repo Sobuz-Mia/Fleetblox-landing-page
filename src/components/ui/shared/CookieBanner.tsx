@@ -31,7 +31,7 @@ export default function CookieBanner() {
   }
 
   return (
-    <div className="fixed bottom-2 left-1/2 transform -translate-x-1/2 bg-white shadow-xl z-[9999] border border-gray-200 rounded-2xl w-[350px] max-[425px]:w-[350px] max-[375px]:w-[320px] max-[320px]:w-[300px] sm:w-[95%] sm:max-w-[1200px]">
+    <div className="fixed bottom-2 left-1/2 transform -translate-x-1/2 bg-white shadow-xl z-[9999] border border-gray-200 rounded-2xl w-[calc(100vw-20px)] max-w-[350px] min-[426px]:w-[95%] min-[426px]:max-w-[1200px]">
       <div className="p-3 sm:p-4 md:p-6 max-w-none sm:max-w-7xl mx-auto">
         <div className="flex flex-col gap-3 sm:gap-4 md:flex-row md:justify-between md:items-start md:gap-6">
           <div className="flex-1 w-full">

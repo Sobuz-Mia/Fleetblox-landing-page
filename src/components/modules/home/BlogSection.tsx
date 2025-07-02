@@ -19,10 +19,10 @@ const BlogSection = () => {
             </h3>
             {/* left side */}
             <Link href="https://fleetblox.site/2024/05/26/smart-alerts-fleetbloxs-cloudte-chnology">
-              <h1 className="font-montserrat text-[36px] font-bold leading-normal md:leading-[1.1] text-[#04082C] hover:text-opacity-70">
+              <h3 className="font-montserrat text-[36px] font-bold leading-normal md:leading-[1.1] text-[#04082C] hover:text-opacity-70">
                 {`Smart Alerts: How Fleetblox's Eagle Eye Technology Makes Your
               Fleet...`}
-              </h1>
+              </h3>
             </Link>
             <div className="flex items-center gap-[5px]">
               <CircleUser color="#7D7D7D" />
