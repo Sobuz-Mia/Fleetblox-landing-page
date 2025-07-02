@@ -142,17 +142,20 @@ const Onboarding = () => {
             title="Set Your Location"
             description="Choose a team member or partner to handle the maintenance."
             imagePath="/images/products/add-location.png"
+            stepper={1}
           />
           <StepCard
             title="Add Your Vehicles"
             description="Scan and onboard your vehicle in seconds—entire specs, features, and history automatically with no manual input."
             imagePath="/images/products/add-car.png"
+            stepper={2}
           />
           <StepCard
             title="Activate the Vehicle"
             description="Connect the vehicle to Fleetblox to enable real-time data
                   access, live tracking, and easy fleet management."
             imagePath="/images/products/add-the-car.png"
+            stepper={3}
           />
         </div>
       </section>

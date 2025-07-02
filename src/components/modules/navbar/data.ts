@@ -75,8 +75,8 @@ export const solutionsItems: NavbarItem[] = [
     href: "/solutions/remote-operation",
   },
   {
-    title: "Fleet intelligence",
-    href: "/under-development",
+    title: "Fleet Intelligence",
+    href: "/solutions/fleet-intelligence",
   },
   {
     title: "Sustainability Integration",
