@@ -293,7 +293,7 @@ const Footer = () => {
                     strokeLinecap="round"
                   />
                 </svg>
-                <Link href="/under-development">
+                <Link href="/terms-of-service">
                   <p className="text-[14px] font-openSans leading-5 font-normal text-white">
                     Terms of Service
                   </p>
