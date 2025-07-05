@@ -54,29 +54,29 @@ const HeroSection = () => {
       {/* Main content section */}
       <div className="mt-[120px] pb-3 flex flex-col items-center justify-center px-5">
         {/* Text content remains the same */}
-        <div className="max-w-[840px] w-full mx-auto text-center flex flex-col items-start md:items-center ">
-          <p className="text-[18px] md:text-[28px] lg:text-[28px] text-left md:text-center font-bold text-[#0336BC] mb-[5px]">
+        <div className="max-w-[840px] w-full mx-auto text-center flex flex-col items-start lg:items-center ">
+          <p className="text-[18px]  lg:text-[28px] text-left lg:text-center font-bold text-[#0336BC] mb-[5px]">
             Fleet Moderniser Platform
           </p>
           <h1
             aria-label="Empower Your Fleet Ecosystem Potentials"
             role="heading"
             property="Hero"
-            className="text-[36px] md:text-[52px] lg:text-[52px] text-left md:text-center font-bold text-[#04082C] leading-[1.1] font-montserrat"
+            className="text-[36px] lg:text-[52px] text-left lg:text-center font-bold text-[#04082C] leading-[1.1] font-montserrat"
           >
             Empower Your Fleet Ecosystem Potentials
           </h1>
-          <p className="text-left md:text-center font-openSans text-[#333] leading-6 text-[16px] mt-[10px]">
+          <p className="text-left lg:text-center font-openSans text-[#333] leading-6 text-[16px] mt-[10px]">
             Fleetblox is a modern, AI-based platform designed to empower the
             next generation of fleet management—built to adapt the demands of
             today’s automotive technology
           </p>
         </div>
-        <div className="flex flex-col lg:flex-row md:justify-center md:items-center gap-4 mt-5 pb-[30px] font-openSans w-full ">
+        <div className="flex flex-col lg:flex-row lg:justify-center lg:items-center gap-4 mt-5 pb-[30px] font-openSans w-full ">
           {benefits?.map((benefit, index) => (
             <div
               key={index}
-              className="flex gap-[5px] text-[16px] font-openSans leading-6 font-semibold text-[#7D7D7D] md:text-center items-start md:items-center"
+              className="flex gap-[5px] text-[16px] font-openSans leading-6 font-semibold text-[#7D7D7D] lg:text-center items-start lg:items-center"
             >
               <CheckboxIcon />
               <p className="text-left">{benefit?.text}</p>
@@ -84,7 +84,7 @@ const HeroSection = () => {
           ))}
         </div>
         <Link aria-label="Get started with FleetBlox" href="/getting-started">
-          <button className="hidden md:flex transition-all font-openSans bg-[#2D65F2] hover:bg-[#0336BC] text-white-primary text-white duration-300 hover:w-[144.16px] w-[122.16px]  items-center px-[13px] hover:px-4 py-3 text-base font-bold rounded-md group">
+          <button className="hidden lg:flex transition-all font-openSans bg-[#2D65F2] hover:bg-[#0336BC] text-white-primary text-white duration-300 hover:w-[144.16px] w-[122.16px]  items-center px-[13px] hover:px-4 py-3 text-base font-bold rounded-md group">
             <div className="z-20 whitespace-nowrap"> Start Today</div>
             <div className="z-10 transform transition-transform opacity-0 group-hover:opacity-100 -translate-x-4 duration-300 group-hover:translate-x-0">
               <RightArrowIcon />
@@ -93,7 +93,7 @@ const HeroSection = () => {
         </Link>
         <div className="w-full">
           <Link aria-label="Get started with FleetBlox" href="/getting-started">
-            <button className=" py-3 rounded-md w-full text-center bg-[#2D65F2] font-openSans text-[14px] font-bold text-[#fff] flex justify-center md:hidden">
+            <button className=" py-3 rounded-md w-full text-center bg-[#2D65F2] font-openSans text-[14px] font-bold text-[#fff] flex justify-center lg:hidden">
               Start Today
             </button>
           </Link>
@@ -104,7 +104,7 @@ const HeroSection = () => {
             <Image
               src={heroCardImg}
               alt="Fleet management dashboard"
-              className="w-full h-auto max-w-[1200px] max-h-[80vh] -mt-[70px] z-30 absolute xl:max-w-[1200px] lg:max-w-[1000px]"
+              className="w-full h-auto max-w-[1200px] max-h-[100vh] -mt-[70px] z-30 absolute xl:max-w-[1200px] lg:max-w-[1000px]"
               width={1200}
               height={800}
               quality={80}
