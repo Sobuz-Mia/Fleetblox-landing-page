@@ -44,6 +44,31 @@ const TermsAndService = () => {
     []
   );
 
+  // Navigation functions for step-by-step movement
+  const getCurrentSectionIndex = () => {
+    const index = keyContents.findIndex((item) => item.id === activeSection);
+    return index >= 0 ? index : 0; // Default to first section if not found
+  };
+
+  const navigateToSection = (direction: "up" | "down") => {
+    const currentIndex = getCurrentSectionIndex();
+    let newIndex;
+
+    if (direction === "up") {
+      newIndex = currentIndex > 0 ? currentIndex - 1 : 0;
+    } else {
+      newIndex =
+        currentIndex < keyContents.length - 1
+          ? currentIndex + 1
+          : keyContents.length - 1;
+    }
+
+    const targetSection = keyContents[newIndex];
+    if (targetSection) {
+      handleSectionClick(targetSection.id);
+    }
+  };
+
   const handleSectionClick = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -63,11 +88,11 @@ const TermsAndService = () => {
     const handleScroll = () => {
       const sections = keyContents.map((item) => item.id);
       const isMobile = window.innerWidth < 1024;
-      const scrollPosition = window.scrollY + (isMobile ? 80 : 100);
+      const scrollPosition = window.scrollY + (isMobile ? 80 : 120);
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const element = document.getElementById(sections[i]);
-        if (element && element.offsetTop <= scrollPosition) {
+        if (element && element.offsetTop <= scrollPosition + 100) {
           setActiveSection(sections[i]);
           break;
         }
@@ -81,13 +106,28 @@ const TermsAndService = () => {
       }
     };
 
+    // Initialize active section on mount
+    const initializeActiveSection = () => {
+      if (keyContents.length > 0 && !activeSection) {
+        // Check which section is currently in view
+        handleScroll();
+        // If still no active section, default to first section
+        if (!activeSection) {
+          setActiveSection(keyContents[0].id);
+        }
+      }
+    };
+
+    // Initialize on mount
+    initializeActiveSection();
+
     window.addEventListener("scroll", handleScroll);
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
     };
-  }, [keyContents]);
+  }, [keyContents, activeSection]);
 
   return (
     <section className="min-h-screen w-full bg-gray-100 p-2 sm:p-4">
@@ -1006,276 +1046,169 @@ const TermsAndService = () => {
                   Services.
                 </li>
               </ul>
-
-              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
-                3.7 Data Retention Upon Account Closure
-              </h3>
-              <p className="text-[#7D7D7D]">
-                Upon account termination or closure, whether initiated by the
-                User or FleetBlox, certain account data and information may be
-                retained by FleetBlox for the following purposes:
-              </p>
-              <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-4">
-                <li>Compliance with legal, regulatory, or tax obligations;</li>
-                <li>Resolution of disputes, claims, or legal proceedings;</li>
-                <li>Fraud prevention and security purposes;</li>
-                <li>Business record-keeping and analytics;</li>
-                <li>
-                  Any other legitimate business purpose as determined by
-                  FleetBlox.
-                </li>
-              </ul>
-              <p className="text-[#7D7D7D] mt-3">
-                Users acknowledge that certain data may be permanently deleted
-                upon account closure, and FleetBlox shall not be responsible for
-                recovering or restoring such data once deleted. Users are
-                advised to export or backup any important data before closing
-                their accounts.
-              </p>
-
-              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
-                3.8 Multiple Account Restrictions
-              </h3>
-              <p className="text-[#7D7D7D]">
-                Each User is permitted to maintain only one active account on
-                the FleetBlox platform unless explicitly authorized by FleetBlox
-                in writing. Users are prohibited from creating multiple accounts
-                to circumvent account restrictions, payment obligations, or
-                other limitations imposed by FleetBlox. Discovery of multiple
-                unauthorized accounts may result in the suspension or
-                termination of all associated accounts.
-              </p>
-
-              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
-                3.9 Age and Legal Capacity Requirements
-              </h3>
-              <p className="text-[#7D7D7D]">
-                Users must be at least 18 years of age (or the age of majority
-                in their jurisdiction, whichever is higher) and possess the
-                legal capacity to enter into binding contracts. Users under the
-                age of 18 may only access the Services under the supervision and
-                with the express consent of a parent or legal guardian who
-                agrees to be bound by this Agreement.
-              </p>
-
-              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
-                3.10 Account Transfer and Assignment
-              </h3>
-              <p className="text-[#7D7D7D]">
-                User accounts are personal to the registered User and may not be
-                transferred, assigned, or shared with third parties without the
-                prior written consent of FleetBlox. Any attempted transfer or
-                assignment without such consent shall be deemed void and may
-                result in account termination.
-              </p>
             </div>
           </section>
 
           {/* Payment Terms */}
           <section id="payment" className="mb-6 lg:mb-8">
             <h2 className="text-[20px] sm:text-[24px] lg:text-[28px] font-montserrat text-[#04082C] font-bold mb-3 lg:mb-4">
-              4. PAYMENT TERMS AND FINANCIAL OBLIGATIONS
+              4. PAYMENT TERMS
             </h2>
             <div className="text-[14px] sm:text-[16px] text-[#04082C] font-openSans leading-relaxed space-y-3 sm:space-y-4">
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
-                4.1 Subscription Plans and Pricing Structure
+                4.1 Subscription Plans
               </h3>
               <p className="text-[#7D7D7D]">
-                FleetBlox offers various subscription-based service plans
-                designed to accommodate the diverse needs of fleet operators and
-                businesses. The available subscription plans include monthly and
-                annual billing options, with pricing based on factors such as
-                the number of vehicles, feature sets, and additional services
-                selected by the User.
+                FleetBlox offers subscription-based access to its Services,
+                which are available under two primary subscription plans:
+                monthly and annual. Subscription fees are set at the rates
+                specified on the FleetBlox platform or as otherwise agreed upon
+                between FleetBlox and the User. Subscription fees must be paid
+                in advance at the beginning of each billing cycle. By
+                subscribing to the Services, you agree to pay the applicable
+                fees as outlined during the registration process or as agreed
+                under the terms of your Service agreement. In addition to
+                recurring subscription fees,{" "}
+                <strong>
+                  FleetBlox charges a one-time, non-refundable account
+                  activation fee upon registration.
+                </strong>{" "}
+                This fee enables initial account setup and platform onboarding.
               </p>
               <p className="text-[#7D7D7D]">
-                The specific pricing, features, and terms associated with each
-                subscription plan are detailed on the FleetBlox website and may
-                be updated periodically at FleetBlox&apos;s discretion. Users
-                acknowledge that subscription fees are payable in advance for
-                each billing period and that access to the Services is
-                contingent upon current and up-to-date payment of all applicable
-                fees.
+                Further,{" "}
+                <strong>
+                  FleetBlox’s subscription model is based on the number of
+                  vehicle slots purchased by the User. Each slot enables the
+                  connection and management of a single vehicle
+                </strong>{" "}
+                on the FleetBlox platform. Users intending to manage multiple
+                vehicles must subscribe to a corresponding number of slots.
+                Subscription fees will scale accordingly based on the number of
+                active slots in the User’s account.
               </p>
-
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
                 4.2 Payment Methods and Processing
               </h3>
               <p className="text-[#7D7D7D]">
-                FleetBlox accepts payments via credit card, debit card, bank
-                transfer, and other payment methods as specified on the
-                platform. All payment processing is conducted through
-                third-party payment processors that comply with Payment Card
-                Industry Data Security Standards (PCI DSS) and other applicable
-                security standards.
+                All payments made under this Agreement are processed by
+                third-party payment processors who are compliant with applicable
+                data protection laws and Payment Card Industry Data Security
+                Standards (PCI DSS). FleetBlox does not store or manage payment
+                card information directly. By providing payment credentials, you
+                authorize FleetBlox and its designated payment processor(s) to
+                charge the applicable subscription fees and any additional
+                charges in accordance with this Agreement.
               </p>
-              <p className="text-[#7D7D7D]">
-                By providing payment information, Users authorize FleetBlox and
-                its payment processors to charge the specified payment method
-                for all applicable fees, including subscription fees, activation
-                fees, usage-based charges, and any other costs associated with
-                the Services. Users are responsible for ensuring that their
-                payment information is current, accurate, and valid.
-              </p>
-
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
-                4.3 Billing Cycles and Automatic Renewal
+                4.3 Subscription Plan Upgrades and Downgrades
               </h3>
               <p className="text-[#7D7D7D]">
-                Subscription services are billed on a recurring basis according
-                to the selected billing cycle (monthly or annual). Unless
-                otherwise specified, all subscriptions will automatically renew
-                at the end of each billing period for the same duration and at
-                the then-current pricing.
-              </p>
-              <p className="text-[#7D7D7D]">
-                Users who wish to cancel their subscription must provide notice
-                of cancellation at least thirty (30) days prior to the end of
-                the current billing period to avoid charges for the subsequent
-                period. Cancellation notices must be submitted through the
-                account management interface or by contacting FleetBlox customer
-                support.
-              </p>
-
-              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
-                4.4 Late Payments and Account Suspension
-              </h3>
-              <p className="text-[#7D7D7D]">
-                In the event of non-payment or failed payment processing,
-                FleetBlox reserves the right to:
+                Users may request changes to their subscription plan, including
+                upgrades or downgrades in the number of vehicle slots, at any
+                time. FleetBlox will process such requests in accordance with
+                the following terms:
               </p>
               <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-4">
                 <li>
-                  Suspend or restrict access to the Services until payment is
-                  received;
+                  Upgrades: Users upgrading their subscription (e.g., adding
+                  vehicle slots or switching to a higher-tier plan) will be
+                  charged a prorated fee for the difference in cost for the
+                  remainder of the current billing cycle. The upgraded plan will
+                  take effect immediately.
                 </li>
                 <li>
-                  Charge late fees and interest on overdue amounts as permitted
-                  by applicable law;
-                </li>
-                <li>
-                  Engage third-party collection agencies or legal counsel to
-                  recover outstanding debts;
-                </li>
-                <li>
-                  Terminate the User&apos;s account and access to the Services.
+                  Downgrades: Downgrades (e.g., reducing vehicle slots or
+                  selecting a lower-tier plan) will take effect at the beginning
+                  of the next billing cycle. No refunds or prorated credits will
+                  be issued for the unused portion of the previous plan.
                 </li>
               </ul>
-              <p className="text-[#7D7D7D] mt-3">
-                Users remain liable for all outstanding charges, fees, and costs
-                associated with their account, including collection costs and
-                legal fees, even after account termination.
-              </p>
-
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
-                4.5 Refund Policy and Exceptions
+                4.4 Non-Payment and Suspension of Services
               </h3>
               <p className="text-[#7D7D7D]">
-                All payments made to FleetBlox, including subscription fees,
-                activation fees, and usage-based charges, are generally
-                non-refundable. However, FleetBlox may, at its sole discretion,
-                provide refunds in the following circumstances:
+                Failure to remit payment within 10 calendar days of the due date
+                will result in the suspension of Services. FleetBlox reserves
+                the right to take the following actions:
               </p>
               <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-4">
                 <li>
-                  Material breach of this Agreement by FleetBlox that is not
-                  remedied within thirty (30) days of written notice;
+                  Suspend all or part of the User’s access to the Services until
+                  outstanding payments are received.
                 </li>
                 <li>
-                  Extended service outages or technical failures that
-                  substantially impair the User&apos;s ability to access the
-                  Services;
+                  Charge a late fee or interest at the maximum rate permitted by
+                  law or as specified in the applicable invoice or billing
+                  notice.
                 </li>
                 <li>
-                  Where required by applicable consumer protection laws or
-                  regulations;
-                </li>
-                <li>
-                  Duplicate charges or billing errors that are verifiable and
-                  documented.
+                  Permanently terminate access to the Services if payment
+                  remains unpaid for a continuous period of 30 calendar days
+                  following suspension.
                 </li>
               </ul>
               <p className="text-[#7D7D7D] mt-3">
-                Refund requests must be submitted in writing within thirty (30)
-                days of the charge in question and must include documentation
-                supporting the basis for the refund request.
+                FleetBlox will not be liable for any business interruption, loss
+                of data, or other damages resulting from such suspension or
+                termination. Users remain liable for payment obligations
+                incurred prior to and during any suspension.
               </p>
-
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
-                4.6 Taxes and Additional Charges
+                4.5 Refund Policy
               </h3>
               <p className="text-[#7D7D7D]">
-                All fees and charges are exclusive of taxes, duties, levies,
-                tariffs, and other governmental charges (collectively,
-                &ldquo;Taxes&rdquo;). Users are responsible for payment of all
-                applicable Taxes associated with their use of the Services,
-                including but not limited to sales tax, use tax, value-added tax
-                (VAT), goods and services tax (GST), and any other taxes imposed
-                by governmental authorities.
+                All payments, including subscription fees and the initial
+                account activation fee, are <strong>non-refundable</strong>,
+                except in cases of:
               </p>
-              <p className="text-[#7D7D7D]">
-                FleetBlox reserves the right to collect applicable Taxes from
-                Users where required by law. Users agree to provide any tax
-                identification numbers, certificates, or other documentation
-                reasonably requested by FleetBlox for tax compliance purposes.
+              <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-4">
+                <li>A material breach of this Agreement by FleetBlox, or</li>
+                <li>Where otherwise required by applicable law.</li>
+              </ul>
+              <p className="text-[#7D7D7D] mt-3">
+                Users canceling their subscription mid-cycle or downgrading
+                plans are not entitled to any partial refunds or credits unless
+                explicitly provided in writing by FleetBlox. Users are
+                encouraged to review their subscription and vehicle slot
+                requirements before committing to payment.
               </p>
-
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
-                4.7 Price Changes and Modifications
+                4.6 Taxes and Other Charges
               </h3>
               <p className="text-[#7D7D7D]">
-                FleetBlox reserves the right to modify its pricing structure,
-                subscription fees, and other charges at any time. Price changes
-                will be communicated to Users at least thirty (30) days in
-                advance of the effective date of such changes. Continued use of
-                the Services after the effective date of price changes
-                constitutes acceptance of the new pricing.
+                All fees listed are exclusive of taxes, levies, duties, or
+                similar governmental assessments. Users are responsible for
+                paying any such applicable taxes, including but not limited to:
               </p>
+              <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 mt-3 ml-4   ">
+                <li>Sales tax</li>
+                <li>Value Added Tax (VAT)</li>
+                <li>Goods and Services Tax (GST)</li>
+                <li>
+                  Any other local, state, or international taxes imposed based
+                  on their use of the Services.
+                </li>
+              </ul>
               <p className="text-[#7D7D7D]">
-                Users who do not agree to price changes may cancel their
-                subscription in accordance with the cancellation procedures set
-                forth in this Agreement.
+                FleetBlox may collect and remit such taxes if required by
+                applicable law.
               </p>
-
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
-                4.8 Currency and Exchange Rates
+                4.7 Modification of Subscription Fees
               </h3>
               <p className="text-[#7D7D7D]">
-                All fees and charges are denominated in Canadian Dollars (CAD)
-                unless otherwise specified. For Users paying in currencies other
-                than CAD, exchange rates will be determined by the applicable
-                payment processor at the time of transaction. FleetBlox is not
-                responsible for currency fluctuations or exchange rate
-                variations that may affect the final amount charged to the
-                User&apos;s payment method.
-              </p>
-
-              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
-                4.9 Disputed Charges and Chargebacks
-              </h3>
-              <p className="text-[#7D7D7D]">
-                Users who dispute charges must first contact FleetBlox customer
-                support to attempt to resolve the dispute before initiating
-                chargeback proceedings with their financial institution.
-                Initiating a chargeback without first attempting to resolve the
-                dispute through FleetBlox may result in immediate account
-                suspension or termination.
+                FleetBlox reserves the right to adjust its pricing, including
+                subscription and activation fees, or introduce new fee
+                structures. In the event of any price increase, FleetBlox will
+                provide Users with a 30-day advance notice by email and/or
+                through an in-app notification.
               </p>
               <p className="text-[#7D7D7D]">
-                FleetBlox reserves the right to contest any chargebacks that it
-                deems to be invalid or fraudulent and may pursue collection of
-                disputed amounts through appropriate legal channels.
-              </p>
-
-              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
-                4.10 Enterprise and Custom Pricing
-              </h3>
-              <p className="text-[#7D7D7D]">
-                For enterprise customers or Users requiring custom service
-                configurations, FleetBlox may offer specialized pricing
-                arrangements, volume discounts, or custom payment terms. Such
-                arrangements will be documented in separate written agreements
-                that supplement this Terms of Service Agreement.
+                If you do not accept the revised pricing, you may cancel your
+                subscription prior to the effective date of the fee change.
+                Continued use of the Services after the new pricing takes effect
+                will constitute your acceptance of the new rates.
               </p>
             </div>
           </section>
@@ -1283,224 +1216,192 @@ const TermsAndService = () => {
           {/* Intellectual Property Rights */}
           <section id="intellectual-property" className="mb-6 lg:mb-8">
             <h2 className="text-[20px] sm:text-[24px] lg:text-[28px] font-montserrat text-[#04082C] font-bold mb-3 lg:mb-4">
-              5. INTELLECTUAL PROPERTY RIGHTS AND OWNERSHIP
+              5. INTELLECTUAL PROPERTY RIGHTS
             </h2>
             <div className="text-[14px] sm:text-[16px] text-[#04082C] font-openSans leading-relaxed space-y-3 sm:space-y-4">
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
-                5.1 FleetBlox Intellectual Property Ownership
+                5.1 Ownership of Services
               </h3>
               <p className="text-[#7D7D7D]">
-                FleetBlox and its licensors retain all rights, title, and
-                interest in and to the FleetBlox platform, Services, software,
-                technology, algorithms, user interfaces, designs, trademarks,
-                service marks, trade names, logos, copyrights, patents, trade
-                secrets, know-how, and all other intellectual property rights
-                related thereto (collectively, the &ldquo;FleetBlox IP&rdquo;).
-              </p>
-              <p className="text-[#7D7D7D]">
-                The FleetBlox IP is protected by copyright, trademark, patent,
-                trade secret, and other intellectual property laws of Canada,
-                the United States, the European Union, and other jurisdictions.
-                No rights in the FleetBlox IP are granted to Users except as
-                expressly set forth in this Agreement.
+                FleetBlox retains all rights, title, and interest, including,
+                but not limited to, copyrights, trademarks, patents, trade
+                secrets, and any other intellectual property rights in and to
+                all aspects of the Services, including the software, platform,
+                underlying technology, content, design, and any related
+                materials (hereinafter referred to as &ldquo;Intellectual
+                Property&rdquo;). FleetBlox does not transfer ownership of its
+                Intellectual Property to the User under this Agreement. The User
+                acknowledges and agrees that FleetBlox and its licensors retain
+                all right, title, and interest in the Intellectual Property
+                associated with the Services, and that no ownership rights in
+                such Intellectual Property are transferred to the User by this
+                Agreement.
               </p>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
-                5.2 Limited License Grant to Users
+                5.2 User License
               </h3>
               <p className="text-[#7D7D7D]">
                 Subject to the terms and conditions of this Agreement, FleetBlox
-                grants each User a limited, non-exclusive, non-transferable,
-                non-sublicensable, and revocable license to access and use the
-                Services solely for the User&apos;s internal business purposes
-                and in accordance with the terms hereof.
+                grants Users a limited, non-exclusive, non-transferable, and
+                revocable license to access and use the Services solely for the
+                intended purposes for which they are made available. This
+                license is granted exclusively for the purpose of using the
+                Services in accordance with the functionality provided, and does
+                not grant the User any rights to:
               </p>
-              <p className="text-[#7D7D7D]">
-                This license does not permit Users to:
-              </p>
+
               <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-4">
                 <li>
-                  Copy, modify, distribute, sell, or lease any part of the
-                  Services or included software;
+                  Copy, modify, adapt, or create derivative works based on the
+                  Services or any part thereof.
                 </li>
                 <li>
-                  Reverse engineer, decompile, disassemble, or attempt to derive
-                  the source code of the Services;
+                  Sublicense, distribute, rent, lease, or otherwise transfer
+                  access to the Services in whole or in part, except as
+                  explicitly permitted by this Agreement.
                 </li>
                 <li>
-                  Remove, alter, or obscure any proprietary notices, labels, or
-                  marks on the Services;
-                </li>
-                <li>
-                  Use the Services to develop competing products or services;
-                </li>
-                <li>
-                  Access the Services through automated means, including bots,
-                  scrapers, or other unauthorized tools;
-                </li>
-                <li>
-                  Sublicense, resell, or otherwise make the Services available
-                  to third parties.
+                  Exploit the Intellectual Property of FleetBlox for any other
+                  purposes without express written consent from FleetBlox.
                 </li>
               </ul>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
-                5.3 User Data and Content Ownership
+                5.3 User Data
               </h3>
               <p className="text-[#7D7D7D]">
-                Users retain ownership of their data, content, and information
-                that they provide, upload, or input into the FleetBlox platform
-                (&ldquo;User Content&rdquo;). However, by using the Services,
-                Users grant FleetBlox a worldwide, non-exclusive, royalty-free
-                license to use, process, store, and analyze User Content solely
-                for the purposes of providing the Services, improving the
-                platform, and fulfilling FleetBlox&apos;s obligations under this
-                Agreement.
-              </p>
-              <p className="text-[#7D7D7D]">
-                Users represent and warrant that they have all necessary rights,
-                permissions, and authority to provide User Content to FleetBlox
-                and to grant the license set forth herein.
+                The User retains full ownership of all Personal Data and other
+                content (collectively, &quot;User Data&quot;) uploaded, stored,
+                or submitted to the FleetBlox platform, subject to the terms of
+                this Agreement and any applicable privacy policies. FleetBlox
+                may, however, anonymize and aggregate User Data for the purposes
+                of internal analysis, service improvement, research, and
+                enhancing the performance of the Services. Any aggregated or
+                anonymized data processed by FleetBlox will no longer be
+                identifiable to a specific individual or organization, thereby
+                ensuring the User’s ownership rights over their data are not
+                infringed upon.
               </p>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
-                5.4 Feedback and Suggestions
+                5.4 Restrictions on Use of Intellectual Property
               </h3>
               <p className="text-[#7D7D7D]">
-                If Users provide FleetBlox with any feedback, suggestions,
-                recommendations, or ideas regarding the Services
-                (&ldquo;Feedback&rdquo;), Users acknowledge and agree that such
-                Feedback may be used by FleetBlox without restriction and
-                without compensation to the User. Users hereby assign to
-                FleetBlox all rights in such Feedback and waive any claims
-                relating to any intellectual property rights in such Feedback.
+                Users acknowledge that the Intellectual Property associated with
+                the Services is the exclusive property of FleetBlox or its
+                licensors, and that they will not:
               </p>
 
-              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
-                5.5 Third-Party Intellectual Property
-              </h3>
-              <p className="text-[#7D7D7D]">
-                The Services may incorporate or integrate with third-party
-                software, services, or content that is subject to separate
-                intellectual property rights. Users acknowledge that such
-                third-party intellectual property is owned by the respective
-                third parties and is used by FleetBlox under appropriate
-                licenses or agreements.
-              </p>
-              <p className="text-[#7D7D7D]">
-                Users agree not to infringe upon the intellectual property
-                rights of any third party in connection with their use of the
-                Services and acknowledge that FleetBlox is not responsible for
-                any third-party intellectual property infringement claims
-                arising from User&apos;s use of the Services.
-              </p>
-
-              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
-                5.6 Trademark Usage and Brand Guidelines
-              </h3>
-              <p className="text-[#7D7D7D]">
-                The FleetBlox name, logo, and other identifying marks are
-                trademarks of After20solutions Inc. Users are not permitted to
-                use FleetBlox trademarks, service marks, or logos without the
-                prior written consent of FleetBlox. Any unauthorized use of
-                FleetBlox trademarks may constitute trademark infringement and
-                unfair competition under applicable laws.
-              </p>
-
-              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
-                5.7 Digital Millennium Copyright Act (DMCA) Compliance
-              </h3>
-              <p className="text-[#7D7D7D]">
-                FleetBlox respects the intellectual property rights of others
-                and complies with the Digital Millennium Copyright Act (DMCA)
-                and similar copyright laws in other jurisdictions. If you
-                believe that content available through the Services infringes
-                your copyright, you may submit a DMCA takedown notice to
-                FleetBlox&apos;s designated copyright agent.
-              </p>
-              <p className="text-[#7D7D7D]">DMCA notices should include:</p>
               <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-4">
                 <li>
-                  A physical or electronic signature of the copyright owner or
-                  authorized representative;
+                  Reverse engineer, decompile, disassemble, or otherwise attempt
+                  to derive the source code or underlying structure of the
+                  Services or any part thereof.
                 </li>
                 <li>
-                  Identification of the copyrighted work claimed to be
-                  infringed;
+                  Modify, adapt, or create derivative works based on the
+                  Services or any part thereof, without the express written
+                  consent of FleetBlox.
                 </li>
                 <li>
-                  Identification of the allegedly infringing material and its
-                  location on the Services;
-                </li>
-                <li>Contact information for the complaining party;</li>
-                <li>
-                  A statement of good faith belief that the use is not
-                  authorized;
+                  Rent, lease, sublicense, distribute, or otherwise transfer
+                  access to the Services, in whole or in part, except as
+                  expressly permitted by this Agreement.
                 </li>
                 <li>
-                  A statement of accuracy and authority to act on behalf of the
-                  copyright owner.
+                  Use any part of the Services for unlawful or unauthorized
+                  purposes, including, but not limited to, any activity that
+                  would infringe upon the rights of FleetBlox, its affiliates,
+                  or third-party intellectual property rights.
                 </li>
               </ul>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
-                5.8 Vehicle Manufacturer Integration and Compatibility
+                5.5 Vehicle Compatibility Disclaimer
               </h3>
               <p className="text-[#7D7D7D]">
-                The FleetBlox Services may integrate with vehicle systems and
-                data provided by Original Equipment Manufacturers (OEMs) and
-                other third-party vehicle technology providers. FleetBlox does
-                not own or control the intellectual property associated with
-                such vehicle systems, and the availability of certain features
-                may depend on the compatibility and cooperation of third-party
-                vehicle manufacturers.
-              </p>
-              <p className="text-[#7D7D7D]">
-                Users acknowledge that not all vehicle makes and models may be
-                compatible with the FleetBlox platform, and FleetBlox makes no
-                warranty regarding the availability, compatibility, or
-                performance of the Services with specific vehicles or OEM
-                systems. No refunds will be issued for vehicle connection
-                issues, incompatibility, or limitations in functionality due to
-                vehicle manufacturer restrictions.
+                While FleetBlox supports a wide range of vehicle makes and
+                models, it is important to note that not all vehicle makes and
+                models are compatible with the FleetBlox platform. FleetBlox
+                provides a compatibility list to assist Users in determining
+                whether their vehicles are supported by the platform; however,
+                Users are solely responsible for verifying compatibility prior
+                to subscription. FleetBlox makes no warranties, representations,
+                or guarantees regarding the compatibility of all vehicle brands
+                or models.
               </p>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
-                5.9 Open Source Software
+                5.6 Important Notices Regarding Vehicle Compatibility:
               </h3>
-              <p className="text-[#7D7D7D]">
-                The Services may incorporate open source software components
-                that are subject to separate license terms. Users acknowledge
-                that such open source components are governed by their
-                respective license agreements, and FleetBlox shall comply with
-                all applicable open source license requirements.
-              </p>
-
-              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
-                5.10 Intellectual Property Indemnification
-              </h3>
-              <p className="text-[#7D7D7D]">
-                Users agree to indemnify, defend, and hold harmless FleetBlox
-                from any claims, damages, losses, or expenses arising from:
-              </p>
               <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-4">
                 <li>
-                  User Content that infringes the intellectual property rights
-                  of third parties;
+                  <strong>No Refunds for Vehicle Connection Issues:</strong>
+                  In the event that a User is unable to connect their vehicle(s)
+                  to the platform, FleetBlox will not issue any refunds. It is
+                  the responsibility of the User to ensure compatibility before
+                  subscription.
                 </li>
                 <li>
-                  User&apos;s unauthorized use of FleetBlox intellectual
-                  property;
+                  <strong>OEM Credentials:</strong>
+                  If a User is unable to retrieve the necessary OEM credentials,
+                  or if their fleet is ultimately deemed incompatible with the
+                  platform, FleetBlox will not be held liable for any issues
+                  arising from such incompatibility. No refunds will be issued
+                  under these circumstances. FleetBlox will provide reasonable
+                  support and troubleshooting guidance if Users encounter
+                  technical difficulties, but does not guarantee compatibility
+                  for all vehicles or OEM systems.
                 </li>
                 <li>
-                  User&apos;s violation of any intellectual property provisions
-                  of this Agreement;
-                </li>
-                <li>
-                  Any modifications or derivative works created by User based on
-                  the Services.
+                  <strong>Verification of Vehicle Compatibility: </strong>
+                  Users acknowledge that they have reviewed the compatibility
+                  list and verified whether their fleet is supported.
+                  FleetBlox’s compatibility list is provided for informational
+                  purposes only and is subject to change. Users are responsible
+                  for maintaining the most current information regarding
+                  compatibility and ensuring that their fleet meets the
+                  platform’s requirements.
                 </li>
               </ul>
+
+              <h3 className="text-[16px] sm:text-[18px] lg:text 5.7 Digital Millennium Copyright Act (DMCA) Compliance-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
+                5.7 User Responsibility Regarding Vehicle Integration
+              </h3>
+              <p className="text-[#7D7D7D]">
+                Users are solely responsible for ensuring that their vehicles
+                are properly integrated with the FleetBlox platform, including
+                obtaining any necessary OEM credentials and ensuring that their
+                fleet meets the platform’s specifications. FleetBlox is not
+                responsible for any issues related to vehicle integration,
+                including the failure to connect vehicles, the inability to
+                retrieve OEM credentials, or compatibility issues with any
+                specific vehicle brand or model. FleetBlox does not guarantee
+                that any vehicles will be compatible with the platform.
+              </p>
+
+              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
+                5.8 Limitation of Liability Related to Vehicle Compatibility
+              </h3>
+              <p className="text-[#7D7D7D]">
+                FleetBlox shall not be liable for any damages, losses, or
+                inconveniences caused by vehicle compatibility issues, including
+                but not limited to:
+              </p>
+              <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-4">
+                <li>Inability to connect vehicles to the platform.</li>
+                <li>Inability to retrieve or verify OEM credentials.</li>
+                <li>
+                  Compatibility issues between the FleetBlox platform and
+                  certain vehicle makes, models, or OEM systems.
+                </li>
+              </ul>
+              <p className="text-[#7D7D7D]">
+                Users are encouraged to contact FleetBlox support for assistance
+                with technical difficulties but understand that FleetBlox cannot
+                guarantee a solution in cases of incompatibility.
+              </p>
             </div>
           </section>
 
@@ -1510,28 +1411,218 @@ const TermsAndService = () => {
               6. DATA PROTECTION AND PRIVACY
             </h2>
             <div className="text-[14px] sm:text-[16px] text-[#04082C] font-openSans leading-relaxed space-y-3 sm:space-y-4">
-              <h3 className="text-[16px] sm:text-[18px] lg:text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
+              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
                 6.1 Commitment to Data Protection
               </h3>
               <p className="text-[#7D7D7D]">
-                FleetBlox is committed to safeguarding Personal Data in
-                compliance with GDPR, CCPA, and PIPEDA regulations.
+                FleetBlox is committed to safeguarding the privacy and
+                confidentiality of your Personal Data in full compliance with
+                applicable data protection laws, regulations, and standards.
+                These include, but are not limited to:
+              </p>
+              <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-4">
+                <li>General Data Protection Regulation (GDPR) (EU) 2016/679</li>
+                <li>California Consumer Privacy Act (CCPA)</li>
+                <li>
+                  Personal Information Protection and Electronic Documents Act
+                  (PIPEDA) (Canada)
+                </li>
+              </ul>
+              <p className="text-[#7D7D7D]">
+                In compliance with these regulations, FleetBlox ensures that all
+                data processing activities are conducted in a lawful, fair,
+                transparent, and secure manner, and that data subjects&apos;
+                rights are fully respected.
               </p>
 
-              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
+              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
                 6.2 Data Usage
               </h3>
               <p className="text-[#7D7D7D]">
-                Personal Data is used for service provision, security
-                enhancements, legal compliance, and platform improvement.
+                FleetBlox collects, processes, and stores Personal Data provided
+                by Users in accordance with the principles of data minimization
+                and purpose limitation. Personal Data is used for the following
+                purposes:
+              </p>
+              <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-4">
+                <li>
+                  <strong className="text-[#333333]">
+                    Provision of Services:
+                  </strong>{" "}
+                  To enable, maintain, and enhance the core Services provided by
+                  FleetBlox, such as fleet management, predictive maintenance,
+                  real-time vehicle tracking, and performance optimization
+                  tools.
+                </li>
+                <li>
+                  <strong className="text-[#333333]">
+                    Security Enhancements:
+                  </strong>{" "}
+                  To monitor and safeguard the integrity and security of the
+                  platform by detecting and preventing unauthorized access,
+                  fraud, misuse, and other potential risks.
+                </li>
+                <li>
+                  <strong className="text-[#333333]">
+                    Compliance with Legal Obligations:
+                  </strong>{" "}
+                  To comply with statutory obligations, including regulatory
+                  reporting, vehicle compliance checks, record-keeping for
+                  audits, and other requirements under applicable law.
+                </li>
+                <li>
+                  <strong className="text-[#333333]">
+                    Platform Improvement:
+                  </strong>{" "}
+                  To analyze usage data and platform performance, which assists
+                  in optimizing the functionality and user experience of the
+                  Services.
+                </li>
+              </ul>
+              <p className="text-[#7D7D7D]">
+                FleetBlox will not process your Personal Data in a manner that
+                is incompatible with the above-stated purposes. All processing
+                activities are conducted in compliance with applicable data
+                protection laws and regulations.
               </p>
 
-              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
-                6.3 User Rights
+              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
+                6.3 Data Retention
               </h3>
               <p className="text-[#7D7D7D]">
-                Users have rights to access, rectification, erasure, data
-                portability, objection, and restriction of processing.
+                FleetBlox will retain Personal Data only for as long as is
+                necessary to fulfill the purposes for which it was collected and
+                to comply with legal, regulatory, or contractual obligations.
+                The following retention guidelines apply:
+              </p>
+              <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-4">
+                <li>
+                  <strong className="text-[#333333]">
+                    Retention for Service Provision:
+                  </strong>{" "}
+                  Personal Data will be retained for the duration of the
+                  User&apos;s active subscription to the Services.
+                </li>
+                <li>
+                  <strong className="text-[#333333]">
+                    Retention for Compliance:
+                  </strong>{" "}
+                  Data will be retained for periods necessary to meet
+                  FleetBlox&apos;s legal, regulatory, or compliance
+                  requirements, including the maintenance of transaction records
+                  or other legal obligations.
+                </li>
+                <li>
+                  <strong className="text-[#333333]">
+                    Post-Termination Retention:
+                  </strong>{" "}
+                  Upon account termination or user inactivity, FleetBlox will
+                  securely delete or anonymize Personal Data, unless it is
+                  required for legal, regulatory, or operational purposes. In
+                  certain cases, data may be retained for longer periods, where
+                  legally required.
+                </li>
+              </ul>
+
+              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
+                6.4 User Rights
+              </h3>
+              <p className="text-[#7D7D7D]">
+                Under applicable data protection laws, Users are entitled to the
+                following rights regarding their Personal Data:
+              </p>
+              <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-4">
+                <li>
+                  <strong className="text-[#333333]">Right to Access:</strong>{" "}
+                  Users have the right to request a copy of the Personal Data
+                  held by FleetBlox and obtain information on how such data is
+                  processed.
+                </li>
+                <li>
+                  <strong className="text-[#333333]">
+                    Right to Rectification:
+                  </strong>{" "}
+                  Users may request the correction of any inaccurate or
+                  incomplete Personal Data held by FleetBlox.
+                </li>
+                <li>
+                  <strong className="text-[#333333]">Right to Erasure:</strong>{" "}
+                  Users may request that their Personal Data be deleted when it
+                  is no longer necessary for the purposes for which it was
+                  collected or processed, subject to any applicable legal or
+                  contractual retention obligations.
+                </li>
+                <li>
+                  <strong className="text-[#333333]">
+                    Right to Data Portability:
+                  </strong>{" "}
+                  Users have the right to request a copy of their Personal Data
+                  in a structured, commonly used, machine-readable format, and
+                  may request its transfer to another service provider, where
+                  technically feasible.
+                </li>
+                <li>
+                  <strong className="text-[#333333]">Right to Object:</strong>{" "}
+                  Users may object to the processing of their Personal Data,
+                  including for direct marketing or profiling purposes.
+                </li>
+                <li>
+                  <strong className="text-[#333333]">
+                    Right to Restrict Processing:
+                  </strong>{" "}
+                  Users may request the restriction of the processing of their
+                  Personal Data under specific circumstances, such as when the
+                  accuracy of the data is contested, or the processing is
+                  unlawful but the User opposes erasure.
+                </li>
+              </ul>
+              <p className="text-[#7D7D7D]">
+                To exercise any of these rights, Users may contact FleetBlox
+                through the contact details provided in this Agreement.
+              </p>
+
+              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
+                6.5 User-Controlled Data Retrieval
+              </h3>
+              <p className="text-[#7D7D7D]">
+                The fleet owner (User) is solely responsible for determining
+                what data will be retrieved from the vehicles in their fleet.
+                FleetBlox serves solely as a facilitator for the collection and
+                processing of vehicle data. FleetBlox makes no representations
+                or warranties regarding the nature or type of data retrieved
+                from vehicles, nor does it exercise control over the data once
+                it has been retrieved.
+              </p>
+              <p className="text-[#7D7D7D]">
+                It is the responsibility of the User to ensure that any data
+                they wish to retrieve from their vehicles complies with
+                applicable privacy laws, including but not limited to data
+                protection, confidentiality, and consent laws. FleetBlox is not
+                responsible for the types of data that Users retrieve, nor is it
+                responsible for the management, storage, or further processing
+                of such data once it has been made available to the User.
+              </p>
+              <p className="text-[#7D7D7D]">
+                Users must ensure that any data retrieval, processing, or usage
+                complies with all relevant local, state, and international
+                privacy laws and regulations. FleetBlox disclaims any liability
+                for data retrieved or managed by Users outside the scope of this
+                Agreement. Users are advised to consult with appropriate legal
+                counsel to ensure compliance with applicable data protection
+                laws.
+              </p>
+
+              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
+                6.6 Data Breach Notification
+              </h3>
+              <p className="text-[#7D7D7D]">
+                In the event of a data breach or security incident affecting
+                Personal Data, FleetBlox will promptly notify affected Users in
+                accordance with applicable data protection laws, including the
+                GDPR, CCPA, or PIPEDA, as required. FleetBlox will work
+                diligently to mitigate any harm caused by such incidents,
+                including offering necessary assistance to Users in responding
+                to the breach.
               </p>
             </div>
           </section>
@@ -1542,20 +1633,131 @@ const TermsAndService = () => {
               7. ACCOUNT TERMINATION AND DATA HANDLING
             </h2>
             <div className="text-[14px] sm:text-[16px] text-[#04082C] font-openSans leading-relaxed space-y-3 sm:space-y-4">
-              <h3 className="text-[16px] sm:text-[18px] lg:text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
+              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
                 7.1 User-Initiated Termination
               </h3>
               <p>
-                Users may terminate their accounts at any time by providing
-                written notice to FleetBlox.
+                Users have the right to terminate their accounts at any time by
+                providing written notice to FleetBlox through the designated
+                support email address. Upon termination, all access to the
+                Services will be immediately revoked. FleetBlox will, to the
+                extent permitted by law and in compliance with applicable
+                regulatory retention requirements, delete, anonymize, or
+                securely archive any associated Personal Data. In cases where
+                data retention is required for legal, compliance, or regulatory
+                purposes, FleetBlox will retain such data in accordance with its
+                legal obligations.
               </p>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
                 7.2 FleetBlox-Initiated Termination
               </h3>
               <p>
-                FleetBlox may terminate accounts for violation of terms,
-                inactivity, non-payment, or service delivery impediments.
+                FleetBlox reserves the right to suspend, restrict, or terminate
+                User accounts under the following circumstances:
+              </p>
+              <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-4">
+                <li>
+                  <strong>Violation of Terms and Conditions:</strong> If the
+                  User fails to comply with any provision of this Agreement,
+                  including misuse of the platform, breach of intellectual
+                  property rights, or violation of the Acceptable Use Policy.
+                </li>
+                <li>
+                  <strong>Inactivity:</strong> If the User&apos;s account has
+                  been inactive for a prolonged period, as determined by
+                  FleetBlox in its sole discretion. Inactivity is generally
+                  defined as failure to access the Services for a continuous
+                  period of [insert period, e.g., 60 days].
+                </li>
+                <li>
+                  <strong>Non-Payment:</strong> If the User fails to make timely
+                  payment for the Services as specified in the Agreement,
+                  including subscription fees or additional charges.
+                </li>
+                <li>
+                  <strong>Impediment to Service Delivery:</strong> If
+                  circumstances arise that hinder FleetBlox’s ability to provide
+                  the Services in a manner consistent with the Agreement, such
+                  as technical issues or violations that compromise platform
+                  integrity.
+                </li>
+              </ul>
+              <p className="text-[#7D7D7D] mt-3">
+                In such cases, FleetBlox will provide reasonable notice to the
+                User regarding the suspension or termination of their account.
+                The User will be given a period of time to remedy the breach or
+                non-compliance, as specified by FleetBlox. If the breach is not
+                rectified within the specified period, FleetBlox may proceed
+                with the termination of the User’s account, and the User will
+                forfeit access to the Services.
+              </p>
+
+              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
+                7.3 Data Retention Post-Termination
+              </h3>
+              <p className="text-[#7D7D7D]">
+                Upon termination of a User’s account, FleetBlox may retain
+                certain Personal Data for a period of up to 12 months, or longer
+                if required by applicable law, for the purposes of legal
+                compliance, regulatory reporting, dispute resolution, or
+                business operations. Once this retention period has expired,
+                FleetBlox will either anonymize, delete, or securely archive the
+                data in compliance with applicable data protection laws and the
+                provisions of this Agreement.
+              </p>
+              <p className="text-[#7D7D7D]">
+                Notwithstanding the above, FleetBlox may retain data beyond the
+                specified retention period if required for legal or regulatory
+                purposes, or for the resolution of disputes and enforcement of
+                legal obligations.
+              </p>
+
+              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
+                7.4 User Responsibility to Back Up Data
+              </h3>
+              <p className="text-[#7D7D7D]">
+                It is the sole responsibility of the User to back up any
+                Personal Data or other data that they wish to retain prior to
+                account termination. FleetBlox is not responsible for any loss
+                of data following account termination, and makes no
+                representations regarding the retention or retrieval of data
+                once the account is closed. Users are strongly encouraged to
+                back up their data, including vehicle-related information,
+                performance data, and other relevant content, before initiating
+                account termination.
+              </p>
+
+              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
+                7.5 Technical Support for Incompatible Vehicles
+              </h3>
+              <p className="text-[#7D7D7D]">
+                In the event that a User encounters technical difficulties
+                related to vehicle compatibility, or issues with retrieving OEM
+                credentials for integration with the FleetBlox platform,
+                FleetBlox will provide reasonable technical support to assist in
+                resolving such problems. However, FleetBlox makes no guarantees
+                regarding the compatibility of all vehicle makes and models with
+                the platform, nor does it assume responsibility for any issues
+                arising from incompatible vehicles, third-party software, or
+                integration systems.
+              </p>
+              <p className="text-[#7D7D7D]">
+                FleetBlox’s support will be limited to assisting with
+                troubleshooting steps, providing guidance on OEM credential
+                retrieval, and ensuring that the platform operates as intended
+                within the capabilities of the User’s fleet. Incompatibility or
+                failure to retrieve necessary credentials will not be grounds
+                for refund, and FleetBlox shall not be held liable for any
+                inconvenience, technical issues, or operational disruptions
+                resulting from incompatible vehicles or third-party systems.
+              </p>
+              <p className="text-[#7D7D7D]">
+                Users are encouraged to verify compatibility with their fleet’s
+                vehicles prior to registration and to consult FleetBlox’s
+                compatibility list. If a User’s fleet is ultimately found to be
+                incompatible, FleetBlox will not be responsible for any
+                operational limitations or disruptions.
               </p>
             </div>
           </section>
@@ -1570,9 +1772,85 @@ const TermsAndService = () => {
                 8.1 Prohibited Activities
               </h3>
               <p className="text-[#7D7D7D]">
-                Users must use the Services lawfully and are prohibited from
-                fraudulent conduct, security breaches, and interference with
-                service performance.
+                Users agree to use the FleetBlox Services solely for lawful
+                purposes and in a manner consistent with all applicable local,
+                state, national, and international laws and regulations.
+                Specifically, the following activities are strictly prohibited:
+              </p>
+              <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-4">
+                <li>
+                  <strong className="text-[#333333]">
+                    Fraudulent Conduct:
+                  </strong>{" "}
+                  Engaging in fraudulent, deceptive, or otherwise unlawful
+                  activities, including misrepresentation or intentionally
+                  providing false information.
+                </li>
+                <li>
+                  <strong className="text-[#333333]">
+                    Platform Integrity:
+                  </strong>{" "}
+                  Reverse engineering, decompiling, disassembling, or attempting
+                  to derive the source code or underlying structure of the
+                  platform’s software or technology.
+                </li>
+                <li>
+                  <strong className="text-[#333333]">Security Breaches:</strong>{" "}
+                  Accessing or attempting to access any unauthorized areas of
+                  the FleetBlox platform, systems, or data, or introducing any
+                  form of malware, viruses, or other harmful code.
+                </li>
+                <li>
+                  <strong className="text-[#333333]">
+                    Interference with Service Performance:
+                  </strong>{" "}
+                  Interfering with or disrupting the integrity, functionality,
+                  or operation of the FleetBlox platform or its underlying
+                  infrastructure, including the introduction of viruses,
+                  denial-of-service attacks, or other disruptive activities.
+                </li>
+                <li>
+                  <strong className="text-[#333333]">
+                    Abusive or Harassing Behavior:
+                  </strong>{" "}
+                  Engaging in any conduct that harasses, threatens, or
+                  intimidates others or violates any laws related to harassment,
+                  discrimination, or defamation.
+                </li>
+                <li>
+                  <strong className="text-[#333333]">
+                    Unauthorized Access or Use:
+                  </strong>{" "}
+                  Attempting to access, monitor, or retrieve data without
+                  authorization, or impersonating another user.
+                </li>
+              </ul>
+
+              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
+                8.2 Administrator Responsibilities
+              </h3>
+              <p className="text-[#7D7D7D]">
+                For organizations that create accounts for multiple users, the
+                Admin is solely responsible for setting user permissions and
+                ensuring that access is granted to authorized personnel only.
+                Admins must ensure that their users comply with this Acceptable
+                Use Policy and will be held liable for any breach of this
+                Agreement by their authorized users.
+              </p>
+
+              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
+                8.3 Fair Usage and Enforced Limits
+              </h3>
+              <p className="text-[#7D7D7D]">
+                FleetBlox may, at its sole discretion, impose reasonable
+                limitations on the use of the Services to prevent abuse and to
+                maintain optimal performance for all users. These limitations
+                may include, but are not limited to, the number of vehicles that
+                can be monitored per account, the number of simultaneous users,
+                or the volume of data that can be processed. Violation of such
+                limits or misuse of the platform may result in temporary or
+                permanent suspension of access to the Services. FleetBlox will
+                provide notice of any such restrictions.
               </p>
             </div>
           </section>
@@ -1587,16 +1865,40 @@ const TermsAndService = () => {
                 9.1 Disclaimer of Warranties
               </h3>
               <p className="text-[#7D7D7D]">
-                The Services are provided &ldquo;as-is&rdquo; and &ldquo;as
-                available&rdquo; without warranties of any kind.
+                The FleetBlox Services are provided &quot;as-is&quot; and
+                &quot;as available.&quot; FleetBlox disclaims all warranties,
+                express or implied, including but not limited to the implied
+                warranties of merchantability, fitness for a particular purpose,
+                and non-infringement. FleetBlox does not guarantee that the
+                Services will be uninterrupted, error-free, or secure. The User
+                acknowledges and agrees that FleetBlox does not warrant that the
+                Services will meet their specific requirements or that any
+                defects or errors will be corrected.
               </p>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
                 9.2 Limitation of Liability
               </h3>
               <p className="text-[#7D7D7D]">
-                FleetBlox&apos;s total liability shall not exceed the amount
-                paid by the User during the 12-month period preceding the event.
+                In no event shall FleetBlox be liable for any indirect,
+                incidental, consequential, special, punitive, or exemplary
+                damages, including but not limited to:
+              </p>
+              <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-4">
+                <li>Loss of data, vehicle damage, or system failure.</li>
+                <li>Loss of profit, revenue, or business opportunities.</li>
+                <li>
+                  Any third-party claims or actions resulting from the use of
+                  the Services, including third-party integrations or API
+                  failures.
+                </li>
+              </ul>
+              <p className="text-[#7D7D7D]">
+                The total liability of FleetBlox arising from this Agreement,
+                whether in contract, tort (including negligence), or otherwise,
+                shall not exceed the total amount paid by the User to FleetBlox
+                for the Services during the 12-month period preceding the event
+                giving rise to the liability.
               </p>
             </div>
           </section>
@@ -1611,25 +1913,38 @@ const TermsAndService = () => {
                 10.1 Binding Arbitration
               </h3>
               <p className="text-[#7D7D7D]">
-                Any disputes shall be resolved through binding arbitration in
-                Toronto, Ontario, Canada, in accordance with Canadian
-                Arbitration Association rules.
+                Any dispute, claim, or controversy arising out of or in
+                connection with this Agreement shall be resolved exclusively
+                through binding arbitration. Arbitration shall be conducted in
+                Toronto, Ontario, Canada, in accordance with the rules of the
+                Canadian Arbitration Association, or another mutually
+                agreed-upon arbitration body. The arbitration shall be conducted
+                in English. The arbitrator’s decision shall be final and
+                binding, and judgment may be entered thereon in any court having
+                jurisdiction.
               </p>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
                 10.2 Class Action Waiver
               </h3>
               <p className="text-[#7D7D7D]">
-                Users waive any right to participate in class actions. All
-                disputes will be resolved individually.
+                By agreeing to this Agreement, the User irrevocably waives any
+                right to participate in a class action or collective action
+                arising from or in connection with this Agreement. All disputes
+                will be resolved on an individual basis, and no dispute shall be
+                arbitrated or litigated on a class-wide or consolidated basis.
               </p>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
                 10.3 Governing Law
               </h3>
               <p className="text-[#7D7D7D]">
-                This Agreement shall be governed by the laws of the Province of
-                Ontario, Canada.
+                This Agreement shall be governed by, and construed in accordance
+                with, the laws of the Province of Ontario, Canada, without
+                regard to its conflict of law principles. Any legal actions,
+                suits, or proceedings arising from or related to this Agreement
+                shall be exclusively subject to the jurisdiction of the courts
+                located in Toronto, Ontario, Canada.
               </p>
             </div>
           </section>
@@ -1643,18 +1958,38 @@ const TermsAndService = () => {
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
                 11.1 Indemnification by User
               </h3>
-              <p>
-                Users agree to indemnify and hold harmless FleetBlox from claims
-                arising from breach of this Agreement, misuse of Services, or
-                infringement of third-party rights.
+              <p className="text-[#7D7D7D]">
+                The User agrees to indemnify, defend, and hold harmless
+                FleetBlox, its affiliates, officers, directors, employees,
+                agents, and assigns from and against any and all claims, losses,
+                damages, expenses, liabilities, and costs (including legal fees)
+                arising out of:
               </p>
+              <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-4">
+                <li>
+                  Any breach of this Agreement by the User, including violations
+                  of the Acceptable Use Policy.
+                </li>
+                <li>
+                  The User’s use or misuse of the Services, including any
+                  activities carried out by the User or their authorized
+                  personnel.
+                </li>
+                <li>
+                  Any infringement of third-party rights, including intellectual
+                  property, privacy, or data protection rights.
+                </li>
+              </ul>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
                 11.2 Defense of Claims
               </h3>
-              <p>
-                FleetBlox reserves the right to control defense and settlement
-                of indemnified claims with User cooperation.
+              <p className="text-[#7D7D7D]">
+                FleetBlox reserves the right to control the defense and
+                settlement of any indemnified claims, and the User agrees to
+                cooperate fully with FleetBlox in the defense of such claims.
+                The User shall not settle any indemnified claims without the
+                prior written consent of FleetBlox.
               </p>
             </div>
           </section>
@@ -1669,17 +2004,32 @@ const TermsAndService = () => {
                 12.1 Right to Modify
               </h3>
               <p className="text-[#7D7D7D]">
-                FleetBlox reserves the right to modify this Agreement at any
-                time. Changes will be communicated via email or platform
-                notification.
+                FleetBlox reserves the right to modify, amend, or update this
+                Agreement at any time, in its sole discretion. Any modifications
+                or updates to this Agreement will be communicated to the User
+                via email or through the FleetBlox platform, and will be
+                effective upon posting.
               </p>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
                 12.2 Notification of Significant Changes
               </h3>
               <p className="text-[#7D7D7D]">
-                Significant changes will receive at least 14 days&apos; prior
-                notice before taking effect.
+                In the event of significant changes to the terms of this
+                Agreement, FleetBlox will provide at least 14 days’ prior notice
+                before the modified terms take effect. The continued use of the
+                Services after the effective date of the modified Agreement
+                constitutes acceptance of the new terms.
+              </p>
+
+              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
+                12.3 User Withdrawal
+              </h3>
+              <p className="text-[#7D7D7D]">
+                If the User does not accept the updated terms, they may
+                terminate their account and cease using the Services, in
+                accordance with the termination provisions set forth in Section
+                7.
               </p>
             </div>
           </section>
@@ -1694,17 +2044,23 @@ const TermsAndService = () => {
                 13.1 Third-Party Integrations
               </h3>
               <p>
-                Services may integrate with third-party providers including OEMs
-                and payment processors. FleetBlox does not control these
-                services.
+                The Services may integrate with third-party services, including
+                but not limited to Original Equipment Manufacturers (OEMs),
+                payment processors, and data analytics providers. FleetBlox does
+                not control or assume responsibility for the actions, products,
+                or services of any third-party providers.
               </p>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
                 13.2 User Acceptance of Third-Party Terms
               </h3>
               <p>
-                Users must comply with third-party provider terms and conditions
-                when using integrated services.
+                By utilizing the third-party services integrated with FleetBlox,
+                the User agrees to comply with the terms and conditions of those
+                third-party providers. FleetBlox is not liable for any issues
+                arising from the failure or inadequacy of third-party services,
+                including but not limited to service disruptions, data loss, or
+                security breaches.
               </p>
             </div>
           </section>
@@ -1719,17 +2075,48 @@ const TermsAndService = () => {
                 14.1 Force Majeure Event
               </h3>
               <p>
-                Neither party is liable for failure to perform due to events
-                beyond reasonable control, including natural disasters,
-                government acts, power failures, or pandemics.
+                Neither party shall be liable for failure to perform any of its
+                obligations under this Agreement if such failure is caused by
+                events beyond its reasonable control, including but not limited
+                to:
               </p>
+              <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-4">
+                <li>
+                  Natural disasters (e.g., hurricanes, floods, earthquakes,
+                  fires).
+                </li>
+                <li>
+                  Acts of government (e.g., regulatory changes, governmental
+                  restrictions).
+                </li>
+                <li>
+                  Power failures, internet outages, or telecommunication
+                  failures.
+                </li>
+                <li>Acts of war, terrorism, or civil unrest.</li>
+                <li>Pandemics or epidemics.</li>
+              </ul>
 
-              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
+              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
                 14.2 Notice of Force Majeure
               </h3>
               <p>
-                The affected party must promptly notify the other party of any
-                Force Majeure Event and provide reasonable details.
+                The affected party shall promptly notify the other party of any
+                Force Majeure Event and provide reasonable details of the event
+                and its expected duration. During the Force Majeure Event, the
+                obligations of the affected party shall be suspended, but such
+                suspension shall not exceed 30 days.
+              </p>
+
+              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
+                14.3 Termination Due to Extended Force Majeure
+              </h3>
+              <p>
+                If the Force Majeure Event continues for a period exceeding 30
+                days, either party may terminate this Agreement without
+                liability. Upon such termination, FleetBlox will retain User
+                data for legal or regulatory purposes, as specified in this
+                Agreement.
               </p>
             </div>
           </section>
@@ -1741,28 +2128,52 @@ const TermsAndService = () => {
             </h2>
             <div className="text-[14px] sm:text-[16px] text-[#04082C] font-openSans leading-relaxed space-y-3 sm:space-y-4">
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
-                15.1 Use of Cookies
+                15.1 Use of Cookies and Tracking Technologies
               </h3>
               <p>
-                FleetBlox uses cookies and tracking technologies to enhance
-                platform functionality, analyze traffic, and improve user
-                experience.
+                In accordance with the principles of transparency and user
+                consent, FleetBlox employs Cookies and similar tracking
+                technologies (hereinafter referred to collectively as
+                &quot;Cookies&quot;) to enhance the functionality of our
+                platform, analyze website traffic, and improve user experience.
+                These technologies help us collect data on user preferences and
+                browsing patterns, providing us with insights necessary for
+                optimizing the Services provided.
               </p>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
-                15.2 Types of Cookies
+                15.2 Types of Cookies Utilized
               </h3>
-              <p>
-                We use strictly necessary, performance, functional, and
-                targeting/advertising cookies.
-              </p>
+              <p>FleetBlox may utilize the following types of Cookies:</p>
+              <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-4">
+                <li>
+                  <strong>Strictly Necessary Cookies:</strong> Essential for the
+                  platform’s operation and cannot be disabled.
+                </li>
+                <li>
+                  <strong>Performance Cookies:</strong> Collect anonymous usage
+                  information to improve platform performance.
+                </li>
+                <li>
+                  <strong>Functional Cookies:</strong> Remember user choices to
+                  enhance user experience.
+                </li>
+                <li>
+                  <strong>Targeting/Advertising Cookies:</strong> Track user
+                  behavior to deliver customized content and ads.
+                </li>
+              </ul>
 
-              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
-                15.3 User Control
+              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
+                15.3 User Control Over Cookies
               </h3>
               <p>
-                Users can control cookie preferences through browser settings,
-                though this may impact platform functionality.
+                Users retain the ability to control their Cookie preferences
+                through their browser settings. Disabling certain Cookies may
+                impact platform functionality, and some Services may not be
+                accessible without them. By continuing to use FleetBlox
+                Services, you consent to the use of Cookies unless you opt out
+                as described herein.
               </p>
             </div>
           </section>
@@ -1770,23 +2181,37 @@ const TermsAndService = () => {
           {/* Children's Privacy */}
           <section id="children-privacy" className="mb-6 lg:mb-8">
             <h2 className="text-[20px] sm:text-[24px] lg:text-[28px] font-montserrat text-[#04082C] font-bold mb-3 lg:mb-4">
-              16. CHILDREN&apos;S PRIVACY
+              16. CHILDREN’S PRIVACY
             </h2>
             <div className="text-[14px] sm:text-[16px] text-[#04082C] font-openSans leading-relaxed space-y-3 sm:space-y-4">
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
                 16.1 Intentions Regarding Minors
               </h3>
               <p>
-                FleetBlox Services are not intended for children under 16. We do
-                not knowingly collect data from minors.
+                The FleetBlox Services are not intended for children under the
+                age of 16. As a platform provider, we do not knowingly collect,
+                process, or solicit Personal Data from individuals under the age
+                of 16.
               </p>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
-                16.2 Action on Inadvertent Collection
+                16.2 Action on Inadvertent Data Collection
               </h3>
               <p>
-                If we discover inadvertent collection of minor&apos;s data, we
-                will promptly delete it in compliance with applicable laws.
+                In the event that we discover that we have inadvertently
+                collected or processed Personal Data from a child under the age
+                of 16, we will promptly take appropriate action to delete such
+                data from our systems in compliance with applicable laws,
+                including the Children’s Online Privacy Protection Act (COPPA)
+                and similar regulatory requirements.
+              </p>
+
+              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
+                16.3 Notification and User Responsibility
+              </h3>
+              <p>
+                If you believe we may have collected such data, please contact
+                FleetBlox immediately to enable us to take corrective action.
               </p>
             </div>
           </section>
@@ -1798,20 +2223,25 @@ const TermsAndService = () => {
             </h2>
             <div className="text-[14px] sm:text-[16px] text-[#04082C] font-openSans leading-relaxed space-y-3 sm:space-y-4">
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
-                17.1 Third-Party Sites
+                17.1 Third-Party Sites and Services
               </h3>
               <p>
-                FleetBlox may provide links to third-party websites for
-                convenience. These sites operate independently with their own
-                privacy policies.
+                FleetBlox may provide links to third-party websites, services,
+                or resources for your convenience. These Third-Party Sites
+                operate independently of FleetBlox and are governed by their
+                respective privacy policies and terms of service. FleetBlox
+                makes no representations or warranties regarding the content,
+                privacy practices, or operations of these Third-Party Sites.
               </p>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
                 17.2 Exclusion of Liability
               </h3>
               <p>
-                FleetBlox disclaims liability for third-party site content or
-                privacy practices.
+                FleetBlox disclaims any liability for the privacy practices or
+                the content of Third-Party Sites. Users are encouraged to read
+                and understand the privacy policies of any Third-Party Sites
+                before submitting any Personal Data.
               </p>
             </div>
           </section>
@@ -1826,16 +2256,22 @@ const TermsAndService = () => {
                 18.1 Governing Law
               </h3>
               <p>
-                This Agreement is governed by the laws of the Province of
-                Ontario, Canada, without regard to conflict of law provisions.
+                This Agreement, as well as any disputes arising therefrom or
+                related thereto, shall be governed by and construed in
+                accordance with the laws of the Province of Ontario, Canada,
+                without regard to its conflict of law provisions.
               </p>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
                 18.2 Exclusive Jurisdiction
               </h3>
               <p>
-                Users agree to submit legal disputes to the exclusive
-                jurisdiction of courts in Toronto, Ontario, Canada.
+                By accessing and using the Services, Users agree to submit any
+                legal disputes to the exclusive jurisdiction of the courts
+                located in Toronto, Ontario, Canada. The parties further agree
+                that any legal proceedings will be conducted exclusively within
+                this jurisdiction, and each party irrevocably waives any
+                objection to such venue.
               </p>
             </div>
           </section>
@@ -1850,24 +2286,44 @@ const TermsAndService = () => {
                 19.1 Data Retention Period
               </h3>
               <p>
-                FleetBlox retains Personal Data as necessary to fulfill
-                collection purposes and comply with legal obligations.
+                FleetBlox will retain Personal Data for as long as necessary to
+                fulfill the purposes for which it was collected, and to comply
+                with any legal, regulatory, or contractual obligations. This
+                includes retention for the purposes of providing the Services,
+                fulfilling legal and contractual obligations, resolving
+                disputes, enforcing agreements, and conducting audits.
               </p>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
-                19.2 User Requests for Deletion
+                19.2 User Requests for Data Deletion
               </h3>
               <p>
-                Users may request data deletion, which will be processed
-                according to applicable laws and retention requirements.
+                Users have the right to request the deletion of their Personal
+                Data, and FleetBlox will comply with such requests subject to
+                applicable laws and regulations, including retention periods
+                required by law. Data deletion requests will be processed in
+                accordance with our data retention policies.
               </p>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
-                19.3 Data Anonymization
+                19.3 Regulatory Compliance and Retention Exceptions
               </h3>
               <p>
-                Upon deletion, FleetBlox may anonymize data for statistical
-                analysis and business intelligence purposes.
+                Even after a request for deletion, certain data may be retained
+                as required for compliance with legal and regulatory
+                obligations, or to resolve disputes. This may include
+                maintaining logs, transaction records, and other data as
+                required by financial and tax regulations.
+              </p>
+
+              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
+                19.4 Data Anonymization
+              </h3>
+              <p>
+                Upon the deletion of any Personal Data, FleetBlox may anonymize
+                data for statistical analysis, business intelligence, or other
+                lawful purposes, ensuring that such data can no longer be linked
+                back to any identifiable individual.
               </p>
             </div>
           </section>
@@ -1882,32 +2338,55 @@ const TermsAndService = () => {
                 20.1 Commitment to Data Security
               </h3>
               <p>
-                FleetBlox employs comprehensive technical, administrative, and
-                physical measures to protect Personal Data.
+                FleetBlox takes the security and confidentiality of your
+                Personal Data seriously. We employ a comprehensive set of
+                technical, administrative, and physical measures designed to
+                protect Personal Data against accidental, unlawful, or
+                unauthorized access, disclosure, alteration, destruction, or
+                loss.
               </p>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
-                20.2 Encryption
+                20.2 Encryption of Data
               </h3>
               <p>
-                All data is encrypted using TLS during transmission and AES-256
-                for stored data.
+                All Personal Data transmitted to and from FleetBlox is encrypted
+                using Transport Layer Security (TLS) during transmission, and
+                stored data is encrypted at rest using Advanced Encryption
+                Standard (AES-256), an industry-recognized encryption protocol.
               </p>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
                 20.3 Access Control
               </h3>
               <p>
-                Access is limited to authorized personnel using role-based
-                access control and multi-factor authentication.
+                Access to Personal Data is limited to authorized personnel only.
+                We implement role-based access control (RBAC) to restrict access
+                to data based on the principle of least privilege.
+                Administrative access is further secured through multi-factor
+                authentication (MFA), providing an additional layer of
+                protection.
               </p>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
-                20.4 Security Audits
+                20.4 Incident Response and Breach Notification
               </h3>
               <p>
-                Regular security audits, vulnerability assessments, and
-                penetration testing ensure continuous platform security.
+                FleetBlox maintains a robust incident response plan to address
+                potential data breaches. In the event of a data breach, we will
+                notify affected users as required by applicable law, including
+                the General Data Protection Regulation (GDPR) and the California
+                Consumer Privacy Act (CCPA).
+              </p>
+
+              <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
+                20.5 Ongoing Security Audits
+              </h3>
+              <p>
+                We conduct regular security audits, vulnerability assessments,
+                and penetration testing to identify and mitigate risks. These
+                audits are performed by internal and external security
+                professionals to ensure the continuous security of the platform.
               </p>
             </div>
           </section>
@@ -1922,33 +2401,104 @@ const TermsAndService = () => {
                 21.1 Contacting FleetBlox
               </h3>
               <p>
-                For questions regarding this Agreement or data handling
-                practices, contact FleetBlox at:
+                If you have any questions, concerns, or requests regarding this
+                Agreement, your rights under applicable data protection laws, or
+                our data handling practices, you may contact FleetBlox at the
+                following:
               </p>
               <div className="space-y-2 pl-4">
                 <p>
-                  <strong>Email:</strong> [Insert Email Address]
+                  <strong>Email:</strong> info@fleetblox.com
                 </p>
                 <p>
-                  <strong>Phone:</strong> [Insert Phone Number]
+                  <strong>Phone:</strong> +1 (123) 456-7890
                 </p>
                 <p>
-                  <strong>Mailing Address:</strong> [Insert Mailing Address]
+                  <strong>Mailing Address:</strong> 123 FleetBlox Ave, Toronto,
+                  ON, Canada
                 </p>
                 <p>
-                  <strong>Support Email:</strong> [Insert Support Email Address]
+                  <strong>Support Email:</strong> support@fleetblox.com
                 </p>
               </div>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3">
-                21.2 Filing Complaints
+                21.2 Filing Complaints with Authorities
               </h3>
               <p>
-                Users dissatisfied with data handling may lodge complaints with
-                appropriate data protection authorities in their jurisdiction.
+                If you are dissatisfied with FleetBlox’s handling of your
+                Personal Data, you have the right to lodge a complaint with the
+                appropriate data protection authority in your jurisdiction. In
+                Canada, this may be the Office of the Privacy Commissioner, and
+                in the European Union, the relevant supervisory authority.
               </p>
             </div>
           </section>
+        </div>
+      </div>
+
+      {/* Floating Navigation Buttons - Desktop Only */}
+      <div className="hidden lg:block fixed right-8 top-1/2 transform -translate-y-1/2 z-50">
+        <div className="flex flex-col space-y-3">
+          {/* Up Button */}
+          <button
+            onClick={() => navigateToSection("up")}
+            disabled={getCurrentSectionIndex() <= 0}
+            className={`w-14 h-14 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center ${
+              getCurrentSectionIndex() <= 0
+                ? "bg-gray-300 cursor-not-allowed opacity-50"
+                : "bg-[#ffffff] hover:bg-[#ffffff]/90 hover:shadow-xl active:scale-95"
+            }`}
+            title="Previous Section"
+          >
+            <svg
+              className={`w-6 h-6 ${
+                getCurrentSectionIndex() <= 0
+                  ? "text-gray-500"
+                  : "text-[#0336BC]"
+              }`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 15l7-7 7 7"
+              />
+            </svg>
+          </button>
+
+          {/* Down Button */}
+          <button
+            onClick={() => navigateToSection("down")}
+            disabled={getCurrentSectionIndex() >= keyContents.length - 1}
+            className={`w-14 h-14 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center ${
+              getCurrentSectionIndex() >= keyContents.length - 1
+                ? "bg-gray-300 cursor-not-allowed opacity-50"
+                : "bg-[#FFFFFF] hover:bg-[#F0F0F0]/90 hover:shadow-xl active:scale-95"
+            }`}
+            title="Next Section"
+          >
+            <svg
+              className={`w-6 h-6 ${
+                getCurrentSectionIndex() >= keyContents.length - 1
+                  ? "text-gray-500"
+                  : "text-[#0336BC]"
+              }`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
         </div>
       </div>
     </section>
