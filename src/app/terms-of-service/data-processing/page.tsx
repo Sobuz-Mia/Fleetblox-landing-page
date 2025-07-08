@@ -64,6 +64,7 @@ const DataProcessingAgreement = () => {
         behavior: "smooth",
       });
       setActiveSection(sectionId);
+      console.log(isMobileMenuOpen);
     }
   };
 
@@ -111,31 +112,6 @@ const DataProcessingAgreement = () => {
     <section className="min-h-screen w-full bg-gray-100 p-2 sm:p-4">
       <div className="max-w-[1200px] mx-auto lg:flex lg:gap-8">
         {/* Mobile Menu Button */}
-        <div className="lg:hidden mb-4 px-2">
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="w-full bg-white border border-gray-300 rounded-lg p-3 text-left flex justify-between items-center shadow-sm"
-          >
-            <span className="text-[#04082C] font-semibold">
-              Table of Contents
-            </span>
-            <svg
-              className={`w-5 h-5 transition-transform ${
-                isMobileMenuOpen ? "rotate-180" : ""
-              }`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
-        </div>
 
         {/* Main Content */}
         <div className="lg:w-full px-2 sm:px-4 lg:px-8 py-4 lg:py-8">
