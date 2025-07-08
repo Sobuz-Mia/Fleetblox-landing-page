@@ -5,17 +5,6 @@ const TermsAndService = () => {
   const [activeSection, setActiveSection] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Responsive class configurations
-  //   const responsiveClasses = {
-  //     h2: "text-[20px] sm:text-[24px] lg:text-[28px] font-montserrat text-[#04082C] font-bold mb-3 lg:mb-4",
-  //     h3: "text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6",
-  //     h4: "text-[14px] sm:text-[16px] lg:text-[18px] text-[#04082C] font-bold mb-2",
-  //     text: "text-[14px] sm:text-[16px] text-[#04082C] font-openSans leading-relaxed space-y-3 sm:space-y-4",
-  //     textGray: "text-[#7D7D7D] text-[14px] sm:text-[16px]",
-  //     section: "mb-6 lg:mb-8",
-  //     list: "list-disc list-inside text-[#7D7D7D] space-y-2 ml-2 sm:ml-4 text-[14px] sm:text-[16px]",
-  //   };
-
   const keyContents = useMemo(
     () => [
       { id: "introduction", title: "Introduction" },
@@ -132,14 +121,14 @@ const TermsAndService = () => {
   return (
     <section className="min-h-screen w-full bg-gray-100 p-2 sm:p-4">
       {/* heading section */}
-      <div className="flex flex-col items-center justify-center p-4 sm:p-8 max-w-2xl h-[300px] sm:h-[400px] w-full mx-auto">
+      {/* <div className="flex flex-col items-center justify-center p-4 sm:p-8 max-w-2xl h-[300px] sm:h-[400px] w-full mx-auto">
         <h1 className="text-[32px] sm:text-[42px] lg:text-[52px] font-montserrat text-[#04082C] font-bold mb-4 text-center">
           Terms of Service
         </h1>
         <p className="text-[12px] sm:text-[14px] text-[#0336BC] font-openSans font-bold text-center">
           Effective: June 20, 2025
         </p>
-      </div>
+      </div> */}
 
       <div className="max-w-[1200px] mx-auto lg:flex lg:gap-8">
         {/* Mobile Menu Button */}
@@ -170,7 +159,7 @@ const TermsAndService = () => {
         </div>
 
         {/* Sidebar - Key Contents */}
-        <div
+        {/* <div
           className={`lg:w-1/4 lg:sticky lg:top-40 lg:h-fit ${
             isMobileMenuOpen ? "block" : "hidden"
           } lg:block mb-6 lg:mb-0`}
@@ -198,10 +187,10 @@ const TermsAndService = () => {
               ))}
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Main Content */}
-        <div className="lg:w-3/4 px-2 sm:px-4 lg:px-8 py-4 lg:py-8">
+        <div className="lg:w-full px-2 sm:px-4 lg:px-8 py-4 lg:py-8">
           {/* Header */}
 
           {/* Introduction */}
@@ -2438,7 +2427,7 @@ const TermsAndService = () => {
       </div>
 
       {/* Floating Navigation Buttons - Desktop Only */}
-      <div className="hidden lg:block fixed right-8 top-1/2 transform -translate-y-1/2 z-50">
+      <div className="hidden lg:block fixed right-8 bottom-8 z-50">
         <div className="flex flex-col space-y-3">
           {/* Up Button */}
           <button
