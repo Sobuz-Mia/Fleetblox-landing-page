@@ -2400,13 +2400,6 @@ const TermsAndService = () => {
                   <strong>Email:</strong> info@fleetblox.com
                 </p>
                 <p>
-                  <strong>Phone:</strong> +1 (123) 456-7890
-                </p>
-                <p>
-                  <strong>Mailing Address:</strong> 123 FleetBlox Ave, Toronto,
-                  ON, Canada
-                </p>
-                <p>
                   <strong>Support Email:</strong> support@fleetblox.com
                 </p>
               </div>
