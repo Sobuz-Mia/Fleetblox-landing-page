@@ -1,16 +1,8 @@
 import React from "react";
-import { TermsAndServiceDynamic } from "../lazy";
-import Navbar from "@/components/ui/shared/Navbar";
-import Footer from "@/components/ui/shared/Footer";
+import Terms from "./Terms";
 
 function page() {
-  return (
-    <>
-      <Navbar />
-      <TermsAndServiceDynamic />
-      <Footer />
-    </>
-  );
+  return <Terms />;
 }
 
 export default page;
