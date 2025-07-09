@@ -1,8 +1,7 @@
-import React from "react";
-import Terms from "./Terms";
+import { TermsOfServiceLazy } from "./lazy";
 
-function page() {
-  return <Terms />;
+function TermsOfService() {
+  return <TermsOfServiceLazy />;
 }
 
-export default page;
+export default TermsOfService;
