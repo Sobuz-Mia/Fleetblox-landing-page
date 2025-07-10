@@ -1,3 +1,4 @@
+'use client'
 import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import FeatureCard from "@/components/ui/FeatureCard";
 import Image from "next/image";
