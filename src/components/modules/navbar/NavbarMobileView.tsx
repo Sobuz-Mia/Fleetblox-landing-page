@@ -8,12 +8,19 @@ import ResourcesSubpage from "./resources/ResourcesSubpage";
 import TopArrow from "@/components/icons/TopArrow";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const NavbarMobileView = () => {
   const [isProduct, setIsProduct] = useState(false);
   const [isSolutions, setIsSolutions] = useState(false);
   const [isResources, setIsResources] = useState(false);
-  const [isDemoRequest, setIsDemoRequest] = useState(false);
+  const [isDemoRequest] = useState(false);
+  const router = useRouter();
+
+  const handleDemoRequest = () => {
+    localStorage.setItem("isGetDemo", "true");
+    router.push("/getting-started");
+  };
 
   return (
     <motion.div
@@ -103,7 +110,7 @@ const NavbarMobileView = () => {
               </Link>
             </div>
             <button
-              onClick={() => setIsDemoRequest(true)}
+              onClick={handleDemoRequest}
               className="text-[#04082C] text-[14px] font-openSans font-bold py-[10px]"
             >
               Request Demo

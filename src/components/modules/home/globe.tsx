@@ -99,7 +99,7 @@ const GlobeSection = ({
           {extraButton ? (
             <div className="flex justify-center">{extraButton}</div>
           ) : (
-            <Link href={"/under-development"}>
+            <Link href={"/getting-started"}>
               <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
                 Check Compatibility
               </button>

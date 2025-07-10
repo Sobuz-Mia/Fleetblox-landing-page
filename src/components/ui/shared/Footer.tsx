@@ -293,7 +293,7 @@ const Footer = () => {
                     strokeLinecap="round"
                   />
                 </svg>
-                <Link href="/under-development">
+                <Link href="/terms-of-service">
                   <p className="text-[14px] font-openSans leading-5 font-normal text-white">
                     Terms of Service
                   </p>
@@ -311,9 +311,27 @@ const Footer = () => {
                     strokeLinecap="round"
                   />
                 </svg>
-                <Link href="/under-development">
+                <Link href="/privacy-policy">
                   <p className="text-[14px] font-openSans leading-5 font-normal text-white">
                     Privacy Policy
+                  </p>
+                </Link>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="2"
+                  height="18"
+                  viewBox="0 0 2 18"
+                  fill="none"
+                >
+                  <path
+                    d="M1 0.683594V16.6836"
+                    stroke="#7D7D7D"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <Link href="/cookie-policy">
+                  <p className="text-[14px] font-openSans leading-5 font-normal text-white">
+                    Cookie Policy
                   </p>
                 </Link>
               </div>
