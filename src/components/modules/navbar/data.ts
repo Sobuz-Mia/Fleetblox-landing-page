@@ -3,105 +3,94 @@ import { NavbarItem } from "@/types/types";
 export const platformFeatures: NavbarItem[] = [
   {
     title: "Dashboard",
-    description: "Real-time intelligence, tracking and visibility",
     href: "/products/dashboard",
   },
   {
     title: "Getting Started",
-    description: "Vehicles onboard, brand and inventory",
     href: "/products/getting-started",
   },
   {
     title: "Fleet Integration",
-    description: "Cloud connectivity and permissions",
     href: "/products/fleet-integration",
   },
   {
     title: "Fleet Locations ",
-    description: "Multiple locations and management ",
     href: "/products/fleet-expansion",
   },
   {
     title: "Digital Inspections",
-    description: "Condition and documentations",
     href: "/products/digital-inspections",
     isUpcoming: true,
   },
   {
     title: "Maintenance Management",
-    description: "Fleet’s performance and guidelines",
     href: "/products/maintenance-diagnostics",
     isUpcoming: true,
   },
   {
     title: "Expenses Management",
-    description: "Budget assign, monitoring and alerts",
     href: "/products/expenses-management",
     isUpcoming: true,
   },
   {
     title: "Documents Management",
-    description: "Compliance, documents and alerts",
     href: "/products/documents-management",
   },
   {
     title: "Intelligent Alerts",
-    description: "Custom reminder and alerts",
     href: "/products/intelligent-alerts",
     isUpcoming: true,
   },
   {
     title: "Team Management",
-    description: "Deployments, tasks and access permissions",
     href: "/products/team-management",
   },
   {
     title: "AI Assistant",
-    description: "Fleet assistant and data management",
     href: "/products/ai-assistant",
   },
 ];
 export const solutionsItems: NavbarItem[] = [
   {
-    title: "Geo-Inventory Management",
+    title: "Geo-Fleet",
+    description: "Structure and control fleets by region in real time.",
     href: "/solutions/inventory-management",
   },
   {
     title: "Fleet Compliance",
+    description: "Keep fleets road-ready and compliant across all locations.",
     href: "/solutions/fleet-compliance",
   },
   {
     title: "Remote Operation",
+    description: "Execute workflows and vehicle actions from anywhere.",
     href: "/solutions/remote-operation",
   },
   {
     title: "Fleet Intelligence",
+    description: "Cut costs and optimize fleets with smart tools.",
     href: "/solutions/fleet-intelligence",
-  },
-  {
-    title: "Sustainability Integration",
-    href: "/under-development",
   },
 ];
 export const industriesItems: NavbarItem[] = [
   {
-    title: "Fleet Management",
-    description: "Business ecosystem and customizations",
+    title: "Fleet Operators ",
+    description: "Streamline operations and reduce fleet downtime.",
     href: "/industries/fleet-management",
   },
   {
     title: "Auto Dealerships",
-    description: "Dealership's inventory, locations and brands ",
+    description: "Control inventory and improve lot logistics.",
     href: "/industries/auto-dealerships",
   },
   {
     title: "Car Rental Providers",
-    description: "Scalability and rental management",
+    description: "Speed up check-ins and manage rentals across cities.",
     href: "/industries/car-rental-providers",
   },
   {
     title: "E-Mobility Services",
-    description: "EV command center, next-gen mobility",
+    description: "Manage your EV fleet’s readiness and uptime remotely.",
     href: "/industries/e-mobility-services",
   },
 ];
