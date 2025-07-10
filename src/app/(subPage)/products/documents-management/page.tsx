@@ -1,3 +1,4 @@
+"use client";
 import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import FeatureCard from "@/components/ui/FeatureCard";
 import Image from "next/image";
@@ -63,17 +64,26 @@ const page = () => {
             <p className="text-[#333] text-[16px] leading-6 mt-4 mb-5 font-openSans">
               {`Take control of your fleet's compliance in each location with smart document management, automated renewal alerts, and real-time visibility—keeping all vehicles road-ready, audit-proof, and fully compliant.`}
             </p>
-            <Link
-              aria-label="Get started with FleetBlox"
-              href="/getting-started"
-            >
-              <button className="hidden transition-all bg-[#2D65F2] hover:bg-[#0336BC] font-openSans text-white-primary text-white duration-300 hover:w-[144.16px] w-[122.16px] lg:flex items-center px-4 py-3 text-base font-bold rounded-md group">
-                <div className="z-20 whitespace-nowrap">Start today</div>
-                <div className="z-10 transform transition-transform opacity-0 group-hover:opacity-100 -translate-x-4 duration-300 group-hover:translate-x-0">
-                  <RightArrowIcon />
-                </div>
+            <div className="flex items-center gap-4">
+              <Link
+                aria-label="Get started with FleetBlox"
+                href="/getting-started"
+              >
+                <button className="hidden transition-all bg-[#2D65F2] hover:bg-[#0336BC] font-openSans text-white-primary text-white duration-300 hover:w-[144.16px] w-[122.16px] lg:flex items-center px-4 py-3 text-base font-bold rounded-md group">
+                  <div className="z-20 whitespace-nowrap">Start today</div>
+                  <div className="z-10 transform transition-transform opacity-0 group-hover:opacity-100 -translate-x-4 duration-300 group-hover:translate-x-0">
+                    <RightArrowIcon />
+                  </div>
+                </button>
+              </Link>
+              <button onClick={() => localStorage.setItem("isGetDemo", "true")}>
+                <Link href="/getting-started">
+                  <span className="cursor-pointer text-[16px] transition-all duration-300 ease-in-out hover:text-[#7D7D7D0] py-[13px] rounded-md px-5 border-[#B8CBFC] border text-[#2D65F2] font-bold  font-openSans">
+                    Get Demo
+                  </span>
+                </Link>
               </button>
-            </Link>
+            </div>
             <Link
               aria-label="Get started with FleetBlox"
               href="/getting-started"
@@ -171,9 +181,10 @@ const page = () => {
               icon={<data.icon />}
               title={data.title}
               description={data.description}
-              className={`w-full h-[210px] ${index === 6 &&
+              className={`w-full h-[210px] ${
+                index === 6 &&
                 "md:col-span-2 lg:col-span-3 md:max-w-[380px] mx-auto "
-                }`}
+              }`}
             />
           ))}
         </div>
@@ -182,6 +193,22 @@ const page = () => {
       <GlobeSection
         title="Digitally Turn Your Compliance into Endless Growth"
         description="Streamline your fleet's compliance process with scalable automated tools that evolve with your business. Stay ahead of renewals, minimize risks, and fuel effortlessly. Unlock Your Fleet's Potential Today"
+        extraButton={
+          <div className="flex items-center gap-4">
+            <button onClick={() => localStorage.setItem("isGetDemo", "true")}>
+              <Link href="/getting-started">
+                <span className="cursor-pointer text-[16px] transition-all duration-300 ease-in-out hover:text-[#7D7D7D0] py-[13px] rounded-md px-5 border-[#B8CBFC] border text-[#2D65F2] font-bold  font-openSans">
+                  Get Demo
+                </span>
+              </Link>
+            </button>
+            <Link href={"/getting-started"}>
+              <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
+                Get Started
+              </button>
+            </Link>
+          </div>
+        }
       />
     </div>
   );

@@ -1,3 +1,4 @@
+"use client";
 import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import FeatureCard from "@/components/ui/FeatureCard";
 import Image from "next/image";
@@ -61,17 +62,26 @@ const Scalability = () => {
               seamless compatibility and effortless management at every
               location, all from one unified platform.
             </p>
-            <Link
-              aria-label="Get started with FleetBlox"
-              href="/getting-started"
-            >
-              <button className="hidden transition-all bg-[#2D65F2] hover:bg-[#0336BC] font-openSans text-white-primary text-white duration-300 hover:w-[144.16px] w-[122.16px] lg:flex items-center px-4 py-3 text-base font-bold rounded-md group">
-                <div className="z-20 whitespace-nowrap">Start today</div>
-                <div className="z-10 transform transition-transform opacity-0 group-hover:opacity-100 -translate-x-4 duration-300 group-hover:translate-x-0">
-                  <RightArrowIcon />
-                </div>
+            <div className="flex items-center gap-4">
+              <Link
+                aria-label="Get started with FleetBlox"
+                href="/getting-started"
+              >
+                <button className="hidden transition-all bg-[#2D65F2] hover:bg-[#0336BC] font-openSans text-white-primary text-white duration-300 hover:w-[144.16px] w-[122.16px] lg:flex items-center px-4 py-3 text-base font-bold rounded-md group">
+                  <div className="z-20 whitespace-nowrap">Start today</div>
+                  <div className="z-10 transform transition-transform opacity-0 group-hover:opacity-100 -translate-x-4 duration-300 group-hover:translate-x-0">
+                    <RightArrowIcon />
+                  </div>
+                </button>
+              </Link>
+              <button onClick={() => localStorage.setItem("isGetDemo", "true")}>
+                <Link href="/getting-started">
+                  <span className="cursor-pointer text-[16px] transition-all duration-300 ease-in-out hover:text-[#7D7D7D0] py-[13px] rounded-md px-5 border-[#B8CBFC] border text-[#2D65F2] font-bold  font-openSans">
+                    Get Demo
+                  </span>
+                </Link>
               </button>
-            </Link>
+            </div>
             <Link
               aria-label="Get started with FleetBlox"
               href="/getting-started"
@@ -235,6 +245,22 @@ const Scalability = () => {
       <GlobeSection
         title="Start Your Fleet Remote Diagnosing Today"
         description="Take the first step towards smarter fleet maintenance with Fleetblox, leveraging AI to optimize your fleet’s performance."
+        extraButton={
+          <div className="flex items-center gap-4">
+            <Link href={"/getting-started"}>
+              <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
+                Check Compatibility
+              </button>
+            </Link>
+            <button onClick={() => localStorage.setItem("isGetDemo", "true")}>
+              <Link href="/getting-started">
+                <span className="cursor-pointer text-[16px] transition-all duration-300 ease-in-out hover:text-[#7D7D7D0] py-[13px] rounded-md px-5 border-[#B8CBFC] border text-[#2D65F2] font-bold  font-openSans">
+                  Get Demo Today
+                </span>
+              </Link>
+            </button>
+          </div>
+        }
       />
     </div>
   );
