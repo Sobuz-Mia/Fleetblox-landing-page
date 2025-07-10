@@ -261,9 +261,9 @@ const page = () => {
           title="Transform your Fleet Data into Business Value"
           description="FleetBlox leverages advanced AI and intelligent automation to simplify fleet management, turning complex data into actionable insights."
           extraButton={
-            <Link href={"/under-development"}>
+            <Link href={"/getting-started"}>
               <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
-                Get Demo Today
+                Get Started
               </button>
             </Link>
           }

@@ -1,3 +1,5 @@
+"use client";
+
 import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import GlobeSection from "@/components/modules/home/globe";
 import FeatureCard from "@/components/ui/FeatureCard";
@@ -327,8 +329,15 @@ const page = () => {
             title="Start Your Fleet Remote Diagnosing Today"
             extraButton={
               <div className="flex items-center flex-col-reverse md:flex-row gap-[10px] justify-center">
-                <button className="bg-white rounded-[6px] px-5 py-3 text-[#2D65F2] font-openSans text-[16px] font-bold border border-[#B8CBFC]">
-                  Schedule A Demo
+                <button
+                  className="mt-[5px]"
+                  onClick={() => localStorage.setItem("isGetDemo", "true")}
+                >
+                  <Link href="/getting-started">
+                    <span className="cursor-pointer text-[16px] transition-all duration-300 ease-in-out hover:text-[#7D7D7D0] py-[13px] mt-[10px] rounded-md px-5 border-[#B8CBFC] border text-[#2D65F2] font-bold  font-openSans">
+                      Get A Demo
+                    </span>
+                  </Link>
                 </button>
                 <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
                   Get The Product Sheet

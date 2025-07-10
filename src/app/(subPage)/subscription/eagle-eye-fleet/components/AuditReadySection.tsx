@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const AuditReadySection = () => {
   return (
@@ -11,6 +12,20 @@ const AuditReadySection = () => {
           Have Eagle Eye remind you of deadlines and handle paperwork on your
           behalf. No more messy spreadsheets. One neat command center only.
         </p>
+        <div className="flex justify-center items-center gap-5 mb-[60px]">
+          <button onClick={() => localStorage.setItem("isGetDemo", "true")}>
+            <Link href="/getting-started">
+              <span className="cursor-pointer text-[16px] transition-all duration-300 ease-in-out hover:text-[#7D7D7D0] py-[13px] rounded-md px-5 border-[#B8CBFC] border text-[#2D65F2] font-bold  font-openSans">
+                Get  Demo
+              </span>
+            </Link>
+          </button>
+          <Link href={"/getting-started"}>
+            <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
+              Start Today
+            </button>
+          </Link>
+        </div>
       </div>
       <div className="relative text-center hidden md:block">
         <Image
