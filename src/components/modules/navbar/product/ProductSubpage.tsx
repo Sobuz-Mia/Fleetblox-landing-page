@@ -10,7 +10,7 @@ const ProductSubpage = () => {
         <p className="text-[#7D7D7D] font-openSans text-[12px] pt-5 lg:pt-0 lg:border-b lg:border-[#DFDFDF]">
           Platform
         </p>
-        <div className="lg:flex gap-[30px] hidden w-[550px] h-[300px]">
+        <div className="lg:flex gap-[30px] hidden w-[550px] ">
           <div className="flex flex-col w-1/2 space-y-[5px] lg:space-y-[16px]">
             {platformFeatures.slice(0, 6).map((items, index) => (
               <GenerateNavbarItem key={index} {...items} />
