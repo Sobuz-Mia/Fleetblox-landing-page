@@ -166,7 +166,9 @@ const AboutUsPage = () => {
       {/* Footer Call to Action section */}
       <section className="bg-[#FAFAFF] py-10 sm:py-12 md:py-16 lg:py-20">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-5 text-center">
-          <p className="text-[#0336BC] font-openSans font-[700] text-base sm:text-lg">Feedback</p>
+          <p className="text-[#0336BC] font-openSans font-[700] text-base sm:text-lg">
+            Feedback
+          </p>
           <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#04082C] font-bold leading-tight mb-4">
             Contact Us
           </h2>
@@ -174,12 +176,16 @@ const AboutUsPage = () => {
             We&apos;re always eager to hear your feedback and suggestions to
             help us improve and enhance your experience with our application.
           </p>
-          <Link href="/contact" className="inline-block">
-            <button className="bg-[#2D65F2] hover:bg-[#0336BC] text-white font-openSans text-base font-bold px-6 py-3 rounded-md shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center">
-              Contact Us
-              <RightArrowIcon />
-            </button>
-          </Link>
+          <div className="flex justify-center items-center">
+            <Link aria-label="Get started with FleetBlox" href="/contact">
+              <button className="hidden transition-all bg-[#2D65F2] hover:bg-[#0336BC] font-openSans text-white-primary text-white duration-300 hover:w-[135.72px] w-[120.72px] lg:flex items-center px-4 py-3 text-base font-bold rounded-md group">
+                <div className="z-50 whitespace-nowrap">Contact Us</div>
+                <div className="z-50 transform transition-transform opacity-0 group-hover:opacity-100 -translate-x-4 duration-300 group-hover:translate-x-0">
+                  <RightArrowIcon />
+                </div>
+              </button>
+            </Link>
+          </div>
         </div>
       </section>
     </>
