@@ -74,7 +74,10 @@ const Onboarding = () => {
                   </div>
                 </button>
               </Link>
-              <button onClick={() => localStorage.setItem("isGetDemo", "true")}>
+              <button
+                className="hidden lg:block"
+                onClick={() => localStorage.setItem("isGetDemo", "true")}
+              >
                 <Link href="/getting-started">
                   <span className="cursor-pointer text-[16px] transition-all duration-300 ease-in-out hover:text-[#7D7D7D0] py-[13px] rounded-md px-5 border-[#B8CBFC] border text-[#2D65F2] font-bold  font-openSans">
                     Get Demo
@@ -82,14 +85,22 @@ const Onboarding = () => {
                 </Link>
               </button>
             </div>
-            <Link
-              aria-label="Get started with FleetBlox"
-              href="/getting-started"
-            >
-              <button className="lg:hidden bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
-                Start today
+            <div className="flex flex-col gap-5">
+              <button
+                className="lg:hidden block cursor-pointer text-[16px] transition-all duration-300 ease-in-out hover:text-[#7D7D7D0] py-[13px] rounded-md px-5 border-[#B8CBFC] border text-[#2D65F2] font-bold  font-openSans"
+                onClick={() => localStorage.setItem("isGetDemo", "true")}
+              >
+                <Link href="/getting-started">Get Demo</Link>
               </button>
-            </Link>
+              <Link
+                aria-label="Get started with FleetBlox"
+                href="/getting-started"
+              >
+                <button className="lg:hidden bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
+                  Start today
+                </button>
+              </Link>
+            </div>
           </div>
           <div className="py-5 lg:pl-[60px]">
             <Image
@@ -227,7 +238,7 @@ const Onboarding = () => {
             <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
               Check Compatibility
             </button>
-          </Link> 
+          </Link>
         }
       />
     </div>
