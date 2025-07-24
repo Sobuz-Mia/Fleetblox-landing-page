@@ -8,8 +8,10 @@ import Container from "@/components/ui/Container";
 import Image from "next/image";
 import leader from "../../../../public/images/leader.png";
 import pioneer from "../../../../public/images/pioneer.png";
+import leader2 from "../../../../public/images/leader2_nobile.webp";
+import pioneer2 from "../../../../public/images/pioneer2-mobile.webp";
 import NavigationIcon from "@/components/icons/NavigationIcon";
-import RightArrowIcon from "@/components/icons/RightArrowIcon";
+import Link from "next/link";
 
 interface Slide {
   title: string;
@@ -17,6 +19,7 @@ interface Slide {
   solution: string;
   result: string;
   image: any;
+  mobileImg: any;
 }
 
 const slides: Slide[] = [
@@ -27,6 +30,7 @@ const slides: Slide[] = [
       "FleetBox streamlined maintenance scheduling and provided real-time insights",
     result: "30% reduction in downtime and 25% lower operating expenses",
     image: leader,
+    mobileImg: leader2,
   },
   {
     title: "EV Fleet Pioneer",
@@ -34,6 +38,7 @@ const slides: Slide[] = [
     solution: "Fleetblox's unified platform integrated EV monitoring tools.",
     result: "Increased efficiency in EV usage and seamless fleet management.",
     image: pioneer,
+    mobileImg: pioneer2,
   },
   {
     title: "Logistics Leader",
@@ -42,6 +47,7 @@ const slides: Slide[] = [
       "FleetBox streamlined maintenance scheduling and provided real-time insights",
     result: "30% reduction in downtime and 25% lower operating expenses",
     image: leader,
+    mobileImg: leader2,
   },
   {
     title: "EV Fleet Pioneer",
@@ -49,6 +55,7 @@ const slides: Slide[] = [
     solution: "Fleetblox's unified platform integrated EV monitoring tools.",
     result: "Increased efficiency in EV usage and seamless fleet management.",
     image: pioneer,
+    mobileImg: pioneer2,
   },
 ];
 
@@ -81,18 +88,17 @@ export default function HorizontalStackSlideshow() {
   };
 
   return (
-    <section className="w-full min-h-[750px] py-14 mb-12 bg-white">
+    <section className="w-full min-h-[750px] pt-14 mb-12 bg-white">
       <Container>
         {/* Title for all devices */}
         <h2 className="text-[28px] md:text-[52px] font-bold text-center mb-8 text-[#000E32]">
           Success Stories
         </h2>
-
         {/* Desktop view */}
-        <div className="container hidden md:block mx-auto px-4 relative">
+        <div className="container hidden lg:block mx-auto px-4 relative">
           {/* Slider Container */}
           <div
-            className="relative flex items-center justify-center max-w-full h-[450px] md:h-[500px]"
+            className="relative flex items-center justify-center max-w-full w-full h-[450px] md:h-[500px]"
             onMouseEnter={() =>
               intervalRef.current && clearInterval(intervalRef.current)
             }
@@ -103,13 +109,13 @@ export default function HorizontalStackSlideshow() {
             {/* Left Arrow */}
             <button
               onClick={prevSlide}
-              className="absolute left-24 top-1/2 -translate-y-1/2 z-20 bg-white p-2 rounded-full drop-shadow-lg hover:bg-white/90"
+              className="absolute left-0 xl:left-24 top-1/2 -translate-y-1/2 z-20 bg-white p-2 rounded-full drop-shadow-lg hover:bg-white/90"
             >
               <ChevronLeft className="w-6 h-6 text-[#000E32]" />
             </button>
 
             {/* Cards Wrapper */}
-            <div className="w-[90%] max-w-[800px] h-full relative">
+            <div className="w-full max-w-[800px] h-full relative ">
               <AnimatePresence initial={false}>
                 {slides.map((slide, index) => {
                   const isFront = index === currentIndex;
@@ -231,7 +237,7 @@ export default function HorizontalStackSlideshow() {
                             src={slide.image}
                             alt={slide.title}
                             fill
-                            className="object-cover object-center rounded-xl"
+                            className="object-cover object-center rounded-r-xl"
                             sizes="(max-width: 768px) 100vw, 50vw"
                             priority={isFront}
                           />
@@ -246,7 +252,7 @@ export default function HorizontalStackSlideshow() {
             {/* Right Arrow */}
             <button
               onClick={nextSlide}
-              className="absolute right-24 top-1/2 -translate-y-1/2 z-20 bg-white p-2 rounded-full drop-shadow-lg hover:bg-white/90"
+              className="absolute right-0 xl:right-24 top-1/2 -translate-y-1/2 z-20 bg-white p-2 rounded-full drop-shadow-lg hover:bg-white/90"
             >
               <ChevronRight className="w-6 h-6 text-[#000E32]" />
             </button>
@@ -273,7 +279,7 @@ export default function HorizontalStackSlideshow() {
         </div>
 
         {/* Mobile View */}
-        <div className="md:hidden flex flex-col items-center justify-center w-full px-4">
+        <div className="lg:hidden flex flex-col items-center justify-center w-full">
           {slides.slice(0, 2).map((slide, index) => (
             <div
               key={index}
@@ -281,7 +287,7 @@ export default function HorizontalStackSlideshow() {
             >
               <div className="h-[280px] relative w-full">
                 <Image
-                  src={slide.image}
+                  src={slide.mobileImg}
                   alt={slide.title}
                   fill
                   className="object-cover rounded-t-[16px]"
@@ -321,15 +327,11 @@ export default function HorizontalStackSlideshow() {
                       </div>
                     </div>
                   </div>
-
-                  <button className="w-full bg-[#2D65F2] hover:bg-[#0336BC] text-white-primary text-white duration-300 flex items-center justify-center px-4 py-3 text-[16px] font-bold rounded-md group ">
-                    <div className="whitespace-nowrap font-openSans font-bold">
+                  <Link href="/under-development">
+                    <button className="bg-[#2D65F2] mt-5 hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
                       Learn More
-                    </div>
-                    <div className="transform transition-transform opacity-0 group-hover:opacity-100 -translate-x-4 duration-300 group-hover:translate-x-0">
-                      <RightArrowIcon />
-                    </div>
-                  </button>
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>

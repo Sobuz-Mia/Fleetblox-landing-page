@@ -1,11 +1,9 @@
 "use client";
-import { full_control_with_virtual_slot_data } from "@/static_data/data";
+import { full_control_with_virtual_slot_data } from "@/Static_data/data";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import VirtualCard from "./VirtualCard";
-import Container from "@/components/ui/Container";
 import Image from "next/image";
-import RightArrowIcon from "@/components/icons/RightArrowIcon";
 
 const VirtualSlot = () => {
   const container = useRef<HTMLDivElement>(null);
@@ -14,98 +12,130 @@ const VirtualSlot = () => {
     target: container,
     offset: ["start start", "end end"],
   });
+  const headerOpacity = useTransform(scrollYProgress, [0.0, 0.15], [1, 0]);
 
-  const headerOpacity = useTransform(scrollYProgress, [0.0, 0.09], [1, 0]);
   return (
     <div className="bg-[#FAFAFF]">
-      <Container>
-        {/* heading start */}
+      {/* heading end */}
+      <div
+        ref={container}
+        className=" hidden md:block lg:block relative w-full"
+      >
         <motion.div
           style={{ opacity: headerOpacity }}
-          className={`sticky -top-[200px] z-10 flex md:h-[80vh] flex-col items-center justify-center gap-[10px] pb-[10px]`}
+          className={`sticky -top-[150px] xl:-top-[180px] z-10 flex md:h-[80vh] flex-col items-center justify-center gap-[10px] pb-[10px]`}
         >
           {/* Centered Soft Blurred Ellipse */}
           <div className="hidden md:block absolute top-1/2 left-1/2 w-[500px] h-[500px] bg-[#ffe1bf] opacity-30 blur-[100px] rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
 
           {/* Content */}
           <div className=" hidden md:block  relative text-center">
-            <h1 className="text-[28px] z-10 md:text-[52px] lg:text-[52px] text-[#000E32] font-bold">
-              Take <span className="text-[#0336BC]">Full Control</span> with
-              Virtual <br className="hidden md:block " />
-              Parking Slot Technology
-            </h1>
+            <p className="text-[22px] text-left md:text-center font-bold text-[#0336BC] mb-[10px]">
+              Turn Every Mile Into Momentum
+            </p>
+
+            <h3 className="z-10 text-[52px] text-[#000E32] font-bold leading-[1.1]">
+              Link . Optimize. Comply. Expand
+            </h3>
           </div>
         </motion.div>
-        {/* heading end */}
-        <div
-          ref={container}
-          className=" hidden md:block lg:block relative mt-[20px]  w-full"
-        >
-          {full_control_with_virtual_slot_data.map((item, index) => {
-            const targetScale =
-              1 - (full_control_with_virtual_slot_data.length - index) * 0.05;
-            return (
-              <VirtualCard
-                image={item.image}
-                key={index}
-                title={item.title}
-                description={item.description}
-                icon={item.icon}
-                index={index}
-                progress={scrollYProgress}
-                range={[index * 0.25, 1]}
-                targetScale={targetScale}
-              />
-            );
-          })}
-        </div>
-        {/* Mobile view */}
-        <div className="md:hidden">
-          <h1 className="text-[28px] text-center mb-8 text-[#000E32] font-bold">
-            Take <span className="text-[#0336BC]">Full Control</span> with
-            Virtual <br className="hidden md:block " />
-            Parking Slot Technology
-          </h1>
-          {full_control_with_virtual_slot_data.map((item) => {
+        {full_control_with_virtual_slot_data.map((item, index) => {
+          const targetScale =
+            1 - (full_control_with_virtual_slot_data.length - index) * 0.05;
+          return (
+            <VirtualCard
+              image={item.image}
+              key={index}
+              title={item.title}
+              description={item.description}
+              icon={item.icon}
+              index={index}
+              progress={scrollYProgress}
+              range={[index * 0.25, 1]}
+              targetScale={targetScale}
+            />
+          );
+        })}
+      </div>
+      {/* Mobile view */}
+      <div className="md:hidden py-20">
+        <p className="text-[14px] text-center font-bold text-[#0336BC] mb-[10px]">
+          Turn Every Mile Into Momentum
+        </p>
+        <h3 className="z-10 text-[28px] text-center text-[#000E32] font-bold leading-[1.1]">
+          Link . Optimize. Comply. Expand
+        </h3>
+
+        {/* {full_control_with_virtual_slot_data.map((item) => {
             return (
               <section
                 key={item?.id}
                 className="relative bg-white max-h-[630px] my-5 w-full flex flex-col rounded-[16px] items-center justify-center gap-5 "
               >
-                <div className="flex-1 overflow-hidden  w-full h-full rounded-t-[16px]">
+                <div className="flex-1 overflow-hidden w-full h-full rounded-t-[16px]">
                   <Image
                     src={item.mobile}
-                    className="object-fill w-full h-full "
+                    className="object-cover w-full h-full"
                     alt="image"
                   />
                 </div>
-                <div className="flex-1 flex flex-col gap-y-[5px] text-left p-5">
+                <div className="flex-1 flex flex-col gap-y-[5px] text-left p-5 -mt-16">
                   <Image src={item.icon} alt="icon" />
-                  <h1 className="text-[22px] text-left text-[#000E32] font-openSans font-bold ">
+                  <h2 className="text-[22px] text-left text-[#000E32] font-openSans font-bold ">
                     {item.title}
-                  </h1>
+                  </h2>
                   <p className="text-[14px] text-left font-openSans text-[#333] leading-[20px]">
                     {item.description}
                   </p>
-
-                  <button className="transition-all mt-4 bg-[#2D65F2] hover:bg-[#0336BC] text-white-primary text-white duration-300 w-[95%] hover:w-[100%] md:hover:w-[144.16px] md:w-[122.16px] flex items-center justify-center px-4 py-3 text-[16px] font-bold rounded-md group ">
-                    <div className="z-20 whitespace-nowrap font-openSans font-bold">
-                      Learn More
-                    </div>
-                    <div className="z-10 transform transition-transform opacity-0 group-hover:opacity-100 -translate-x-4 duration-300 group-hover:translate-x-0">
-                      <RightArrowIcon />
-                    </div>
-                  </button>
-
-                  <div className="absolute drop-shadow-2xl top-[220px] right-2 w-[250px] h-[120px]">
-                    <Image src={item.absolute} alt={item.title}></Image>
-                  </div>
                 </div>
               </section>
             );
-          })}
-        </div>
-      </Container>
+          })} */}
+
+        {full_control_with_virtual_slot_data.map((item, index) => {
+          return (
+            <div
+              key={index}
+              className="sticky z-50 top-[0vh] flex h-[100vh] px-5 flex-col items-center justify-center w-screen"
+            >
+              <motion.div
+                className={`relative z-[200] top-[0px] transform flex-col max-h-[700px] h-full sm:h-[700px] w-full`}
+                style={{ top: `calc(-5vh + ${index * 15}px)` }}
+              >
+                {/* main card */}
+                <div className="absolute top-[15vh] sm:top-[10vh] z-[200] max-w-[600px] w-full mx-auto h-full">
+                  <section
+                    key={item?.id}
+                    className="relative bg-white h-[540px] xs:h-[700px]  w-full  rounded-[16px]  gap-5  "
+                    style={{
+                      boxShadow: "0px 4px 12px 0px rgba(0, 0, 0, 0.14)",
+                    }}
+                  >
+                    <div className="overflow-hidden w-full rounded-t-[16px]">
+                      <Image
+                        src={item.mobile}
+                        className="object-contain w-full h-full rounded-t-[16px]"
+                        alt="image"
+                      />
+                    </div>
+                    <div className="flex-1 flex flex-col gap-y-[5px] text-left p-5 -mt-16">
+                      <Image src={item.icon} alt="icon" />
+                      <h2 className="text-[22px] text-left text-[#000E32] font-openSans font-bold ">
+                        {item.title}
+                      </h2>
+                      <p className="text-[14px] text-left font-openSans text-[#333] leading-[20px]">
+                        {item.description}
+                      </p>
+                    </div>
+                  </section>
+                </div>
+                {/* shadow */}
+                {/* <div className="absolute top-[17vh] left-1/2 -translate-x-1/2 z-[20] rounded-[2px] bg-black opacity-[0.07] blur-[20px] h-[530px] w-[320px] md:w-[640px]"></div> */}
+              </motion.div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

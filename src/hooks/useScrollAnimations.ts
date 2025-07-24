@@ -13,23 +13,28 @@ const useScrollAnimations = (
   scrollYProgress: MotionValue<number>
 ): CardStyle[] => {
   return cards.map((_, index) => {
-    const start = index / cards.length;
-    const end = (index + 1) / cards.length;
-
+    const isLastCard = index === cards.length - 1;
+    const start = Math.max(0, (index - 1) / cards.length);
+    const mid = index / cards.length;
+    const end = isLastCard ? 1 : Math.min(1, (index + 2) / cards.length);
+    /* eslint-disable react-hooks/rules-of-hooks */
     return {
-      /* eslint-disable react-hooks/rules-of-hooks */
       opacity: useTransform(
         scrollYProgress,
         index === 0
-          ? [0, start + 0.2, end, end + 0.1]
-          : [start, start + 0.2, end, end + 0.1],
-        index === 0 ? [1, 1, 1, 0] : [0, 1, 1, 0]
+          ? [0, start + 0.1, mid, isLastCard ? 1 : end]
+          : [start, start + 0.1, mid, isLastCard ? 1 : end],
+        index === 0 ? [1, 1, 1, 0] : isLastCard ? [0, 1, 1, 1] : [0, 1, 1, 0]
       ),
-      y: useTransform(scrollYProgress, [start, end], [80, 0]),
+      y: useTransform(
+        scrollYProgress,
+        [start, mid, end],
+        isLastCard ? [120, 0, 0] : [120, 0, -50]
+      ),
       scale: useTransform(
         scrollYProgress,
-        [start, start + 0.5, end],
-        [0.9, 1, 0.95]
+        [start, mid, end],
+        isLastCard ? [0.8, 1, 1] : [0.8, 1, 0.9]
       ),
     };
   });
