@@ -57,7 +57,7 @@ export const vehicleFeatures = [
       { permission: true, message: "5 locations" },
       { permission: true, message: "Unlimited" },
     ],
-    desc: "Manage fleets across multiple operational sites)",
+    desc: "Manage fleets across multiple operational sites",
   },
   {
     title: "Remote Charging Control",
