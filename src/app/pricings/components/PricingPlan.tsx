@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-
 import { FaCircleCheck } from "react-icons/fa6";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -22,13 +21,19 @@ import LocationIcon from "@/components/icons/LocationIcon";
 import config from "@/utils/config";
 import dynamic from "next/dynamic";
 
-const FeaturesComparisonDynamic = dynamic(() => import("./FeaturesComparison"), {
-  ssr: false,
-});
+const FeaturesComparisonDynamic = dynamic(
+  () => import("./FeaturesComparison"),
+  {
+    ssr: false,
+  }
+);
 
-const FAQSection = dynamic(() => import("@/components/modules/home/FAQSection"), {
-  ssr: false,
-});
+const FAQSection = dynamic(
+  () => import("@/components/modules/home/FAQSection"),
+  {
+    ssr: false,
+  }
+);
 
 type TSelectedPlan = {
   price: number;
@@ -232,26 +237,29 @@ const PricingPlan = () => {
                   </span>
                   <span className="text-[14px] lg:text-[16px] font-semibold text-[#999] leading-[150%]">
                     {" "}
-                    /month per slot
+                    /month
                   </span>
                 </div>
+                <p className="mt-[30px] font-openSans text-[#7D7D7D] text-[14px] leading-5">
+                  For small fleets needing basic visibility
+                </p>
                 <div className="mb-[20px] mt-[10px]">
                   <div className="flex items-center gap-[5px]">
                     <VehicleIcon />
                     <p className="text-[#333] text-[14px] font-openSans font-normal leading-5">
-                      {starterPlan[0]?.slotMinimum} slots minimum purchase
+                      Up to {starterPlan[0]?.slotMinimum} vehicles
                     </p>
                   </div>
                   <div className="flex items-center gap-[5px]">
                     <DollarIcon />
                     <p className="text-[#333] text-[14px] font-openSans font-normal leading-5">
-                      Subscription based ( cancel any time)
+                      Monthly Subscription
                     </p>
                   </div>
                   <div className="flex items-center gap-[5px]">
                     <LocationIcon />
                     <p className="text-[#333] text-[14px] font-openSans font-normal leading-5">
-                      01 business location
+                      01 fleet location
                     </p>
                   </div>
                 </div>
@@ -289,17 +297,16 @@ const PricingPlan = () => {
         <AccurateSlider value={slotCount} setValue={setSlotCount} />
       </section>
       {/* pricing plane start */}
-      <section className="container mx-auto  flex flex-col justify-center items-center">
+      <section className="container mx-auto  flex flex-col justify-center items-center px-5">
         {/* ****************Billing Options**************** */}
-
         <div className=" flex flex-col justify-center gap-5 md:flex-row">
-          {currentPlans?.data?.slice(0, 2).map((plan: any, index: number) => (
+          {currentPlans?.data?.map((plan: any, index: number) => (
             <Card
               key={index}
               className="relative min-w-[350px] max-w-[400px] shadow-none rounded-[16px] "
             >
               {/* Ribbon */}
-              {plan && plan?.name !== "Eagle eye fleet" && (
+              {plan && plan?.name === "Dynamic fleet" && (
                 <div className="absolute -top-2  -right-2 bg-[#0A2540] rounded-[4px] z-50 text-[#000] p-2">
                   <p className="text-[12px] font-normal text-white">
                     Launching Soon
@@ -319,6 +326,12 @@ const PricingPlan = () => {
                   <div className="">
                     <h3 className="text-[32px] font-semibold text-[#999]">
                       Custom
+                    </h3>
+                  </div>
+                ) : plan?.name === "Dynamic fleet" ? (
+                  <div className="">
+                    <h3 className="text-[32px] font-semibold text-[#999]">
+                      Contact us
                     </h3>
                   </div>
                 ) : (
@@ -351,10 +364,10 @@ const PricingPlan = () => {
                           {slotCount >= 200
                             ? "30%"
                             : slotCount >= 150
-                              ? "18%"
-                              : slotCount >= 100
-                                ? "10%"
-                                : "5%"}{" "}
+                            ? "18%"
+                            : slotCount >= 100
+                            ? "10%"
+                            : "5%"}{" "}
                           discount {billAnnually && "+"}
                         </p>
                       )}
@@ -367,19 +380,49 @@ const PricingPlan = () => {
                     </div>
                   </div>
                 )}
-
-                {plan?.name !== "Eagle eye fleet" && (
+                {plan?.name === "Eagle eye fleet" && (
+                  <p className="mt-[30px] text-[14px] font-openSans leading-5">
+                    Advanced monitoring for mid-sized or multi-location fleets.
+                  </p>
+                )}
+                {plan?.name === "Dynamic fleet" && (
+                  <p className="mt-[30px] text-[14px] font-openSans leading-5">
+                    For growing fleets needing active operations control and
+                    intelligence.
+                  </p>
+                )}
+                {plan?.name === "Smart fleet" && (
+                  <p className="mt-[30px] text-[14px] font-openSans leading-5">
+                    Enterprise-grade control for complex fleet operations.
+                  </p>
+                )}
+                {plan?.name === "Eagle eye fleet" && (
+                  <div className="flex items-center mt-5 justify-between">
+                    <h3 className="text-[14px] font-openSans leading-[155%] font-normal text-[#999]">
+                      All features in Starter fleet
+                    </h3>
+                  </div>
+                )}
+                {plan?.name === "Dynamic fleet" && (
                   <div className="flex items-center mt-5 justify-between">
                     <h3 className="text-[14px] font-openSans leading-[155%] font-normal text-[#999]">
                       All features in Eagle eye fleet
                     </h3>
                   </div>
                 )}
+                {plan?.name === "Smart fleet" && (
+                  <div className="flex items-center mt-5 justify-between">
+                    <h3 className="text-[14px] font-openSans leading-[155%] font-normal text-[#999]">
+                      All features in Dynamic fleet
+                    </h3>
+                  </div>
+                )}
 
                 {/* <p className="text-sm text-[#999]">{plan.discount}</p> */}
                 <ul
-                  className={`${plan?.name !== "Eagle eye fleet" ? "mt-2 " : "mt-5"
-                    } space-y-2`}
+                  className={`${
+                    plan?.name !== "Eagle eye fleet" ? "mt-2 " : "mt-5"
+                  } space-y-2`}
                 >
                   {plan?.description.map((feature: any, i: number) => (
                     <li key={i} className="flex items-start gap-[10px]">
@@ -391,14 +434,29 @@ const PricingPlan = () => {
                   ))}
                 </ul>
                 <div className="w-full mt-8">
-                  {plan.name === "Eagle eye fleet" && (
-                    <div className="w-full">
+                  {plan.name === "Eagle eye fleet" ? (
+                    <div className="w-full md:mt-[80px]">
                       <Link href="/getting-started">
                         <button
                           aria-label="Get started with FleetBlox"
                           className="bg-[#2D65F2] px-4 py-3 rounded-md text-white text-[16px] w-full font-openSans font-bold"
                         >
                           Get Started
+                        </button>
+                      </Link>
+                    </div>
+                  ) : (
+                    <div
+                      className={`w-full ${
+                        plan?.name === "Dynamic fleet" ? "md:mt-[90px]" : ""
+                      }`}
+                    >
+                      <Link href="/contact">
+                        <button
+                          aria-label="Get started with FleetBlox"
+                          className="text-[#2D65F2] px-4 py-3 rounded-md border border-[#B8CBFC] text-[16px] w-full font-openSans font-bold"
+                        >
+                          Contact Us
                         </button>
                       </Link>
                     </div>
