@@ -82,11 +82,12 @@ const CheckOutPage = () => {
     }
   }, []);
 
-
   const calculateDisplayTotal = () => {
+    if (selectedPlan?.fleet === "Starter Fleet") {
+      return 199.99;
+    }
 
     let basePrice = (selectedPlan?.price ?? 0) * (selectedPlan?.slot ?? 0);
-
 
     if (selectedPlan?.annually) {
       basePrice = basePrice * 12;
@@ -95,9 +96,7 @@ const CheckOutPage = () => {
     return basePrice;
   };
 
-
-  const oneTimeSet = 100;
-
+  const oneTimeSet = 150;
 
   const TotalForModal = calculateDisplayTotal();
 
@@ -110,8 +109,6 @@ const CheckOutPage = () => {
     countryCode: "+1",
     flag: Canada,
   });
-
-
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -127,10 +124,7 @@ const CheckOutPage = () => {
     }
 
     const getCountries = async () => {
-      const countries = await fetch(
-
-        `${baseUrl}/api/utils/all-countries`
-      );
+      const countries = await fetch(`${baseUrl}/api/utils/all-countries`);
       const response = await countries.json();
 
       setCountries(response.data);
@@ -176,8 +170,6 @@ const CheckOutPage = () => {
     }));
     setIsDropdownOpen(false);
   };
-
-
 
   const filteredCompatibleBrands = useCallback(() => {
     return brandCarList
@@ -227,7 +219,6 @@ const CheckOutPage = () => {
     }
   }
 
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -274,8 +265,12 @@ const CheckOutPage = () => {
     planId: selectedPlan?.id,
     phone: contactNumber,
     isFromPreLunching: true,
-    successUrl: isDev ? `https://test-landing.fleetblox.com/result/paymentSuccess` : `https://fleetblox.com/result/paymentSuccess`,
-    cancelUrl: isDev ? `https://test-landing.fleetblox.com/result/paymentFaild` : `https://fleetblox.com/result/paymentFaild`,
+    successUrl: isDev
+      ? `https://test-landing.fleetblox.com/result/paymentSuccess`
+      : `https://fleetblox.com/result/paymentSuccess`,
+    cancelUrl: isDev
+      ? `https://test-landing.fleetblox.com/result/paymentFaild`
+      : `https://fleetblox.com/result/paymentFaild`,
     slot: selectedPlan?.slot,
     price: selectedPlan?.price,
     interval: selectedPlan?.annually ? "year" : "month",
@@ -287,7 +282,6 @@ const CheckOutPage = () => {
     setLoading(true);
     e.preventDefault();
 
-
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(formData.email)) {
@@ -298,7 +292,6 @@ const CheckOutPage = () => {
 
     try {
       setLoading(true);
-
 
       const { data } = await axios.post(
         `${baseUrl}/api/payment/create-session`,
@@ -384,7 +377,7 @@ const CheckOutPage = () => {
                 </span>
                 <span className="text-[14px] font-[400] leading-[155%] text-[#7d7d7d]">
                   .{selectedPlan?.price?.toFixed(2).split(".")[1]} /
-                  {selectedPlan?.annually ? "month" : "month"} per slot
+                  {selectedPlan?.annually ? "month" : "month"}
                 </span>
               </h4>
             </div>
@@ -454,8 +447,8 @@ const CheckOutPage = () => {
                         </h4>
 
                         {brand.compatible &&
-                          brand.models &&
-                          brand.models.length > 0 ? (
+                        brand.models &&
+                        brand.models.length > 0 ? (
                           <div>
                             {/* Preview first 2 models */}
                             <p className="font-openSans text-[12px] font-[500] text-[#6F6464]">
@@ -808,8 +801,8 @@ const CheckOutPage = () => {
                       </h4>
 
                       {brand.compatible &&
-                        brand.models &&
-                        brand.models.length > 0 ? (
+                      brand.models &&
+                      brand.models.length > 0 ? (
                         <div>
                           {/* Preview first 2 models */}
                           <p className="font-openSans text-[12px] font-[500] text-[#6F6464]">

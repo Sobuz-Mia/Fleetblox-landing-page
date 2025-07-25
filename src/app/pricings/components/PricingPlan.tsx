@@ -216,15 +216,18 @@ const PricingPlan = () => {
                     <RightArrowIcon />
                   </div>
                 </button>
-                <button
-                  aria-label="Get started with Starter Fleet"
-                  onClick={() => {
-                    handleStarterPlan(starterPlan[0]);
-                  }}
-                  className="md:hidden mt-[30px] bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center"
+                <div
+                  className={`w-full md:mt-[90px]`}
                 >
-                  Get Started
-                </button>
+                  <Link href="/contact">
+                    <button
+                      aria-label="Get started with FleetBlox"
+                      className="text-[#2D65F2] px-4 py-3 rounded-md border border-[#B8CBFC] text-[16px] w-full font-openSans font-bold"
+                    >
+                      Contact Us
+                    </button>
+                  </Link>
+                </div>
               </div>
             </div>
             {/* right card */}
@@ -307,7 +310,7 @@ const PricingPlan = () => {
             >
               {/* Ribbon */}
               {plan && plan?.name === "Dynamic fleet" && (
-                <div className="absolute -top-2  -right-2 bg-[#0A2540] rounded-[4px] z-50 text-[#000] p-2">
+                <div className="absolute -top-2 hidden -right-2 bg-[#0A2540] rounded-[4px] z-50 text-[#000] p-2">
                   <p className="text-[12px] font-normal text-white">
                     Launching Soon
                   </p>
@@ -336,7 +339,7 @@ const PricingPlan = () => {
                   </div>
                 ) : (
                   <div>
-                    <div className=" text-[36px] font-montserrat font-bold text-[#04082C]">
+                    {/* <div className=" text-[36px] font-montserrat font-bold text-[#04082C]">
                       $
                       {Math.floor(
                         calculateDiscount(slotCount, billAnnually, plan?.price)
@@ -356,6 +359,11 @@ const PricingPlan = () => {
                       <span className="ml-[1px] text-[12px] font-medium text-[#999]">
                         /month per slot
                       </span>
+                    </div> */}
+                    <div className="">
+                      <h3 className="text-[32px] font-semibold text-[#999]">
+                        Contact us
+                      </h3>
                     </div>
                     {/* Dynamic discount message based on slot count */}
                     <div className="flex ">
@@ -364,19 +372,19 @@ const PricingPlan = () => {
                           {slotCount >= 200
                             ? "30%"
                             : slotCount >= 150
-                            ? "18%"
-                            : slotCount >= 100
-                            ? "10%"
-                            : "5%"}{" "}
+                              ? "18%"
+                              : slotCount >= 100
+                                ? "10%"
+                                : "5%"}{" "}
                           discount {billAnnually && "+"}
                         </p>
                       )}
 
-                      {billAnnually && (
+                      {/* {billAnnually && (
                         <p className="text-[#04082C] font-openSans text-[14px] leading-[155%] font-semibold flex items-center">
                           {""} 15% annual discount
                         </p>
-                      )}
+                      )} */}
                     </div>
                   </div>
                 )}
@@ -420,9 +428,8 @@ const PricingPlan = () => {
 
                 {/* <p className="text-sm text-[#999]">{plan.discount}</p> */}
                 <ul
-                  className={`${
-                    plan?.name !== "Eagle eye fleet" ? "mt-2 " : "mt-5"
-                  } space-y-2`}
+                  className={`${plan?.name !== "Eagle eye fleet" ? "mt-2 " : "mt-5"
+                    } space-y-2`}
                 >
                   {plan?.description.map((feature: any, i: number) => (
                     <li key={i} className="flex items-start gap-[10px]">
@@ -434,33 +441,19 @@ const PricingPlan = () => {
                   ))}
                 </ul>
                 <div className="w-full mt-8">
-                  {plan.name === "Eagle eye fleet" ? (
-                    <div className="w-full md:mt-[80px]">
-                      <Link href="/getting-started">
-                        <button
-                          aria-label="Get started with FleetBlox"
-                          className="bg-[#2D65F2] px-4 py-3 rounded-md text-white text-[16px] w-full font-openSans font-bold"
-                        >
-                          Get Started
-                        </button>
-                      </Link>
-                    </div>
-                  ) : (
-                    <div
-                      className={`w-full ${
-                        plan?.name === "Dynamic fleet" ? "md:mt-[90px]" : ""
-                      }`}
-                    >
-                      <Link href="/contact">
-                        <button
-                          aria-label="Get started with FleetBlox"
-                          className="text-[#2D65F2] px-4 py-3 rounded-md border border-[#B8CBFC] text-[16px] w-full font-openSans font-bold"
-                        >
-                          Contact Us
-                        </button>
-                      </Link>
-                    </div>
-                  )}
+                  <div
+                    className={`w-full ${plan?.name === "Dynamic fleet" ? "md:mt-[90px]" : "" 
+                      } ${plan?.name === "Eagle eye fleet" ? "md:mt-[105px]" : ""}`}
+                  >
+                    <Link href="/contact">
+                      <button
+                        aria-label="Get started with FleetBlox"
+                        className="text-[#2D65F2] px-4 py-3 rounded-md border border-[#B8CBFC] text-[16px] w-full font-openSans font-bold"
+                      >
+                        Contact Us
+                      </button>
+                    </Link>
+                  </div>
                 </div>
               </CardContent>
             </Card>

@@ -21,15 +21,15 @@ const Cards = () => {
       title: "Customer Support",
       description:
         "Our support team is here to assist you with any issuse or questions",
-      linkText: "Email Us",
+      linkText: "Contact Us",
       linkHref: "https://forms.gle/FhbEkrRpdgdhqFgz9",
     },
-    {
-      title: "Report as Issue or Bug",
-      description: "Help us improve by reporting bugs or glitches",
-      linkText: "Report",
-      linkHref: "https://forms.gle/FhbEkrRpdgdhqFgz9",
-    },
+    // {
+    //   title: "Report as Issue or Bug",
+    //   description: "Help us improve by reporting bugs or glitches",
+    //   linkText: "Report",
+    //   linkHref: "https://forms.gle/FhbEkrRpdgdhqFgz9",
+    // },
     {
       title: "Press and Media",
       description:
