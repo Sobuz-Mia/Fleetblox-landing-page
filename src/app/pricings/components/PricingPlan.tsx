@@ -216,7 +216,7 @@ const PricingPlan = () => {
                     <RightArrowIcon />
                   </div>
                 </button>
-                <div
+                {/* <div
                   className={`w-full md:mt-[90px]`}
                 >
                   <Link href="/contact">
@@ -227,7 +227,7 @@ const PricingPlan = () => {
                       Contact Us
                     </button>
                   </Link>
-                </div>
+                </div> */}
               </div>
             </div>
             {/* right card */}
