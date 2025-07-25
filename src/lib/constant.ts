@@ -70,7 +70,7 @@ export const vehicleFeatures = [
     desc: "Start and stop vehicle charging remotely",
   },
 ];
-
+// fleet features
 export const fleetFeatures = [
   {
     title: "Vehicle Onboarding",
