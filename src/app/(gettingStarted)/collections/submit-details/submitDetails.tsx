@@ -30,6 +30,7 @@ const SubmitDetails = () => {
   const [countries, setCountries] = useState<Country[] | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [earlyAccess, setEarlyAccess] = useState(false);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -60,6 +61,7 @@ const SubmitDetails = () => {
       setCountry(localStorage.getItem("country") || "");
       setPlan(localStorage.getItem("price_plan") || "");
       setVinsResult(localStorage.getItem("VINS_RESULT") || "");
+      setEarlyAccess(JSON.parse(localStorage.getItem("earlyAccess") || "false"));
     }
 
     const getCountries = async () => {
@@ -115,6 +117,7 @@ const SubmitDetails = () => {
     selectedVin: JSON.parse(vinsResult || "[]"),
     plan: JSON.parse(plan || "{}"),
     isFromPreLunching: true,
+    earlyAccess: earlyAccess,
   };
 
   const paidUserInfo = {
@@ -163,12 +166,17 @@ const SubmitDetails = () => {
         `${config.api.baseUrl}/api/InterestedUser/create`,
         submitData
       );
-      const testing = await axios.post(
-        `${config.api.baseUrl}/api/subscription/plan/trail`,
-        paidUserInfo
-      );
 
-      console.log(testing.data, "checking response");
+
+      if (!submitData.earlyAccess) {
+        const testing = await axios.post(
+          `${config.api.baseUrl}/api/subscription/plan/trail`,
+          paidUserInfo
+        );
+  
+        console.log(testing.data, "checking response");
+      }
+
       // console.log(data);
       if (data.statusCode === 201) {
         localStorage.clear();
@@ -212,8 +220,8 @@ const SubmitDetails = () => {
       {showSuccessModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
           <div className="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full text-center">
-            <h2 className="text-xl font-semibold mb-4">Account Created</h2>
-            <p className="mb-6">Your account created successfully. Check your mail please.</p>
+            <h2 className="text-xl font-semibold mb-4">{earlyAccess ? "Thanks for your interest in Early Accessz" : "Account Created"}</h2>
+            <p className="mb-6">{earlyAccess ? "You will get a notification when the Early Access is available" : "Your account created successfully. Check your mail please."}</p>
             <button
               className="bg-[#2D65F2] text-white px-6 py-2 rounded-md font-semibold"
               onClick={() => {

@@ -70,6 +70,9 @@ const PricingPlan = () => {
       localStorage.removeItem("VINS_RESULT");
       localStorage.removeItem("compatibility");
       localStorage.removeItem("selectedCountries");
+      localStorage.removeItem("earlyAccess");
+      localStorage.removeItem("isGetDemo");
+      localStorage.removeItem("packageName");
     }
   }, []);
 
@@ -178,6 +181,16 @@ const PricingPlan = () => {
     };
 
     localStorage.setItem("selectedPlan", JSON.stringify(planData));
+    router.push("/getting-started");
+  };
+
+  const handleContactUs = (packageName: string) => {
+    // Store package name and isGetDemo flag in localStorage
+    localStorage.setItem("packageName", packageName);
+    localStorage.setItem("isGetDemo", "true");
+    localStorage.setItem("earlyAccess", "true");
+    
+    // Navigate to contact page
     router.push("/getting-started");
   };
   return (
@@ -445,14 +458,13 @@ const PricingPlan = () => {
                     className={`w-full ${plan?.name === "Dynamic fleet" ? "md:mt-[90px]" : "" 
                       } ${plan?.name === "Eagle eye fleet" ? "md:mt-[105px]" : ""}`}
                   >
-                    <Link href="/contact">
-                      <button
-                        aria-label="Get started with FleetBlox"
-                        className="text-[#2D65F2] px-4 py-3 rounded-md border border-[#B8CBFC] text-[16px] w-full font-openSans font-bold"
-                      >
-                        Contact Us
-                      </button>
-                    </Link>
+                    <button
+                      aria-label="Get started with FleetBlox"
+                      onClick={() => handleContactUs(plan?.name)}
+                      className="text-[#2D65F2] px-4 py-3 rounded-md border border-[#B8CBFC] text-[16px] w-full font-openSans font-bold"
+                    >
+                      Contact Us
+                    </button>
                   </div>
                 </div>
               </CardContent>
