@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import image1 from "../../../../public/brand/Frame 1707481648.svg";
 import image2 from "../../../../public/brand/Frame 1707481652.svg";
@@ -33,9 +34,26 @@ import image31 from "../../../../public/brand/Frame 1707481679.svg";
 import image32 from "../../../../public/brand/Frame 1707481680.svg";
 import image33 from "../../../../public/brand/Frame 1707481661.svg";
 import { cars } from "@/Static_data/data";
-import Link from "next/link";
+import { TStaterPlanData } from "@/types/types";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const GlobalCoverageAndCompatibility = () => {
+  const [starterPlan, setStarterPlan] = useState<TStaterPlanData[]>([]);
+  const router = useRouter();
+  const handleStarterPlan = async (starterPlan: TStaterPlanData) => {
+    const planData = {
+      price: starterPlan?.price,
+      fleet: starterPlan?.name || "Starter Fleet",
+      slot: starterPlan?.slotMinimum || 10,
+      annually: false,
+      id: starterPlan?.id, // Replace with actual ID from your backend
+    };
+
+    localStorage.setItem("selectedPlan", JSON.stringify(planData));
+    router.push("/getting-started");
+  };
+
   const images = [
     image1,
     image2,
@@ -137,14 +155,24 @@ const GlobalCoverageAndCompatibility = () => {
               Whether in North America, Europe, or beyond, our platform supports
               a wide range of fleet types and sizes, meeting local standards
             </p>
-            <Link
+            {/* <Link
               aria-label="Get started with FleetBlox"
               href="/getting-started"
             >
               <button className="mt-4 text-[#2D65F2] text-[16px] font-openSans font-bold">
                 Check Your Region
               </button>
-            </Link>
+            </Link> */}
+
+            <button
+              aria-label="Get started with Starter Fleet"
+              onClick={() => {
+                handleStarterPlan(starterPlan[0]);
+              }}
+              className="mt-4 text-[#2D65F2] text-[16px] font-openSans font-bold"
+            >
+              Check Your Region
+            </button>
           </div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -170,14 +198,24 @@ const GlobalCoverageAndCompatibility = () => {
               support eco-friendly fleets. Optimize EV performance for greater
               sustainability
             </p>
-            <Link
+            {/* <Link
               aria-label="Get started with FleetBlox"
               href="/getting-started"
             >
               <button className="mt-4 text-[#2D65F2] text-[16px] font-openSans font-bold">
                 Check Compatibility
               </button>
-            </Link>
+            </Link> */}
+
+            <button
+              aria-label="Get started with Starter Fleet"
+              onClick={() => {
+                handleStarterPlan(starterPlan[0]);
+              }}
+              className="mt-4 text-[#2D65F2] text-[16px] font-openSans font-bold"
+            >
+              Check Compatibility
+            </button>
           </div>
         </div>
       </section>

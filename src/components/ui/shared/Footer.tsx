@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import FooterLogo from "../../../../public/images/footerLogo.png";
 import FacebookIcon from "@/components/icons/FacebookIcon";
@@ -10,17 +9,33 @@ import AppleStore from "@/components/icons/AppleStore";
 import GoogleStore from "@/components/icons/GoogleStore";
 import GoogleStoreMobile from "@/components/icons/GoogleStoreMobile";
 import { RequestDemoModal } from "../RequestDemoModal";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { buildSchemaData, renderSchemaMarkup } from "@/utils/schema";
 import {
   industriesItems,
   platformFeatures,
   solutionsItems,
 } from "@/components/modules/navbar/data";
+import { useState } from "react";
+import { TStaterPlanData } from "@/types/types";
 
 const Footer = () => {
   const pathname = usePathname();
   const isHomepage = pathname === "/";
+  const [starterPlan, setStarterPlan] = useState<TStaterPlanData[]>([]);
+  const router = useRouter();
+  const handleStarterPlan = async (starterPlan: TStaterPlanData) => {
+    const planData = {
+      price: starterPlan?.price,
+      fleet: starterPlan?.name || "Starter Fleet",
+      slot: starterPlan?.slotMinimum || 10,
+      annually: false,
+      id: starterPlan?.id, // Replace with actual ID from your backend
+    };
+
+    localStorage.setItem("selectedPlan", JSON.stringify(planData));
+    router.push("/getting-started");
+  };
   return (
     <div className="bg-[#0A2540]">
       <div className="md:block h-auto w-full text-[#fff] max-w-[1450px] mx-auto px-4">
@@ -32,7 +47,7 @@ const Footer = () => {
                 Fleet Management Has Never Been This Easy
               </h3>
               <div className="md:flex hidden justify-center z-[100] lg:mt-8">
-                <Link
+                {/* <Link
                   aria-label="Get started with FleetBlox"
                   href="/getting-started"
                 >
@@ -40,22 +55,44 @@ const Footer = () => {
                     <div className="z-20 whitespace-nowrap font-openSans">
                       Switch Today
                     </div>
-                    {/* 143.39 */}
-                    {/* hover:w-[165.39px]  */}
                     <div className="z-10 transform transition-transform opacity-0 group-hover:opacity-100 -translate-x-4 duration-300 group-hover:translate-x-0">
                       <RightArrowIcon />
                     </div>
                   </button>
-                </Link>
+                </Link> */}
+
+                <button
+                  aria-label="Get started with Starter Fleet"
+                  onClick={() => {
+                    handleStarterPlan(starterPlan[0]);
+                  }}
+                  className="transition-all bg-[#2D65F2] text-white-primary text-white duration-300 hover:w-[165.39px] w-[143.39px] flex items-center px-4 py-3 text-base font-bold rounded-md group"
+                >
+                  <div className="z-20 whitespace-nowrap font-openSans">
+                    Switch Today
+                  </div>
+                  <div className="z-10 transform transition-transform opacity-0 group-hover:opacity-100 -translate-x-4 duration-300 group-hover:translate-x-0">
+                    <RightArrowIcon />
+                  </div>
+                </button>
               </div>
-              <Link
+              {/* <Link
                 aria-label="Get started with FleetBlox"
                 href="/getting-started"
               >
                 <button className="md:hidden bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
                   Switch Today
                 </button>
-              </Link>
+              </Link> */}
+              <button
+                aria-label="Get started with Starter Fleet"
+                onClick={() => {
+                  handleStarterPlan(starterPlan[0]);
+                }}
+                className="md:hidden bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center"
+              >
+                Switch Today
+              </button>
             </div>
             <div className="max-h-[520px] h-[400px] lg:h-[520px] md:h-[400px] filter blur-[210px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50  rounded-[520px] w-[380px] lg:w-[520px] bg-[#B8CBFC] absolute opacity-50 "></div>
             <div className="absolute z-[100] mix-blend-multiply -top-14 h-[500px] lg:h-[660px]">

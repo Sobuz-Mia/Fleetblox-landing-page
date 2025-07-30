@@ -9,19 +9,32 @@ import TopArrow from "@/components/icons/TopArrow";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { TStaterPlanData } from "@/types/types";
 
 const NavbarMobileView = () => {
   const [isProduct, setIsProduct] = useState(false);
   const [isSolutions, setIsSolutions] = useState(false);
   const [isResources, setIsResources] = useState(false);
   const [isDemoRequest] = useState(false);
-  const router = useRouter();
 
   const handleDemoRequest = () => {
     localStorage.setItem("isGetDemo", "true");
     router.push("/getting-started");
   };
+  const [starterPlan, setStarterPlan] = useState<TStaterPlanData[]>([]);
+  const router = useRouter();
+  const handleStarterPlan = async (starterPlan: TStaterPlanData) => {
+    const planData = {
+      price: starterPlan?.price,
+      fleet: starterPlan?.name || "Starter Fleet",
+      slot: starterPlan?.slotMinimum || 10,
+      annually: false,
+      id: starterPlan?.id, // Replace with actual ID from your backend
+    };
 
+    localStorage.setItem("selectedPlan", JSON.stringify(planData));
+    router.push("/getting-started");
+  };
   return (
     <motion.div
       initial={{ opacity: 0, y: -20 }}
@@ -100,14 +113,24 @@ const NavbarMobileView = () => {
           {/* Fixed bottom buttons */}
           <div className="sticky bottom-0 left-0 right-0 flex flex-col items-center justify-center text-center p-5 bg-[#FAFAFF]">
             <div className="w-full">
-              <Link
+              {/* <Link
                 aria-label="Get started with FleetBlox"
                 href="/getting-started"
               >
                 <button className="py-3 px-5 bg-[#2D65F2] rounded-md text-[14px] font-openSans font-bold w-full text-white">
                   Get Started
                 </button>
-              </Link>
+              </Link> */}
+
+              <button
+                aria-label="Get started with Starter Fleet"
+                onClick={() => {
+                  handleStarterPlan(starterPlan[0]);
+                }}
+                className="py-3 px-5 bg-[#2D65F2] rounded-md text-[14px] font-openSans font-bold w-full text-white"
+              >
+                Get Started
+              </button>
             </div>
             <button
               onClick={handleDemoRequest}

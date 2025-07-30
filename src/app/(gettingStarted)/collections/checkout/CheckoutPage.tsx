@@ -338,12 +338,32 @@ const CheckOutPage = () => {
                 Subscription Summary
               </div>
               <div className="">
-                <button
+                {/* <button
                   onClick={handleChangePlan}
                   className="text-[#2D65F2] font-openSans font-bold text-[14px]"
                 >
                   Change Plan
-                </button>
+                </button> */}
+
+                <div id="tooltip" className="relative cursor-pointer group ">
+                  <div className="text-[#2D65F2] font-openSans font-bold text-[14px] hidden md:block">
+                    Change Plan
+                  </div>
+                  <span className="absolute w-[400px] hidden shadow-md md:group-hover:inline-block bg-[#6F6464] rounded-[8px]  p-4 whitespace-normal left-[90%] -translate-x-1/2 bottom-[calc(100%+8px)] text-[#fff] text-[14px] font-openSans">
+                    Other plans are not available yet except Starter Fleet.
+                    Please Contact us for more info.
+                  </span>
+                  <span
+                    className="absolute hidden group-hover:inline-block left-8 -translate-x-1/2 bottom-full"
+                    style={{
+                      width: 0,
+                      height: 0,
+                      borderLeft: "10px solid transparent",
+                      borderRight: "10px solid transparent",
+                      borderTop: "8px solid #6F6464",
+                    }}
+                  ></span>
+                </div>
               </div>
             </div>
             {/* monthly  */}
