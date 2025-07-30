@@ -10,19 +10,19 @@ const EMobilityServices = () => {
       title: "Unleash Maximum Performance for All EVs, All the Time",
       content:
         "Fleetblox gives you instant, single-pane visibility into your entire EV fleet - from vehicle health and battery condition to location and usage. View the condition of every vehicle at a glance, detect early signs of deterioration, and be assured your assets are always ready to roll. With centralized insight across brands",
-      image: `/images/industries/evs-1.svg`,
+      image: `/images/industries/emv-1.svg`,
     },
     {
       title: "Smarter Charging, Smooth Operations",
       content:
         "Fleetblox puts you in full command of your charging system - in real-time. Whether cars are on the move, parked, or actually charging, you have live insight into battery level, charging state, and overall vehicle health.",
-      image: `/images/industries/evs-2.svg`,
+      image: `/images/industries/emv-2.svg`,
     },
     {
       title: "Stop EV Overspending Before It Starts",
       content:
         "Fleetblox gives you total control over your EV fleet's spend. Assign per-vehicle budgets, customize alert levels, and track usage through simple-to-read visual reports. Get real-time alerts whenever a threshold is crossed - with a breakdown of exactly what happened - and eliminate waste, improve efficiency, and drive lean and scalable operations.",
-      image: `/images/industries/evs-3.svg`,
+      image: `/images/industries/emv-3.svg`,
     },
   ];
 

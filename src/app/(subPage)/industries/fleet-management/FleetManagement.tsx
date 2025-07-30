@@ -22,7 +22,7 @@ const FleetManagement = () => {
       title: "Remote Diagnostic that Keep Revenue Rolling",
       content:
         "With Fleetblox, you're able to track your entire fleet ecosystem - vehicle health to maintenance schedules, digital inspections, and real-time diagnostics. Have complete visibility into the status of all vehicles, monitor all assets in multiple locations, and coordinate proactive repairs and inspections - all in one platform.",
-      image: `/images/industries/one-network-3.svg`,
+      image: `/images/industries/one-network-4.svg`,
     },
   ];
 
