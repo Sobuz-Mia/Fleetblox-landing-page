@@ -186,10 +186,9 @@ const FeaturesPermissionRow: React.FC<FeaturesPermissionRowComponentProps> = ({
             {" "}
             {featuresPermissions?.title}
           </div>
-          <span className="absolute w-[400px] hidden shadow-md group-hover:inline-block bg-[#6F6464] rounded-[8px]  p-4 whitespace-normal left-[90%] -translate-x-1/2 bottom-[calc(100%+8px)] text-[#fff] text-[14px] font-openSans">
+          <span className="absolute w-[400px] hidden shadow-md md:group-hover:inline-block bg-[#6F6464] rounded-[8px]  p-4 whitespace-normal left-[90%] -translate-x-1/2 bottom-[calc(100%+8px)] text-[#fff] text-[14px] font-openSans">
             {featuresPermissions?.desc}
           </span>
-
           <span
             className="absolute hidden group-hover:inline-block left-8 -translate-x-1/2 bottom-full"
             style={{
