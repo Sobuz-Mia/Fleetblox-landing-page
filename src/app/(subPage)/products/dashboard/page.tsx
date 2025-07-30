@@ -1,9 +1,9 @@
 "use client";
-import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import FeatureCard from "@/components/ui/FeatureCard";
 import Image from "next/image";
 import Link from "next/link";
 import GlobeSection from "@/components/modules/home/globe";
+import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 const page = () => {
   const FleetsFit = [
     {
@@ -71,7 +71,7 @@ const page = () => {
               {`Keep control of your entire fleet operation from one smart dashboard—providing real-time intelligence, activity tracking, and total operational visibility in a single powerful interface.`}
             </p>
             <div className="flex items-center gap-4">
-              <Link
+              {/* <Link
                 aria-label="Get started with FleetBlox"
                 href="/getting-started"
               >
@@ -81,10 +81,13 @@ const page = () => {
                     <RightArrowIcon />
                   </div>
                 </button>
-              </Link>
+              </Link> */}
+
+              <StarterFleetActionButton text="Start Today" />
+              {/* <StarterFleetActionButton isMobile={true} text="Start Today" /> */}
               <button onClick={() => localStorage.setItem("isGetDemo", "true")}>
                 <Link href="/getting-started">
-                  <span className="cursor-pointer text-[16px] transition-all duration-300 ease-in-out hover:text-[#7D7D7D0] py-[13px] rounded-md px-5 border-[#B8CBFC] border text-[#2D65F2] font-bold  font-openSans">
+                  <span className="cursor-pointer text-[16px] transition-all duration-300 ease-in-out hover:text-[#7D7D7D0] py-[13px] rounded-md px-5 border-[#B8CBFC] border text-[#2D65F2] font-bold  font-openSans hidden lg:block">
                     Get Demo
                   </span>
                 </Link>
@@ -94,8 +97,16 @@ const page = () => {
               aria-label="Get started with FleetBlox"
               href="/getting-started"
             >
-              <button className="lg:hidden bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
+              {/* <button className="lg:hidden bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
                 Start today
+              </button> */}
+
+              <StarterFleetActionButton isMobile={true} text="Start Today" />
+              <button
+                onClick={() => localStorage.setItem("isGetDemo", "true")}
+                className="lg:hidden cursor-pointer text-[16px] mt-[10px] transition-all duration-300 ease-in-out hover:text-[#7D7D7D0] py-[13px] rounded-md px-5 border-[#B8CBFC] border text-[#2D65F2] font-bold  font-openSans w-full"
+              >
+                Get Demos
               </button>
             </Link>
           </div>

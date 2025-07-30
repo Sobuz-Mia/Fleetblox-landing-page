@@ -1,11 +1,11 @@
 "use client";
-import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import FeatureCard from "@/components/ui/FeatureCard";
 import Image from "next/image";
 import Link from "next/link";
 import GlobeSection from "@/components/modules/home/globe";
 import FleetConnectionStep from "../component/FleetConnectionStep";
 import StepCard from "../component/StepCard";
+import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 const Onboarding = () => {
   const FleetEfficiency = [
     {
@@ -63,7 +63,7 @@ const Onboarding = () => {
               up and running—all in one platform.
             </p>
             <div className="flex items-center gap-4">
-              <Link
+              {/* <Link
                 aria-label="Get started with FleetBlox"
                 href="/getting-started"
               >
@@ -73,7 +73,9 @@ const Onboarding = () => {
                     <RightArrowIcon />
                   </div>
                 </button>
-              </Link>
+              </Link> */}
+
+              <StarterFleetActionButton text="Start Today" />
               <button
                 className="hidden lg:block"
                 onClick={() => localStorage.setItem("isGetDemo", "true")}
@@ -92,14 +94,15 @@ const Onboarding = () => {
               >
                 <Link href="/getting-started">Get Demo</Link>
               </button>
-              <Link
+              <StarterFleetActionButton isMobile={true} text="Start Today" />
+              {/* <Link
                 aria-label="Get started with FleetBlox"
                 href="/getting-started"
               >
                 <button className="lg:hidden bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
                   Start today
                 </button>
-              </Link>
+              </Link> */}
             </div>
           </div>
           <div className="py-5 lg:pl-[60px]">
@@ -234,11 +237,11 @@ const Onboarding = () => {
         title="Take Command of Your Fleet— Day One"
         description="Add your first vehicles today and watch your business expand with precision"
         extraButton={
-          <Link href={"/getting-started"}>
-            <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
-              Check Compatibility
-            </button>
-          </Link>
+          // <Link href={"/getting-started"}>
+          <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
+            Check Compatibility
+          </button>
+          // </Link>
         }
       />
     </div>

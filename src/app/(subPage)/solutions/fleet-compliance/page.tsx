@@ -1,8 +1,8 @@
 "use client";
 import CheckIcon from "@/components/icons/CheckIcon";
-import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import GlobeSection from "@/components/modules/home/globe";
 import FeatureCard from "@/components/ui/FeatureCard";
+import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 import { KeepingComplianceData } from "@/Static_data/solution";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,7 +26,7 @@ const page = () => {
               operation.
             </p>
             <div className="flex items-center gap-4">
-              <Link
+              {/* <Link
                 aria-label="Get started with FleetBlox"
                 href="/getting-started"
               >
@@ -36,7 +36,9 @@ const page = () => {
                     <RightArrowIcon />
                   </div>
                 </button>
-              </Link>
+              </Link> */}
+
+              <StarterFleetActionButton text="Start Today" />
               <button
                 className="hidden lg:block"
                 onClick={() => localStorage.setItem("isGetDemo", "true")}
@@ -53,16 +55,17 @@ const page = () => {
                 className="lg:hidden block cursor-pointer text-[16px] transition-all duration-300 ease-in-out hover:text-[#7D7D7D0] py-[13px] rounded-md px-5 border-[#B8CBFC] border text-[#2D65F2] font-bold  font-openSans"
                 onClick={() => localStorage.setItem("isGetDemo", "true")}
               >
-                <Link href="/getting-started">Get Demo</Link>
+                Get Demo
               </button>
-              <Link
+              <StarterFleetActionButton isMobile={true} text="Start Today" />
+              {/* <Link
                 aria-label="Get started with FleetBlox"
                 href="/getting-started"
               >
                 <button className="lg:hidden bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
                   Start today
                 </button>
-              </Link>
+              </Link> */}
             </div>
           </div>
           <div className=" w-full py-10 lg:pl-[60px]">

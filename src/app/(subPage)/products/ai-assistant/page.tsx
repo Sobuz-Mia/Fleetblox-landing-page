@@ -1,12 +1,10 @@
-import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import GlobeSection from "@/components/modules/home/globe";
-
 import FeatureCard from "@/components/ui/FeatureCard";
 import Image from "next/image";
-import Link from "next/link";
 import StepCard from "../component/StepCard";
 import { NoHardware, RealtimeVisibility } from "../fleet-integration/page";
 import FleetConnectionStep from "../component/FleetConnectionStep";
+import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 
 const page = () => {
   const whyFleetTeamChoose = [
@@ -70,7 +68,7 @@ const page = () => {
               to help you manage your fleet, answer your questions, and keep you
               informed—anytime, anywhere.
             </p>
-            <Link
+            {/* <Link
               aria-label="Get started with FleetBlox"
               href="/getting-started"
             >
@@ -88,7 +86,10 @@ const page = () => {
               <button className="lg:hidden bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
                 Start today
               </button>
-            </Link>
+            </Link> */}
+
+            <StarterFleetActionButton text="Start Today" />
+            <StarterFleetActionButton isMobile={true} text="Start Today" />
           </div>
           <div className=" w-full py-5 lg:pl-[60px]">
             <Image

@@ -1,10 +1,9 @@
-import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import FeatureCard from "@/components/ui/FeatureCard";
 import Image from "next/image";
-import Link from "next/link";
 import GlobeSection from "@/components/modules/home/globe";
 import StepCard from "../component/StepCard";
 import FleetConnectionStep from "../component/FleetConnectionStep";
+import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 const page = () => {
   const FleetsFit = [
     {
@@ -65,7 +64,7 @@ const page = () => {
             <p className="text-[#333] text-[16px] leading-6 mt-4 mb-5 font-openSans">
               {`Deploy and manage your team at various business sites, leveraging real-time information to optimize task allocation, performance tracking, and workflow control that enables improved coordination, business adaptability, and optimal productivity.`}
             </p>
-            <Link
+            {/* <Link
               aria-label="Get started with FleetBlox"
               href="/getting-started"
             >
@@ -83,7 +82,10 @@ const page = () => {
               <button className="lg:hidden bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
                 Start today
               </button>
-            </Link>
+            </Link> */}
+
+            <StarterFleetActionButton text="Start Today" />
+            <StarterFleetActionButton isMobile={true} text="Start Today" />
           </div>
           <div className=" w-full py-5 lg:pl-[60px]">
             <Image

@@ -1,12 +1,11 @@
 "use client";
-import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import Image from "next/image";
-import Link from "next/link";
 import GlobeSection from "@/components/modules/home/globe";
 
 // Dynamic import for GSAP animations
 import dynamic from "next/dynamic";
 import Loader from "@/app/(gettingStarted)/components/Loader";
+import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 
 // import ScrollingSection from "./components/scrollingAnnimation";
 
@@ -98,7 +97,7 @@ const AutoDealership = () => {
               real time, move vehicles between branches effortlessly, and keep
               every unit sale-ready from one, integrated platform.
             </p>
-            <Link
+            {/* <Link
               aria-label="Get started with FleetBlox"
               href="/getting-started"
             >
@@ -108,15 +107,17 @@ const AutoDealership = () => {
                   <RightArrowIcon />
                 </div>
               </button>
-            </Link>
-            <Link
+            </Link> */}
+            {/* <Link
               aria-label="Get started with FleetBlox"
               href="/getting-started"
             >
               <button className="lg:hidden bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
                 Start today
               </button>
-            </Link>
+            </Link> */}
+            <StarterFleetActionButton text="Start Today" />
+            <StarterFleetActionButton isMobile={true} text="Start Today" />
           </div>
           <div className=" w-full py-10 lg:pl-[60px]">
             <Image

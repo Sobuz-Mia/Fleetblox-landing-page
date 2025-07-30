@@ -1,9 +1,9 @@
 "use client";
-import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import FeatureCard from "@/components/ui/FeatureCard";
 import Image from "next/image";
 import Link from "next/link";
 import GlobeSection from "@/components/modules/home/globe";
+import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 const page = () => {
   const FleetsFit = [
     {
@@ -65,7 +65,7 @@ const page = () => {
               {`Take control of your fleet's compliance in each location with smart document management, automated renewal alerts, and real-time visibility—keeping all vehicles road-ready, audit-proof, and fully compliant.`}
             </p>
             <div className="flex items-center gap-4">
-              <Link
+              {/* <Link
                 aria-label="Get started with FleetBlox"
                 href="/getting-started"
               >
@@ -75,7 +75,10 @@ const page = () => {
                     <RightArrowIcon />
                   </div>
                 </button>
-              </Link>
+                
+              </Link> */}
+
+              <StarterFleetActionButton text="Start Today" />
               <button
                 className="hidden lg:block"
                 onClick={() => localStorage.setItem("isGetDemo", "true")}
@@ -95,14 +98,15 @@ const page = () => {
               >
                 <Link href="/getting-started">Get Demo</Link>
               </button>
-              <Link
+              <StarterFleetActionButton isMobile={true} text="Start Today" />
+              {/* <Link
                 aria-label="Get started with FleetBlox"
                 href="/getting-started"
               >
                 <button className="lg:hidden bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
                   Start today
                 </button>
-              </Link>
+              </Link> */}
             </div>
           </div>
           <div className=" lg:w-1/2 py-5">
@@ -214,11 +218,11 @@ const page = () => {
                 </span>
               </Link>
             </button>
-            <Link href={"/getting-started"}>
-              <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
-                Get Started
-              </button>
-            </Link>
+            {/* <Link href={"/getting-started"}> */}
+            <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
+              Get Started
+            </button>
+            {/* </Link> */}
           </div>
         }
       />
