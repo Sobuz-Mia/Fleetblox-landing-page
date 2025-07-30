@@ -11,39 +11,14 @@ import { Solutions } from "@/components/modules/navbar/solutions/Solutions";
 import { Resources } from "@/components/modules/navbar/resources/Resources";
 import NavbarMobileView from "@/components/modules/navbar/NavbarMobileView";
 import { TStaterPlanData } from "@/types/types";
-import axios from "axios";
-import config from "@/utils/config";
 
 const Navbar = () => {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [staterPlanLoading, setStarterPlanLoading] = useState(true);
-  const [staterPlanError, setStarterPlanError] = useState<string | null>(null);
-  const [starterPlan, setStarterPlan] = useState<TStaterPlanData[]>([]);
-  const baseUrl = config.api.baseUrl;
+  const [starterPlan] = useState<TStaterPlanData[]>([]);
   const router = useRouter();
-  // get starter plan data fetching start
-  useEffect(() => {
-    const fetchStaterPlanData = async () => {
-      try {
-        const response = await axios.get(
-          `${baseUrl}/api/subscription/plan/starter`
-        );
-        setStarterPlan(response.data.data);
-      } catch (err) {
-        if (err instanceof Error) {
-          setStarterPlanError(err.message);
-        } else {
-          setStarterPlanError("Unexpected error!! Please try again later.");
-        }
-      } finally {
-        setStarterPlanLoading(false);
-      }
-    };
 
-    fetchStaterPlanData();
-  }, []);
   // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {

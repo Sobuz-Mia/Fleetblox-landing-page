@@ -21,7 +21,7 @@ const NavbarMobileView = () => {
     localStorage.setItem("isGetDemo", "true");
     router.push("/getting-started");
   };
-  const [starterPlan, setStarterPlan] = useState<TStaterPlanData[]>([]);
+  const [starterPlan] = useState<TStaterPlanData[]>([]);
   const router = useRouter();
   const handleStarterPlan = async (starterPlan: TStaterPlanData) => {
     const planData = {

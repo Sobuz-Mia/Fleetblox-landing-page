@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 const HeroSection = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
-  const [starterPlan, setStarterPlan] = useState<TStaterPlanData[]>([]);
+  const [starterPlan] = useState<TStaterPlanData[]>([]);
   const router = useRouter();
   const handleStarterPlan = async (starterPlan: TStaterPlanData) => {
     const planData = {

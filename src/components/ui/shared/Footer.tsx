@@ -22,7 +22,7 @@ import { TStaterPlanData } from "@/types/types";
 const Footer = () => {
   const pathname = usePathname();
   const isHomepage = pathname === "/";
-  const [starterPlan, setStarterPlan] = useState<TStaterPlanData[]>([]);
+  const [starterPlan] = useState<TStaterPlanData[]>([]);
   const router = useRouter();
   const handleStarterPlan = async (starterPlan: TStaterPlanData) => {
     const planData = {
