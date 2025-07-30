@@ -4,21 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import Logo from "../../../../public/images/logo.svg";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Product } from "@/components/modules/navbar/product/Product";
 import { Solutions } from "@/components/modules/navbar/solutions/Solutions";
 import { Resources } from "@/components/modules/navbar/resources/Resources";
 import NavbarMobileView from "@/components/modules/navbar/NavbarMobileView";
-import { TStaterPlanData } from "@/types/types";
+import StarterFleetActionButton from "../StarterFleetActionButton";
 
 const Navbar = () => {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [starterPlan] = useState<TStaterPlanData[]>([]);
-  const router = useRouter();
-
   // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
@@ -36,18 +33,7 @@ const Navbar = () => {
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
-  const handleStarterPlan = async (starterPlan: TStaterPlanData) => {
-    const planData = {
-      price: starterPlan?.price,
-      fleet: starterPlan?.name || "Starter Fleet",
-      slot: starterPlan?.slotMinimum || 10,
-      annually: false,
-      id: starterPlan?.id, // Replace with actual ID from your backend
-    };
 
-    localStorage.setItem("selectedPlan", JSON.stringify(planData));
-    router.push("/getting-started");
-  };
   return (
     <nav
       aria-label="Primary navigation"
@@ -104,15 +90,8 @@ const Navbar = () => {
                 Get Started
               </button>
             </Link> */}
-            <button
-              aria-label="Get started with Starter Fleet"
-              onClick={() => {
-                handleStarterPlan(starterPlan[0]);
-              }}
-              className="py-[12px] px-4 rounded-lg font-openSans bg-[#2D65F2] text-[#fff]"
-            >
-              Get Started
-            </button>
+
+            <StarterFleetActionButton />
           </div>
           {/* Desktop Menu end */}
 

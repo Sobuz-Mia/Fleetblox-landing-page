@@ -1,4 +1,6 @@
 "use client";
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Image from "next/image";
 import image1 from "../../../../public/brand/Frame 1707481648.svg";
 import image2 from "../../../../public/brand/Frame 1707481652.svg";
@@ -35,12 +37,38 @@ import image32 from "../../../../public/brand/Frame 1707481680.svg";
 import image33 from "../../../../public/brand/Frame 1707481661.svg";
 import { cars } from "@/Static_data/data";
 import { TStaterPlanData } from "@/types/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import config from "@/utils/config";
 
 const GlobalCoverageAndCompatibility = () => {
-  const [starterPlan] = useState<TStaterPlanData[]>([]);
+  const [starterPlan, setStarterPlan] = useState<TStaterPlanData[]>([]);
   const router = useRouter();
+  const baseUrl = config.api.baseUrl;
+
+  const [staterPlanLoading, setStarterPlanLoading] = useState(true);
+  const [staterPlanError, setStarterPlanError] = useState<string | null>(null);
+  useEffect(() => {
+    const fetchStaterPlanData = async () => {
+      try {
+        const response = await axios.get(
+          `${baseUrl}/api/subscription/plan/starter`
+        );
+        setStarterPlan(response.data.data);
+      } catch (err) {
+        if (err instanceof Error) {
+          setStarterPlanError(err.message);
+        } else {
+          setStarterPlanError("Unexpected error!! Please try again later.");
+        }
+      } finally {
+        setStarterPlanLoading(false);
+      }
+    };
+
+    fetchStaterPlanData();
+  }, []);
   const handleStarterPlan = async (starterPlan: TStaterPlanData) => {
     const planData = {
       price: starterPlan?.price,
