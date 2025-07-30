@@ -1,11 +1,11 @@
 "use client";
-import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import FeatureCard from "@/components/ui/FeatureCard";
 import Image from "next/image";
 import Link from "next/link";
 import GlobeSection from "@/components/modules/home/globe";
 import StepCard from "../component/StepCard";
 import FleetConnectionStep from "../component/FleetConnectionStep";
+import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 const Scalability = () => {
   const FleetEfficiency = [
     {
@@ -63,7 +63,7 @@ const Scalability = () => {
               location, all from one unified platform.
             </p>
             <div className="flex items-center gap-4">
-              <Link
+              {/* <Link
                 aria-label="Get started with FleetBlox"
                 href="/getting-started"
               >
@@ -73,7 +73,9 @@ const Scalability = () => {
                     <RightArrowIcon />
                   </div>
                 </button>
-              </Link>
+              </Link> */}
+
+              <StarterFleetActionButton text="Start Today" />
               <button
                 className="hidden lg:block"
                 onClick={() => localStorage.setItem("isGetDemo", "true")}
@@ -92,14 +94,15 @@ const Scalability = () => {
               >
                 <Link href="/getting-started">Get Demo</Link>
               </button>
-              <Link
+              <StarterFleetActionButton isMobile={true} text="Start Today" />
+              {/* <Link
                 aria-label="Get started with FleetBlox"
                 href="/getting-started"
               >
                 <button className="lg:hidden bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
                   Start today
                 </button>
-              </Link>
+              </Link> */}
             </div>
           </div>
           <div className=" w-full py-5 lg:pl-[60px]">
@@ -258,11 +261,11 @@ const Scalability = () => {
         description="Take the first step towards smarter fleet maintenance with Fleetblox, leveraging AI to optimize your fleet’s performance."
         extraButton={
           <div className="flex items-center gap-4">
-            <Link href={"/getting-started"}>
-              <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
-                Check Compatibility
-              </button>
-            </Link>
+            {/* <Link href={"/getting-started"}> */}
+            <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
+              Check Compatibility
+            </button>
+            {/* </Link> */}
             <button onClick={() => localStorage.setItem("isGetDemo", "true")}>
               <Link href="/getting-started">
                 <span className="cursor-pointer text-[16px] transition-all duration-300 ease-in-out hover:text-[#7D7D7D0] py-[13px] rounded-md px-5 border-[#B8CBFC] border text-[#2D65F2] font-bold  font-openSans">

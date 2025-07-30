@@ -1,4 +1,3 @@
-import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import DataDrivenDricision from "@/components/icons/solution/fleet-intelligence/DataDrivenDricision";
 import ExpendVehicleLife from "@/components/icons/solution/fleet-intelligence/ExpendVehicleLife";
 import MaximizeFleetAvailability from "@/components/icons/solution/fleet-intelligence/MaximizeFleetAvailability";
@@ -7,8 +6,8 @@ import PreventBudget from "@/components/icons/solution/fleet-intelligence/Preven
 import ReduceCostOfOwnership from "@/components/icons/solution/fleet-intelligence/ReduceCostOfOwnership";
 import GlobeSection from "@/components/modules/home/globe";
 import FeatureCard from "@/components/ui/FeatureCard";
+import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 import Image from "next/image";
-import Link from "next/link";
 
 const page = () => {
   const operationDemandsData = [
@@ -55,7 +54,7 @@ const page = () => {
               perform — ensuring fleet operations are cost-effective, compliant,
               and always ready.
             </p>
-            <Link
+            {/* <Link
               aria-label="Get started with FleetBlox"
               href="/getting-started"
             >
@@ -73,7 +72,10 @@ const page = () => {
               <button className="lg:hidden bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
                 Start today
               </button>
-            </Link>
+            </Link> */}
+
+            <StarterFleetActionButton text="Start Today" />
+            <StarterFleetActionButton isMobile={true} text="Start Today" />
           </div>
           <div className=" w-full py-10 lg:pl-[60px]">
             <Image
@@ -261,11 +263,11 @@ const page = () => {
           title="Transform your Fleet Data into Business Value"
           description="FleetBlox leverages advanced AI and intelligent automation to simplify fleet management, turning complex data into actionable insights."
           extraButton={
-            <Link href={"/getting-started"}>
-              <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
-                Get Started
-              </button>
-            </Link>
+            // <Link href={"/getting-started"}>
+            <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
+              Get Started
+            </button>
+            // </Link>
           }
         />
       </div>

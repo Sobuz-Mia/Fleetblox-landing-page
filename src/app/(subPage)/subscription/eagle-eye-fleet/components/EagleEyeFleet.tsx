@@ -4,6 +4,7 @@ import RealtimeFleetAwareness from "./RealtimeFleetAwareness";
 import ReducedRiskAndDowntime from "./ReducedRiskAndDowntime";
 import AuditReadySection from "./AuditReadySection";
 import ExpansionCrossSites from "./ExpansionCrossSites";
+import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 
 const EagleEyeFleet = () => {
   return (
@@ -25,7 +26,7 @@ const EagleEyeFleet = () => {
           installations, or man hours`}
           </p>
           {/* hover:w-[168.72px] w-[190.72px] */}
-          <Link aria-label="Get started with FleetBlox" href="/getting-started">
+          {/* <Link aria-label="Get started with FleetBlox" href="/getting-started">
             <button className="hidden transition-all bg-[#2D65F2] hover:bg-[#0336BC] font-openSans text-white-primary text-white duration-300 hover:w-[190.72px] w-[168.72px] lg:flex items-center px-4 py-3 text-base font-bold rounded-md group">
               <div className="z-50 whitespace-nowrap">View Pricing Plan</div>
               <div className="z-50 transform transition-transform opacity-0 group-hover:opacity-100 -translate-x-4 duration-300 group-hover:translate-x-0">
@@ -37,7 +38,10 @@ const EagleEyeFleet = () => {
             <button className="lg:hidden bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
               Start today
             </button>
-          </Link>
+          </Link> */}
+
+          <StarterFleetActionButton text="Start Today" />
+          <StarterFleetActionButton isMobile={true} text="Start Today" />
         </div>
         {/* Blurred spotlight ellipse */}
         <div
@@ -67,7 +71,7 @@ const EagleEyeFleet = () => {
           </p>
           <Link
             aria-label="Eagle eye your fleet"
-            href="/under-development"
+            href="/subscription/eagle-eye-fleet"
             className="mt-[20px] flex justify-center"
           >
             <button className="hidden transition-all bg-[#2D65F2] hover:bg-[#0336BC] font-openSans text-white-primary text-white duration-300 hover:w-[210.19px] w-[188.19px] lg:flex items-center px-4 py-3 text-base font-bold rounded-md group">

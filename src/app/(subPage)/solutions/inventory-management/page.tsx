@@ -1,12 +1,12 @@
 "use client";
 
-import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import GlobeSection from "@/components/modules/home/globe";
 import FeatureCard from "@/components/ui/FeatureCard";
 import { KeyBenefits } from "@/Static_data/solution";
 import Image from "next/image";
 import Link from "next/link";
 import SmartOnboarding from "./components/SmartOnboarding";
+import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 
 const page = () => {
   const OnboardingData = [
@@ -45,7 +45,7 @@ const page = () => {
               enhanced visibility, and maximized operational efficiency across
               all locations.
             </p>
-            <Link
+            {/* <Link
               aria-label="Get started with FleetBlox"
               href="/getting-started"
             >
@@ -63,7 +63,10 @@ const page = () => {
               <button className="lg:hidden bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
                 Start today
               </button>
-            </Link>
+            </Link> */}
+
+            <StarterFleetActionButton text="Start Today" />
+            <StarterFleetActionButton isMobile={true} text="Start Today" />
           </div>
           <div className=" w-full py-10 lg:pl-[60px]">
             <Image

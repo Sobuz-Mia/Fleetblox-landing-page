@@ -1,6 +1,8 @@
+"use client";
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Image from "next/image";
 import Link from "next/link";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import image1 from "../../../../public/brand/Frame 1707481648.svg";
 import image2 from "../../../../public/brand/Frame 1707481652.svg";
 import image3 from "../../../../public/brand/Frame 1707481662.png";
@@ -34,6 +36,10 @@ import image30 from "../../../../public/brand/Frame 1707481678.svg";
 import image31 from "../../../../public/brand/Frame 1707481679.svg";
 import image32 from "../../../../public/brand/Frame 1707481680.svg";
 import image33 from "../../../../public/brand/Frame 1707481661.svg";
+import { useRouter } from "next/navigation";
+import config from "@/utils/config";
+import axios from "axios";
+import { TStaterPlanData } from "@/types/types";
 type GlobeSectionProps = {
   title: string;
   description?: string;
@@ -46,6 +52,44 @@ const GlobeSection = ({
   extraButton,
   paddingTop,
 }: GlobeSectionProps) => {
+  const [starterPlan, setStarterPlan] = useState<TStaterPlanData[]>([]);
+  const router = useRouter();
+  const baseUrl = config.api.baseUrl;
+
+  const [staterPlanLoading, setStarterPlanLoading] = useState(true);
+  const [staterPlanError, setStarterPlanError] = useState<string | null>(null);
+  useEffect(() => {
+    const fetchStaterPlanData = async () => {
+      try {
+        const response = await axios.get(
+          `${baseUrl}/api/subscription/plan/starter`
+        );
+        setStarterPlan(response.data.data);
+      } catch (err) {
+        if (err instanceof Error) {
+          setStarterPlanError(err.message);
+        } else {
+          setStarterPlanError("Unexpected error!! Please try again later.");
+        }
+      } finally {
+        setStarterPlanLoading(false);
+      }
+    };
+
+    fetchStaterPlanData();
+  }, []);
+  const handleStarterPlan = async (starterPlan: TStaterPlanData) => {
+    const planData = {
+      price: starterPlan?.price,
+      fleet: starterPlan?.name || "Starter Fleet",
+      slot: starterPlan?.slotMinimum || 10,
+      annually: false,
+      id: starterPlan?.id, // Replace with actual ID from your backend
+    };
+
+    localStorage.setItem("selectedPlan", JSON.stringify(planData));
+    router.push("/getting-started");
+  };
   const images = [
     image1,
     image2,
@@ -99,11 +143,20 @@ const GlobeSection = ({
           {extraButton ? (
             <div className="flex justify-center">{extraButton}</div>
           ) : (
-            <Link href={"/getting-started"}>
-              <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
-                Check Compatibility
-              </button>
-            </Link>
+            // <Link href={"/getting-started"}>
+            //   <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
+            //     Check Compatibility
+            //   </button>
+            // </Link>
+            <button
+              aria-label="Get started with Starter Fleet"
+              onClick={() => {
+                handleStarterPlan(starterPlan[0]);
+              }}
+              className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold"
+            >
+              Check Compatibility
+            </button>
           )}
         </div>
         <div className="flex relative h-[376px] w-full items-center justify-center overflow-hidden">

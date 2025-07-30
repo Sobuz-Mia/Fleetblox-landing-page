@@ -1,7 +1,53 @@
+"use client";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+import { TStaterPlanData } from "@/types/types";
+import config from "@/utils/config";
+import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const AuditReadySection = () => {
+  const [starterPlan, setStarterPlan] = useState<TStaterPlanData[]>([]);
+  const router = useRouter();
+  const baseUrl = config.api.baseUrl;
+
+  const [staterPlanLoading, setStarterPlanLoading] = useState(true);
+  const [staterPlanError, setStarterPlanError] = useState<string | null>(null);
+  useEffect(() => {
+    const fetchStaterPlanData = async () => {
+      try {
+        const response = await axios.get(
+          `${baseUrl}/api/subscription/plan/starter`
+        );
+        setStarterPlan(response.data.data);
+      } catch (err) {
+        if (err instanceof Error) {
+          setStarterPlanError(err.message);
+        } else {
+          setStarterPlanError("Unexpected error!! Please try again later.");
+        }
+      } finally {
+        setStarterPlanLoading(false);
+      }
+    };
+
+    fetchStaterPlanData();
+  }, []);
+  const handleStarterPlan = async (starterPlan: TStaterPlanData) => {
+    const planData = {
+      price: starterPlan?.price,
+      fleet: starterPlan?.name || "Starter Fleet",
+      slot: starterPlan?.slotMinimum || 10,
+      annually: false,
+      id: starterPlan?.id, // Replace with actual ID from your backend
+    };
+
+    localStorage.setItem("selectedPlan", JSON.stringify(planData));
+    router.push("/getting-started");
+  };
   return (
     <section className=" py-10 lg:py-[100px] max-w-[1200px] mx-auto w-full px-5">
       <div className="text-center max-w-[840px] mx-auto w-full">
@@ -16,15 +62,19 @@ const AuditReadySection = () => {
           <button onClick={() => localStorage.setItem("isGetDemo", "true")}>
             <Link href="/getting-started">
               <span className="cursor-pointer text-[16px] transition-all duration-300 ease-in-out hover:text-[#7D7D7D0] py-[13px] rounded-md px-5 border-[#B8CBFC] border text-[#2D65F2] font-bold  font-openSans">
-                Get  Demo
+                Get Demo
               </span>
             </Link>
           </button>
-          <Link href={"/getting-started"}>
-            <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
-              Start Today
-            </button>
-          </Link>
+          <button
+            aria-label="Get started with Starter Fleet"
+            onClick={() => {
+              handleStarterPlan(starterPlan[0]);
+            }}
+            className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold"
+          >
+            Start Today
+          </button>
         </div>
       </div>
       <div className="relative text-center hidden md:block">
