@@ -179,7 +179,7 @@ const PricingPlan = () => {
       annually: false,
       id: starterPlan?.id, // Replace with actual ID from your backend
     };
-
+    console.log({ planData, starterPlan });
     localStorage.setItem("selectedPlan", JSON.stringify(planData));
     router.push("/getting-started");
   };
@@ -189,7 +189,7 @@ const PricingPlan = () => {
     localStorage.setItem("packageName", packageName);
     localStorage.setItem("isGetDemo", "true");
     localStorage.setItem("earlyAccess", "true");
-    
+
     // Navigate to contact page
     router.push("/getting-started");
   };
@@ -385,10 +385,10 @@ const PricingPlan = () => {
                           {slotCount >= 200
                             ? "30%"
                             : slotCount >= 150
-                              ? "18%"
-                              : slotCount >= 100
-                                ? "10%"
-                                : "5%"}{" "}
+                            ? "18%"
+                            : slotCount >= 100
+                            ? "10%"
+                            : "5%"}{" "}
                           discount {billAnnually && "+"}
                         </p>
                       )}
@@ -441,8 +441,9 @@ const PricingPlan = () => {
 
                 {/* <p className="text-sm text-[#999]">{plan.discount}</p> */}
                 <ul
-                  className={`${plan?.name !== "Eagle eye fleet" ? "mt-2 " : "mt-5"
-                    } space-y-2`}
+                  className={`${
+                    plan?.name !== "Eagle eye fleet" ? "mt-2 " : "mt-5"
+                  } space-y-2`}
                 >
                   {plan?.description.map((feature: any, i: number) => (
                     <li key={i} className="flex items-start gap-[10px]">
@@ -455,8 +456,11 @@ const PricingPlan = () => {
                 </ul>
                 <div className="w-full mt-8">
                   <div
-                    className={`w-full ${plan?.name === "Dynamic fleet" ? "md:mt-[90px]" : "" 
-                      } ${plan?.name === "Eagle eye fleet" ? "md:mt-[105px]" : ""}`}
+                    className={`w-full ${
+                      plan?.name === "Dynamic fleet" ? "md:mt-[90px]" : ""
+                    } ${
+                      plan?.name === "Eagle eye fleet" ? "md:mt-[105px]" : ""
+                    }`}
                   >
                     <button
                       aria-label="Get started with FleetBlox"

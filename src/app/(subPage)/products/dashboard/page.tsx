@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import FeatureCard from "@/components/ui/FeatureCard";
 import Image from "next/image";
@@ -85,7 +85,7 @@ const page = () => {
               <button onClick={() => localStorage.setItem("isGetDemo", "true")}>
                 <Link href="/getting-started">
                   <span className="cursor-pointer text-[16px] transition-all duration-300 ease-in-out hover:text-[#7D7D7D0] py-[13px] rounded-md px-5 border-[#B8CBFC] border text-[#2D65F2] font-bold  font-openSans">
-                    Get  Demo
+                    Get Demo
                   </span>
                 </Link>
               </button>

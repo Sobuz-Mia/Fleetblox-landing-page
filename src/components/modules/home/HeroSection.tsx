@@ -2,27 +2,12 @@ import CheckboxIcon from "@/components/icons/CheckboxIcon";
 import heroCardImg from "../../../assets/heroCardImage.png";
 import Image from "next/image";
 import VerticalDividerIcon from "@/components/icons/VerticalDividerIcon";
-import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import { useState, useEffect } from "react";
-import { TStaterPlanData } from "@/types/types";
-import { useRouter } from "next/navigation";
+import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 
 const HeroSection = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const [starterPlan] = useState<TStaterPlanData[]>([]);
-  const router = useRouter();
-  const handleStarterPlan = async (starterPlan: TStaterPlanData) => {
-    const planData = {
-      price: starterPlan?.price,
-      fleet: starterPlan?.name || "Starter Fleet",
-      slot: starterPlan?.slotMinimum || 10,
-      annually: false,
-      id: starterPlan?.id, // Replace with actual ID from your backend
-    };
 
-    localStorage.setItem("selectedPlan", JSON.stringify(planData));
-    router.push("/getting-started");
-  };
   useEffect(() => {
     // Preload critical mobile hero image
     if (window.innerWidth < 1024) {
@@ -105,28 +90,9 @@ const HeroSection = () => {
             </div>
           </button>
         </Link> */}
-        <button
-          aria-label="Get started with Starter Fleet"
-          onClick={() => {
-            handleStarterPlan(starterPlan[0]);
-          }}
-          className="hidden lg:flex transition-all font-openSans bg-[#2D65F2] hover:bg-[#0336BC] text-white-primary text-white duration-300 hover:w-[144.16px] w-[122.16px]  items-center px-[13px] hover:px-4 py-3 text-base font-bold rounded-md group"
-        >
-          <div className="z-20 whitespace-nowrap"> Start Today</div>
-          <div className="z-10 transform transition-transform opacity-0 group-hover:opacity-100 -translate-x-4 duration-300 group-hover:translate-x-0">
-            <RightArrowIcon />
-          </div>
-        </button>
-        <div className="w-full">
-          <button
-            aria-label="Get started with Starter Fleet"
-            onClick={() => {
-              handleStarterPlan(starterPlan[0]);
-            }}
-            className=" py-3 rounded-md w-full text-center bg-[#2D65F2] font-openSans text-[14px] font-bold text-[#fff] flex justify-center lg:hidden"
-          >
-            Start Today
-          </button>
+        <StarterFleetActionButton />
+        <div className="w-full flex justify-center lg:hidden">
+          <StarterFleetActionButton isMobile={true} />
           {/* <Link aria-label="Get started with FleetBlox" href="/getting-started">
             <button className=" py-3 rounded-md w-full text-center bg-[#2D65F2] font-openSans text-[14px] font-bold text-[#fff] flex justify-center lg:hidden">
               Start Today

@@ -200,9 +200,7 @@ const CheckOutPage = () => {
       (brand: any) => brand.compatible === false
     );
     if (!areAllUncompatible) {
-      console.log("areAllUncompatible", areAllUncompatible);
     } else {
-      console.log(areAllUncompatible, "areAllUncompatible");
       router.push("/result/not-compatible");
     }
   }
@@ -315,8 +313,6 @@ const CheckOutPage = () => {
     }
   };
 
-  console.log({ selectedPlan });
-
   return (
     <main className="flex flex-col h-[94vh] w-full  mx-auto px-5 xl:px-6 py-6 sm:py-8 scrollbar-hidden">
       <div className="flex flex-shrink-0 flex-col items-center">
@@ -395,8 +391,7 @@ const CheckOutPage = () => {
               </div>
               <h4>
                 <span className="text-[22px] font-bold text-[#04082C] font-openSans">
-                  {/* ${Math.floor(selectedPlan?.price ?? 199.99)} */}$
-                  {selectedPlan?.price ?? 199.99}
+                  ${Math.floor(selectedPlan?.price ?? 199.99)}
                 </span>
                 <span className="text-[14px] font-[400] leading-[155%] text-[#7d7d7d]">
                   .{selectedPlan?.price?.toFixed(2).split(".")[1]} /
@@ -419,7 +414,6 @@ const CheckOutPage = () => {
                     fill="#2D65F2"
                   />
                 </svg>
-
                 <div className="">
                   <h2 className="text-[#04082C] font-openSans text-[16px] font-[600] leading-[160%]">
                     Total Vehicle Slot

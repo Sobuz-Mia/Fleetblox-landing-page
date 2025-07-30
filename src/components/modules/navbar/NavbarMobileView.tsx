@@ -9,7 +9,7 @@ import TopArrow from "@/components/icons/TopArrow";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { TStaterPlanData } from "@/types/types";
+import StarterFleetActionButton from "./../../ui/StarterFleetActionButton";
 
 const NavbarMobileView = () => {
   const [isProduct, setIsProduct] = useState(false);
@@ -21,20 +21,8 @@ const NavbarMobileView = () => {
     localStorage.setItem("isGetDemo", "true");
     router.push("/getting-started");
   };
-  const [starterPlan] = useState<TStaterPlanData[]>([]);
   const router = useRouter();
-  const handleStarterPlan = async (starterPlan: TStaterPlanData) => {
-    const planData = {
-      price: starterPlan?.price,
-      fleet: starterPlan?.name || "Starter Fleet",
-      slot: starterPlan?.slotMinimum || 10,
-      annually: false,
-      id: starterPlan?.id, // Replace with actual ID from your backend
-    };
 
-    localStorage.setItem("selectedPlan", JSON.stringify(planData));
-    router.push("/getting-started");
-  };
   return (
     <motion.div
       initial={{ opacity: 0, y: -20 }}
@@ -121,16 +109,7 @@ const NavbarMobileView = () => {
                   Get Started
                 </button>
               </Link> */}
-
-              <button
-                aria-label="Get started with Starter Fleet"
-                onClick={() => {
-                  handleStarterPlan(starterPlan[0]);
-                }}
-                className="py-3 px-5 bg-[#2D65F2] rounded-md text-[14px] font-openSans font-bold w-full text-white"
-              >
-                Get Started
-              </button>
+              <StarterFleetActionButton isMobile={true} />
             </div>
             <button
               onClick={handleDemoRequest}
