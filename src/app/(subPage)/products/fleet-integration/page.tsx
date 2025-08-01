@@ -80,7 +80,7 @@ const page = () => {
           </div>
           <div className=" w-full py-5 lg:pl-[60px]">
             <Image
-              src="/images/fleet-connectivity-hero.png"
+              src="/images/Fleet-Integration-hero.png"
               alt="Remote Scalability Hero"
               width={700}
               height={491}
