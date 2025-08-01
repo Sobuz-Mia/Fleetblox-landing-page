@@ -1,11 +1,10 @@
 "use client";
-
-import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import Link from "next/link";
 import Image from "next/image";
 
 import { useEffect, useState } from "react";
 import GlobeSection from "@/components/modules/home/globe";
+import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 
 const StarterFleetPage = () => {
   const [showMobileCta, setShowMobileCta] = useState(false);
@@ -72,14 +71,15 @@ const StarterFleetPage = () => {
           <p className="text-[14px] sm:text-[15px] md:text-[16px] text-[#333] leading-6 font-openSans mb-[20px] sm:mb-[30px] max-w-[90%] md:max-w-[80%] mx-auto">
             {`Unlock real-time visibility into your fleet with no hardware, no installation, and no downtime. Plug in instantly to smarter data and empower your team with the intelligence they need to get your fleet running at peak performance from day one.`}
           </p>
-          <Link aria-label="Get started with FleetBlox" href="/getting-started">
+          {/* <Link aria-label="Get started with FleetBlox" href="/getting-started">
             <button className="hidden transition-all bg-[#2D65F2] hover:bg-[#0336BC] font-openSans text-white-primary text-white duration-300 hover:w-[190.72px] w-[168.72px] lg:flex items-center px-4 py-3 text-base font-bold rounded-md group">
               <div className="z-50 whitespace-nowrap">View Pricing Plan</div>
               <div className="z-50 transform transition-transform opacity-0 group-hover:opacity-100 -translate-x-4 duration-300 group-hover:translate-x-0">
                 <RightArrowIcon />
               </div>
             </button>
-          </Link>
+          </Link> */}
+          <StarterFleetActionButton text="Start Today" />
         </div>
         {/* Blurred spotlight ellipse with animation */}
         <div

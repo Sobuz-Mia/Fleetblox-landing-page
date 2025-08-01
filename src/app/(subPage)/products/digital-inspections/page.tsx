@@ -100,7 +100,7 @@ const page = () => {
           </div>
           <div className=" w-full py-5 lg:pl-[60px]">
             <Image
-              src="/images/ai-powered-inspectionHero.png"
+              src="/images/digital-inspection-hero.png"
               alt="AI assistant for fleet optimization"
               width={700}
               height={491}
