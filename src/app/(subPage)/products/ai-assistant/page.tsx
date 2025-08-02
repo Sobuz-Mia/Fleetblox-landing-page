@@ -93,7 +93,7 @@ const page = () => {
           </div>
           <div className=" w-full py-5 lg:pl-[60px]">
             <Image
-              src="/images/products/ai-assistant-hero.svg"
+              src="/images/products/ai-asistance-hero-img.svg"
               alt="ai assistant"
               width={700}
               height={491}
