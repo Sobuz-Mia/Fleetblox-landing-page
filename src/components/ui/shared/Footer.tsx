@@ -1,79 +1,383 @@
+"use client";
 import Image from "next/image";
 import FooterLogo from "../../../../public/images/footerLogo.png";
 import FacebookIcon from "@/components/icons/FacebookIcon";
-// import InstagramIcon from "@/components/icons/InstagramIcon";
-// import XIcon from "@/components/icons/XIcon";
-import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import LinkdinIcon from "@/components/icons/LinkdinIcon";
+import Link from "next/link";
+import AppleStore from "@/components/icons/AppleStore";
+import GoogleStore from "@/components/icons/GoogleStore";
+import GoogleStoreMobile from "@/components/icons/GoogleStoreMobile";
+import { RequestDemoModal } from "../RequestDemoModal";
+import { usePathname } from "next/navigation";
+import { buildSchemaData, renderSchemaMarkup } from "@/utils/schema";
+import {
+  industriesItems,
+  platformFeatures,
+  solutionsItems,
+} from "@/components/modules/navbar/data";
+import StarterFleetActionButton from "../StarterFleetActionButton";
+
 const Footer = () => {
+  const pathname = usePathname();
+  const isHomepage = pathname === "/";
+
   return (
-    <div className="md:block h-auto w-full bg-[#0A2540] text-[#fff] lg:px-[240px] sm:px-6 md:px-8 pb-[20px]">
-      <div className="">
-        {/* animation */}
-        <div className="relative flex flex-col items-center justify-center py-[120px]">
-          <div className="max-w-[860px] w-full text-center z-[200] flex flex-col mt-[30px]">
-            <h1 className="z-50 font-montserrat text-[28px] lg:text-[52px] font-bold mb-[16px] lg:mb-0">
-              Fleet Management Has Never Been This Easy
-            </h1>
-            <div className="flex justify-center z-[100]">
-              <button className="transition-all bg-[#2D65F2] text-white-primary text-white duration-300 hover:w-[165.39px] w-[143.39px] flex items-center px-4 py-3 text-base font-bold rounded-md group">
-                <div className="z-20 whitespace-nowrap font-openSans">
+    <div className="bg-[#0A2540]">
+      <div className="md:block h-auto w-full text-[#fff] max-w-[1450px] mx-auto px-4">
+        <div className="">
+          {/* animation */}
+          <div className="relative flex flex-col items-center justify-center py-[120px]">
+            <div className="max-w-[860px] w-full text-center z-[200] flex flex-col mt-[20px] lg:mt-[30px]">
+              <h3 className="z-50 font-montserrat text-[28px] lg:text-[52px] font-bold mb-[32px] lg:mb-0 leading-[1.1]">
+                Fleet Management Has Never Been This Easy
+              </h3>
+              <div className="md:flex hidden justify-center z-[100] lg:mt-8">
+                {/* <Link
+                  aria-label="Get started with FleetBlox"
+                  href="/getting-started"
+                >
+                  <button className="transition-all bg-[#2D65F2] text-white-primary text-white duration-300 hover:w-[165.39px] w-[143.39px] flex items-center px-4 py-3 text-base font-bold rounded-md group">
+                    <div className="z-20 whitespace-nowrap font-openSans">
+                      Switch Today
+                    </div>
+                    <div className="z-10 transform transition-transform opacity-0 group-hover:opacity-100 -translate-x-4 duration-300 group-hover:translate-x-0">
+                      <RightArrowIcon />
+                    </div>
+                  </button>
+                </Link> */}
+
+                <StarterFleetActionButton />
+              </div>
+              {/* <Link
+                aria-label="Get started with FleetBlox"
+                href="/getting-started"
+              >
+                <button className="md:hidden bg-[#2D65F2] hover:bg-[#0336BC] text-white w-full flex px-4 py-3 text-[14px] font-openSans font-bold rounded-md justify-center">
                   Switch Today
+                </button>
+              </Link> */}
+              <StarterFleetActionButton isMobile={true} />
+            </div>
+            <div className="max-h-[520px] h-[400px] lg:h-[520px] md:h-[400px] filter blur-[210px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50  rounded-[520px] w-[380px] lg:w-[520px] bg-[#B8CBFC] absolute opacity-50 "></div>
+            <div className="absolute z-[100] mix-blend-multiply -top-14 h-[500px] lg:h-[660px]">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+                className="z-30 h-full object-cover object-center opacity-55 mix-blend-multiply"
+              >
+                <source src="/videos/Footer.webm" type="video/webm" />
+              </video>
+            </div>
+          </div>
+          <div className="flex items-center lg:items-start space-y-[30px] lg:space-y-0 gap-10 flex-col lg:flex-row justify-between mb-10 mt-[20px] lg:mt-[125px]">
+            {/* logo section */}
+            <div className="max-w-[390px] w-full flex flex-col lg:h-[400px] justify-between">
+              <div className="cursor-pointer text-left space-y-[10px] ">
+                <div className="flex justify-center lg:justify-start">
+                  <Link href="/">
+                    <Image src={FooterLogo} alt="footer_logo" />
+                  </Link>
                 </div>
-                {/* 143.39 */}
-                {/* hover:w-[165.39px]  */}
-                <div className="z-10 transform transition-transform opacity-0 group-hover:opacity-100 -translate-x-4 duration-300 group-hover:translate-x-0">
-                  <RightArrowIcon />
+                <p className="mt-5 leading-6 text-[16px] font-openSans lg:block hidden">
+                  Empowering Your Fleet With Artificial Intelligence. Cut Costs.
+                  Minimize Downtime. Maximize Performance.
+                </p>
+              </div>
+              <div className="hidden lg:block">
+                <h2 className="mb-[10px] text-[14px] leading-5 text-[#DFDFDF] font-openSans">
+                  Download Fleetblox Apps
+                </h2>
+                <div className="flex gap-[10px]">
+                  <Link
+                    href={
+                      "https://apps.apple.com/us/app/fleetblox-crew/id6742507808"
+                    }
+                  >
+                    <AppleStore />
+                  </Link>
+                  <Link
+                    href={
+                      "https://play.google.com/store/apps/details?id=com.fleetblox.employee_app"
+                    }
+                  >
+                    <GoogleStore />
+                  </Link>
                 </div>
-              </button>
+              </div>
+            </div>
+            {/* pages section */}
+            <div className="lg:flex grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 text-[16px] font-openSans font-normal text-white leading-6 gap-10 lg:gap-[60px]">
+              {/* product section */}
+              <div className="text-[14px] leading-5">
+                <h5 className=" font-openSans text-[#DFDFDF] text-[12px] leading-normal mb-[10px] ">
+                  Products
+                </h5>
+                {platformFeatures.map((item, index) => (
+                  <Link key={index} className="cursor-pointer" href={item.href}>
+                    <h5 className="font-openSans py-[2px] mb-[5px] cursor-pointer">
+                      {item?.title}
+                    </h5>
+                  </Link>
+                ))}
+              </div>
+              {/* solutions */}
+              <div className=" text-[14px] leading-5 ">
+                <h5 className=" font-openSans text-[#DFDFDF] text-[12px] leading-normal mb-[10px] ">
+                  Solutions
+                </h5>
+                {solutionsItems.map((item, index) => (
+                  <Link key={index} href={item.href}>
+                    <h5 className=" font-openSans py-[2px] mb-[5px]">
+                      {item?.title}
+                    </h5>
+                  </Link>
+                ))}
+              </div>
+              {/* Industries section */}
+              <div className="text-[14px] leading-5 ">
+                <h5 className=" font-openSans text-[#DFDFDF] text-[12px] leading-normal mb-[10px] ">
+                  Industries
+                </h5>
+                {industriesItems.map((item, index) => (
+                  <Link key={index} href={item.href}>
+                    <h5 className=" font-openSans py-[2px] mb-[5px]">
+                      {item?.title}
+                    </h5>
+                  </Link>
+                ))}
+              </div>
+              {/* mobile view company and resources */}
+              <div className="flex md:hidden  flex-col gap-[35px] ">
+                {/* Resourse pages */}
+                <div className="text-[14px] leading-5 ">
+                  <h5 className=" font-openSans text-[#DFDFDF] text-[12px] leading-normal mb-[10px] ">
+                    Resources
+                  </h5>
+                  <Link href="/under-development">
+                    <h5 className=" font-openSans py-[2px] mb-[5px]">Blogs</h5>
+                  </Link>
+                  <Link href="/under-development">
+                    <h5 className=" font-openSans py-[2px] mb-[5px]">
+                      Next Updates
+                    </h5>
+                  </Link>
+                </div>
+                {/* company section */}
+                <div className="text-[14px] leading-5 ">
+                  <h5 className=" font-openSans text-[#DFDFDF] text-[12px] leading-normal mb-[10px] ">
+                    Company
+                  </h5>
+                  <Link href="/pricings">
+                    <h5 className=" font-openSans py-[2px] mb-[5px]">
+                      Pricings
+                    </h5>
+                  </Link>
+                  <Link href="/under-development">
+                    <h5 className=" font-openSans py-[2px] mb-[5px] block lg:hidden">
+                      Request Demo
+                    </h5>
+                  </Link>
+                  <div className="cursor-pointer hidden lg:block">
+                    <RequestDemoModal
+                      button={
+                        <h5 className=" font-openSans py-[2px] mb-[5px]">
+                          Request Demo
+                        </h5>
+                      }
+                    />
+                  </div>
+                  <Link href="/contact">
+                    <h5 className=" font-openSans py-[2px] mb-[5px]">
+                      Contact
+                    </h5>
+                  </Link>
+                  <Link href="/about-us">
+                    <h5 className=" font-openSans py-[2px] mb-[5px]">About</h5>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Desktop view company and resources */}
+              {/* company section */}
+              <div className="text-[14px] hidden md:block leading-5 ">
+                <h5 className=" font-openSans text-[#DFDFDF] text-[12px] leading-normal mb-[10px] ">
+                  Company
+                </h5>
+                <Link href="/pricings">
+                  <h5 className=" font-openSans py-[2px] mb-[5px]">Pricings</h5>
+                </Link>
+                <Link href="/under-development">
+                  <h5 className=" font-openSans py-[2px] mb-[5px] block lg:hidden">
+                    Request Demo
+                  </h5>
+                </Link>
+                <div className="cursor-pointer hidden lg:block">
+                  <RequestDemoModal
+                    button={
+                      <h5 className=" font-openSans py-[2px] mb-[5px]">
+                        Request Demo
+                      </h5>
+                    }
+                  />
+                </div>
+                <Link href="/contact">
+                  <h5 className=" font-openSans py-[2px] mb-[5px]">Contact</h5>
+                </Link>
+                <Link href="/about-us">
+                  <h5 className=" font-openSans py-[2px] mb-[5px]">About</h5>
+                </Link>
+              </div>
+              {/* resources pages */}
+              <div className="text-[14px] hidden md:block leading-5 ">
+                <h5 className=" font-openSans text-[#DFDFDF] text-[12px] leading-normal mb-[10px] ">
+                  Resources
+                </h5>
+                <Link href="/blogs">
+                  <h5 className=" font-openSans py-[2px] mb-[5px]">Blogs</h5>
+                </Link>
+                <Link href="/under-development">
+                  <h5 className=" font-openSans py-[2px] mb-[5px]">
+                    Next Updates
+                  </h5>
+                </Link>
+              </div>
             </div>
           </div>
-          <div className="max-h-[520px] h-[400px] lg:h-[520px] md:h-[400px] filter blur-[210px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50  rounded-[520px] w-[400px] lg:w-[520px] bg-[#B8CBFC] absolute opacity-50 "></div>
-          <div className="absolute z-[100] mix-blend-multiply">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="auto"
-              className="z-30 h-[450px] 2xl:h-[555.497px] object-contain opacity-55 mix-blend-multiply"
-            >
-              <source src="/videos/Footer.mp4" type="video/mp4" />
-            </video>
-          </div>
-        </div>
-        <div className="flex items-center space-y-[30px] lg:space-y-0 flex-col lg:flex-row justify-between mb-10">
-          <div className="cursor-pointer text-center space-y-[10px]">
-            <div className="flex justify-center lg:justify-start">
-              <Image src={FooterLogo} alt="footer_logo" />
+          <div className="lg:hidden block text-center">
+            <h2 className="mb-[10px] text-[14px] leading-5 text-[#DFDFDF] font-openSans">
+              Download Fleetblox Apps
+            </h2>
+            <div className="flex gap-[10px] justify-center">
+              <Link
+                href={
+                  "https://apps.apple.com/us/app/fleetblox-crew/id6742507808"
+                }
+              >
+                <AppleStore />
+              </Link>
+              <Link
+                href={
+                  "https://play.google.com/store/apps/details?id=com.fleetblox.employee_app"
+                }
+              >
+                <GoogleStoreMobile />
+              </Link>
             </div>
           </div>
-          <div className="flex justify-between flex-col lg:flex-row text-[16px] font-openSans font-normal text-white leading-6 font-opensans gap-x-[200px] sm:gap-x-[50px] xl:gap-x-[60px] 2xl:gap-x-[80px] 2.5xl:gap-x-[100px]">
-            {/* <div className="cursor-pointer space-y-[10px]">
-              <h5 className=" font-openSans">Pricings</h5>
-              <h5 className=" font-openSans">Blogs</h5>
-              <h5 className=" font-openSans">Contact</h5>
-            </div>
-            <div className="cursor-pointer space-y-[10px]">
-              <h5 className=" font-openSans">Terms and Conditions</h5>
-              <h5 className=" font-openSans">Privacy Policy</h5>
-            </div> */}
-            <div className="cursor-pointer space-y-[10px]">
-              <h5 className=" font-openSans text-[#fff]">+1 (647) 877-6445</h5>
-              <h5 className=" font-openSans">info@fleetblox.com</h5>
-            </div>
-          </div>
-        </div>
-        <div className="flex items-center flex-col lg:flex-row justify-between pb-[40px]">
-          <div className="flex cursor-pointer items-center gap-[10px]">
-            <FacebookIcon />
-            <LinkdinIcon />
-            {/* <InstagramIcon />
+          <div className="flex items-center flex-col lg:flex-row justify-between pb-[40px] mt-10">
+            <div className="flex md:space-x-[20px] space-y-[10px] md:space-y-0 items-center justify-center flex-col md:flex-row">
+              <div className="flex cursor-pointer items-center gap-[10px]">
+                <Link href="https://www.facebook.com/profile.php?id=61571801825472&mibextid=ZbWKwL">
+                  <FacebookIcon />
+                </Link>
+                <Link href="https://www.linkedin.com/company/fleetblox">
+                  <LinkdinIcon />
+                </Link>
+                {/* <InstagramIcon />
             <XIcon /> */}
+              </div>
+              <div className="flex items-center space-x-[20px] -ml-[40px] md:ml-0">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="2"
+                  height="18"
+                  viewBox="0 0 2 18"
+                  fill="none"
+                  className="hidden md:block"
+                >
+                  <path
+                    d="M1 0.683594V16.6836"
+                    stroke="#7D7D7D"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <Link href="/terms-of-service">
+                  <p className="text-[14px] font-openSans leading-5 font-normal text-white">
+                    Terms of Service
+                  </p>
+                </Link>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="2"
+                  height="18"
+                  viewBox="0 0 2 18"
+                  fill="none"
+                >
+                  <path
+                    d="M1 0.683594V16.6836"
+                    stroke="#7D7D7D"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <Link href="/privacy-policy">
+                  <p className="text-[14px] font-openSans leading-5 font-normal text-white">
+                    Privacy Policy
+                  </p>
+                </Link>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="2"
+                  height="18"
+                  viewBox="0 0 2 18"
+                  fill="none"
+                >
+                  <path
+                    d="M1 0.683594V16.6836"
+                    stroke="#7D7D7D"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <Link href="/cookie-policy">
+                  <p className="text-[14px] font-openSans leading-5 font-normal text-white">
+                    Cookie Policy
+                  </p>
+                </Link>
+              </div>
+            </div>
+            <h5 className="font-openSans text-[16px] leading-6 mt-[10px] mt:mt-0">
+              &copy; {new Date().getFullYear()} Fleetblox. All Rights Reserved
+            </h5>
           </div>
-          <h5 className="font-semibold font-openSans">©2024 Llama Mind</h5>
         </div>
       </div>
+
+      {/* Schema.org structured data */}
+      {isHomepage && (
+        <>
+          {renderSchemaMarkup(
+            buildSchemaData({
+              type: "WebSite",
+              url: `https://fleetblox.site${pathname}`,
+              title:
+                "FleetBlox - Advanced AI-Powered Fleet Management Solution",
+              description:
+                "FleetBlox is an advanced AI-powered, cloud-based fleet connectivity solution that eliminates the need for traditional hardware.",
+            })
+          )}
+          {renderSchemaMarkup(
+            buildSchemaData({
+              type: "Organization",
+              url: `https://fleetblox.site${pathname}`,
+            })
+          )}
+          {renderSchemaMarkup(
+            buildSchemaData({
+              type: "Product",
+              title: "FleetBlox Fleet Management Solution",
+              url: `https://fleetblox.site${pathname}`,
+            })
+          )}
+          {renderSchemaMarkup(
+            buildSchemaData({
+              type: "FAQPage",
+              url: `https://fleetblox.site${pathname}`,
+            })
+          )}
+        </>
+      )}
     </div>
   );
 };
