@@ -5,32 +5,23 @@ const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
 });
 
-// Determine if we're in production environment
-const isProd = process.env.NODE_ENV === 'production';
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://fleetblox.com';
-
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  siteUrl,
 
-  // Environment variables that will be available on the client
   env: {
-    NEXT_PUBLIC_SITE_URL: siteUrl,
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || (isProd ? 'https://api.fleetblox.com' : 'https://dev-api.fleetblox.com'),
-    NEXT_PUBLIC_ENV: process.env.NEXT_PUBLIC_ENV || process.env.NODE_ENV || 'development',
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+    NEXT_PUBLIC_ENV: process.env.NEXT_PUBLIC_ENV || process.env.NODE_ENV,
   },
 
-  // Apply different settings based on environment
-  ...(isProd && {
-    // Production-only settings
+  ...((process.env.NODE_ENV === "production") && {
     poweredByHeader: false,
     compress: true,
   }),
 
-   async headers() {
+  async headers() {
     return [
       {
-        // Apply these headers to all routes
         source: "/(.*)",
         headers: [
           {
@@ -55,7 +46,6 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-      // Cache headers for static images
       {
         source: "/(.*).(jpg|jpeg|png|gif|ico|svg|webp|avif)",
         headers: [
@@ -65,7 +55,6 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-      // Cache headers for static assets in the public folder
       {
         source: "/public/(.*)",
         headers: [
