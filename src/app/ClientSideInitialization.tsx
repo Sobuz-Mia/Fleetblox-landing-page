@@ -6,6 +6,10 @@ import CookieUtils from "@/utils/cookies";
 import dynamic from "next/dynamic";
 import AOSWrapper from "@/components/AOSWrapper";
 
+import { ReactLenis } from "lenis/react";
+
+import "lenis/dist/lenis.css";
+
 // Dynamically import components with SSR disabled for better performance
 const CookieBanner = dynamic(
   () => import("@/components/ui/shared/CookieBanner"),
@@ -83,31 +87,39 @@ export default function ClientSideInitialization({
   }, []);
 
   // Initialize smooth scroll
-  useEffect(() => {
-    import("locomotive-scroll").then((locomotiveModule) => {
-      const LocomotiveScroll = locomotiveModule.default;
-      new LocomotiveScroll({
-        lenisOptions: {
-          duration: 1.5,
-          orientation: "vertical",
-          gestureOrientation: "vertical",
-          smoothWheel: true,
-          wheelMultiplier: 0.75,
-          touchMultiplier: 1.5,
-          easing: (t: number) => 1 - Math.pow(1 - t, 5),
-        },
-      });
-    });
-  }, []);
+  // useEffect(() => {
+  //   import("locomotive-scroll").then((locomotiveModule) => {
+  //     const LocomotiveScroll = locomotiveModule.default;
+  //     new LocomotiveScroll({
+  //       lenisOptions: {
+  //         duration: 1.5,
+  //         orientation: "vertical",
+  //         gestureOrientation: "vertical",
+  //         smoothWheel: true,
+  //         wheelMultiplier: 0.75,
+  //         touchMultiplier: 1.5,
+  //         easing: (t: number) => 1 - Math.pow(1 - t, 5),
+  //       },
+  //     });
+  //   });
+  // }, []);
 
   return (
     <>
-      <AOSWrapper />
-      {children}
-      <CookieBanner />
-      <FacebookPixel />
-      <GoogleAnalyticsComponent />
-      <GlobalSchema />
+      <ReactLenis
+        root
+        options={{
+          lerp: 0.1,
+          duration: 1.4,
+        }}
+      >
+        <AOSWrapper />
+        {children}
+        <CookieBanner />
+        <FacebookPixel />
+        <GoogleAnalyticsComponent />
+        <GlobalSchema />
+      </ReactLenis>
     </>
   );
 }
