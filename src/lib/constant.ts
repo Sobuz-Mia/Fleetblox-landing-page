@@ -363,3 +363,65 @@ export const teamAndAccessManagementItems = [
     desc: "Coordinate with your team instantly through in-app messaging",
   },
 ];
+export const fleetAnalyticsFeatures = [
+  {
+    title: "Analytics Overview ",
+    permissions: [
+      { permission: false },
+      { permission: false },
+      { permission: true },
+      { permission: true },
+    ],
+    // desc: 'System-vehicle fit validation',
+  },
+  {
+    title: "Fuel/ Energy Usage",
+    permissions: [
+      { permission: false },
+      { permission: false },
+      { permission: true },
+      { permission: true },
+    ],
+    // desc: 'System-vehicle fit validation',
+  },
+  {
+    title: "Avg Up/Down Time",
+    permissions: [
+      { permission: false },
+      { permission: false },
+      { permission: true },
+      { permission: true },
+    ],
+    // desc: 'System-vehicle fit validation',
+  },
+  {
+    title: "Driven Millage",
+    permissions: [
+      { permission: false },
+      { permission: false },
+      { permission: true },
+      { permission: true },
+    ],
+    // desc: 'System-vehicle fit validation',
+  },
+  {
+    title: "CO2 Emission",
+    permissions: [
+      { permission: false },
+      { permission: false },
+      { permission: false },
+      { permission: true },
+    ],
+    // desc: 'System-vehicle fit validation',
+  },
+  {
+    title: "Fleet Expenses",
+    permissions: [
+      { permission: false },
+      { permission: false },
+      { permission: false },
+      { permission: true },
+    ],
+    // desc: 'System-vehicle fit validation',
+  },
+];
