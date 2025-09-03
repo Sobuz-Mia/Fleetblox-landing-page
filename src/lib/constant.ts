@@ -372,7 +372,7 @@ export const fleetAnalyticsFeatures = [
       { permission: true },
       { permission: true },
     ],
-    // desc: 'System-vehicle fit validation',
+    desc: "Combined analytical calculations from all fleet locations.",
   },
   {
     title: "Fuel/ Energy Usage",
@@ -382,7 +382,7 @@ export const fleetAnalyticsFeatures = [
       { permission: true },
       { permission: true },
     ],
-    // desc: 'System-vehicle fit validation',
+    desc: "Breakdown and insights into total fuel and energy consumption.",
   },
   {
     title: "Avg Up/Down Time",
@@ -392,7 +392,7 @@ export const fleetAnalyticsFeatures = [
       { permission: true },
       { permission: true },
     ],
-    // desc: 'System-vehicle fit validation',
+    desc: "Analysis of vehicle downtime and overall fleet uptime.",
   },
   {
     title: "Driven Millage",
@@ -402,7 +402,7 @@ export const fleetAnalyticsFeatures = [
       { permission: true },
       { permission: true },
     ],
-    // desc: 'System-vehicle fit validation',
+    desc: "Calculations and comparisons of mileage across all vehicles.",
   },
   {
     title: "CO2 Emission",
@@ -412,7 +412,7 @@ export const fleetAnalyticsFeatures = [
       { permission: false },
       { permission: true },
     ],
-    // desc: 'System-vehicle fit validation',
+    desc: "Carbon emission levels and sustainability status for each vehicle.",
   },
   {
     title: "Fleet Expenses",
@@ -422,6 +422,6 @@ export const fleetAnalyticsFeatures = [
       { permission: false },
       { permission: true },
     ],
-    // desc: 'System-vehicle fit validation',
+    desc: "Breakdown of total expenses for your fleet, organized by location.",
   },
 ];
