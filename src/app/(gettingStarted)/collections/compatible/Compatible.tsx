@@ -123,7 +123,6 @@ const Compatible = () => {
       }
     }
 
-
     // Normal flow - proceed to pricing plan
     setCustomProgress(progress + 10);
     if (isGetDemo) {

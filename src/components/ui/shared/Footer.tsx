@@ -7,7 +7,6 @@ import Link from "next/link";
 import AppleStore from "@/components/icons/AppleStore";
 import GoogleStore from "@/components/icons/GoogleStore";
 import GoogleStoreMobile from "@/components/icons/GoogleStoreMobile";
-import { RequestDemoModal } from "../RequestDemoModal";
 import { usePathname } from "next/navigation";
 import { buildSchemaData, renderSchemaMarkup } from "@/utils/schema";
 import {
@@ -175,20 +174,15 @@ const Footer = () => {
                       Pricings
                     </h5>
                   </Link>
-                  <Link href="/under-development">
-                    <h5 className=" font-openSans py-[2px] mb-[5px] block lg:hidden">
+
+                  <Link href="/getting-started" passHref>
+                    <span
+                      className="font-openSans py-[2px] mb-[5px] cursor-pointer"
+                      onClick={() => localStorage.setItem("isGetDemo", "true")}
+                    >
                       Request Demo
-                    </h5>
+                    </span>
                   </Link>
-                  <div className="cursor-pointer hidden lg:block">
-                    <RequestDemoModal
-                      button={
-                        <h5 className=" font-openSans py-[2px] mb-[5px]">
-                          Request Demo
-                        </h5>
-                      }
-                    />
-                  </div>
                   <Link href="/contact">
                     <h5 className=" font-openSans py-[2px] mb-[5px]">
                       Contact
@@ -209,20 +203,15 @@ const Footer = () => {
                 <Link href="/pricings">
                   <h5 className=" font-openSans py-[2px] mb-[5px]">Pricings</h5>
                 </Link>
-                <Link href="/under-development">
-                  <h5 className=" font-openSans py-[2px] mb-[5px] block lg:hidden">
+                <Link href="/getting-started" passHref>
+                  <span
+                    className="font-openSans py-[2px] mb-[5px] cursor-pointer"
+                    onClick={() => localStorage.setItem("isGetDemo", "true")}
+                  >
                     Request Demo
-                  </h5>
+                  </span>
                 </Link>
-                <div className="cursor-pointer hidden lg:block">
-                  <RequestDemoModal
-                    button={
-                      <h5 className=" font-openSans py-[2px] mb-[5px]">
-                        Request Demo
-                      </h5>
-                    }
-                  />
-                </div>
+
                 <Link href="/contact">
                   <h5 className=" font-openSans py-[2px] mb-[5px]">Contact</h5>
                 </Link>

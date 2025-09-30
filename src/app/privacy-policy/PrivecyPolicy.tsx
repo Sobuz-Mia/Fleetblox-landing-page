@@ -5,20 +5,24 @@ const PrivacyPolicy = () => {
   const [activeSection, setActiveSection] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  
-
   const keyContents = useMemo(
     () => [
-     {id: "introduction", title: "Introduction"},
-     {id: "definitions", title: "Definitions"},
-     {id: "scope-applicability", title: "Scope and Applicability"},
-     {id: "purpose-collection-use", title: "Purpose of Data Collection and Use"},
-     {id: "legal-basis-processing", title: "Legal Basis for Processing Personal Data"},
-     {id: "sharing-disclosure", title: "Sharing and Disclosure"},
-     {id: "data-retention", title: "Data Retention"},
-     {id: "security-measures", title: "Data Security"},
-     {id: "your-rights", title: "User Rights"},
-     {id: "cookies", title: "Cookies and Tracking"},
+      { id: "introduction", title: "Introduction" },
+      { id: "definitions", title: "Definitions" },
+      { id: "scope-applicability", title: "Scope and Applicability" },
+      {
+        id: "purpose-collection-use",
+        title: "Purpose of Data Collection and Use",
+      },
+      {
+        id: "legal-basis-processing",
+        title: "Legal Basis for Processing Personal Data",
+      },
+      { id: "sharing-disclosure", title: "Sharing and Disclosure" },
+      { id: "data-retention", title: "Data Retention" },
+      { id: "security-measures", title: "Data Security" },
+      { id: "your-rights", title: "User Rights" },
+      { id: "cookies", title: "Cookies and Tracking" },
     ],
     []
   );
@@ -298,8 +302,8 @@ const PrivacyPolicy = () => {
                   Data may also include Sensitive Personal Data, as defined
                   under applicable law, including data related to race,
                   ethnicity, health, genetic data, sexual orientation, and any
-                  other information that reveals the individual&apos;s private life
-                  or personal characteristics.
+                  other information that reveals the individual&apos;s private
+                  life or personal characteristics.
                 </li>
                 <li>
                   <strong>Sensitive Personal Data</strong> (also known as
@@ -309,8 +313,8 @@ const PrivacyPolicy = () => {
                   concerning racial or ethnic origin, political opinions,
                   religious or philosophical beliefs, trade union membership,
                   genetic data, biometric data, health data, or data related to
-                  an individual&apos;s sex life or sexual orientation. Such data is
-                  subject to more stringent conditions for collection,
+                  an individual&apos;s sex life or sexual orientation. Such data
+                  is subject to more stringent conditions for collection,
                   processing, and storage under relevant data protection laws
                   such as the GDPR.
                 </li>
@@ -386,15 +390,15 @@ const PrivacyPolicy = () => {
             </h2>
             <div className="text-[14px] sm:text-[16px] text-[#04082C] font-openSans leading-relaxed space-y-3 sm:space-y-4">
               <p className="text-[#7D7D7D]">
-                This Privacy Policy applies to all individuals (&apos;Users&apos;) who use
-                or access the FleetBlox Services, including but not limited to
-                fleet managers, drivers, administrative personnel, or any other
-                individuals authorized to access or interact with the FleetBlox
-                platform (hereinafter referred to as &apos;Users&apos;). This Policy
-                governs all data processing activities conducted by
-                After20solutions Inc., as the Data Controller, in relation to
-                Personal Data processed in connection with the provision of the
-                Services.
+                This Privacy Policy applies to all individuals
+                (&apos;Users&apos;) who use or access the FleetBlox Services,
+                including but not limited to fleet managers, drivers,
+                administrative personnel, or any other individuals authorized to
+                access or interact with the FleetBlox platform (hereinafter
+                referred to as &apos;Users&apos;). This Policy governs all data
+                processing activities conducted by After20solutions Inc., as the
+                Data Controller, in relation to Personal Data processed in
+                connection with the provision of the Services.
               </p>
               <p className="text-[#7D7D7D]">
                 <strong>Application to Data Processing</strong>
@@ -1168,8 +1172,8 @@ const PrivacyPolicy = () => {
               <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-2 sm:ml-4">
                 <li>
                   <strong>Account Information:</strong> Retained for the
-                  duration of your account plus 7 years for legal compliance
-                  and audit purposes.
+                  duration of your account plus 7 years for legal compliance and
+                  audit purposes.
                 </li>
                 <li>
                   <strong>Vehicle Data:</strong> Retained for 3 years from the
@@ -1177,13 +1181,12 @@ const PrivacyPolicy = () => {
                   analytical purposes.
                 </li>
                 <li>
-                  <strong>Payment Information:</strong> Retained for 7 years
-                  in accordance with financial regulations and tax
-                  requirements.
+                  <strong>Payment Information:</strong> Retained for 7 years in
+                  accordance with financial regulations and tax requirements.
                 </li>
                 <li>
-                  <strong>Usage Data:</strong> Retained for 2 years for
-                  service improvement and analytics, then anonymized.
+                  <strong>Usage Data:</strong> Retained for 2 years for service
+                  improvement and analytics, then anonymized.
                 </li>
                 <li>
                   <strong>Location Data:</strong> Retained for 1 year for
@@ -1202,19 +1205,19 @@ const PrivacyPolicy = () => {
               </p>
               <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-2 sm:ml-4">
                 <li>
-                  <strong>Secure Deletion:</strong> Personal Data is
-                  permanently deleted using industry-standard secure deletion
-                  methods that prevent recovery.
+                  <strong>Secure Deletion:</strong> Personal Data is permanently
+                  deleted using industry-standard secure deletion methods that
+                  prevent recovery.
                 </li>
                 <li>
                   <strong>Anonymization:</strong> Where data is retained for
-                  analytical purposes, we remove all identifying information
-                  to ensure individuals cannot be re-identified.
+                  analytical purposes, we remove all identifying information to
+                  ensure individuals cannot be re-identified.
                 </li>
                 <li>
-                  <strong>Backup Data:</strong> Backup copies are also
-                  subject to the same retention policies and are deleted or
-                  anonymized accordingly.
+                  <strong>Backup Data:</strong> Backup copies are also subject
+                  to the same retention policies and are deleted or anonymized
+                  accordingly.
                 </li>
               </ul>
               <p className="text-[#7D7D7D]">
@@ -1225,13 +1228,13 @@ const PrivacyPolicy = () => {
               <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-2 sm:ml-4">
                 <li>
                   <strong>Contractual Necessity:</strong> Retaining data
-                  necessary for the performance of our services and
-                  contractual obligations.
+                  necessary for the performance of our services and contractual
+                  obligations.
                 </li>
                 <li>
-                  <strong>Legal Obligations:</strong> Compliance with
-                  applicable laws, regulations, and industry standards
-                  requiring data retention.
+                  <strong>Legal Obligations:</strong> Compliance with applicable
+                  laws, regulations, and industry standards requiring data
+                  retention.
                 </li>
                 <li>
                   <strong>Legitimate Interests:</strong> Retaining data for
@@ -1274,17 +1277,17 @@ const PrivacyPolicy = () => {
               </p>
               <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-2 sm:ml-4">
                 <li>
-                  <strong>In Transit:</strong> All data transmitted between
-                  your browser, the FleetBlox platform, and our servers is
-                  encrypted using Transport Layer Security (TLS) to protect it
-                  from unauthorized interception during transmission.
+                  <strong>In Transit:</strong> All data transmitted between your
+                  browser, the FleetBlox platform, and our servers is encrypted
+                  using Transport Layer Security (TLS) to protect it from
+                  unauthorized interception during transmission.
                 </li>
                 <li>
                   <strong>At Rest:</strong> Data stored within our systems,
                   including cloud infrastructure, is encrypted using AES-256
                   (Advanced Encryption Standard with a 256-bit key), which is a
-                  military-grade encryption standard recognized globally for
-                  its strength in safeguarding sensitive data.
+                  military-grade encryption standard recognized globally for its
+                  strength in safeguarding sensitive data.
                 </li>
               </ul>
               <p className="text-[#04082C] font-semibold text-[14px] sm:text-[16px]">
@@ -1313,15 +1316,14 @@ const PrivacyPolicy = () => {
                   additional layer of security.
                 </li>
                 <li>
-                  <strong>Monitoring and Logging:</strong> Sensitive data
-                  access is logged, and anomaly detection systems are in place
-                  to flag any suspicious activities.
+                  <strong>Monitoring and Logging:</strong> Sensitive data access
+                  is logged, and anomaly detection systems are in place to flag
+                  any suspicious activities.
                 </li>
               </ul>
               <p className="text-[#04082C] font-semibold text-[14px] sm:text-[16px]">
-                Legal Basis: Article 32(4) (Security of Processing) of the
-                GDPR, Section 1798.150(a) of the CCPA, and Section 7 of
-                PIPEDA.
+                Legal Basis: Article 32(4) (Security of Processing) of the GDPR,
+                Section 1798.150(a) of the CCPA, and Section 7 of PIPEDA.
               </p>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
@@ -1330,14 +1332,13 @@ const PrivacyPolicy = () => {
               <p className="text-[#7D7D7D]">
                 We conduct periodic security audits and vulnerability
                 assessments to identify and mitigate potential risks and
-                security breaches. These assessments are designed to ensure
-                that our platform is continuously protected against emerging
-                threats and vulnerabilities.
+                security breaches. These assessments are designed to ensure that
+                our platform is continuously protected against emerging threats
+                and vulnerabilities.
               </p>
               <p className="text-[#04082C] font-semibold text-[14px] sm:text-[16px]">
-                Legal Basis: Article 32(1) (Security of Processing) of the
-                GDPR, Section 1798.150(a) of the CCPA, and Section 7 of
-                PIPEDA.
+                Legal Basis: Article 32(1) (Security of Processing) of the GDPR,
+                Section 1798.150(a) of the CCPA, and Section 7 of PIPEDA.
               </p>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
@@ -1349,22 +1350,24 @@ const PrivacyPolicy = () => {
               <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-2 sm:ml-4">
                 <li>
                   <strong>Virtual Private Cloud (VPC):</strong> Our
-                  infrastructure is hosted within a Virtual Private Cloud
-                  (VPC), which ensures that resources are isolated and
-                  protected from unauthorized access.
+                  infrastructure is hosted within a Virtual Private Cloud (VPC),
+                  which ensures that resources are isolated and protected from
+                  unauthorized access.
                 </li>
                 <li>
                   <strong>Firewalls and Security Groups:</strong> We use
-                  firewalls and security groups to restrict network access
-                  based on predefined rules and ensure that only authorized
-                  traffic reaches critical infrastructure.
+                  firewalls and security groups to restrict network access based
+                  on predefined rules and ensure that only authorized traffic
+                  reaches critical infrastructure.
                 </li>
                 <li>
-                  <strong>Regular Software Patching and Vulnerability
-                  Management:</strong> We implement a standard DevOps workflow,
-                  including regular software patching and proactive
-                  vulnerability management, to ensure that all components of
-                  our platform remain secure and up-to-date.
+                  <strong>
+                    Regular Software Patching and Vulnerability Management:
+                  </strong>{" "}
+                  We implement a standard DevOps workflow, including regular
+                  software patching and proactive vulnerability management, to
+                  ensure that all components of our platform remain secure and
+                  up-to-date.
                 </li>
               </ul>
               <p className="text-[#04082C] font-semibold text-[14px] sm:text-[16px]">
@@ -1380,26 +1383,24 @@ const PrivacyPolicy = () => {
               </p>
               <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-2 sm:ml-4">
                 <li>
-                  <strong>Routine Code Reviews:</strong> Our development
-                  process includes routine code reviews and dependency scanning
-                  to identify vulnerabilities before the code is deployed.
+                  <strong>Routine Code Reviews:</strong> Our development process
+                  includes routine code reviews and dependency scanning to
+                  identify vulnerabilities before the code is deployed.
                 </li>
                 <li>
-                  <strong>Continuous Integration (CI):</strong> Our CI
-                  pipeline includes automated static and dynamic analysis
-                  tools to assess the security of the application code
-                  continuously.
+                  <strong>Continuous Integration (CI):</strong> Our CI pipeline
+                  includes automated static and dynamic analysis tools to assess
+                  the security of the application code continuously.
                 </li>
                 <li>
-                  <strong>Security Testing:</strong> Regular security testing
-                  is performed to ensure that our applications are secure and
-                  that vulnerabilities are detected and mitigated.
+                  <strong>Security Testing:</strong> Regular security testing is
+                  performed to ensure that our applications are secure and that
+                  vulnerabilities are detected and mitigated.
                 </li>
               </ul>
               <p className="text-[#04082C] font-semibold text-[14px] sm:text-[16px]">
-                Legal Basis: Article 32(1) (Security of Processing) of the
-                GDPR, Section 1798.150(a) of the CCPA, and Section 7 of
-                PIPEDA.
+                Legal Basis: Article 32(1) (Security of Processing) of the GDPR,
+                Section 1798.150(a) of the CCPA, and Section 7 of PIPEDA.
               </p>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
@@ -1407,37 +1408,36 @@ const PrivacyPolicy = () => {
               </h3>
               <p className="text-[#7D7D7D]">
                 Our platform is monitored 24/7 for performance, uptime, and
-                security events. We have a comprehensive incident response
-                plan in place, which includes:
+                security events. We have a comprehensive incident response plan
+                in place, which includes:
               </p>
               <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-2 sm:ml-4">
                 <li>
-                  <strong>Data Breach Response:</strong> In the event of a
-                  data breach, we will notify the relevant authorities,
-                  affected individuals, and other necessary parties in
-                  compliance with GDPR Article 33 and CCPA Section 1798.82.
+                  <strong>Data Breach Response:</strong> In the event of a data
+                  breach, we will notify the relevant authorities, affected
+                  individuals, and other necessary parties in compliance with
+                  GDPR Article 33 and CCPA Section 1798.82.
                 </li>
                 <li>
-                  <strong>Security Events:</strong> We also monitor for
-                  fraud, unauthorized access, and other criminal activities to
-                  ensure the protection of both Personal Data and platform
-                  integrity.
+                  <strong>Security Events:</strong> We also monitor for fraud,
+                  unauthorized access, and other criminal activities to ensure
+                  the protection of both Personal Data and platform integrity.
                 </li>
               </ul>
               <p className="text-[#04082C] font-semibold text-[14px] sm:text-[16px]">
-                Legal Basis: Article 33 (Notification of a Personal Data
-                Breach to the Supervisory Authority) of the GDPR, Section
-                1798.82 of the CCPA, and Section 10 of PIPEDA.
+                Legal Basis: Article 33 (Notification of a Personal Data Breach
+                to the Supervisory Authority) of the GDPR, Section 1798.82 of
+                the CCPA, and Section 10 of PIPEDA.
               </p>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
                 7. Security Certifications
               </h3>
               <p className="text-[#7D7D7D]">
-                While FleetBlox is not currently SOC 2 or ISO 27001
-                certified, we follow industry-standard security practices and
-                leverage Amazon Web Services (AWS) infrastructure, which is
-                certified for:
+                While FleetBlox is not currently SOC 2 or ISO 27001 certified,
+                we follow industry-standard security practices and leverage
+                Amazon Web Services (AWS) infrastructure, which is certified
+                for:
               </p>
               <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-2 sm:ml-4">
                 <li>SOC 1, SOC 2, SOC 3</li>
@@ -1473,10 +1473,9 @@ const PrivacyPolicy = () => {
               <p className="text-[#7D7D7D]">
                 Under applicable data protection laws, including but not limited
                 to the General Data Protection Regulation (GDPR) (EU) 2016/679,
-                California Consumer Privacy Act (CCPA), and Personal
-                Information Protection and Electronic Documents Act (PIPEDA)
-                (Canada), you have the following rights regarding your Personal
-                Data:
+                California Consumer Privacy Act (CCPA), and Personal Information
+                Protection and Electronic Documents Act (PIPEDA) (Canada), you
+                have the following rights regarding your Personal Data:
               </p>
 
               <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#04082C] font-bold mb-2 lg:mb-3 mt-4 lg:mt-6">
@@ -1599,8 +1598,8 @@ const PrivacyPolicy = () => {
             </h2>
             <div className="text-[14px] sm:text-[16px] text-[#04082C] font-openSans leading-relaxed space-y-3 sm:space-y-4">
               <p className="text-[#7D7D7D]">
-                As part of the provision of our Services, your Personal Data
-                may be transferred to and stored in countries other than your
+                As part of the provision of our Services, your Personal Data may
+                be transferred to and stored in countries other than your
                 country of residence. These jurisdictions may include, but are
                 not limited to, the United States, the European Union (EU),
                 Canada, and other countries that may not have the same level of
@@ -1612,10 +1611,10 @@ const PrivacyPolicy = () => {
               </h3>
               <p className="text-[#7D7D7D]">
                 We ensure that appropriate safeguards are in place to protect
-                your Personal Data when it is transferred internationally.
-                These safeguards may include the use of Standard Contractual
-                Clauses (SCCs), the EU-U.S. Privacy Shield Framework, or other
-                legally approved mechanisms.
+                your Personal Data when it is transferred internationally. These
+                safeguards may include the use of Standard Contractual Clauses
+                (SCCs), the EU-U.S. Privacy Shield Framework, or other legally
+                approved mechanisms.
               </p>
               <p className="text-[#04082C] font-semibold text-[14px] sm:text-[16px]">
                 Legal Basis: Article 44-50 of the GDPR, Section 1798.140 of the
@@ -1632,13 +1631,15 @@ const PrivacyPolicy = () => {
               </p>
               <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-2 sm:ml-4">
                 <li>
-                  <strong>Amazon Web Services (AWS) U.S. East (N. Virginia)
-                  Region</strong> – us-east-1.
+                  <strong>
+                    Amazon Web Services (AWS) U.S. East (N. Virginia) Region
+                  </strong>{" "}
+                  – us-east-1.
                 </li>
                 <li>
-                  <strong>Backup and redundancy</strong> may also include
-                  secure replication across other AWS regions within the U.S.,
-                  but not outside the United States.
+                  <strong>Backup and redundancy</strong> may also include secure
+                  replication across other AWS regions within the U.S., but not
+                  outside the United States.
                 </li>
               </ul>
 
@@ -1676,8 +1677,8 @@ const PrivacyPolicy = () => {
               </p>
               <ul className="list-disc list-inside text-[#7D7D7D] space-y-2 ml-2 sm:ml-4">
                 <li>
-                  <strong>Standard Contractual Clauses (SCCs)</strong> issued
-                  by the European Commission or equivalent frameworks, where
+                  <strong>Standard Contractual Clauses (SCCs)</strong> issued by
+                  the European Commission or equivalent frameworks, where
                   required.
                 </li>
                 <li>
@@ -1696,8 +1697,8 @@ const PrivacyPolicy = () => {
               </ul>
               <p className="text-[#7D7D7D]">
                 By using our Services, you consent to the transfer of your
-                Personal Data to these countries and the processing of such
-                data in accordance with the terms of this Privacy Policy.
+                Personal Data to these countries and the processing of such data
+                in accordance with the terms of this Privacy Policy.
               </p>
               <p className="text-[#04082C] font-semibold text-[14px] sm:text-[16px]">
                 Legal Basis: Article 44-50 of the GDPR, Section 1798.140 of the
@@ -1724,9 +1725,9 @@ const PrivacyPolicy = () => {
                 Cookies
               </h3>
               <p className="text-[#7D7D7D]">
-                Cookies are small text files that are placed on your device
-                when you visit our platform. They store information that helps
-                us recognize your device and retain certain preferences, which
+                Cookies are small text files that are placed on your device when
+                you visit our platform. They store information that helps us
+                recognize your device and retain certain preferences, which
                 allows us to provide a more personalized experience upon your
                 return to our platform.
               </p>
@@ -1740,10 +1741,10 @@ const PrivacyPolicy = () => {
               </h3>
               <p className="text-[#7D7D7D]">
                 Web beacons are small, transparent images embedded in web pages
-                or emails that track user activity, such as whether an email
-                was opened or whether a specific page was visited. Web beacons
-                help us measure the effectiveness of our communications and
-                analyze user behavior.
+                or emails that track user activity, such as whether an email was
+                opened or whether a specific page was visited. Web beacons help
+                us measure the effectiveness of our communications and analyze
+                user behavior.
               </p>
               <p className="text-[#04082C] font-semibold text-[14px] sm:text-[16px]">
                 Legal Basis: Article 6(1)(f) of the GDPR, Section 1798.135 of
@@ -1757,9 +1758,9 @@ const PrivacyPolicy = () => {
                 You can control the use of cookies through your browser
                 settings. Most browsers allow you to accept or reject all
                 cookies or receive a notification when a cookie is being sent.
-                However, please note that if you choose to disable cookies,
-                some features of the Services may not function as intended,
-                and your user experience may be affected.
+                However, please note that if you choose to disable cookies, some
+                features of the Services may not function as intended, and your
+                user experience may be affected.
               </p>
               <p className="text-[#7D7D7D]">
                 By continuing to use our platform, you consent to the use of
@@ -1783,10 +1784,10 @@ const PrivacyPolicy = () => {
                 Our Services are not intended for use by children under the age
                 of 16. In compliance with applicable data protection laws,
                 including but not limited to the General Data Protection
-                Regulation (GDPR) (EU) 2016/679, the California Consumer
-                Privacy Act (CCPA), and other relevant national and
-                international privacy laws, we do not knowingly collect,
-                process, or solicit Personal Data from children.
+                Regulation (GDPR) (EU) 2016/679, the California Consumer Privacy
+                Act (CCPA), and other relevant national and international
+                privacy laws, we do not knowingly collect, process, or solicit
+                Personal Data from children.
               </p>
               <p className="text-[#7D7D7D]">
                 If we learn that we have inadvertently collected Personal Data
@@ -1807,8 +1808,8 @@ const PrivacyPolicy = () => {
                 >
                   Privacy@fleetblox.com
                 </a>
-                , and we will take appropriate action, including but not
-                limited to the deletion of such data and ensuring that further
+                , and we will take appropriate action, including but not limited
+                to the deletion of such data and ensuring that further
                 collection of data from minors is prohibited.
               </p>
               <p className="text-[#04082C] font-semibold text-[14px] sm:text-[16px]">
@@ -1826,20 +1827,20 @@ const PrivacyPolicy = () => {
             <div className="text-[14px] sm:text-[16px] text-[#04082C] font-openSans leading-relaxed space-y-3 sm:space-y-4">
               <p className="text-[#7D7D7D]">
                 Our platform may contain links to third-party websites,
-                applications, or services that are not operated or controlled
-                by us. These third-party sites, applications, or services are
+                applications, or services that are not operated or controlled by
+                us. These third-party sites, applications, or services are
                 governed by their own privacy policies, terms of service, and
-                practices, which may differ from those set forth in this
-                Privacy Policy.
+                practices, which may differ from those set forth in this Privacy
+                Policy.
               </p>
               <p className="text-[#7D7D7D]">
                 We do not assume any responsibility or liability for the
                 content, privacy practices, or policies of any third-party
-                sites. As such, we encourage you to review the privacy policy
-                of any third-party site before disclosing any Personal Data or
+                sites. As such, we encourage you to review the privacy policy of
+                any third-party site before disclosing any Personal Data or
                 engaging with their services. The inclusion of a third-party
-                link on our platform does not imply endorsement, association,
-                or approval of the third-party site by us.
+                link on our platform does not imply endorsement, association, or
+                approval of the third-party site by us.
               </p>
               <p className="text-[#04082C] font-semibold text-[14px] sm:text-[16px]">
                 Legal Basis: Article 12 of the GDPR, Section 1798.135 of the
@@ -1873,8 +1874,8 @@ const PrivacyPolicy = () => {
                 We reserve the right to update, amend, or modify this Privacy
                 Policy periodically, in accordance with legal, regulatory, or
                 operational changes. Any changes made to this Privacy Policy
-                will be reflected in an updated version posted on this page.
-                The updated version will include a revised Effective Date to
+                will be reflected in an updated version posted on this page. The
+                updated version will include a revised Effective Date to
                 indicate the date of the latest revision.
               </p>
               <p className="text-[#7D7D7D]">
@@ -1909,8 +1910,8 @@ const PrivacyPolicy = () => {
                 expressly agree that any legal actions, suits, or proceedings
                 arising out of or related to this Privacy Policy, or the
                 collection, processing, or use of your Personal Data, shall be
-                exclusively subject to the jurisdiction of the courts located
-                in Toronto, Ontario, Canada.
+                exclusively subject to the jurisdiction of the courts located in
+                Toronto, Ontario, Canada.
               </p>
               <p className="text-[#7D7D7D]">
                 By accessing or using our Services, you consent to the
@@ -1918,9 +1919,8 @@ const PrivacyPolicy = () => {
                 or claims related to this Privacy Policy shall be resolved
                 exclusively in the appropriate courts located within that
                 jurisdiction. You further agree to submit to the personal
-                jurisdiction of such courts and waive any objection to the
-                venue or jurisdiction of any such actions, suits, or
-                proceedings.
+                jurisdiction of such courts and waive any objection to the venue
+                or jurisdiction of any such actions, suits, or proceedings.
               </p>
               <p className="text-[#04082C] font-semibold text-[14px] sm:text-[16px]">
                 Legal Basis: Article 4 of the GDPR, Section 1798.150 of the
@@ -1984,7 +1984,7 @@ const PrivacyPolicy = () => {
       </div>
 
       {/* Floating Navigation Buttons - Desktop Only */}
-      <div className="hidden lg:block fixed right-8 top-1/2 transform -translate-y-1/2 z-50">
+      <div className="hidden lg:block fixed right-8 bottom-0 transform -translate-y-1/2 z-50">
         <div className="flex flex-col space-y-3">
           {/* Up Button */}
           <button
