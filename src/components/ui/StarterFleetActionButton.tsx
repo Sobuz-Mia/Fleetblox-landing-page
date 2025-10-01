@@ -61,7 +61,7 @@ const StarterFleetActionButton = ({
           onClick={() => {
             handleStarterPlan(starterPlan[0]);
           }}
-          className=" py-3 rounded-md w-full text-center bg-[#2D65F2] font-openSans text-[14px] font-bold text-[#fff] flex justify-center lg:hidden"
+          className=" py-3 rounded-md w-full text-center bg-[#2D65F2] font-openSans text-[14px] font-bold  flex justify-center lg:hidden"
         >
           {text}
         </button>

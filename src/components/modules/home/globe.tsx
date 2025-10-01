@@ -1,7 +1,6 @@
 "use client";
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import Image from "next/image";
-import Link from "next/link";
 import React, { ReactNode, useEffect, useState } from "react";
 import image1 from "../../../../public/brand/Frame 1707481648.svg";
 import image2 from "../../../../public/brand/Frame 1707481652.svg";
