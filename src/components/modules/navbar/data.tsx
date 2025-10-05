@@ -11,6 +11,14 @@ import FleetbloxCrewAppIcon from "./icons/operateIcon/FleetbloxCrewAppIcon";
 import DocumentManagementIcon from "./icons/complyIcons/DocumentManagementIcon";
 import DigitalInspectionIcon from "./icons/complyIcons/DigitalInspectionIcon";
 import IntellegenceAlertIcon from "./icons/complyIcons/IntellegenceAlertIcon";
+import GeoFleetIcon from "./icons/solutions/GeoFleetIcon";
+import FleetComplienceIcon from "./icons/solutions/FleetComplienceIcon";
+import FleetOperationIcon from "./icons/solutions/FleetOperationIcon";
+import FleetIntelligenceIcon from "./icons/solutions/FleetIntelligenceIcon";
+import FleetOperatorsIcon from "./icons/industrics/FleetOperatorsIcon";
+import AutuDealershipIcon from "./icons/industrics/AutuDealershipIcon";
+import CarRentalProviderIcon from "./icons/industrics/CarRentalProviderIcon";
+import EMobilityServiceIcon from "./icons/industrics/EMobilityServiceIcon";
 
 export const platformFeatures: NavbarItem[] = [
   {
@@ -142,24 +150,28 @@ export const complyMenus: NavbarItem[] = [
 ];
 export const solutionsItems: NavbarItem[] = [
   {
-    title: "Geo-Fleet",
+    title: "Geo-Fleet Inventory",
     description: "Structure and control fleets by region in real time.",
     href: "/solutions/inventory-management",
+    icon: <GeoFleetIcon />,
   },
   {
     title: "Fleet Compliance",
     description: "Keep fleets road-ready and compliant across all locations.",
     href: "/solutions/fleet-compliance",
+    icon: <FleetComplienceIcon />,
   },
   {
     title: "Remote Operation",
     description: "Execute workflows and vehicle actions from anywhere.",
     href: "/solutions/remote-operation",
+    icon: <FleetOperationIcon />,
   },
   {
     title: "Fleet Intelligence",
     description: "Cut costs and optimize fleets with smart tools.",
     href: "/solutions/fleet-intelligence",
+    icon: <FleetIntelligenceIcon />,
   },
 ];
 export const industriesItems: NavbarItem[] = [
@@ -167,20 +179,24 @@ export const industriesItems: NavbarItem[] = [
     title: "Fleet Operators ",
     description: "Streamline operations and reduce fleet downtime.",
     href: "/industries/fleet-management",
+    icon: <FleetOperatorsIcon />,
   },
   {
     title: "Auto Dealerships",
     description: "Control inventory and improve lot logistics.",
     href: "/industries/auto-dealerships",
+    icon: <AutuDealershipIcon />,
   },
   {
     title: "Car Rental Providers",
     description: "Speed up check-ins and manage rentals across cities.",
     href: "/industries/car-rental-providers",
+    icon: <CarRentalProviderIcon />,
   },
   {
     title: "E-Mobility Services",
     description: "Manage your EV fleet’s readiness and uptime remotely.",
     href: "/industries/e-mobility-services",
+    icon: <EMobilityServiceIcon />,
   },
 ];

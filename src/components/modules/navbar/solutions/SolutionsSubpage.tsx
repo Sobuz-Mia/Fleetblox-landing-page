@@ -8,7 +8,7 @@ const SolutionsSubpage = () => {
         <p className="text-[#7D7D7D] font-openSans text-[12px] pt-5 lg:pt-0">
           Solutions
         </p>
-        <div className="flex flex-col lg:space-y-[8px] space-y-[5px] w-[330px] ">
+        <div className="flex flex-col lg:space-y-[8px] space-y-[5px] w-[360px] ">
           {solutionsItems.map((items, index) => (
             <GenerateNavbarItem key={index} {...items} />
           ))}
@@ -19,7 +19,7 @@ const SolutionsSubpage = () => {
         <p className="text-[#7D7D7D] font-openSans text-[12px] pt-5 lg:pt-0">
           Industries
         </p>
-        <div className="flex flex-col lg:space-y-[8px] w-[330px] space-y-[5px]">
+        <div className="flex flex-col lg:space-y-[8px] w-[350px] space-y-[5px]">
           {industriesItems.map((items, index) => (
             <GenerateNavbarItem key={index} {...items} />
           ))}
