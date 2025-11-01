@@ -1,4 +1,5 @@
 import GlobeSection from "./../../components/modules/home/globe";
+import TripAuditInspection from "./components/TripAuditInspection";
 import TripAuditSection from "./components/TripAuditSection";
 
 const page = () => {
@@ -10,6 +11,7 @@ const page = () => {
         </h1>
         <TripAuditSection />
       </div>
+      <TripAuditInspection />
       <div className="bg-white">
         <GlobeSection
           title="Start Tracking and Documenting Your Vehicle’s Trip Condition today"
