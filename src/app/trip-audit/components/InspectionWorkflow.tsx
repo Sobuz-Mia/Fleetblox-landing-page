@@ -66,8 +66,8 @@ const InspectionWorkflow = () => {
 
   return (
     <div>
-      <div className="text-center mb-10">
-        <h2 className="text-[22px] font-bold text-[#303030]">
+      <div className="text-center mb-5 md:mb-10">
+        <h2 className="text-[18px] md:text-[22px] font-bold text-[#303030]">
           Inspection workflow
         </h2>
         <p className="text-[14px] leading-5 text-[#6F6464]">
@@ -88,7 +88,13 @@ const InspectionWorkflow = () => {
               value="Single"
               {...register("inspection.plan")}
             />{" "}
-            <p className="text-[#151515] text-[16px] font-openSans font-bold capitalize">
+            <p
+              className={` ${
+                inspectionPlan === "Single"
+                  ? "text-[#151515]"
+                  : "text-[#6F6464]"
+              } text-[14px] md:text-[16px] font-openSans font-bold capitalize`}
+            >
               Single Inspection workflow (One-time)
             </p>
           </label>
@@ -110,7 +116,11 @@ const InspectionWorkflow = () => {
         >
           <label className="flex items-center gap-[5px]">
             <input type="radio" value="Dual" {...register("inspection.plan")} />{" "}
-            <p className="text-[#151515] text-[16px] font-openSans font-bold capitalize">
+            <p
+              className={` ${
+                inspectionPlan === "Dual" ? "text-[#151515]" : "text-[#6F6464]"
+              } text-[14px] md:text-[16px] font-openSans font-bold capitalize`}
+            >
               Dual Inspection workflow (departure & return)
             </p>
           </label>
@@ -132,11 +142,11 @@ const InspectionWorkflow = () => {
           Trip duration
         </h3>
 
-        <div className="flex gap-[5px]">
+        <div className="flex gap-[5px] flex-col md:flex-row items-center">
           {["7", "15", "30"].map((days) => (
             <div
               key={days}
-              className={`border rounded-md flex p-4 gap-[5px] justify-between w-[180px] ${
+              className={`border rounded-md flex p-4 gap-[5px] justify-between w-full md:w-[180px] ${
                 durations === days ? "border-[#2D65F2]" : "border-[#DFDFDF]"
               }`}
             >

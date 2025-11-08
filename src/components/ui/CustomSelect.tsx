@@ -1,11 +1,13 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState, useRef, useEffect, FC } from "react";
+
 interface CustomSelectProps {
   options: string[];
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
 }
+
 const CustomSelect: FC<CustomSelectProps> = ({
   options,
   value,

@@ -7,6 +7,7 @@ import Image from "next/image";
 import VehicleDetails from "./VehicleDetails";
 import OwnerDriverInfo from "./OwnerDriverInfo";
 import InspectionWorkflow from "./InspectionWorkflow";
+import { Divider } from "antd";
 
 // Define the form schema with Zod
 export const formSchema = z.object({
@@ -152,12 +153,12 @@ export default function InspectionPage({ step = 1 }: { step?: number }) {
                   height={100}
                 />
               </div>
-              <div className="space-y-[67px] max-w-[415px]">
+              <div className="space-y-[30px] md:space-y-[67px] max-w-[415px]">
                 {steps.map((step, index) => (
                   <div
                     key={index}
                     onClick={() => handleStepClick(index + 1)}
-                    className={`flex items-center rounded-[16px] px-5 py-4 gap-5 cursor-pointer shadow-[0_4px_5px_0_rgba(0,0,0,0.05)] ${
+                    className={`flex items-center rounded-[16px] px-5 py-4 gap-[10px] md:gap-5 cursor-pointer shadow-[0_4px_5px_0_rgba(0,0,0,0.05)] ${
                       currentStep === index + 1 ? "border border-[#2D65F2]" : ""
                     }`}
                   >
@@ -169,10 +170,10 @@ export default function InspectionPage({ step = 1 }: { step?: number }) {
                       </span>
                     </div>
                     <div>
-                      <p className="text-[#333] text-[18px] font-bold">
+                      <p className="text-[#333] text-[14px] md:text-[18px] font-bold">
                         {step.title}
                       </p>
-                      <p className="text-[16px] text-[#7D7D7D] font-openSans leading-6">
+                      <p className="text-[12px] md:text-[16px] text-[#7D7D7D] font-openSans leading-6">
                         {step?.desc}
                       </p>
                     </div>
@@ -181,7 +182,8 @@ export default function InspectionPage({ step = 1 }: { step?: number }) {
               </div>
             </div>
           </div>
-          <div className="border-r h-[600px] mx-[60px] border-[#DFDFDF]"></div>
+          <div className="border-r h-[600px] mx-[60px] border-[#DFDFDF] hidden md:block"></div>
+          <Divider className="my-10 block md:hidden" />
           {/* Right Content (Dynamic) */}
           <div className="md:w-1/2 w-full">
             {steps[currentStep - 1].component}

@@ -15,7 +15,6 @@ const PaymentSuccess = () => {
         <TripAuditSection />
       </div>
       <InspectionPage step={3} />
-
       <Modal
         open={true}
         onCancel={() => {}}

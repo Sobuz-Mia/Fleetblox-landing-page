@@ -57,8 +57,8 @@ const VehicleDetails = ({ onNext }: { onNext: () => void }) => {
 
   return (
     <div className="">
-      <div className="text-center mb-10">
-        <h2 className="text-[22px] font-bold text-[#303030] ">
+      <div className="text-center mb-5 md:mb-10">
+        <h2 className=" text-[18px] md:text-[22px] font-bold text-[#303030] ">
           Vehicle Details
         </h2>
         <p className="text-[14px] leading-5 text-[#6F6464]">

@@ -96,8 +96,8 @@ const OwnerDriverInfo = ({ onNext }: { onNext: () => void }) => {
   };
   return (
     <div className="">
-      <div className="text-center mb-10">
-        <h2 className="text-[22px] font-bold text-[#303030]">
+      <div className="text-center mb-5 md:mb-10">
+        <h2 className="text-[18px] md:text-[22px] font-bold text-[#303030]">
           Owner & Driver Info
         </h2>
         <p className="text-[14px] leading-5 text-[#6F6464]">
@@ -122,7 +122,7 @@ const OwnerDriverInfo = ({ onNext }: { onNext: () => void }) => {
           </p>
         )}
       </div>
-      <div className="mb-5 flex gap-[10px] items-center">
+      <div className="mb-5 flex flex-col md:flex-row gap-[10px] md:items-center">
         <div className="flex-1">
           <label className="text-[#6F6464] font-semibold text-[12px] mb-[5px] block">
             Email
@@ -255,7 +255,7 @@ const OwnerDriverInfo = ({ onNext }: { onNext: () => void }) => {
           </p>
         )}
       </div>
-      <div className="mb-5 flex gap-[10px] items-center">
+      <div className="mb-5 flex flex-col md:flex-row gap-[10px] md:items-center">
         <div className="flex-1">
           <label className="text-[#6F6464] font-semibold text-[12px] mb-[5px] block">
             Email
