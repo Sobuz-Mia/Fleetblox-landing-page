@@ -8,7 +8,7 @@ body::-webkit-scrollbar {
 
 body {
   @apply font-montserrat;
-  scroll-behavior: smooth; /* Smooth scrolling for the entire site */
+  scroll-behavior: smooth;
 }
 
 /* Add smooth scroll snap to scroll-section elements */
@@ -33,7 +33,7 @@ body {
 }
 
 .input-form {
-  @apply w-full h-12 rounded bg-[#F7F7F7] px-4 font-openSans text-[14px] text-[#04082C] outline-none placeholder:text-[#7D7D7D]
+  @apply w-full h-12 rounded bg-[#F7F7F7] px-4 font-openSans text-[14px] text-[#04082C] outline-none placeholder:text-[#7D7D7D];
 }
 
 @layer base {
@@ -114,6 +114,10 @@ body {
 
 /* Hide scrollbar for Chrome, Safari, and Edge */
 /* In your global CSS or Tailwind config */
+.scrollbar-hidden {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
 .scrollbar-hidden::-webkit-scrollbar {
   display: none;
 }
@@ -146,3 +150,43 @@ body {
   transform: translateY(-50%);
   width: 100%;
 }
+/* loading animations css */
+.button-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: white;
+  animation: pulse 1.2s infinite ease-in-out;
+}
+
+.dot:nth-child(1) {
+  animation-delay: 0s;
+}
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes pulse {
+  0%,
+  80%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* button animation class */
