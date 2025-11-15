@@ -8,6 +8,7 @@ import moment from "moment";
 import StepperDotIcon from "../icons/StepperDotIcon";
 import SharedIcon from "../icons/SharedIcon";
 import LinkCopyIcon from "../icons/LinkCopyIcon";
+import Link from "next/link";
 type ProgressData = {
   in_progress?: boolean;
   percentage?: number;
@@ -263,9 +264,13 @@ const TripAuditSection = () => {
                 Departure inspection workflow
               </h2>
               <div className="flex justify-between items-center my-[9px]">
-                <p className="text-[#2D65F2] text-[12px] font-medium leading-4 underline">
-                  {inspectionData?.departureLink}
-                </p>
+                {inspectionData?.departureLink && (
+                  <Link href={inspectionData?.departureLink}>
+                    <p className="text-[#2D65F2] text-[12px] font-medium leading-4 underline">
+                      {inspectionData?.departureLink}
+                    </p>
+                  </Link>
+                )}
                 {inspectionData?.departureLink && (
                   <div className="flex items-center gap-[10px] justify-center">
                     <LinkCopyIcon />

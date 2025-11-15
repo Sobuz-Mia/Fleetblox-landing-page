@@ -1,72 +1,53 @@
 "use client";
+
 import Image from "next/image";
 import React, { useState, useRef, ReactNode } from "react";
 import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import Webcam from "react-webcam";
 import { BsCheckCircleFill } from "react-icons/bs";
-import VinSticker from "./icons/VinSticker";
-import LicensePlanIcon from "./icons/LicensePlanIcon";
-import FleetBloxIcon from "./icons/FleetBloxIcon";
 import { RotateCcw } from "lucide-react";
-import VehicleInfo from "./components/VehicleInfo";
-import CaptureImageIcon from "./icons/CaptureImageIcon";
-import DetectExteriorDamageIcon from "./icons/DetectExteriorDamageIcon";
+import VinSticker from "../../icons/VinSticker";
+import LicensePlanIcon from "../../icons/LicensePlanIcon";
+import CaptureImageIcon from "../../icons/CaptureImageIcon";
+import DetectExteriorDamageIcon from "../../icons/DetectExteriorDamageIcon";
+import FleetBloxIcon from "../../icons/FleetBloxIcon";
+import DriverAndOwnerInfo from "../../components/DriverAndOwnerInfo";
+import { useParams } from "next/navigation";
 import Link from "next/link";
 
+const BASE_URL = "https://real-damage.fleetblox.com/api";
+
 function dataURLtoFile(dataurl: string, filename: string): File {
-  let arr = dataurl.split(","),
-    mime = arr[0].match(/:(.*?);/)![1],
-    bstr = atob(arr[1]),
-    n = bstr.length,
-    u8arr = new Uint8Array(n);
-  while (n--) {
-    u8arr[n] = bstr.charCodeAt(n);
-  }
+  const arr = dataurl.split(",");
+  const mime = arr[0].match(/:(.*?);/)![1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  while (n--) u8arr[n] = bstr.charCodeAt(n);
   return new File([u8arr], filename, { type: mime });
 }
 
-async function uploadImage(dataUrl: string, type: string): Promise<string> {
-  const file = dataURLtoFile(dataUrl, `${type}.jpg`);
-  const formData = new FormData();
-  formData.append("image", file);
-  formData.append("type", type);
-  try {
-    const response = await fetch("/api/upload", {
-      // Replace with your actual upload API endpoint
-      method: "POST",
-      body: formData,
-    });
-    const { url } = await response.json();
-    return url;
-  } catch (error) {
-    console.error("Upload failed:", error);
-    return ""; // Fallback or handle error
-  }
-}
-
 const InspectionSteps = () => {
+  const params = useParams<{ trip_id: string; serial_no: string }>();
+  const tripId = params.trip_id;
+  const serialNo = params.serial_no;
+
+  const [startedInspection, setStartedInspection] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [showSubScreen, setShowSubScreen] = useState(false);
   const [vinDone, setVinDone] = useState(false);
   const [licenseDone, setLicenseDone] = useState(false);
   const [odometerDone, setOdometerDone] = useState(false);
-  const [damagesDone, setDamagesDone] = useState(false);
-  const [vinImage, setVinImage] = useState<string | null>(null);
-  const [licenseImage, setLicenseImage] = useState<string | null>(null);
-  const [odometerImage, setOdometerImage] = useState<string | null>(null);
-  const [damagesImage, setDamagesImage] = useState<string | null>(null);
-  const [exteriorImages, setExteriorImages] = useState<string[]>([]);
+  const [exteriorDataUrls, setExteriorDataUrls] = useState<string[]>([]);
   const [exteriorCaptureStep, setExteriorCaptureStep] = useState(0);
+  const [damagesDone, setDamagesDone] = useState(false);
   const [showCameraFor, setShowCameraFor] = useState<string | null>(null);
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
   const [isLandscape, setIsLandscape] = useState(false);
   const webcamRef = useRef<Webcam>(null);
-  const positions = [
-    "Front side",
-    "Front left side",
-    "Rear left side",
-    "Rear side",
-  ];
+
+  const positions = ["front", "left", "rear", "right"] as const;
 
   const videoConstraints = {
     facingMode: "environment",
@@ -74,96 +55,120 @@ const InspectionSteps = () => {
     height: isLandscape ? 485 : 1280,
   };
 
+  const scanVin = async (imageData: string) => {
+    const file = dataURLtoFile(imageData, "vin.jpg");
+    const form = new FormData();
+    form.append("image", file);
+    const url = `${BASE_URL}/scan_vin?trip_id=${encodeURIComponent(
+      tripId
+    )}&serial_no=${serialNo}`;
+    const res = await fetch(url, { method: "POST", body: form });
+    if (!res.ok) throw new Error("VIN scan failed");
+    return res.json();
+  };
+
+  const scanLicensePlate = async (imageData: string) => {
+    const file = dataURLtoFile(imageData, "license_plate.jpg");
+    const form = new FormData();
+    form.append("image", file);
+    const url = `${BASE_URL}/scan_license_plate?trip_id=${encodeURIComponent(
+      tripId
+    )}&serial_no=${serialNo}`;
+    const res = await fetch(url, { method: "POST", body: form });
+    if (!res.ok) throw new Error("License plate scan failed");
+    return res.json();
+  };
+
+  const scanOdometer = async (imageData: string) => {
+    const file = dataURLtoFile(imageData, "odometer.jpg");
+    const form = new FormData();
+    form.append("image", file);
+    const url = `${BASE_URL}/scan_odometer?trip_id=${encodeURIComponent(
+      tripId
+    )}&serial_no=${serialNo}`;
+    const res = await fetch(url, { method: "POST", body: form });
+    if (!res.ok) throw new Error("Odometer scan failed");
+    return res.json();
+  };
+
+  const scanCarSides = async (images: string[]) => {
+    if (images.length !== 4) throw new Error("4 images required");
+    const form = new FormData();
+    images.forEach((dataUrl, i) => {
+      const file = dataURLtoFile(dataUrl, `${positions[i]}.jpg`);
+      form.append(positions[i], file);
+    });
+    const url = `${BASE_URL}/scan_car_sides_images?trip_id=${encodeURIComponent(
+      tripId
+    )}&serial_no=${serialNo}`;
+    const res = await fetch(url, { method: "POST", body: form });
+    if (!res.ok) throw new Error("Side images processing failed");
+    return res.json();
+  };
+
   const handleCapture = () => {
     const imageSrc = webcamRef.current?.getScreenshot();
     if (imageSrc) setCapturedImage(imageSrc);
   };
 
-  const handleRetake = () => {
-    setCapturedImage(null);
-  };
+  const handleRetake = () => setCapturedImage(null);
 
   const handleConfirm = async () => {
-    if (capturedImage) {
-      const url = await uploadImage(capturedImage, showCameraFor || "unknown");
-      switch (showCameraFor) {
-        case "vin":
-          setVinImage(url);
-          setVinDone(true);
-          setCapturedImage(null);
-          setShowCameraFor(null);
-          break;
-        case "license":
-          setLicenseImage(url);
-          setLicenseDone(true);
-          setCapturedImage(null);
-          setShowCameraFor(null);
-          break;
-        case "odometer":
-          setOdometerImage(url);
-          setOdometerDone(true);
-          setCapturedImage(null);
-          setShowCameraFor(null);
-          setCurrentStep(3); // Auto-advance to next step
-          break;
-        case "exterior":
-          setExteriorImages((prev) => [...prev, url]);
-          setCapturedImage(null);
-          if (exteriorCaptureStep < positions.length - 1) {
-            setExteriorCaptureStep((prev) => prev + 1);
-          } else {
-            setShowCameraFor(null);
-          }
-          break;
-        case "damages":
-          setDamagesImage(url);
-          setDamagesDone(true);
-          setCapturedImage(null);
-          setShowCameraFor(null);
-          break;
+    if (!capturedImage || isProcessing) return;
+
+    setIsProcessing(true);
+    try {
+      if (showCameraFor === "vin") {
+        await scanVin(capturedImage);
+        setVinDone(true);
+      } else if (showCameraFor === "license") {
+        await scanLicensePlate(capturedImage);
+        setLicenseDone(true);
+      } else if (showCameraFor === "odometer") {
+        await scanOdometer(capturedImage);
+        setOdometerDone(true);
+        setCurrentStep(3);
+      } else if (showCameraFor === "exterior") {
+        const newUrls = [...exteriorDataUrls, capturedImage];
+        setExteriorDataUrls(newUrls);
+        setExteriorCaptureStep(newUrls.length);
+
+        if (newUrls.length === 4) {
+          setShowCameraFor(null); // close camera after 4th image
+        }
+        setCapturedImage(null);
+        return; // early return – no need to clear camera again below
       }
+
+      setCapturedImage(null);
+      setShowCameraFor(null);
+    } catch (err: any) {
+      alert(err.message || "Processing failed – please retake");
+    } finally {
+      setIsProcessing(false);
     }
   };
 
   const allItemsDoneForStep = (step: number) => {
     if (step === 1) return vinDone && licenseDone;
     if (step === 2) return odometerDone;
-    if (step === 3)
-      return exteriorImages.length === positions.length && damagesDone;
+    if (step === 3) return exteriorDataUrls.length === 4 && damagesDone;
     return false;
   };
 
-  const callApi = async () => {
-    if (vinImage && licenseImage) {
-      const formData = new FormData();
-      formData.append("vin_image", dataURLtoFile(vinImage, "vin.jpg")); // Assuming vinImage is dataUrl; if url, adjust accordingly
-      formData.append(
-        "license_image",
-        dataURLtoFile(licenseImage, "license.jpg")
-      );
-      try {
-        const response = await fetch("/api/inspect", {
-          method: "POST",
-          body: formData,
-        });
-        console.log("API response:", await response.json());
-      } catch (error) {
-        console.error("API call failed:", error);
-      }
-    }
-  };
-
-  const handleFinish = async () => {
+  const handleFinish = () => {
     if (allItemsDoneForStep(currentStep)) {
-      if (currentStep === 1) {
-        await callApi();
-      }
       setShowSubScreen(false);
       setCurrentStep(currentStep + 1);
     }
   };
 
   const getCameraTitle = () => {
+    if (showCameraFor === "exterior") {
+      return `${positions[exteriorCaptureStep]
+        .charAt(0)
+        .toUpperCase()}${positions[exteriorCaptureStep].slice(1)} view`;
+    }
     switch (showCameraFor) {
       case "vin":
         return "VIN Sticker";
@@ -171,21 +176,27 @@ const InspectionSteps = () => {
         return "License Plate";
       case "odometer":
         return "Odometer";
-      case "exterior":
-        return positions[exteriorCaptureStep];
-      case "damages":
-        return "Exterior Damages";
       default:
         return "";
     }
   };
 
+  /* ==================== CAMERA SCREEN ==================== */
   if (showCameraFor) {
     return (
-      <div className="bg-[#F5F9FC] h-screen p-5 flex flex-col items-center justify-center ">
-        <h1 className="z-50 text-[14px] text-white font-bold">
+      <div className="bg-[#F5F9FC] h-screen p-5 flex flex-col items-center justify-center relative">
+        {isProcessing && (
+          <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center z-50">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-white mb-4" />
+            <p className="text-white text-lg">Processing…</p>
+          </div>
+        )}
+
+        <h1 className="z-50 text-[14px] text-white font-bold mb-4">
           {getCameraTitle()}
+          {showCameraFor === "exterior" && ` (${exteriorCaptureStep + 1}/4)`}
         </h1>
+
         {!capturedImage ? (
           <>
             <Webcam
@@ -193,18 +204,14 @@ const InspectionSteps = () => {
               audio={false}
               screenshotFormat="image/jpeg"
               videoConstraints={videoConstraints}
-              className={`absolute object-scale-down transition-all duration-500 ${
-                isLandscape ? "w-full h-auto rotate-0" : "h-full w-auto"
+              className={`absolute object-cover transition-all duration-500 ${
+                isLandscape ? "w-full h-auto rotate-90" : "h-full w-auto"
               }`}
             />
             <div className="absolute inset-0 bg-black/50" />
-            <div
-              className={`relative z-10 rounded-md transition-all duration-500 ${
-                isLandscape
-                  ? "w-[100%] max-w-[812px] aspect-[16/8]"
-                  : "w-[100%] max-w-[812px] aspect-[7/5]"
-              }`}
-            >
+
+            {/* Corner frame overlay */}
+            <div className="relative z-10 rounded-md transition-all duration-500 w-[100%] max-w-[812px] aspect-[7/5]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="60"
@@ -226,7 +233,7 @@ const InspectionSteps = () => {
                 height="60"
                 viewBox="0 0 60 60"
                 fill="none"
-                className="absolute bottom-0 p-2 right-0"
+                className="absolute bottom-0 right-0 p-2"
               >
                 <path
                   d="M58 2V56C58 57.1046 57.1046 58 56 58H2"
@@ -266,25 +273,19 @@ const InspectionSteps = () => {
                 />
               </svg>
             </div>
+
             <button
               onClick={handleCapture}
-              className={`absolute bottom-5 h-[50px] w-[50px] rounded-[83px] bg-[#F00] shadow-[0_0_30px_0_rgba(255,0,0,0.75)] flex items-center justify-center border-[2px] border-white active:scale-95`}
+              className="absolute bottom-5 h-[50px] w-[50px] rounded-[83px] bg-[#F00] shadow-[0_0_0_30px_0_rgba(255,0,0,0.75)] flex items-center justify-center border-[2px] border-white active:scale-95"
             />
+
             <button
               onClick={() => setIsLandscape((p) => !p)}
-              className="absolute top-5 right-5 bg-white/20 p-3 rounded-full text-white hover:bg-white/30 transition"
+              className="absolute top-5 right-5 bg-white/20 p-3 rounded-full text-white"
               title="Rotate camera"
             >
               <RotateCcw className="h-6 w-6" />
             </button>
-            {/* Guide for exterior */}
-            {showCameraFor === "exterior" && (
-              <div className="absolute top-[32%] text-white font-bold">
-                {`${exteriorCaptureStep + 1}/${positions.length}`}
-                {/* - Capture the{" "} */}
-                {/* {positions[exteriorCaptureStep]} */}
-              </div>
-            )}
           </>
         ) : (
           <div className="">
@@ -339,6 +340,7 @@ const InspectionSteps = () => {
     );
   }
 
+  /* ==================== SUB SCREEN (STEP 1 & STEP 3) ==================== */
   if (showSubScreen) {
     const title = "Capture the followings";
     let items: {
@@ -349,6 +351,7 @@ const InspectionSteps = () => {
       onClick: () => void;
       disabled?: boolean;
     }[] = [];
+
     if (currentStep === 1) {
       items = [
         {
@@ -371,11 +374,11 @@ const InspectionSteps = () => {
       items = [
         {
           key: "exterior",
-          label: "Capture exterior images",
+          label: "Capture 4 side images",
           icon: <CaptureImageIcon />,
-          done: exteriorImages.length === positions.length,
+          done: exteriorDataUrls.length === 4,
           onClick: () => {
-            setExteriorCaptureStep(exteriorImages.length);
+            setExteriorCaptureStep(exteriorDataUrls.length);
             setShowCameraFor("exterior");
           },
         },
@@ -384,65 +387,105 @@ const InspectionSteps = () => {
           label: "Detect exterior damages",
           icon: <DetectExteriorDamageIcon />,
           done: damagesDone,
-          onClick: () => setShowCameraFor("damages"),
-          disabled: exteriorImages.length !== positions.length,
+          onClick: async () => {
+            if (exteriorDataUrls.length !== 4) return;
+            setIsProcessing(true);
+            try {
+              await scanCarSides(exteriorDataUrls);
+              setDamagesDone(true);
+            } catch (err: any) {
+              alert(err.message || "Damage detection failed");
+            } finally {
+              setIsProcessing(false);
+            }
+          },
+          disabled: exteriorDataUrls.length !== 4,
         },
       ];
     }
 
     return (
-      <div className="bg-[#F5F9FC] h-screen p-5">
-        <div className="flex flex-col h-full">
-          <h1 className="text-[#303030] text-[20px] text-center font-bold mb-8">
-            {title}
-          </h1>
-          {items.map((item, index) => (
-            <div
-              key={item.key}
-              className={`flex justify-between items-center py-5 ${
-                index === 0 ? "border-t-[1px]" : ""
-              } border-b-[1px] border-[#DDD] cursor-pointer ${
-                item.disabled ? "opacity-50 pointer-events-none" : ""
-              }`}
-              onClick={!item.done ? item.onClick : undefined}
-            >
-              <div className="flex items-center gap-[10px]">
-                {item.icon}
-                <h2 className="text-[#303030] text-[14px] leading-5 font-medium">
-                  {item.label}
-                </h2>
-              </div>
-              {item.done ? (
-                <BsCheckCircleFill className="text-blue-500" />
-              ) : (
-                <RightArrowIcon fill="#7D7D7D" />
-              )}
-            </div>
-          ))}
-          <button
-            onClick={handleFinish}
-            className={`mt-auto submit-button w-full ${
-              !allItemsDoneForStep(currentStep) ? "opacity-50" : ""
+      <div className="bg-[#F5F9FC] h-screen p-5 max-w-[390px] mx-auto w-full relative">
+        {isProcessing && (
+          <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center z-50">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-white mb-4" />
+            <p className="text-white text-lg">Processing…</p>
+          </div>
+        )}
+
+        <h1 className="text-[#303030] text-[20px] text-center font-bold mb-8">
+          {title}
+        </h1>
+        {items.map((item, index) => (
+          <div
+            key={item.key}
+            className={`flex justify-between items-center py-5 ${
+              index === 0 ? "border-t-[1px]" : ""
+            } border-b-[1px] border-[#DDD] ${
+              item.disabled ? "opacity-50" : "cursor-pointer"
             }`}
-            disabled={!allItemsDoneForStep(currentStep)}
+            onClick={!item.disabled && !item.done ? item.onClick : undefined}
           >
-            Finish
-          </button>
-        </div>
+            <div className="flex items-center gap-[10px]">
+              {item.icon}
+              <h2 className="text-[#303030] text-[14px] leading-5 font-medium">
+                {item.label}
+              </h2>
+            </div>
+            {item.done ? (
+              <BsCheckCircleFill className="text-blue-500" />
+            ) : (
+              <RightArrowIcon fill="#7D7D7D" />
+            )}
+          </div>
+        ))}
+
+        <button
+          onClick={handleFinish}
+          disabled={!allItemsDoneForStep(currentStep) || isProcessing}
+          className={`mt-auto submit-button w-full ${
+            !allItemsDoneForStep(currentStep) || isProcessing
+              ? "opacity-50"
+              : ""
+          }`}
+        >
+          Finish
+        </button>
       </div>
     );
   }
 
+  /* ==================== MAIN SCREEN ==================== */
+  if (!tripId || !serialNo) {
+    return <div>Invalid parameters</div>;
+  }
+
   return (
-    <div className="bg-[#F5F9FC] h-screen p-5">
+    <div className="bg-[#F5F9FC] h-screen p-5 max-w-[390px] mx-auto w-full relative">
+      {isProcessing && (
+        <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center z-50">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-white mb-4" />
+          <p className="text-white text-lg">Processing…</p>
+        </div>
+      )}
+
       <FleetBloxIcon />
+
       <div className="space-y-[10px]">
-        {/* <VehicleInfo /> */}
-        <div className="shadow-[0_2px_5px_0_rgba(0,0,0,0.05)] rounded-md bg-white p-5 ">
-          <p className="text-[14px] font-bold text-[#6F6464] mb-5 text-center">
-            Inspection steps
-          </p>
-          <div className="space-y-[10px]">
+        <DriverAndOwnerInfo
+          setStartedInspection={setStartedInspection}
+          startedInspection={startedInspection}
+          tripId={tripId}
+          serialNo={serialNo}
+        />
+
+        {startedInspection && (
+          <div className="shadow-[0_2px_5px_0_rgba(0,0,0,0.05)] rounded-md bg-white p-5">
+            <p className="text-[14px] font-bold text-[#6F6464] mb-5 text-center">
+              Inspection steps
+            </p>
+
+            {/* Step 1 */}
             <div
               className={`p-4 border ${
                 currentStep === 1 ? "border-[#2D65F2]" : "border-[#F6F6F6]"
@@ -479,6 +522,8 @@ const InspectionSteps = () => {
                 </button>
               )}
             </div>
+
+            {/* Step 2 */}
             <div
               className={`p-4 border ${
                 currentStep === 2 ? "border-[#2D65F2]" : "border-[#F6F6F6]"
@@ -515,6 +560,8 @@ const InspectionSteps = () => {
                 </button>
               )}
             </div>
+
+            {/* Step 3 */}
             <div
               className={`p-4 border ${
                 currentStep === 3 ? "border-[#2D65F2]" : "border-[#F6F6F6]"
@@ -551,44 +598,37 @@ const InspectionSteps = () => {
                 </button>
               )}
             </div>
+
+            {/* Step 4 */}
             <div
               className={`p-4 border ${
                 currentStep === 4 ? "border-[#2D65F2]" : "border-[#F6F6F6]"
               } rounded-md`}
             >
               <div className="flex items-center gap-[10px]">
-                {currentStep > 4 ? (
-                  <BsCheckCircleFill className="text-blue-500" size={20} />
-                ) : (
-                  <div
-                    className={`border rounded-full p-[3.33px] w-[20px] h-[20px] flex items-center justify-center text-[10px] font-bold ${
-                      currentStep === 4
-                        ? "text-[#2D65F2] border-[#2D65F2]"
-                        : "text-[#DDD] border-[#F6F6F6]"
-                    }`}
-                  >
-                    4
-                  </div>
-                )}
-                <h2
-                  className={`text-[12px] font-medium leading-4 ${
-                    currentStep >= 4 ? "text-[#151515]" : "text-[#999]"
+                <div
+                  className={`border rounded-full p-[3.33px] w-[20px] h-[20px] flex items-center justify-center text-[10px] font-bold ${
+                    currentStep === 4
+                      ? "text-[#2D65F2] border-[#2D65F2]"
+                      : "text-[#DDD] border-[#F6F6F6]"
                   }`}
                 >
+                  4
+                </div>
+                <h2 className="text-[12px] font-medium leading-4 text-[#151515]">
                   Review and submit report
                 </h2>
               </div>
               {currentStep === 4 && (
-                <Link href={"/inspection/result"}>
+                <Link href="/inspection/result">
                   <button className="submit-button w-full mt-4">
                     View Report
                   </button>
                 </Link>
               )}
-              {/* Add review logic here if needed */}
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
