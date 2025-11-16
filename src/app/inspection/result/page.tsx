@@ -3,12 +3,15 @@
 
 import React, { useState } from "react";
 import { Table, Tag } from "antd";
-import { CarOutlined, EditOutlined, LeftOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import CaptureImageIcon from "../icons/CaptureImageIcon";
 import ExpandedReportIcon from "../icons/ExpandedReportIcon";
 import EditIcon from "./../icons/EditIcon";
-
+type DamageRecord = {
+  key: string;
+  part: string;
+  damages: string[];
+};
 const damageData = {
   Left: [
     {
@@ -46,7 +49,7 @@ const damageData = {
   // Rear: [...],
 };
 const InspectionResult = () => {
-  const [currentSide] = useState<"Left" | "Right" | "Front" | "Rear">("Left");
+  const [currentSide] = useState<"Left">("Left");
 
   const condition = "Poor"; // You can make this dynamic per side if you want
 
@@ -67,7 +70,7 @@ const InspectionResult = () => {
     {
       title: <span className="font-semibold text-gray-700">Damages</span>,
       key: "damages",
-      render: (_: any, record: any) =>
+      render: (_: DamageRecord, record: DamageRecord) =>
         record.damages.length === 0 ? (
           <span className="text-gray-400">-</span>
         ) : (
@@ -108,12 +111,12 @@ const InspectionResult = () => {
     return "green";
   };
 
-  const getCarRotation = () => {
-    if (currentSide === "Left") return "rotate(90deg)";
-    if (currentSide === "Right") return "rotate(-90deg)";
-    if (currentSide === "Rear") return "rotate(180deg)";
-    return "rotate(0deg)";
-  };
+  // const getCarRotation = () => {
+  //   if (currentSide === "Left") return "rotate(90deg)";
+  //   if (currentSide === "Right") return "rotate(-90deg)";
+  //   if (currentSide === "Rear") return "rotate(180deg)";
+  //   return "rotate(0deg)";
+  // };
   return (
     <div className="min-h-screen bg-white px-5 py-5">
       {/* Title */}

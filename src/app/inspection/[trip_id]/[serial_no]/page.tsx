@@ -168,11 +168,12 @@ const InspectionSteps = () => {
           // If you don't want auto-advance, just comment these 2 lines out
           setShowSubScreen(false);
           setCurrentStep(currentStep + 1);
-        } catch (err: any) {
-          alert(
-            err?.message ||
-              "Damage detection failed. You can try again using the 'Detect exterior damages' button."
-          );
+        } catch (err) {
+          const errorMessage =
+            err instanceof Error
+              ? err.message
+              : "Damage detection failed. You can try again using the 'Detect exterior damages' button.";
+          alert(errorMessage);
         } finally {
           setIsProcessing(false);
         }
@@ -181,8 +182,12 @@ const InspectionSteps = () => {
       }
       setCapturedImage(null);
       setShowCameraFor(null);
-    } catch (err: any) {
-      alert(err.message || "Processing failed – please retake");
+    } catch (err) {
+      const errorMessage =
+        err instanceof Error
+          ? err.message
+          : "Processing failed – please retake";
+      alert(errorMessage);
     } finally {
       setIsProcessing(false);
     }
@@ -429,8 +434,10 @@ const InspectionSteps = () => {
             try {
               await scanCarSides(exteriorDataUrls);
               setDamagesDone(true);
-            } catch (err: any) {
-              alert(err.message || "Damage detection failed");
+            } catch (err) {
+              const errorMessage =
+                err instanceof Error ? err.message : "Damage detection failed";
+              alert(errorMessage);
             } finally {
               setIsProcessing(false);
             }
