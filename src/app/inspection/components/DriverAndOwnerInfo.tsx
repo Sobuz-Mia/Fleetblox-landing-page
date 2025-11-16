@@ -20,7 +20,7 @@ interface VehicleData {
 
 interface DriverAndOwnerInfoProps {
   setStartedInspection: (value: boolean) => void;
-  tripId: string; 
+  tripId: string;
   serialNo: string | number;
   startedInspection: boolean;
 }
@@ -34,7 +34,6 @@ const DriverAndOwnerInfo = ({
   const [data, setData] = useState<VehicleData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  console.log(tripId, serialNo);
   useEffect(() => {
     const fetchInfo = async () => {
       if (!tripId || !serialNo) {

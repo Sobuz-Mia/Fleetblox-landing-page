@@ -14,6 +14,7 @@ import FleetBloxIcon from "../../icons/FleetBloxIcon";
 import DriverAndOwnerInfo from "../../components/DriverAndOwnerInfo";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import LoadingDiv from "../../components/LoadingDiv";
 
 const BASE_URL = "https://real-damage.fleetblox.com/api";
 
@@ -46,7 +47,8 @@ const InspectionSteps = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [isLandscape, setIsLandscape] = useState(false);
   const webcamRef = useRef<Webcam>(null);
-
+  const [processingMessage, setProcessingMessage] =
+    useState("Processing images");
   const positions = ["front", "left", "rear", "right"] as const;
 
   const videoConstraints = {
@@ -57,11 +59,20 @@ const InspectionSteps = () => {
 
   const scanVin = async (imageData: string) => {
     const file = dataURLtoFile(imageData, "vin.jpg");
+    // ← Add these logs
+    console.log("Converted file:", file);
+    console.log("File name:", file.name);
+    console.log("File size:", file.size);
+    console.log("File type:", file.type);
     const form = new FormData();
     form.append("image", file);
+    // ← These will actually show the content
+    console.log("FormData has 'image' key:", form.has("image"));
+    console.log("FormData entries:", [...form.entries()]);
     const url = `${BASE_URL}/scan_vin?trip_id=${encodeURIComponent(
       tripId
     )}&serial_no=${serialNo}`;
+    console.log(form);
     const res = await fetch(url, { method: "POST", body: form });
     if (!res.ok) throw new Error("VIN scan failed");
     return res.json();
@@ -119,27 +130,55 @@ const InspectionSteps = () => {
     setIsProcessing(true);
     try {
       if (showCameraFor === "vin") {
+        setProcessingMessage("Analyzing VIN");
         await scanVin(capturedImage);
         setVinDone(true);
       } else if (showCameraFor === "license") {
+        setProcessingMessage("Processing license");
         await scanLicensePlate(capturedImage);
         setLicenseDone(true);
       } else if (showCameraFor === "odometer") {
+        setProcessingMessage("Analyzing odometer");
         await scanOdometer(capturedImage);
         setOdometerDone(true);
         setCurrentStep(3);
       } else if (showCameraFor === "exterior") {
-        const newUrls = [...exteriorDataUrls, capturedImage];
+        if (!capturedImage) return;
+
+        const newUrls = [...exteriorDataUrls, capturedImage as string];
+
         setExteriorDataUrls(newUrls);
         setExteriorCaptureStep(newUrls.length);
+        setCapturedImage(null); // clear preview so we go back to live camera (or sub-screen on 4th)
 
-        if (newUrls.length === 4) {
-          setShowCameraFor(null); // close camera after 4th image
+        // If we have less than 4 images → just continue capturing
+        if (newUrls.length < 4) {
+          return;
         }
-        setCapturedImage(null);
-        return; // early return – no need to clear camera again below
-      }
 
+        // We have just confirmed the 4th image → close camera and run damage detection automatically
+        setShowCameraFor(null); // close camera, go back to sub-screen
+        setIsProcessing(true);
+
+        try {
+          await scanCarSides(newUrls); // your API call
+          setDamagesDone(true);
+
+          // Optional – auto-advance to the next step (recommended)
+          // If you don't want auto-advance, just comment these 2 lines out
+          setShowSubScreen(false);
+          setCurrentStep(currentStep + 1);
+        } catch (err: any) {
+          alert(
+            err?.message ||
+              "Damage detection failed. You can try again using the 'Detect exterior damages' button."
+          );
+        } finally {
+          setIsProcessing(false);
+        }
+
+        return;
+      }
       setCapturedImage(null);
       setShowCameraFor(null);
     } catch (err: any) {
@@ -180,17 +219,10 @@ const InspectionSteps = () => {
         return "";
     }
   };
-
-  /* ==================== CAMERA SCREEN ==================== */
   if (showCameraFor) {
     return (
       <div className="bg-[#F5F9FC] h-screen p-5 flex flex-col items-center justify-center relative">
-        {isProcessing && (
-          <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center z-50">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-white mb-4" />
-            <p className="text-white text-lg">Processing…</p>
-          </div>
-        )}
+        {isProcessing && <LoadingDiv title={processingMessage} />}
 
         <h1 className="z-50 text-[14px] text-white font-bold mb-4">
           {getCameraTitle()}
@@ -288,53 +320,57 @@ const InspectionSteps = () => {
             </button>
           </>
         ) : (
-          <div className="">
-            <div className="relative">
-              <Image
-                src={capturedImage}
-                alt="Captured"
-                width={800}
-                height={800}
-                className="object-scale-down h-full w-full rounded-md"
-              />
-              <button
-                onClick={handleRetake}
-                className="absolute top-1 right-1 h-[24px] w-[24px] rounded-[60px] bg-[rgba(21,21,21,0.28)] flex items-center justify-center p-1 active:scale-95"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    d="M12.0001 12.9932L6.95965 18.0336C6.8212 18.1721 6.65646 18.2408 6.46543 18.2399C6.27441 18.2389 6.10807 18.1676 5.9664 18.0259C5.82987 17.8843 5.76289 17.7208 5.76545 17.5356C5.76802 17.3503 5.83757 17.1894 5.9741 17.0529L11.0068 12L5.9741 6.9471C5.84397 6.81698 5.7773 6.65769 5.7741 6.46922C5.7709 6.28077 5.83757 6.11571 5.9741 5.97405C6.11064 5.83238 6.27281 5.75946 6.46063 5.7553C6.64844 5.75113 6.81479 5.81988 6.95965 5.96155L12.0001 11.0067L17.0453 5.96155C17.1805 5.8263 17.3436 5.75915 17.5347 5.7601C17.7257 5.76106 17.8936 5.83238 18.0385 5.97405C18.1718 6.11571 18.2372 6.27917 18.2347 6.46442C18.2321 6.64967 18.1625 6.81056 18.026 6.9471L12.9933 12L18.026 17.0529C18.1561 17.183 18.2228 17.3423 18.226 17.5308C18.2292 17.7192 18.1625 17.8843 18.026 18.0259C17.8895 18.1676 17.7273 18.2405 17.5395 18.2447C17.3517 18.2489 17.1869 18.1785 17.0453 18.0336L12.0001 12.9932Z"
-                    fill="white"
+          <>
+            {!isProcessing && (
+              <div className="">
+                <div className="relative">
+                  <Image
+                    src={capturedImage}
+                    alt="Captured"
+                    width={800}
+                    height={800}
+                    className="object-scale-down h-full w-full rounded-md"
                   />
-                </svg>
-              </button>
-            </div>
-            <div className="mt-4 flex gap-4">
-              <button
-                onClick={handleConfirm}
-                className={`absolute bottom-5 h-[50px] right-1/2 w-[50px] rounded-[83px] bg-[#2D65F2] shadow-[0_0_30px_0_rgba(45,101,242,0.75)] flex items-center justify-center border-[2px] border-white active:scale-95`}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    d="M16.607 12.6971H5.40405C5.20983 12.6971 5.0443 12.6295 4.90745 12.4942C4.77058 12.359 4.70215 12.1943 4.70215 12C4.70215 11.8058 4.77058 11.6402 4.90745 11.5034C5.0443 11.3665 5.20983 11.2981 5.40405 11.2981H16.607L11.4983 6.18945C11.3579 6.04907 11.2874 5.88512 11.2867 5.69762C11.2861 5.51012 11.3592 5.34298 11.506 5.1962C11.6496 5.05453 11.8143 4.98321 12.0002 4.98225C12.1861 4.9813 12.3524 5.05261 12.4992 5.1962L18.6982 11.3952C18.7835 11.4837 18.8474 11.5778 18.8901 11.6774C18.9327 11.7771 18.954 11.8846 18.954 12C18.954 12.1154 18.9327 12.2229 18.8901 12.3226C18.8474 12.4223 18.7835 12.5148 18.6982 12.6L12.4992 18.799C12.3608 18.9375 12.1965 19.0083 12.0064 19.0115C11.8164 19.0147 11.6496 18.9439 11.506 18.799C11.3592 18.6555 11.2858 18.4902 11.2858 18.3034C11.2858 18.1165 11.3592 17.9497 11.506 17.8029L16.607 12.6971Z"
-                    fill="white"
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
+                  <button
+                    onClick={handleRetake}
+                    className="absolute top-1 right-1 h-[24px] w-[24px] rounded-[60px] bg-[rgba(21,21,21,0.28)] flex items-center justify-center p-1 active:scale-95"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                    >
+                      <path
+                        d="M12.0001 12.9932L6.95965 18.0336C6.8212 18.1721 6.65646 18.2408 6.46543 18.2399C6.27441 18.2389 6.10807 18.1676 5.9664 18.0259C5.82987 17.8843 5.76289 17.7208 5.76545 17.5356C5.76802 17.3503 5.83757 17.1894 5.9741 17.0529L11.0068 12L5.9741 6.9471C5.84397 6.81698 5.7773 6.65769 5.7741 6.46922C5.7709 6.28077 5.83757 6.11571 5.9741 5.97405C6.11064 5.83238 6.27281 5.75946 6.46063 5.7553C6.64844 5.75113 6.81479 5.81988 6.95965 5.96155L12.0001 11.0067L17.0453 5.96155C17.1805 5.8263 17.3436 5.75915 17.5347 5.7601C17.7257 5.76106 17.8936 5.83238 18.0385 5.97405C18.1718 6.11571 18.2372 6.27917 18.2347 6.46442C18.2321 6.64967 18.1625 6.81056 18.026 6.9471L12.9933 12L18.026 17.0529C18.1561 17.183 18.2228 17.3423 18.226 17.5308C18.2292 17.7192 18.1625 17.8843 18.026 18.0259C17.8895 18.1676 17.7273 18.2405 17.5395 18.2447C17.3517 18.2489 17.1869 18.1785 17.0453 18.0336L12.0001 12.9932Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <div className="mt-4 flex gap-4">
+                  <button
+                    onClick={handleConfirm}
+                    className={`absolute bottom-5 h-[50px] right-1/2 w-[50px] mx-auto rounded-[83px] bg-[#2D65F2] shadow-[0_0_30px_0_rgba(45,101,242,0.75)] flex items-center justify-center border-[2px] border-white active:scale-95`}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                    >
+                      <path
+                        d="M16.607 12.6971H5.40405C5.20983 12.6971 5.0443 12.6295 4.90745 12.4942C4.77058 12.359 4.70215 12.1943 4.70215 12C4.70215 11.8058 4.77058 11.6402 4.90745 11.5034C5.0443 11.3665 5.20983 11.2981 5.40405 11.2981H16.607L11.4983 6.18945C11.3579 6.04907 11.2874 5.88512 11.2867 5.69762C11.2861 5.51012 11.3592 5.34298 11.506 5.1962C11.6496 5.05453 11.8143 4.98321 12.0002 4.98225C12.1861 4.9813 12.3524 5.05261 12.4992 5.1962L18.6982 11.3952C18.7835 11.4837 18.8474 11.5778 18.8901 11.6774C18.9327 11.7771 18.954 11.8846 18.954 12C18.954 12.1154 18.9327 12.2229 18.8901 12.3226C18.8474 12.4223 18.7835 12.5148 18.6982 12.6L12.4992 18.799C12.3608 18.9375 12.1965 19.0083 12.0064 19.0115C11.8164 19.0147 11.6496 18.9439 11.506 18.799C11.3592 18.6555 11.2858 18.4902 11.2858 18.3034C11.2858 18.1165 11.3592 17.9497 11.506 17.8029L16.607 12.6971Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            )}
+          </>
         )}
       </div>
     );
@@ -376,7 +412,7 @@ const InspectionSteps = () => {
           key: "exterior",
           label: "Capture 4 side images",
           icon: <CaptureImageIcon />,
-          done: exteriorDataUrls.length === 4,
+          done: exteriorDataUrls.length === 4 && damagesDone,
           onClick: () => {
             setExteriorCaptureStep(exteriorDataUrls.length);
             setShowCameraFor("exterior");
@@ -406,51 +442,52 @@ const InspectionSteps = () => {
 
     return (
       <div className="bg-[#F5F9FC] h-screen p-5 max-w-[390px] mx-auto w-full relative">
-        {isProcessing && (
-          <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center z-50">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-white mb-4" />
-            <p className="text-white text-lg">Processing…</p>
-          </div>
+        {isProcessing ? (
+          <LoadingDiv title={processingMessage} />
+        ) : (
+          <>
+            <h1 className="text-[#303030] text-[20px] text-center font-bold mb-8">
+              {title}
+            </h1>
+            {items.map((item, index) => (
+              <div
+                key={item.key}
+                className={`flex justify-between items-center py-5 ${
+                  index === 0 ? "border-t-[1px]" : ""
+                } border-b-[1px] border-[#DDD] ${
+                  item.disabled ? "opacity-50" : "cursor-pointer"
+                }`}
+                onClick={
+                  !item.disabled && !item.done ? item.onClick : undefined
+                }
+              >
+                <div className="flex items-center gap-[10px]">
+                  {item.icon}
+                  <h2 className="text-[#303030] text-[14px] leading-5 font-medium">
+                    {item.label}
+                  </h2>
+                </div>
+                {item.done ? (
+                  <BsCheckCircleFill className="text-blue-500" />
+                ) : (
+                  <RightArrowIcon fill="#7D7D7D" />
+                )}
+              </div>
+            ))}
+
+            <button
+              onClick={handleFinish}
+              disabled={!allItemsDoneForStep(currentStep) || isProcessing}
+              className={`mt-auto submit-button w-full ${
+                !allItemsDoneForStep(currentStep) || isProcessing
+                  ? "opacity-50"
+                  : ""
+              }`}
+            >
+              Finish
+            </button>
+          </>
         )}
-
-        <h1 className="text-[#303030] text-[20px] text-center font-bold mb-8">
-          {title}
-        </h1>
-        {items.map((item, index) => (
-          <div
-            key={item.key}
-            className={`flex justify-between items-center py-5 ${
-              index === 0 ? "border-t-[1px]" : ""
-            } border-b-[1px] border-[#DDD] ${
-              item.disabled ? "opacity-50" : "cursor-pointer"
-            }`}
-            onClick={!item.disabled && !item.done ? item.onClick : undefined}
-          >
-            <div className="flex items-center gap-[10px]">
-              {item.icon}
-              <h2 className="text-[#303030] text-[14px] leading-5 font-medium">
-                {item.label}
-              </h2>
-            </div>
-            {item.done ? (
-              <BsCheckCircleFill className="text-blue-500" />
-            ) : (
-              <RightArrowIcon fill="#7D7D7D" />
-            )}
-          </div>
-        ))}
-
-        <button
-          onClick={handleFinish}
-          disabled={!allItemsDoneForStep(currentStep) || isProcessing}
-          className={`mt-auto submit-button w-full ${
-            !allItemsDoneForStep(currentStep) || isProcessing
-              ? "opacity-50"
-              : ""
-          }`}
-        >
-          Finish
-        </button>
       </div>
     );
   }
@@ -462,12 +499,7 @@ const InspectionSteps = () => {
 
   return (
     <div className="bg-[#F5F9FC] h-screen p-5 max-w-[390px] mx-auto w-full relative">
-      {isProcessing && (
-        <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center z-50">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-white mb-4" />
-          <p className="text-white text-lg">Processing…</p>
-        </div>
-      )}
+      {/* {isProcessing && <LoadingDiv />} */}
 
       <FleetBloxIcon />
 
