@@ -1,8 +1,8 @@
-
-// import { CameraControls } from "@/components/CameraControls";
-// import { DamageList } from "@/components/DamageList";
+"use client";
 import { useState } from "react";
 import { VideoWithOverlay } from "../../components/VideoWithOverlay";
+import { CameraControls } from "../../components/CameraControls";
+import { DamageList } from "../../components/DamageList";
 
 export default function LiveInspectionPage() {
   const [currentSide, setCurrentSide] = useState<
@@ -32,11 +32,11 @@ export default function LiveInspectionPage() {
           ))}
         </div>
 
-        {/* <CameraControls /> */}
+        <CameraControls />
 
         <VideoWithOverlay currentSide={currentSide} />
 
-        {/* <DamageList /> */}
+        <DamageList />
       </div>
     </div>
   );

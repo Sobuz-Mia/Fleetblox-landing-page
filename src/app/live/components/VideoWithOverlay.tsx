@@ -2,8 +2,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { DamageModal } from "./DamageModal";
 import { useParams } from "next/navigation";
+import { DamageModal } from "./DamageModal";
 
 interface Damage {
   damage_id: number;
