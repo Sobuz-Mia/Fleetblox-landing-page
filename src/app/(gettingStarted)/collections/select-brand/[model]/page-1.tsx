@@ -65,8 +65,6 @@ const ModelSelector = ({ params }: any) => {
           ? JSON.parse(selectedCountriesData)
           : [];
 
-
-
         // Group countries by region as before
         const regionsWithCountries = selectedCountries.reduce(
           (acc: { [key: string]: string[] }, country: string) => {
@@ -83,8 +81,7 @@ const ModelSelector = ({ params }: any) => {
 
         // Fetch all countries
         const countriesResponse = await axios.get(
-
-          `${baseUrl}/api/utils/all-countries`,
+          `${baseUrl}/api/utils/all-countries`
         );
         const allCountries = countriesResponse.data.data;
 
@@ -107,7 +104,11 @@ const ModelSelector = ({ params }: any) => {
         const regions = Object.keys(regionsWithCountries);
 
         // Function to make API call with retry logic
-        const fetchWithRetry = async (region: string, retries = 3, delay = 1000) => {
+        const fetchWithRetry = async (
+          region: string,
+          retries = 3,
+          delay = 1000
+        ) => {
           for (let attempt = 0; attempt < retries; attempt++) {
             try {
               const response = await axios.get(
@@ -117,7 +118,12 @@ const ModelSelector = ({ params }: any) => {
               );
               return response;
             } catch (error: any) {
-              console.log(`Error fetching data for region ${region} (Attempt ${attempt + 1}/${retries}):`, error.message);
+              console.log(
+                `Error fetching data for region ${region} (Attempt ${
+                  attempt + 1
+                }/${retries}):`,
+                error.message
+              );
 
               if (attempt === retries - 1) {
                 // This was the last attempt, throw the error
@@ -125,7 +131,7 @@ const ModelSelector = ({ params }: any) => {
               }
 
               // Wait before retrying
-              await new Promise(resolve => setTimeout(resolve, delay));
+              await new Promise((resolve) => setTimeout(resolve, delay));
               // Increase delay for next attempt (exponential backoff)
               delay *= 2;
             }
@@ -137,7 +143,10 @@ const ModelSelector = ({ params }: any) => {
           try {
             return await fetchWithRetry(region);
           } catch (error) {
-            console.error(`Failed to fetch data for region ${region} after multiple attempts:`, error);
+            console.error(
+              `Failed to fetch data for region ${region} after multiple attempts:`,
+              error
+            );
             toast.error(`Failed to load data for ${region} region`);
             // Return a mock response with empty data to prevent breaking the app
             return { data: { data: [] } };
@@ -156,7 +165,10 @@ const ModelSelector = ({ params }: any) => {
               region,
             }));
           } else {
-            console.error(`Invalid data format for region ${region}:`, res?.data);
+            console.error(
+              `Invalid data format for region ${region}:`,
+              res?.data
+            );
             // @ts-expect-error
             acc[region] = []; // Set empty array for invalid data
           }
@@ -173,7 +185,7 @@ const ModelSelector = ({ params }: any) => {
     };
 
     fetchData();
-  }, []);
+  }, [baseUrl]);
 
   const filteredModels = React.useMemo(() => {
     if (!Object.keys(regionData).length) return [];
@@ -224,8 +236,6 @@ const ModelSelector = ({ params }: any) => {
       setSelectedModels(storedBrandModels[currentBrandKey] || []);
     }
   }, [currentBrandIndex, filteredModels]);
-
-
 
   // 2. Update your useEffect that loads country models
   useEffect(() => {
@@ -453,10 +463,11 @@ const ModelSelector = ({ params }: any) => {
             {currentCountries.map((country) => (
               <div
                 key={country.countryCode}
-                className={`border rounded-[16px] overflow-hidden transition-all duration-200 ${expandedCountries.has(country.countryCode)
-                  ? "border-[#DFDFDF] shadow-sm"
-                  : "border-[#DFDFDF]"
-                  }`}
+                className={`border rounded-[16px] overflow-hidden transition-all duration-200 ${
+                  expandedCountries.has(country.countryCode)
+                    ? "border-[#DFDFDF] shadow-sm"
+                    : "border-[#DFDFDF]"
+                }`}
               >
                 {/* Country Header - Always visible */}
                 <div
@@ -535,7 +546,7 @@ const ModelSelector = ({ params }: any) => {
                                   }
                                   aria-describedby="model-selection"
                                   className="mr-2 cursor-pointer"
-                                  onChange={() => { }} // Required for controlled component
+                                  onChange={() => {}} // Required for controlled component
                                 />
                                 <span className="font-semibold w-full text-[#333] font-openSans leading-relaxed text-sm">
                                   {model.name
@@ -548,7 +559,7 @@ const ModelSelector = ({ params }: any) => {
                                   e.stopPropagation();
                                   setExpandedModel((prev) =>
                                     prev ===
-                                      `${country.countryCode}-${model.name}`
+                                    `${country.countryCode}-${model.name}`
                                       ? null
                                       : `${country.countryCode}-${model.name}`
                                   );
@@ -558,7 +569,7 @@ const ModelSelector = ({ params }: any) => {
                                 <Image
                                   src={
                                     expandedModel ===
-                                      `${country.countryCode}-${model.name}`
+                                    `${country.countryCode}-${model.name}`
                                       ? open
                                       : close
                                   }
@@ -569,8 +580,8 @@ const ModelSelector = ({ params }: any) => {
                             </div>
                             {expandedModel ===
                               `${country.countryCode}-${model.name}` && (
-                                <AccessPoint permission={model.endpoints} />
-                              )}
+                              <AccessPoint permission={model.endpoints} />
+                            )}
                           </div>
                         )
                       )
@@ -601,10 +612,11 @@ const ModelSelector = ({ params }: any) => {
           {`Can’t find my make`}
         </button>
         <button
-          className={`w-full text-white px-[14px] py-[10px] font-openSans rounded-md ${Object.values(selectedModels).some((models) => models.length > 0)
-            ? "bg-[#2D65F2]"
-            : "bg-[#2D65F2]/50"
-            }`}
+          className={`w-full text-white px-[14px] py-[10px] font-openSans rounded-md ${
+            Object.values(selectedModels).some((models) => models.length > 0)
+              ? "bg-[#2D65F2]"
+              : "bg-[#2D65F2]/50"
+          }`}
           disabled={
             !Object.values(selectedModels).some((models) => models.length > 0)
           }

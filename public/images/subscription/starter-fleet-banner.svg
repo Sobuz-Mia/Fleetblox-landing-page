@@ -4,7 +4,7 @@
 <rect x="99" y="66" width="312" height="450" fill="url(#pattern1_9019_48515)" shape-rendering="crispEdges"/>
 </g>
 <circle cx="255" cy="497.5" r="8" fill="url(#paint0_radial_9019_48515)"/>
-<g clip-path="url(#clip0_9019_48515)">
+<g clipPath="url(#clip0_9019_48515)">
 <rect x="116" y="105" width="278" height="373" fill="white"/>
 <rect x="131" y="321" width="446.19" height="162.7" fill="url(#pattern2_9019_48515)"/>
 <path d="M309.188 239.504H334.188V264.504" stroke="#7D7D7D" stroke-width="1.89655" stroke-linecap="round"/>

@@ -18,7 +18,7 @@ const BlogSection = () => {
               Latest Blogs
             </h3>
             {/* left side */}
-            <Link href="https://fleetblox.site/2024/05/26/smart-alerts-fleetbloxs-cloudte-chnology">
+            <Link href="https://blog.fleetblox.com/2024/05/26/smart-alerts-fleetbloxs-cloudte-chnology">
               <h3 className="font-montserrat text-[36px] font-bold leading-normal md:leading-[1.1] text-[#04082C] hover:text-opacity-70">
                 {`Smart Alerts: How Fleetblox's Eagle Eye Technology Makes Your
               Fleet...`}
@@ -107,7 +107,7 @@ const BlogSection = () => {
                   />
                 </div>
                 <div className="p-4 flex flex-col justify-between flex-1">
-                  <Link href="https://fleetblox.site/2024/05/26/smart-alerts-fleetbloxs-cloudte-chnology">
+                  <Link href="https://blog.fleetblox.com/2024/05/26/smart-alerts-fleetbloxs-cloudte-chnology">
                     <h3 className="font-openSans text-[18px] font-bold text-[#333] line-clamp-2 h-[54px]">
                       {`Smart Alerts: How Fleetblox's Eagle Eye Technology Makes Your Fleet...`}
                     </h3>

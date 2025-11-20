@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import Navbar from "@/components/ui/shared/Navbar";
 import { useEffect } from "react";
 import HeroSection from "@/components/modules/home/HeroSection";
+import GrowingPlatform from "@/components/modules/home/GrowingPlatform";
 
 const FleetSolution = dynamic(
   () => import("@/components/modules/home/FleetSolution"),
@@ -78,6 +79,7 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       <FleetSolution />
+      <GrowingPlatform />
       <ConnectRemotelySection />
       <VirtualSlot />
       <UnifiedFleetManagement />

@@ -295,7 +295,7 @@ const CheckOutPage = () => {
         `${baseUrl}/api/payment/create-session`,
         submitData
       );
-
+      console.log(data, submitData);
       if (data.statusCode === 200) {
         // localStorage.clear();
         return router.push(data?.data.sessionUrl);

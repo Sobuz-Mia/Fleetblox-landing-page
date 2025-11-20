@@ -80,13 +80,13 @@ const EMobilityServices = () => {
       title: "Coordinate Seamlessly Across Cities or Regions",
       content:
         "Whether you're operating in one city or managing teams across multiple regions, Fleetblox ensures smooth coordination at every level.",
-      image: "/images/industries/mobile-crew-2.svg",
+      image: "/images/industries/mobile-crew-22.svg",
     },
     {
       title: "Stay Aligned, On Track, and Optimized—Anywhere",
       content:
         "Keep your team on the same page, monitor task progress, and optimize overall performance no matter where your operations are based.",
-      image: "/images/industries/mobile-crew-3.svg",
+      image: "/images/industries/mobile-crew-33.svg",
     },
   ];
   return (

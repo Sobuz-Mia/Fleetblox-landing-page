@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
     NEXT_PUBLIC_ENV: process.env.NEXT_PUBLIC_ENV || process.env.NODE_ENV,
   },
 
-  ...((process.env.NODE_ENV === "production") && {
+  ...(process.env.NODE_ENV === "production" && {
     poweredByHeader: false,
     compress: true,
   }),
@@ -24,6 +24,10 @@ const nextConfig: NextConfig = {
       {
         source: "/(.*)",
         headers: [
+          {
+            key: "Permissions-Policy",
+            value: "camera=(self), microphone=(), geolocation=()", // Consolidated: Allows camera, disallows others
+          },
           {
             key: "Strict-Transport-Security",
             value: "max-age=63072000; includeSubDomains; preload",
@@ -39,10 +43,6 @@ const nextConfig: NextConfig = {
           {
             key: "Referrer-Policy",
             value: "strict-origin-when-cross-origin",
-          },
-          {
-            key: "Permissions-Policy",
-            value: "camera=(), microphone=(), geolocation=()",
           },
         ],
       },

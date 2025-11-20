@@ -363,3 +363,65 @@ export const teamAndAccessManagementItems = [
     desc: "Coordinate with your team instantly through in-app messaging",
   },
 ];
+export const fleetAnalyticsFeatures = [
+  {
+    title: "Analytics Overview ",
+    permissions: [
+      { permission: false },
+      { permission: false },
+      { permission: true },
+      { permission: true },
+    ],
+    desc: "Combined analytical calculations from all fleet locations.",
+  },
+  {
+    title: "Fuel/ Energy Usage",
+    permissions: [
+      { permission: false },
+      { permission: false },
+      { permission: true },
+      { permission: true },
+    ],
+    desc: "Breakdown and insights into total fuel and energy consumption.",
+  },
+  {
+    title: "Avg Up/Down Time",
+    permissions: [
+      { permission: false },
+      { permission: false },
+      { permission: true },
+      { permission: true },
+    ],
+    desc: "Analysis of vehicle downtime and overall fleet uptime.",
+  },
+  {
+    title: "Driven Millage",
+    permissions: [
+      { permission: false },
+      { permission: false },
+      { permission: true },
+      { permission: true },
+    ],
+    desc: "Calculations and comparisons of mileage across all vehicles.",
+  },
+  {
+    title: "CO2 Emission",
+    permissions: [
+      { permission: false },
+      { permission: false },
+      { permission: false },
+      { permission: true },
+    ],
+    desc: "Carbon emission levels and sustainability status for each vehicle.",
+  },
+  {
+    title: "Fleet Expenses",
+    permissions: [
+      { permission: false },
+      { permission: false },
+      { permission: false },
+      { permission: true },
+    ],
+    desc: "Breakdown of total expenses for your fleet, organized by location.",
+  },
+];

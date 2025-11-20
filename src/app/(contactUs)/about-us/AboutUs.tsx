@@ -79,7 +79,7 @@ const AboutUsPage = () => {
           </h1>
           <p className="text-[14px] sm:text-[15px] md:text-[16px] text-[#333] leading-6 font-openSans mb-[20px] sm:mb-[30px] max-w-[95%] sm:max-w-[90%] md:max-w-[80%] mx-auto">
             Get to know{" "}
-            <span className="font-bold text-[#2D65F2]">Fleetblox</span>. Driving
+            <span className="font-bold text-[#2D65F2]">Fleetblox</span> Driving
             Simplicity in a Connected World
           </p>
         </div>
@@ -117,7 +117,7 @@ const AboutUsPage = () => {
         <div className="max-w-[1200px] flex flex-col lg:flex-row-reverse items-center gap-6 sm:gap-8 lg:gap-10 justify-between mx-auto w-full">
           <div className="w-full lg:w-1/2 order-2 lg:order-1 flex justify-center">
             <Image
-              src="/images/our-team-about.svg"
+              src="/images/our-team-about-img.svg"
               alt="Fleet management illustration"
               width={600}
               height={300}
@@ -139,7 +139,7 @@ const AboutUsPage = () => {
               align with the rapid evolution of today&apos;s automotive market.
             </p>
 
-            <Link
+            {/* <Link
               aria-label="Get started with FleetBlox"
               href="/getting-started"
             >
@@ -149,7 +149,7 @@ const AboutUsPage = () => {
                   <RightArrowIcon />
                 </div>
               </button>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </section>

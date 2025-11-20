@@ -20,7 +20,7 @@ const Cards = () => {
     {
       title: "Customer Support",
       description:
-        "Our support team is here to assist you with any issuse or questions",
+        "Our support team is here to assist you with any issues or questions",
       linkText: "Contact Us",
       linkHref: "https://forms.gle/FhbEkrRpdgdhqFgz9",
     },

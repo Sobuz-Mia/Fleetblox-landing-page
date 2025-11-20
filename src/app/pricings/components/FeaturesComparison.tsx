@@ -2,6 +2,7 @@
 import {
   complianceAndNotificationsItems,
   financialManagementItems,
+  fleetAnalyticsFeatures,
   fleetFeatures,
   intelligenceFeatures,
   teamAndAccessManagementItems,
@@ -98,7 +99,18 @@ const FeaturesComparison = () => {
                 featuresPermissions={features}
               />
             ))}
-
+            <div className="md:rounded-lg rounded-b-lg md:px-5 mt-5 p-[10px] text-center md:text-left flex gap-[5px] items-center bg-[#F7F7F7] md:bg-white justify-center md:justify-start">
+              <h3 className="text-[22px] font-[700] text-[#0336BC] font-openSans">
+                Fleet Analytics
+              </h3>
+              <FeaturesAlertToggle />
+            </div>
+            {fleetAnalyticsFeatures?.map((features, index: number) => (
+              <FeaturesPermissionRow
+                key={index}
+                featuresPermissions={features}
+              />
+            ))}
             <div className="md:rounded-lg rounded-b-lg md:px-5 p-[10px] md:pb-5 text-center md:text-left flex gap-[5px] items-center bg-[#F7F7F7] md:bg-white justify-center md:justify-start">
               <h3 className="text-[22px] font-[700] text-[#0336BC] font-openSans">
                 Compliance & Notifications
@@ -186,19 +198,23 @@ const FeaturesPermissionRow: React.FC<FeaturesPermissionRowComponentProps> = ({
             {" "}
             {featuresPermissions?.title}
           </div>
-          <span className="absolute w-[400px] hidden shadow-md md:group-hover:inline-block bg-[#6F6464] rounded-[8px]  p-4 whitespace-normal left-[90%] -translate-x-1/2 bottom-[calc(100%+8px)] text-[#fff] text-[14px] font-openSans">
-            {featuresPermissions?.desc}
-          </span>
-          <span
-            className="absolute hidden group-hover:inline-block left-8 -translate-x-1/2 bottom-full"
-            style={{
-              width: 0,
-              height: 0,
-              borderLeft: "10px solid transparent",
-              borderRight: "10px solid transparent",
-              borderTop: "8px solid #6F6464",
-            }}
-          ></span>
+          {featuresPermissions?.desc && (
+            <>
+              <span className="absolute w-[400px] hidden shadow-md md:group-hover:inline-block bg-[#6F6464] rounded-[8px]  p-4 whitespace-normal left-[90%] -translate-x-1/2 bottom-[calc(100%+8px)] text-[#fff] text-[14px] font-openSans">
+                {featuresPermissions?.desc}
+              </span>
+              <span
+                className="absolute hidden group-hover:inline-block left-8 -translate-x-1/2 bottom-full"
+                style={{
+                  width: 0,
+                  height: 0,
+                  borderLeft: "10px solid transparent",
+                  borderRight: "10px solid transparent",
+                  borderTop: "8px solid #6F6464",
+                }}
+              ></span>
+            </>
+          )}
         </div>
         {/* For desktop/tablet view */}
         {featuresPermissions.permissions?.map((permission, index) => (

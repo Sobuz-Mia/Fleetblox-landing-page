@@ -4,8 +4,8 @@ export async function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
 
   if (url.pathname.startsWith("/blog")) {
-    // Change to fleetblox.site domain
-    url.hostname = "fleetblox.site";
+    // url.hostname = "fleetblox.site";
+    url.hostname = "blog.fleetblox.com";
     url.protocol = "https";
     url.port = "443";
     url.pathname = "/";

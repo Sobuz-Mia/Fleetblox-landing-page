@@ -235,8 +235,11 @@ const page = () => {
             check that every vehicle, whether electric, hybrid, or combustion
             engine is 100% compatible with Fleetblox.
           </p>
-          <Link href={"/under-development"}>
-            <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
+          <Link href={"/getting-started"}>
+            <button
+              onClick={() => localStorage.setItem("isGetDemo", "true")}
+              className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold"
+            >
               Check Compatibility
             </button>
           </Link>
@@ -342,9 +345,7 @@ const page = () => {
                     </span>
                   </Link>
                 </button>
-                <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
-                  Get The Product Sheet
-                </button>
+                <StarterFleetActionButton text="Get Started" />
               </div>
             }
           />

@@ -262,13 +262,7 @@ const page = () => {
           paddingTop="pt-[40px]"
           title="Transform your Fleet Data into Business Value"
           description="FleetBlox leverages advanced AI and intelligent automation to simplify fleet management, turning complex data into actionable insights."
-          extraButton={
-            // <Link href={"/getting-started"}>
-            <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
-              Get Started
-            </button>
-            // </Link>
-          }
+          extraButton={<StarterFleetActionButton />}
         />
       </div>
     </div>
@@ -289,7 +283,7 @@ const CheckIcon_2 = () => {
       <path
         d="M30.5152 0H25.4544C25.2022 0 24.9659 0.122918 24.8211 0.329377L5.41406 28H12.3762L31.1487 1.21757C31.508 0.704913 31.1413 0 30.5152 0Z"
         fill="#2D65F2"
-        fill-opacity="0.7"
+        fillOpacity="0.7"
       />
       <path
         d="M1.14655 14.5469H6.42973C6.74543 14.5469 7.02945 14.7387 7.14734 15.0316L12.3672 27.9984H5.40509L0.428727 15.6088C0.224576 15.1005 0.598812 14.5469 1.14655 14.5469Z"

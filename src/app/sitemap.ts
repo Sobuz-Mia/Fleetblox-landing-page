@@ -4,7 +4,6 @@ import { config } from "../utils/config";
 export default function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Base URL from environment config
   const baseUrl = config.siteUrl;
-
   return Promise.resolve([
     {
       url: `${baseUrl}/`,

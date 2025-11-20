@@ -1,5 +1,6 @@
 import { MotionValue } from "framer-motion";
 import { StaticImageData } from "next/image";
+import { ReactNode } from "react";
 
 export interface CardProps {
   icon: string;
@@ -54,7 +55,7 @@ export type TSalesFormData = {
   companyName: string;
   phoneNumber: string;
   companyEmail: string;
-  additionalMessage: string; 
+  additionalMessage: string;
   countryCode: string;
   flag: StaticImageData;
 };
@@ -75,4 +76,5 @@ export type NavbarItem = {
   description?: string;
   href: string;
   isUpcoming?: boolean;
+  icon?: ReactNode;
 };

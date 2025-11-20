@@ -189,7 +189,7 @@ const StarterFleetPage = () => {
       {/* Multi-powertrains integration section  */}
       <section className="py-12 sm:py-16 md:py-20 bg-[#FAFAFF] mx-auto w-full px-4 sm:px-5">
         <div className="max-w-[1200px] flex flex-col lg:flex-row items-center gap-6 sm:gap-8 lg:gap-10 justify-between mx-auto w-full">
-          <div className="w-full lg:w-1/2 order-2 lg:order-1">
+          <div className="w-full lg:w-1/2 order-2 lg:order-1 relative">
             <Image
               src="/images/subscription/starter-fleet-hero.svg"
               alt="Fleet management illustration"
@@ -199,6 +199,17 @@ const StarterFleetPage = () => {
               className="object-contain w-full h-auto"
               priority
             />
+            <div className="absolute left-1/2 top-10 -translate-x-1/2 -translate-y-1/2 w-[86px] h-[57px]">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className=" z-50 h-full !w-full object-contain mix-blend-plus-lighter "
+              >
+                <source src="/videos/wi-fi-signal.mp4" type="video/mp4" />
+              </video>
+            </div>
           </div>
           {/* right side */}
           <div className="w-full lg:w-1/2 flex flex-col justify-center text-center lg:text-left order-1 lg:order-2">

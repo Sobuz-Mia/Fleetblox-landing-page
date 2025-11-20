@@ -4,10 +4,11 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "@/components/ui/menubar";
-import { ChevronDown } from "lucide-react";
 import SolutionsSubpage from "./SolutionsSubpage";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import TopArrow from "./../../../icons/TopArrow";
+import DownArrowNav from "./../../../icons/DownArrowNav";
 
 export function Solutions() {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,7 +28,7 @@ export function Solutions() {
           <div className="flex cursor-pointer items-center gap-[2px] text-[16px] font-openSans font-semibold leading-6 transition-all duration-300 ease-in-out hover:text-[#7D7D7D] active:bg-transparent">
             <h4>Solutions</h4>
             <div className="mt-[3px] flex items-center justify-center">
-              <ChevronDown size={18} />
+              {isOpen ? <TopArrow /> : <DownArrowNav />}
             </div>
           </div>
         </MenubarTrigger>
