@@ -26,7 +26,7 @@ export function VideoWithOverlay({ currentSide }: { currentSide: string }) {
   const [damages, setDamages] = useState<Damage[]>([]);
   const [selectedDamage, setSelectedDamage] = useState<Damage | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const BASE_URL = "https://real-damage.fleetblox.com";
   // WebRTC Connection & DataChannel
   useEffect(() => {
     const connect = async () => {
@@ -56,7 +56,7 @@ export function VideoWithOverlay({ currentSide }: { currentSide: string }) {
       const offer = await pc.createOffer();
       await pc.setLocalDescription(offer);
 
-      const res = await fetch("/offer", {
+      const res = await fetch(`${BASE_URL}/offer`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
