@@ -2,9 +2,6 @@ import { Divider } from "antd";
 import DepartureInspectionIcon from "./icons/DepartureInspectionIcon";
 import conditionBar from "../../../../public/images/inspection/condition-bar.png";
 import Image from "next/image";
-import MiddleCarDiagram from "./components/MiddleCarDiagram";
-import LeftSideCarDiaGram from "./components/LeftSideCarDiaGram";
-import RightSIdeCarDiagram from "./components/RightSIdeCarDiagram";
 import CarDiagram from "./components/CarDiagram";
 const InspectionFinalReport = () => {
   return (
@@ -102,7 +99,7 @@ const InspectionFinalReport = () => {
         <p className="text-[10px] font-medium whitespace-nowrap">High damage</p>
       </div>
       <CarDiagram />
-      <h1 className="h-[400px]">hellow</h1>
+      {/* <h1 className="h-[400px]">hellow</h1> */}
     </div>
   );
 };

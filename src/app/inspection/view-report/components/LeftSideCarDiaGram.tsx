@@ -46,7 +46,7 @@ const LeftSideCarDiaGram = () => {
           </div>
         </div>
       </div>
-      <div className="absolute left-[24px] top-[50px]">
+      <div className="absolute left-[24px] top-[51px]">
         <SideBumperFrontLeftSide />
       </div>
       <div className="absolute left-[32px] top-[238px]">
@@ -63,6 +63,7 @@ const LeftSideCarDiaGram = () => {
           <DoorHandleRearLeftSide />
         </div>
       </div>
+      {/* doors left side */}
       <div className="absolute left-[32px] top-[157px]">
         <div className="relative">
           <DoorsFrontLeftSide />
