@@ -21,7 +21,7 @@ import WiperFrontSide from "../icons/middleCar/WiperFrontSide";
 
 const MiddleCarDiagram = () => {
   return (
-    <div className="relative border h-fit">
+    <div className="relative h-fit">
       <div className="relative">
         <BumperFrontSide />
         <div className="absolute top-1/2 right-[10px] transform -translate-y-1/2">

@@ -3,6 +3,7 @@ import DepartureInspectionIcon from "./icons/DepartureInspectionIcon";
 import conditionBar from "../../../../public/images/inspection/condition-bar.png";
 import Image from "next/image";
 import CarDiagram from "./components/CarDiagram";
+import VehicleDamageTable from "./components/VehicleDamageTable";
 const InspectionFinalReport = () => {
   return (
     <div className="max-w-[390px] mx-auto w-full p-5">
@@ -99,7 +100,7 @@ const InspectionFinalReport = () => {
         <p className="text-[10px] font-medium whitespace-nowrap">High damage</p>
       </div>
       <CarDiagram />
-      {/* <h1 className="h-[400px]">hellow</h1> */}
+      <VehicleDamageTable />
     </div>
   );
 };

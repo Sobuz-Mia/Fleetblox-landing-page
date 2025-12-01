@@ -9,6 +9,7 @@ import StepperDotIcon from "../icons/StepperDotIcon";
 import SharedIcon from "../icons/SharedIcon";
 import LinkCopyIcon from "../icons/LinkCopyIcon";
 import Link from "next/link";
+import DepartureInspectionReport from "./DepartureInspectionReport";
 type ProgressData = {
   in_progress?: boolean;
   percentage?: number;
@@ -19,6 +20,8 @@ const TripAuditSection = () => {
   const [openTripAuditModal, setOpenTripAuditModal] = useState(false);
   const [tripId, setTripId] = useState("");
   const [loading, setLoading] = useState(false);
+  const [openDepartureReportModal, setOpenDepartureReportModal] =
+    useState(false);
   const [inspectionData, setInspectionData] = useState<{
     departureLink?: string;
     returnLink?: string;
@@ -40,6 +43,7 @@ const TripAuditSection = () => {
     }
 
     setLoading(true);
+    setOpenTripAuditModal(true);
     try {
       const res = await axios.post(
         `https://real-damage.fleetblox.com/api/create_inspection_links/${tripId}`
@@ -166,7 +170,7 @@ const TripAuditSection = () => {
       </div>
     );
   };
-
+  console.log(openDepartureReportModal);
   return (
     <>
       <div className="py-5">
@@ -287,6 +291,17 @@ const TripAuditSection = () => {
               ) : (
                 renderProgressSection(departureProgress, "Inspection")
               )}
+              <div className="flex items-center gap-[10px] mt-[15px]">
+                <button className="py-2 px-3 border border-[#DFDFDF] rounded-md text-[#7D7D7D] text-[16px] font-bold font-openSans">
+                  Inspection log
+                </button>
+                <button
+                  onClick={() => setOpenDepartureReportModal(true)}
+                  className="submit-button"
+                >
+                  View report
+                </button>
+              </div>
             </div>
             <div className="border border-[#DFDFDF] rounded-md p-4 mt-5">
               <h2 className="text-[14px] text-[#303030] font-bold">
@@ -316,6 +331,21 @@ const TripAuditSection = () => {
             ID to view or download reports.
           </p>
         </main>
+      </Modal>
+      {/* reparture inspection report */}
+      <Modal
+        open={openDepartureReportModal}
+        onCancel={() => setOpenDepartureReportModal(false)}
+        footer={null}
+        centered
+        width={1200}
+        closeIcon={false}
+        className="mt-20"
+        zIndex={1300}
+      >
+        <DepartureInspectionReport
+          setOpenDepartureReportModal={setOpenDepartureReportModal}
+        />
       </Modal>
     </>
   );

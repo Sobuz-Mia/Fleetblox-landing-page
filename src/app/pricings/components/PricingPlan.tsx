@@ -75,7 +75,88 @@ const PricingPlan = () => {
       localStorage.removeItem("packageName");
     }
   }, []);
+  // MOCK DATA — Remove when server is back
+  const MOCK_STARTER_PLAN = [
+    {
+      id: "starter_001",
+      name: "Starter Fleet",
+      subHeading: "Perfect for small fleets just getting started",
+      extraDescription:
+        "Basic tracking and visibility for up to 10 vehicles with essential features to manage your fleet efficiently.",
+      price: 99.0,
+      slotMinimum: 10,
+      description: [
+        "Real-time GPS tracking",
+        "Basic route history (7 days)",
+        "Driver behavior monitoring",
+        "Mobile app access",
+        "Email support",
+        "1 fleet location",
+      ],
+    },
+  ];
 
+  const MOCK_PLANS = {
+    data: [
+      {
+        id: "plan_eagle",
+        name: "Eagle eye fleet",
+        subHeading: "For growing fleets that need more control",
+        price: 149,
+        description: [
+          "Everything in Starter Fleet, plus:",
+          "Advanced analytics dashboard",
+          "Geofencing alerts",
+          "Fuel consumption reports",
+          "Maintenance scheduling",
+          "Multi-location support (up to 5)",
+          "Priority email & chat support",
+          "Custom reports",
+        ],
+      },
+      {
+        id: "plan_dynamic",
+        name: "Dynamic fleet",
+        subHeading: "Launching Soon – Most Popular",
+        price: 199,
+        description: [
+          "Everything in Eagle Eye Fleet, plus:",
+          "Live driver coaching",
+          "AI-powered route optimization",
+          "Predictive maintenance",
+          "API access & webhooks",
+          "Unlimited locations",
+          "Dedicated account manager",
+          "Custom integrations",
+        ],
+      },
+      {
+        id: "plan_smart",
+        name: "Smart fleet",
+        subHeading: "Enterprise-grade intelligence",
+        price: 0,
+        description: [
+          "Everything in Dynamic Fleet, plus:",
+          "Full white-label option",
+          "SSO & advanced permissions",
+          "On-premise deployment option",
+          "99.9% uptime SLA",
+          "24/7 phone support",
+          "Custom AI models",
+          "Unlimited everything",
+        ],
+      },
+    ],
+  };
+
+  // REMOVE THESE TWO useEffect WHEN SERVER IS BACK
+  useEffect(() => {
+    setStarterPlan(MOCK_STARTER_PLAN);
+    setStarterPlanLoading(false);
+
+    setCurrentPlans(MOCK_PLANS);
+    setLoading(false);
+  }, []);
   // Fetch plans on mount
   useEffect(() => {
     const fetchPlans = async () => {
@@ -244,17 +325,34 @@ const PricingPlan = () => {
               </div>
             </div>
             {/* right card */}
-            <div className="max-w-[360px] z-50 p-[20px] bg-white w-full rounded-[24px] shadow-lg md:shadow-none ">
+            <div className="max-w-[400px] z-50 p-[20px] bg-white w-full rounded-[24px] shadow-lg md:shadow-none relative overflow-hidden">
+              <div className="absolute top-0 -right-2 bg-[#02636F] rounded-[4px] rounded-r-[16px] z-50 text-[#000] py-[6px] px-5">
+                <p className="text-[12px] font-normal text-white">Beta</p>
+              </div>
               <div className="">
-                <div className="text-[36px] lg:text-[52px] font-montserrat font-bold text-[#04082C]">
-                  ${whole}
-                  <span className="text-[14px] lg:text-[16px] font-montserrat font-semibold text-[#04082C] leading-[150%]">
-                    .{decimal}
-                  </span>
-                  <span className="text-[14px] lg:text-[16px] font-semibold text-[#999] leading-[150%]">
-                    {" "}
-                    /month
-                  </span>
+                {/* stater price  */}
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="text-[36px] lg:text-[52px] font-montserrat font-bold text-[#04082C]">
+                      ${whole}
+                      <span className="text-[14px] lg:text-[16px] font-montserrat font-semibold text-[#04082C] leading-[150%]">
+                        .{decimal}
+                      </span>
+                      <span className="text-[14px] lg:text-[16px] font-semibold text-[#999] leading-[150%]">
+                        {" "}
+                        /month
+                      </span>
+                    </div>
+                    <p className="text-[#04082C] font-openSans text-[14px] font-semibold leading-5">
+                      43% offer discount
+                    </p>
+                  </div>
+                  <div className="text-[18px] lg:text-[22px] font-montserrat font-bold text-[#7D7D7D] line-through">
+                    ${349}
+                    <span className="text-[14px]  font-montserrat font-semibold leading-[20px]">
+                      .{99}
+                    </span>
+                  </div>
                 </div>
                 <p className="mt-[30px] font-openSans text-[#7D7D7D] text-[14px] leading-5">
                   For small fleets needing basic visibility
@@ -319,13 +417,20 @@ const PricingPlan = () => {
           {currentPlans?.data?.map((plan: any, index: number) => (
             <Card
               key={index}
-              className="relative min-w-[350px] max-w-[400px] shadow-none rounded-[16px] "
+              className="relative min-w-[350px] max-w-[400px] shadow-none rounded-[16px] overflow-hidden"
             >
               {/* Ribbon */}
-              {plan && plan?.name === "Dynamic fleet" && (
-                <div className="absolute -top-2 hidden -right-2 bg-[#0A2540] rounded-[4px] z-50 text-[#000] p-2">
+              {plan && plan?.name !== "Eagle eye fleet" && (
+                <div className="absolute top-0 -right-2 bg-[#0A2540] rounded-[4px] rounded-r-[16px] z-50 text-[#000] py-[6px] px-4">
                   <p className="text-[12px] font-normal text-white">
-                    Launching Soon
+                    Coming Soon
+                  </p>
+                </div>
+              )}
+              {plan && plan?.name === "Eagle eye fleet" && (
+                <div className="absolute top-0 -right-2 bg-[#02636F] rounded-[4px] rounded-r-[16px] z-50 text-[#000] py-[6px] px-4">
+                  <p className="text-[12px] font-normal text-white">
+                    Almost there
                   </p>
                 </div>
               )}
