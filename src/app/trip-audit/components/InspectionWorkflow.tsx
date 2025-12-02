@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { useFormContext } from "react-hook-form";
 import z from "zod";
 import { formSchema } from "./TripAuditInspection";
+import Link from "next/link";
 
 type FormData = z.infer<typeof formSchema>;
 const InspectionWorkflow = () => {
@@ -133,6 +134,39 @@ const InspectionWorkflow = () => {
             when returns from the trip.
           </p>
         </div>
+        <div
+          className={`px-4 py-5 border rounded-[10px] mb-5 ${
+            inspectionPlan === "trip_audit_pluse"
+              ? "border-[#2D65F2] bg-[#F5F9FC]  "
+              : "border-[#DFDFDF] bg-white"
+          }`}
+        >
+          <label className="flex items-center gap-[5px]">
+            <input
+              type="radio"
+              value="trip_audit_pluse"
+              {...register("inspection.plan")}
+            />{" "}
+            <p
+              className={` ${
+                inspectionPlan === "trip_audit_pluse"
+                  ? "text-[#151515]"
+                  : "text-[#6F6464]"
+              } text-[14px] md:text-[16px] font-openSans font-bold capitalize`}
+            >
+              Trip audit +
+            </p>
+          </label>
+          <div className="flex items-start text-[#04082C] my-5">
+            <span className="text-[32px] font-semibold">$24</span>
+            <span className="text-[14px] font-semibold self-end mb-1">.99</span>
+          </div>
+          <p className="text-[#333] text-[14px] font-openSans leading-5">
+            Departure and return inspection workflow with detailed reports,
+            pre/post-trip invoices, and quick driver-license verification before
+            trip-staring.
+          </p>
+        </div>
       </div>
       {errors.inspection?.plan && (
         <p className="text-red-500 text-sm">{errors.inspection.plan.message}</p>
@@ -177,12 +211,20 @@ const InspectionWorkflow = () => {
         </p>
       )}
 
-      <button
-        onClick={handleSubmit(onSubmit)}
-        className="bg-[#2D65F2] text-white p-3 rounded-md mt-10 w-full text-[14px] font-semibold"
-      >
-        Proceed to pay
-      </button>
+      {inspectionPlan === "trip_audit_pluse" ? (
+        <Link href={"/trip-audit/invoice-setup"}>
+          <button className="bg-[#2D65F2] text-white p-3 rounded-md mt-10 w-full text-[14px] font-semibold">
+            Next
+          </button>
+        </Link>
+      ) : (
+        <button
+          onClick={handleSubmit(onSubmit)}
+          className="bg-[#2D65F2] text-white p-3 rounded-md mt-10 w-full text-[14px] font-semibold"
+        >
+          Proceed to pay
+        </button>
+      )}
     </div>
   );
 };

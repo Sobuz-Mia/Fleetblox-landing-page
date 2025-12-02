@@ -41,7 +41,7 @@ export const formSchema = z.object({
       path: ["driver.fullName"],
     }),
   inspection: z.object({
-    plan: z.enum(["Single", "Dual"] as const, {
+    plan: z.enum(["Single", "Dual", "trip_audit_pluse"] as const, {
       error: "Inspection plan is required",
     }),
     duration: z.enum(["7", "15", "30"] as const, {
@@ -52,7 +52,7 @@ export const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 // Parent Component
-export default function InspectionPage({ step = 1 }: { step?: number }) {
+export default function InspectionPage({ step = 3 }: { step?: number }) {
   const methods = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -121,7 +121,7 @@ export default function InspectionPage({ step = 1 }: { step?: number }) {
       desc: "Provide car owner info and current driver info of this car.",
     },
     {
-      title: "Purchase an inspection",
+      title: "Select an inspection package",
       component: <InspectionWorkflow />,
       desc: "Select an inspection plan suitable for this vehicle and get the trip id.",
     },
