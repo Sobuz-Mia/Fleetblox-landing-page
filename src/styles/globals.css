@@ -203,3 +203,6 @@ body {
 .capture_bg_color {
   background-color: rgba(217, 217, 217, 0.48);
 }
+.bg-custom-gradient {
+  background: linear-gradient(180deg, #fff 0%, #fff5f5 100%);
+}

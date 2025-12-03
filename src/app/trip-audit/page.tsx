@@ -8,6 +8,7 @@ import BeforeAfterComparison from "./icons/BeforeAfterComparison";
 import AnywhereAccess from "./icons/AnywhereAccess";
 import LiveInspectionMonitoring from "./icons/LiveInspectionMonitoring";
 import CostEffectivePlan from "./icons/CostEffectivePlan";
+import CommonProblemSection from "./components/CommonProblemSection";
 
 const page = () => {
   const KeyBenefits = [
@@ -53,6 +54,8 @@ const page = () => {
         <TripAuditSection />
       </div>
       <TripAuditInspection />
+      {/* common problem that trip audit solve */}
+      <CommonProblemSection />
       {/* Key Benefits */}
       <section className="bg-white">
         <div className="max-w-[1200px] mx-auto w-full py-[60px] px-5">
