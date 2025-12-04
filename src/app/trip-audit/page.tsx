@@ -9,6 +9,7 @@ import AnywhereAccess from "./icons/AnywhereAccess";
 import LiveInspectionMonitoring from "./icons/LiveInspectionMonitoring";
 import CostEffectivePlan from "./icons/CostEffectivePlan";
 import CommonProblemSection from "./components/CommonProblemSection";
+import WhyTripAuditSection from "./components/WhyTripAuditSection";
 
 const page = () => {
   const KeyBenefits = [
@@ -54,6 +55,8 @@ const page = () => {
         <TripAuditSection />
       </div>
       <TripAuditInspection />
+      {/* why ist matters */}
+      <WhyTripAuditSection />
       {/* common problem that trip audit solve */}
       <CommonProblemSection />
       {/* Key Benefits */}
