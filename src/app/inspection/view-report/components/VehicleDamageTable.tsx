@@ -4,7 +4,6 @@
 import React, { useState } from "react";
 import { Table, Tag } from "antd";
 import Image from "next/image";
-import EditIcon from "../../icons/EditIcon";
 import CaptureImageIcon from "../../icons/CaptureImageIcon";
 import ExpandedReportIcon from "../../icons/ExpandedReportIcon";
 type DamageRecord = {

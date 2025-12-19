@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import CustomSelect from "./../../../components/ui/CustomSelect";
+import CustomSelect from "../../../components/ui/CustomSelect";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { formSchema } from "./TripAuditInspection";

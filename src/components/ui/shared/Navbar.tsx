@@ -63,12 +63,12 @@ const Navbar = () => {
               {/* Resources subpage */}
               <Resources />
               <Link
-                href="/trip-audit"
+                href="/tripwise"
                 className={`cursor-pointer text-[16px] font-semibold py-[10px] px-3 transition-all duration-300 ease-in-out text-[#04082C] hover:text-[#7D7D7D]  font-openSans  ${
                   pathname === "/pricings" ? "text-ti_grey" : ""
                 }`}
               >
-                Trip audit
+                Trip wise
               </Link>
               <Link
                 href="/pricings"

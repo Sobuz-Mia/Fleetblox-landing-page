@@ -3,7 +3,7 @@ import { message, Modal, Progress } from "antd";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
-import LoadingButtonAnimation from "./../../../components/ui/shared/ButtonLoadingAnimation";
+import LoadingButtonAnimation from "../../../components/ui/shared/ButtonLoadingAnimation";
 import moment from "moment";
 import StepperDotIcon from "../icons/StepperDotIcon";
 import SharedIcon from "../icons/SharedIcon";
@@ -170,7 +170,7 @@ const TripAuditSection = () => {
       </div>
     );
   };
-  console.log(openDepartureReportModal);
+  console.log();
   return (
     <>
       <div className="py-5">
@@ -345,6 +345,8 @@ const TripAuditSection = () => {
       >
         <DepartureInspectionReport
           setOpenDepartureReportModal={setOpenDepartureReportModal}
+          tripId="edbc7f2d-5295-4de9-9b0d-26b4686f9f9f"
+          serialNo={1}
         />
       </Modal>
     </>

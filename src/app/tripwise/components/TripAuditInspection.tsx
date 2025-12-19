@@ -52,7 +52,7 @@ export const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 // Parent Component
-export default function InspectionPage({ step = 3 }: { step?: number }) {
+export default function InspectionPage({ step = 1 }: { step?: number }) {
   const methods = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {

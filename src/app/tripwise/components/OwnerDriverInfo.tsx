@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { formSchema } from "./TripAuditInspection";
 import z from "zod";
 import Image, { StaticImageData } from "next/image";
-import { Country } from "./../../(gettingStarted)/components/SelectCountry";
+import { Country } from "../../(gettingStarted)/components/SelectCountry";
 import config from "@/utils/config";
 import Canada from "../../../../public/images/canada.png";
 type FormData = z.infer<typeof formSchema>;

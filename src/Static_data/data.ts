@@ -191,11 +191,133 @@ const faqData = {
     },
   ],
 };
+const fakeDamageData = [
+  // Left Side
+  {
+    part: "Door_Front-Left-Side",
+    type: "Scratch",
+    severity: "Minor",
+    count: 3,
+    recommendation: "Repair",
+    images: [
+      "https://via.placeholder.com/300x200?text=Left+Front+Door+Scratch+1",
+      "https://via.placeholder.com/300x200?text=Left+Front+Door+Scratch+2",
+    ],
+  },
+  {
+    part: "Side-Mirror_Left-Side",
+    type: "Crack",
+    severity: "Moderate",
+    count: 1,
+    recommendation: "Repair",
+    images: ["https://via.placeholder.com/300x200?text=Left+Mirror+Crack"],
+  },
+  {
+    part: "Alloy-Rim_Front-Left-Side",
+    type: "Dent",
+    severity: "Minor",
+    count: 2,
+    recommendation: "Repair",
+    images: [
+      "https://via.placeholder.com/300x200?text=Front+Left+Rim+Dent+1",
+      "https://via.placeholder.com/300x200?text=Front+Left+Rim+Dent+2",
+    ],
+  },
 
+  // Right Side
+  {
+    part: "Door_Rear-Right-Side",
+    type: "Dent",
+    severity: "Severe",
+    count: 1,
+    recommendation: "Repair",
+    images: ["https://via.placeholder.com/300x200?text=Right+Rear+Door+Dent"],
+  },
+  {
+    part: "Fender_Right-Side",
+    type: "Scratch",
+    severity: "Moderate",
+    count: 5,
+    recommendation: "Repair",
+    images: [
+      "https://via.placeholder.com/300x200?text=Right+Fender+Scratch+1",
+      "https://via.placeholder.com/300x200?text=Right+Fender+Scratch+2",
+      "https://via.placeholder.com/300x200?text=Right+Fender+Scratch+3",
+    ],
+  },
+
+  // Front Side
+  {
+    part: "Bumper_Front-Side",
+    type: "Scratch",
+    severity: "Minor",
+    count: 4,
+    recommendation: "Repair",
+    images: [
+      "https://via.placeholder.com/300x200?text=Front+Bumper+Scratch+1",
+      "https://via.placeholder.com/300x200?text=Front+Bumper+Scratch+2",
+    ],
+  },
+  {
+    part: "Head-Light_Left-Side",
+    type: "Crack",
+    severity: "Severe",
+    count: 1,
+    recommendation: "Repair",
+    images: ["https://via.placeholder.com/300x200?text=Left+Headlight+Crack"],
+  },
+  {
+    part: "Hood",
+    type: "Dent",
+    severity: "Moderate",
+    count: 2,
+    recommendation: "Repair",
+    images: [
+      "https://via.placeholder.com/300x200?text=Hood+Dent+1",
+      "https://via.placeholder.com/300x200?text=Hood+Dent+2",
+    ],
+  },
+
+  // Rear Side
+  {
+    part: "Bumper_Rear-Side",
+    type: "Dent",
+    severity: "Moderate",
+    count: 3,
+    recommendation: "Repair",
+    images: [
+      "https://via.placeholder.com/300x200?text=Rear+Bumper+Dent+1",
+      "https://via.placeholder.com/300x200?text=Rear+Bumper+Dent+2",
+    ],
+  },
+  {
+    part: "Tail-Light_Right-Side",
+    type: "Broken",
+    severity: "Severe",
+    count: 1,
+    recommendation: "Repair",
+    images: [
+      "https://via.placeholder.com/300x200?text=Right+Tail+Light+Broken",
+    ],
+  },
+  {
+    part: "Trunk",
+    type: "Scratch",
+    severity: "Minor",
+    count: 6,
+    recommendation: "Repair",
+    images: [
+      "https://via.placeholder.com/300x200?text=Trunk+Scratch+1",
+      "https://via.placeholder.com/300x200?text=Trunk+Scratch+2",
+      "https://via.placeholder.com/300x200?text=Trunk+Scratch+3",
+    ],
+  },
+];
 export {
   faqData,
   blogs_data,
   cars,
   full_control_with_virtual_slot_data,
   cards,
+  fakeDamageData,
 };
