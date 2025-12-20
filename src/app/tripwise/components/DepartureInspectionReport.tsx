@@ -14,26 +14,6 @@ import DollerIcon from "../icons/DollerIcon";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import CarDiagramSvg from "./CarDiagramSvg";
-const recomendationsData = [
-  {
-    id: 1,
-    recommendation:
-      "Inspect the engine oil, brake fluid, and transmission fluid levels.",
-  },
-  {
-    id: 2,
-    recommendation: "Refuel the tanker as the fuel level appears to be low.",
-  },
-  {
-    id: 3,
-    recommendation: "Verify the tire pressure and check the tread depth.",
-  },
-  {
-    id: 4,
-    recommendation:
-      "Ensure all vehicle compliance requirements and documents are up to date.",
-  },
-];
 
 type DepartureInspectionReportProps = {
   setOpenDepartureReportModal: (open: boolean) => void;
@@ -78,6 +58,8 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
     logo_url,
     damage_intensity,
     vehicledamages,
+    location,
+    ai_recommendations,
   } = inspectionReport;
   const {
     front,
@@ -250,7 +232,7 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
             <div className="flex gap-0.5 items-center mt-2.5">
               <LocationIcon />
               <p className="text-[12px] font-medium leading-4 text-[#303030] font-inter">
-                M12, Westphalia, Germany
+                {location}
               </p>
             </div>
             <div className="border border-[#B8CBFC] bg-white p-3 rounded-md mt-2.5 flex items-center justify-between">
@@ -307,11 +289,11 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
             </h2>
           </div>
           <div className="mt-4 ml-[30px] space-y-2.5">
-            {recomendationsData?.map((item) => (
-              <div key={item.id} className="flex items-center gap-2.5">
-                <UnorderListIcon size={4} fill="#999999" />
+            {ai_recommendations?.map((item: string, inx: number) => (
+              <div key={inx} className="flex items-center gap-2.5">
+                <UnorderListIcon fill="#999999" />
                 <p className="text-[#333] text-[14px] leading-5 font-openSans">
-                  {item?.recommendation}
+                  {item}
                 </p>
               </div>
             ))}

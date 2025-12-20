@@ -14,57 +14,80 @@ const CarDiagramSvg: FC<Props> = ({ damageIntensity, className = "" }) => {
     intensity: 0,
   });
   const partKeyMap: Record<string, string> = {
-    "Alloy-Rim_Front-Left-Side": "alloy-rim-front-left-side",
-    "Alloy-Rim_Front-Right-Side": "alloy-rim-front-right-side",
-    "Alloy-Rim_Rear-Left-Side": "alloy-rim-rear-left-side",
-    "Alloy-Rim_Rear-Right-Side": "alloy-rim-rear-right-side",
-    "Arch-Panel_Front-Left-Side": "arch-panel-front-left-side",
-    "Arch-Panel_Front-Right-Side": "arch-panel-front-right-side",
-    "Arch-Panel_Rear-Left-Side": "arch-panel-rear-left-side",
-    "Arch-Panel_Rear-Right-Side": "arch-panel-rear-right-side",
-    "Brake-Light": "brake-light",
-    "Bumper_Front-Side": "bumper-front-side",
-    "Bumper_Rear-Side": "bumper-rear-side",
-    "Door_Front-Left-Side": "door-front-left-side",
-    "Door_Front-Right-Side": "door-front-right-side",
-    "Door_Rear-Left-Side": "door-rear-left-side",
-    "Door_Rear-Right-Side": "door-rear-right-side",
-    "Exterior-Door-Handle_Front-Left-Side":
-      "exterior-door-handle-front-left-side",
+    "Quarter-Panel_Right-Side": "Quarter-Panel_Right-Side",
+    "Quarter-Panel_Left-Side": "Quarter-Panel_Left-Side",
+    "Fender_Right-Side": "Fender_Right-Side",
+    "Fender_Left-Side": "Fender_Left-Side",
+    Roof: "Roof",
+    "Side-Bumper_Rear-Left-Side": "Side-Bumper_Rear-Left-Side",
+    "Side-Bumper_Rear-Right-Side": "Side-Bumper_Rear-Right-Side",
+    "Side-Bumper_Front-Right-Side": "Side-Bumper_Front-Right-Side",
+    "Side-Bumper_Front-Left-Side": "Side-Bumper_Front-Left-Side",
+    Spoiler: "Spoiler",
+    Trunk: "Trunk",
+    Hood: "Hood",
+    "Tail-Light_Right-Side": "Tail-Light_Right-Side",
+    "Bumper_Rear-Side": "Bumper_Rear-Side",
+    "Bumper_Front-Side": "Bumper_Front-Side",
+    "Tail-Light_Left-Side": "Tail-Light_Left-Side",
+    "Door_Rear-Right-Side": "Door_Rear-Right-Side",
+    "Door_Front-Right-Side": "Door_Front-Right-Side",
+    "Door_Rear-Left-Side": "Door_Rear-Left-Side",
+    "Door_Front-Left-Side": "Door_Front-Left-Side",
+    "Wheel_Front-Right-Side": "Wheel_Front-Right-Side",
+    "Wheel_Rear-Right-Side": "Wheel_Rear-Right-Side",
+    "Wheel_Front-Left-Side": "Wheel_Front-Left-Side",
+    "Wheel_Rear-Left-Side": "Wheel_Rear-Left-Side",
+    "Windshield_Front-Side": "Windshield_Front-Side",
+    "Windshield_Rear-Side": "Windshield_Rear-Side",
+    "Side-Rocker-Panel_Right-Side": "Side-Rocker-Panel_Right-Side",
+    "Side-Rocker-Panel_Left-Side": "Side-Rocker-Panel_Left-Side",
+    "Window_Front-Right-Side": "Window_Front-Right-Side",
+    "Alloy-Rim_Front-Right-Side": "Alloy-Rim_Front-Right-Side",
+    "Alloy-Rim_Rear-Right-Side": "Alloy-Rim_Rear-Right-Side",
+    "Arch-Panel_Front-Right-Side": "Arch-Panel_Front-Right-Side",
+    "Arch-Panel_Rear-Right-Side": "Arch-Panel_Rear-Right-Side",
+    "Window_Rear-Right-Side": "Window_Rear-Right-Side",
     "Exterior-Door-Handle_Front-Right-Side":
-      "exterior-door-handle-front-right-side",
-    "Exterior-Door-Handle_Rear-Left-Side":
-      "exterior-door-handle-rear-left-side",
+      "Exterior-Door-Handle_Front-Right-Side",
+    "Wiper_Front-Side": "Wiper_Front-Side",
+    "Wiper_Rear-Side": "Wiper_Rear-Side",
+    "Roof-Rail_Right-Side": "Roof-Rail_Right-Side",
+    "Roof-Rail_Left-Side": "Roof-Rail_Left-Side",
+    "Molding_Left-Side": "Molding_Left-Side",
+    "Molding_Right-Side": "Molding_Right-Side",
     "Exterior-Door-Handle_Rear-Right-Side":
-      "exterior-door-handle-rear-right-side",
-    "Fender_Left-Side": "fender-left-side",
-    "Fender_Right-Side": "fender-right-side",
-    "Fuel-Cap": "fuel-cap",
-    "Grille_Front-Side": "grille", // assuming front grille
-    "Head-Light_Left-Side": "head-light-left-side",
-    "Head-Light_Right-Side": "head-light-right-side",
-    Hood: "hood",
-    "License-Plate": "license-plate",
-    Roof: "roof",
-    "Side-Mirror_Left-Side": "side-mirror-left-side",
-    "Side-Mirror_Right-Side": "side-mirror-right-side",
-    "Tail-Light_Left-Side": "tail-light-left-side",
-    "Tail-Light_Right-Side": "tail-light-right-side",
-    Trunk: "trunk",
-    "Wheel_Front-Left-Side": "wheel-front-left-side", // or map to alloy if same
-    "Wheel_Front-Right-Side": "wheel-front-right-side",
-    "Wheel_Rear-Left-Side": "wheel-rear-left-side",
-    "Wheel_Rear-Right-Side": "wheel-rear-right-side",
-    "Window_Front-Left-Side": "window-front-left-side",
-    "Window_Front-Right-Side": "window-front-right-side",
-    "Window_Rear-Left-Side": "window-rear-left-side",
-    "Window_Rear-Right-Side": "window-rear-right-side",
-    "Windshield_Front-Side": "windshield",
-    "Windshield_Rear-Side": "windshield-rear-side",
-    // Add others as needed (e.g., Quarter-Panel_Right-Side → 'quarter-panel-right-side')
-    "Quarter-Panel_Right-Side": "quarter-panel-right-side",
-    "Quarter-Panel_Left-Side": "quarter-panel-left-side",
-    // ... continue for all parts
+      "Exterior-Door-Handle_Rear-Right-Side",
+    "Quarter-Glass_Right-Side": "Quarter-Glass_Right-Side",
+    "Window_Front-Left-Side": "Window_Front-Left-Side",
+    "Alloy-Rim_Front-Left-Side": "Alloy-Rim_Front-Left-Side",
+    "Side-Mirror_Left-Side": "Side-Mirror_Left-Side",
+    "Side-Mirror_Right-Side": "Side-Mirror_Right-Side",
+    "Alloy-Rim_Rear-Left-Side": "Alloy-Rim_Rear-Left-Side",
+    "Arch-Panel_Front-Left-Side": "Arch-Panel_Front-Left-Side",
+    "Arch-Panel_Rear-Left-Side": "Arch-Panel_Rear-Left-Side",
+    "Window_Rear-Left-Side": "Window_Rear-Left-Side",
+    "Exterior-Door-Handle_Front-Left-Side":
+      "Exterior-Door-Handle_Front-Left-Side",
+    "Exterior-Door-Handle_Rear-Left-Side":
+      "Exterior-Door-Handle_Rear-Left-Side",
+    "Quarter-Glass_Left-Side": "Quarter-Glass_Left-Side",
+    "Head-Light_Right-Side": "Head-Light_Right-Side",
+    "Head-Light_Left-Side": "Head-Light_Left-Side",
+    "Grille_Front-Side": "Grille_Front-Side",
+    "Grille_Rear-Side": "Grille_Rear-Side",
+    "Brake-Light": "Brake-Light",
+    "License-Plate": "License-Plate",
+    "Fuel-Cap": "Fuel-Cap",
+    "Logo_Front-Side": "Logo_Front-Side",
+    "Logo_Rear-Side": "Logo_Rear-Side",
+    "Fog-Light_Rear-Left-Side": "Fog-Light_Rear-Left-Side",
+    "Fog-Light_Front-Left-Side": "Fog-Light_Front-Left-Side",
+    "Fog-Light_Rear-Right-Side": "Fog-Light_Rear-Right-Side",
+    "Fog-Light_Front-Right-Side": "Fog-Light_Front-Right-Side",
+    Antenna: "Antenna",
+    "Indicator-Light_Right-Side": "Indicator-Light_Right-Side",
+    "Indicator-Light_Left-Side": "Indicator-Light_Left-Side",
   };
   const getIntensityForPart = (partId: string): number => {
     const backendKey = partKeyMap[partId] || partId.toLowerCase(); // fallback to lowercase
@@ -72,10 +95,11 @@ const CarDiagramSvg: FC<Props> = ({ damageIntensity, className = "" }) => {
   };
   const getColorForIntensity = (intensity: number): string => {
     if (intensity === 0) return "#ffffff"; // No damage - light green
-    if (intensity === 1) return "#FFF9C4"; // Low - light yellow
-    if (intensity === 2) return "#FFCC80"; // Medium - orange
-    if (intensity === 3) return "#FF8A65"; // High - deep orange
-    return "#FF5252"; // Very high (4+) - red
+    if (intensity === 1) return "#FFE0E0"; // Low - light yellow
+    if (intensity === 2) return "#FFC2C2"; // Medium - orange
+    if (intensity === 3) return "#FFA3A3"; // High - deep orange
+    if (intensity === 4) return "#FF8585"; // High - deep orange
+    return "#FF6666"; // Very high (4+) - red
   };
   const getColorForPart = (partId: string): string => {
     const intensity = getIntensityForPart(partId);

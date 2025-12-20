@@ -1,6 +1,6 @@
-import { Image, Tabs, Tag } from "antd";
+import { Image, Tabs } from "antd";
 import { FC, useState } from "react";
-
+type SideKey = "left-side" | "right-side" | "front-side" | "rear-side";
 type DamageItem = {
   id: number;
   damage_id: number;
@@ -12,7 +12,13 @@ type DamageItem = {
   width?: number;
   height?: number;
 };
-
+type DamageGroup = {
+  count: number;
+  severity: DamageItem["severity"];
+  repair_cost: string;
+  images: string[];
+  dimension: string | null;
+};
 type VehicleDamages = {
   damage_list: {
     "front-side": DamageItem[];
@@ -26,18 +32,25 @@ type VehicleDamages = {
 type Props = {
   data: VehicleDamages;
 };
+type DamageGroupItem = {
+  type: string;
+} & DamageGroup;
 
-const sideLabels: Record<string, string> = {
+type TableRow = {
+  sn: number;
+  part: string;
+  damages: DamageGroupItem[];
+};
+
+const sideLabels: Record<SideKey, string> = {
   "left-side": "Left Side",
   "right-side": "Right Side",
   "front-side": "Front Side",
   "rear-side": "Rear Side",
 };
 
-const severityColors = { low: "green", medium: "orange", high: "red" };
-
 const InspectionTable: FC<Props> = ({ data }) => {
-  const [activeTab, setActiveTab] = useState<string>("left-side");
+  const [activeTab, setActiveTab] = useState<SideKey>("left-side");
 
   // Part name mapping: backend → display name in template
   const partNameMap: Record<string, string> = {
@@ -76,7 +89,7 @@ const InspectionTable: FC<Props> = ({ data }) => {
   };
 
   // Full templates per side (exact order + SN as in your code)
-  const templates: Record<string, { sn: number; part: string }[]> = {
+  const templates: Record<SideKey, { sn: number; part: string }[]> = {
     "left-side": [
       { sn: 1, part: "Indicator light" },
       { sn: 2, part: "Front side bumper" },
@@ -160,7 +173,7 @@ const InspectionTable: FC<Props> = ({ data }) => {
     ],
   };
 
-  const generateTableData = (sideKey: string) => {
+  const generateTableData = (sideKey: SideKey): TableRow[] => {
     const template = templates[sideKey] || [];
     const damages = data?.damage_list[sideKey] || [];
 
@@ -199,12 +212,14 @@ const InspectionTable: FC<Props> = ({ data }) => {
         acc[typeKey].count++;
         acc[typeKey].images.push(d.s3_url);
         return acc;
-      }, {} as Record<string, any>);
+      }, {} as Record<string, DamageGroup>);
 
-      const damagesList = Object.entries(grouped).map(([type, info]) => ({
-        type: type.charAt(0).toUpperCase() + type.slice(1),
-        ...info,
-      }));
+      const damagesList: DamageGroupItem[] = Object.entries(grouped).map(
+        ([type, info]) => ({
+          type: type.charAt(0).toUpperCase() + type.slice(1),
+          ...info,
+        })
+      );
 
       return {
         sn: slot.sn,
@@ -216,14 +231,14 @@ const InspectionTable: FC<Props> = ({ data }) => {
 
   const tableData = generateTableData(activeTab);
 
-  const renderDamages = (damages: any[]) => {
+  const renderDamages = (damages: DamageGroupItem[]) => {
     if (damages.length === 0) {
       return <p className="text-[#999] text-[12px]">No damage found</p>;
     }
 
     return (
       <div className="space-y-3">
-        {damages.map((d: any, i: number) => (
+        {damages.map((d, i: number) => (
           <div key={i} className="flex items-center gap-3">
             <Image.PreviewGroup>
               {d.images.map((url: string, idx: number) => (
@@ -251,23 +266,27 @@ const InspectionTable: FC<Props> = ({ data }) => {
     );
   };
 
-  const renderEstimatedCost = (damages: any[]) => {
-    if (damages.length === 0) return "-";
-    // Show all costs or first one – adjust as needed
-    const costs = damages.map((d: any) => d.repair_cost);
-    return <span className="text-[12px] font-medium">{costs.join(" / ")}</span>;
-  };
+  // const renderEstimatedCost = (damages: DamageItem[]) => {
+  //   if (damages.length === 0) return "-";
+  //   // Show all costs or first one – adjust as needed
+  //   const costs = damages.map((d) => d.repair_cost);
+  //   return <span className="text-[12px] font-medium">{costs.join(" / ")}</span>;
+  // };
 
-  const renderSeverity = (damages: any[]) => {
+  const renderSeverity = (damages: DamageGroupItem[]) => {
     if (damages.length === 0) return null;
 
     return (
       <div className="space-y-2 text-right">
-        {damages.map((d: any, i: number) => (
+        {damages.map((d, i: number) => (
           <div key={i}>
-            <Tag color={severityColors[d.severity]} className="text-xs">
+            {/* <Tag color={severityColors[d.severity]} className="text-xs">
               {d.severity.toUpperCase()} - Repair
-            </Tag>
+            </Tag> */}
+            <p className="text-xs leading-4 text-[#151515]">
+              ( {d.severity.charAt(0).toUpperCase() + d.severity.slice(1)} -
+              Repair )
+            </p>
           </div>
         ))}
       </div>
@@ -278,7 +297,7 @@ const InspectionTable: FC<Props> = ({ data }) => {
   const renderPdfContent = () => {
     return (
       <div className="space-y-10">
-        {Object.keys(templates).map((sideKey) => {
+        {(Object.keys(templates) as SideKey[]).map((sideKey: SideKey) => {
           const sideData = generateTableData(sideKey);
           return (
             <div key={sideKey} className="page-break-avoid">
@@ -319,9 +338,9 @@ const InspectionTable: FC<Props> = ({ data }) => {
                     <div className="col-span-3 p-3 border-r border-gray-200">
                       {renderDamages(item.damages)}
                     </div>
-                    <div className="col-span-2 p-3 border-r border-gray-200 text-center">
+                    {/* <div className="col-span-2 p-3 border-r border-gray-200 text-center">
                       {renderEstimatedCost(item.damages)}
-                    </div>
+                    </div> */}
                     <div className="col-span-3 p-3">
                       {renderSeverity(item.damages)}
                     </div>
@@ -341,21 +360,21 @@ const InspectionTable: FC<Props> = ({ data }) => {
       <div className="hide-in-pdf">
         <Tabs
           activeKey={activeTab}
-          onChange={setActiveTab}
-          items={Object.keys(templates).map((key) => ({
+          onChange={(k) => setActiveTab(k as SideKey)}
+          items={(Object.keys(templates) as SideKey[]).map((key) => ({
             key,
             label: (
               <span>
                 {sideLabels[key]}
-                {data.damage_list[key as keyof typeof data.damage_list].length >
+                {/* {data.damage_list[key as keyof typeof data.damage_list].length >
                   0 && (
-                  <Tag color="red" className="ml-2 text-xs">
+                  <Tag color="#2D65F2" className="ml-2 text-xs">
                     {
                       data.damage_list[key as keyof typeof data.damage_list]
                         .length
                     }
                   </Tag>
-                )}
+                )} */}
               </span>
             ),
           }))}
@@ -369,15 +388,15 @@ const InspectionTable: FC<Props> = ({ data }) => {
           <div className="col-span-1 p-3 border-b border-r border-gray-200 text-center">
             SN
           </div>
-          <div className="col-span-3 p-3 border-b border-r border-gray-200">
+          <div className="col-span-4 p-3 border-b border-r border-gray-200">
             Vehicle parts
           </div>
-          <div className="col-span-3 p-3 border-b border-r border-gray-200">
-            Results - Dimensions
+          <div className="col-span-4 p-3 border-b border-r border-gray-200">
+            Results
           </div>
-          <div className="col-span-2 p-3 border-b border-r border-gray-200">
+          {/* <div className="col-span-2 p-3 border-b border-r border-gray-200">
             Estimated Cost
-          </div>
+          </div> */}
           <div className="col-span-3 p-3 border-b border-gray-200 text-right">
             (Severity - Recommendation)
           </div>
@@ -392,15 +411,15 @@ const InspectionTable: FC<Props> = ({ data }) => {
               <div className="col-span-1 p-3 border-r border-gray-200 text-center">
                 {item.sn}
               </div>
-              <div className="col-span-3 p-3 border-r border-gray-200">
+              <div className="col-span-4 p-3 border-r border-gray-200">
                 {item.part}
               </div>
-              <div className="col-span-3 p-3 border-r border-gray-200">
+              <div className="col-span-4 p-3 border-r border-gray-200">
                 {renderDamages(item.damages)}
               </div>
-              <div className="col-span-2 p-3 border-r border-gray-200 text-center">
+              {/* <div className="col-span-2 p-3 border-r border-gray-200 text-center">
                 {renderEstimatedCost(item.damages)}
-              </div>
+              </div> */}
               <div className="col-span-3 p-3">
                 {renderSeverity(item.damages)}
               </div>
