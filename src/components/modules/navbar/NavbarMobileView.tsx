@@ -8,8 +8,8 @@ import ResourcesSubpage from "./resources/ResourcesSubpage";
 import TopArrow from "@/components/icons/TopArrow";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import StarterFleetActionButton from "./../../ui/StarterFleetActionButton";
+// import { useRouter } from "next/navigation";
+// import StarterFleetActionButton from "./../../ui/StarterFleetActionButton";
 
 const NavbarMobileView = () => {
   const [isProduct, setIsProduct] = useState(false);
@@ -17,11 +17,11 @@ const NavbarMobileView = () => {
   const [isResources, setIsResources] = useState(false);
   const [isDemoRequest] = useState(false);
 
-  const handleDemoRequest = () => {
-    localStorage.setItem("isGetDemo", "true");
-    router.push("/getting-started");
-  };
-  const router = useRouter();
+  // const handleDemoRequest = () => {
+  //   localStorage.setItem("isGetDemo", "true");
+  //   router.push("/getting-started");
+  // };
+  // const router = useRouter();
 
   return (
     <motion.div
@@ -109,14 +109,14 @@ const NavbarMobileView = () => {
                   Get Started
                 </button>
               </Link> */}
-              <StarterFleetActionButton isMobile={true} />
+              {/* <StarterFleetActionButton isMobile={true} /> */}
             </div>
-            <button
+            {/* <button
               onClick={handleDemoRequest}
               className="text-[#04082C] text-[14px] font-openSans font-bold py-[10px]"
             >
               Request Demo
-            </button>
+            </button> */}
           </div>
         </div>
       )}

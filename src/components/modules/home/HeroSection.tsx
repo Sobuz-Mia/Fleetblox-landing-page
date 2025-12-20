@@ -3,7 +3,7 @@ import heroCardImg from "../../../assets/heroCardImage.png";
 import Image from "next/image";
 import VerticalDividerIcon from "@/components/icons/VerticalDividerIcon";
 import { useState, useEffect } from "react";
-import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
+// import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 
 const HeroSection = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
@@ -90,15 +90,15 @@ const HeroSection = () => {
             </div>
           </button>
         </Link> */}
-        <StarterFleetActionButton />
-        <div className="w-full flex justify-center lg:hidden">
-          <StarterFleetActionButton isMobile={true} />
-          {/* <Link aria-label="Get started with FleetBlox" href="/getting-started">
+        {/* <StarterFleetActionButton /> */}
+        {/* <div className="w-full flex justify-center lg:hidden"> */}
+        {/* <StarterFleetActionButton isMobile={true} /> */}
+        {/* <Link aria-label="Get started with FleetBlox" href="/getting-started">
             <button className=" py-3 rounded-md w-full text-center bg-[#2D65F2] font-openSans text-[14px] font-bold text-[#fff] flex justify-center lg:hidden">
               Start Today
             </button>
           </Link> */}
-        </div>
+        {/* </div> */}
         {/* Desktop hero with skeleton loader */}
         <div className="hidden lg:block relative max-h-[800px] lg:h-[800px] md:h-[500px] lg:w-[1200px] xl:w-[1400px] z-[0] overflow-hidden">
           <div className="relative h-full w-full flex justify-center items-center">

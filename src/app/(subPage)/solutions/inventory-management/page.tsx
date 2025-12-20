@@ -6,7 +6,7 @@ import { KeyBenefits } from "@/Static_data/solution";
 import Image from "next/image";
 import Link from "next/link";
 import SmartOnboarding from "./components/SmartOnboarding";
-import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
+// import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 
 const page = () => {
   const OnboardingData = [
@@ -65,8 +65,8 @@ const page = () => {
               </button>
             </Link> */}
 
-            <StarterFleetActionButton text="Start Today" />
-            <StarterFleetActionButton isMobile={true} text="Start Today" />
+            {/* <StarterFleetActionButton text="Start Today" />
+            <StarterFleetActionButton isMobile={true} text="Start Today" /> */}
           </div>
           <div className=" w-full py-10 lg:pl-[60px]">
             <Image
@@ -345,7 +345,7 @@ const page = () => {
                     </span>
                   </Link>
                 </button>
-                <StarterFleetActionButton text="Get Started" />
+                {/* <StarterFleetActionButton text="Get Started" /> */}
               </div>
             }
           />

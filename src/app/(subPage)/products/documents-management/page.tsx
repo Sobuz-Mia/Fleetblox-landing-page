@@ -3,7 +3,7 @@ import FeatureCard from "@/components/ui/FeatureCard";
 import Image from "next/image";
 import Link from "next/link";
 import GlobeSection from "@/components/modules/home/globe";
-import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
+// import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 const page = () => {
   const FleetsFit = [
     {
@@ -78,8 +78,8 @@ const page = () => {
                 
               </Link> */}
 
-              <StarterFleetActionButton text="Start Today" />
-              <button
+              {/* <StarterFleetActionButton text="Start Today" /> */}
+              {/* <button
                 className="hidden lg:block"
                 onClick={() => localStorage.setItem("isGetDemo", "true")}
               >
@@ -88,7 +88,7 @@ const page = () => {
                     Get Demo
                   </span>
                 </Link>
-              </button>
+              </button> */}
             </div>
 
             <div className="flex flex-col gap-5">
@@ -98,7 +98,7 @@ const page = () => {
               >
                 <Link href="/getting-started">Get Demo</Link>
               </button>
-              <StarterFleetActionButton isMobile={true} text="Start Today" />
+              {/* <StarterFleetActionButton isMobile={true} text="Start Today" /> */}
               {/* <Link
                 aria-label="Get started with FleetBlox"
                 href="/getting-started"
@@ -211,13 +211,13 @@ const page = () => {
         description="Streamline your fleet's compliance process with scalable automated tools that evolve with your business. Stay ahead of renewals, minimize risks, and fuel effortlessly. Unlock Your Fleet's Potential Today"
         extraButton={
           <div className="flex items-center gap-4">
-            <button onClick={() => localStorage.setItem("isGetDemo", "true")}>
+            {/* <button onClick={() => localStorage.setItem("isGetDemo", "true")}>
               <Link href="/getting-started">
                 <span className="cursor-pointer text-[16px] transition-all duration-300 ease-in-out hover:text-[#7D7D7D0] py-[13px] rounded-md px-5 border-[#B8CBFC] border text-[#2D65F2] font-bold  font-openSans">
                   Get Demo
                 </span>
               </Link>
-            </button>
+            </button> */}
             {/* <Link href={"/getting-started"}> */}
             <button className="bg-[#2D65F2] rounded-[6px] px-5 py-3 text-white font-openSans text-[16px] font-bold">
               Get Started

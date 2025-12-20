@@ -5,7 +5,7 @@ import GlobeSection from "@/components/modules/home/globe";
 // Dynamic import for GSAP animations
 import dynamic from "next/dynamic";
 import Loader from "@/app/(gettingStarted)/components/Loader";
-import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
+// import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 
 // import ScrollingSection from "./components/scrollingAnnimation";
 
@@ -116,8 +116,8 @@ const AutoDealership = () => {
                 Start today
               </button>
             </Link> */}
-            <StarterFleetActionButton text="Start Today" />
-            <StarterFleetActionButton isMobile={true} text="Start Today" />
+            {/* <StarterFleetActionButton text="Start Today" />
+            <StarterFleetActionButton isMobile={true} text="Start Today" /> */}
           </div>
           <div className=" w-full py-10 lg:pl-[60px]">
             <Image

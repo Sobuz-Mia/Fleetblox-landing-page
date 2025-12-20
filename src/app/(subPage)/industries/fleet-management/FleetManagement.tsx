@@ -2,7 +2,7 @@ import Image from "next/image";
 import GlobeSection from "@/components/modules/home/globe";
 import Deal from "../auto-dealerships/components/LoadingSection";
 import ScrollingSection from "../auto-dealerships/components/scrollingAnnimation";
-import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
+// import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 
 const FleetManagement = () => {
   const animationItems = [
@@ -84,8 +84,8 @@ const FleetManagement = () => {
                             </button>
                         </Link> */}
 
-            <StarterFleetActionButton text="Start Today" />
-            <StarterFleetActionButton isMobile={true} text="Start Today" />
+            {/* <StarterFleetActionButton text="Start Today" />
+            <StarterFleetActionButton isMobile={true} text="Start Today" /> */}
           </div>
           <div className=" w-full py-10 lg:pl-[60px]">
             <Image

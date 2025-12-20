@@ -6,7 +6,7 @@ import GlobeSection from "@/components/modules/home/globe";
 import FeatureCard from "@/components/ui/FeatureCard";
 import StepCard from "../component/StepCard";
 import FleetConnectionStep from "../component/FleetConnectionStep";
-import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
+// import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 
 const page = () => {
   const items = [
@@ -95,8 +95,8 @@ const page = () => {
               </button>
             </Link> */}
 
-            <StarterFleetActionButton text="Start Today" />
-            <StarterFleetActionButton isMobile={true} text="Start Today" />
+            {/* <StarterFleetActionButton text="Start Today" />
+            <StarterFleetActionButton isMobile={true} text="Start Today" /> */}
           </div>
           <div className=" w-full py-5 lg:pl-[60px]">
             <Image

@@ -14,7 +14,7 @@ import {
   platformFeatures,
   solutionsItems,
 } from "@/components/modules/navbar/data";
-import StarterFleetActionButton from "../StarterFleetActionButton";
+// import StarterFleetActionButton from "../StarterFleetActionButton";
 
 const Footer = () => {
   const pathname = usePathname();
@@ -45,7 +45,7 @@ const Footer = () => {
                   </button>
                 </Link> */}
 
-                <StarterFleetActionButton />
+                {/* <StarterFleetActionButton /> */}
               </div>
               {/* <Link
                 aria-label="Get started with FleetBlox"
@@ -55,7 +55,7 @@ const Footer = () => {
                   Switch Today
                 </button>
               </Link> */}
-              <StarterFleetActionButton isMobile={true} />
+              {/* <StarterFleetActionButton isMobile={true} /> */}
             </div>
             <div className="max-h-[520px] h-[400px] lg:h-[520px] md:h-[400px] filter blur-[210px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50  rounded-[520px] w-[380px] lg:w-[520px] bg-[#B8CBFC] absolute opacity-50 "></div>
             <div className="absolute z-[100] mix-blend-multiply -top-14 h-[500px] lg:h-[660px]">

@@ -2,10 +2,10 @@
 import CheckIcon from "@/components/icons/CheckIcon";
 import GlobeSection from "@/components/modules/home/globe";
 import FeatureCard from "@/components/ui/FeatureCard";
-import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
+// import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 import { KeepingComplianceData } from "@/Static_data/solution";
 import Image from "next/image";
-import Link from "next/link";
+// import Link from "next/link";
 
 const page = () => {
   return (
@@ -38,7 +38,7 @@ const page = () => {
                 </button>
               </Link> */}
 
-              <StarterFleetActionButton text="Start Today" />
+              {/* <StarterFleetActionButton text="Start Today" />
               <button
                 className="hidden lg:block"
                 onClick={() => localStorage.setItem("isGetDemo", "true")}
@@ -48,16 +48,16 @@ const page = () => {
                     Get Demo
                   </span>
                 </Link>
-              </button>
+              </button> */}
             </div>
             <div className="flex flex-col gap-5">
-              <button
+              {/* <button
                 className="lg:hidden block cursor-pointer text-[16px] transition-all duration-300 ease-in-out hover:text-[#7D7D7D0] py-[13px] rounded-md px-5 border-[#B8CBFC] border text-[#2D65F2] font-bold  font-openSans"
                 onClick={() => localStorage.setItem("isGetDemo", "true")}
               >
                 Get Demo
               </button>
-              <StarterFleetActionButton isMobile={true} text="Start Today" />
+              <StarterFleetActionButton isMobile={true} text="Start Today" /> */}
               {/* <Link
                 aria-label="Get started with FleetBlox"
                 href="/getting-started"

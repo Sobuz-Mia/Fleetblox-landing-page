@@ -5,7 +5,7 @@ import GlobeSection from "@/components/modules/home/globe";
 import Deal from "../../industries/auto-dealerships/components/LoadingSection";
 import ScrollingSection from "../../industries/auto-dealerships/components/scrollingAnnimation";
 import FeatureCard from "@/components/ui/FeatureCard";
-import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
+// import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 
 const EMobilityServices = () => {
   const FleetsFit: any[] = [
@@ -126,8 +126,8 @@ const EMobilityServices = () => {
               </button>
             </Link> */}
 
-            <StarterFleetActionButton text="Start Today" />
-            <StarterFleetActionButton isMobile={true} text="Start Today" />
+            {/* <StarterFleetActionButton text="Start Today" />
+            <StarterFleetActionButton isMobile={true} text="Start Today" /> */}
           </div>
           <div className=" w-full py-10 lg:pl-[60px]">
             <Image
