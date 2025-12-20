@@ -10,10 +10,10 @@ import { Divider, Image as AntImage } from "antd";
 import RecommendationIcon from "../icons/RecommendationIcon";
 import UnorderListIcon from "../icons/UnorderListIcon";
 import InspectionTable from "./InspectionTable";
-import { fakeDamageData } from "@/Static_data/data";
 import DollerIcon from "../icons/DollerIcon";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import CarDiagramSvg from "./CarDiagramSvg";
 const recomendationsData = [
   {
     id: 1,
@@ -76,6 +76,8 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
     odometer_reading,
     image_links,
     logo_url,
+    damage_intensity,
+    vehicledamages,
   } = inspectionReport;
   const {
     front,
@@ -321,7 +323,7 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
         <h2 className="text-[16px] font-semibold text-[#6F6464]">
           Body Condition
         </h2>
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-2 gap-20">
           <div className="flex gap-10 items-center mb-8">
             <div className="text-center w-[220px]">
               {/* <div className="text-center flex-center flex flex-col">
@@ -376,6 +378,24 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
               </div>
             </div>
           </div>
+          <div className="flex justify-between items-center">
+            <CarDiagramSvg damageIntensity={damage_intensity || {}} />
+            <div className="flex flex-col items-center gap-10 ">
+              <p className="text-[10px] font-medium whitespace-nowrap -rotate-90">
+                Low damage
+              </p>
+              <Image
+                src={"/images/trip-audit/carConditionBar.png"}
+                alt="Condition Bar"
+                width={10}
+                height={40}
+                className="h-40"
+              />
+              <p className="text-[10px] font-medium whitespace-nowrap rotate-90">
+                High damage
+              </p>
+            </div>
+          </div>
         </div>
         <div className="mt-5  flex flex-wrap gap-[5.5px]">
           <AntImage.PreviewGroup>
@@ -394,7 +414,7 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
           </AntImage.PreviewGroup>
         </div>
       </div>
-      <InspectionTable data={fakeDamageData} />
+      <InspectionTable data={vehicledamages} />
       <div className="py-5">
         <Divider />
       </div>

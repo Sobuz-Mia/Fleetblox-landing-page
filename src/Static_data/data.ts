@@ -313,6 +313,55 @@ const fakeDamageData = [
     ],
   },
 ];
+const pricingPlans = {
+  plans: [
+    {
+      id: "single",
+      name: "Single Inspection workflow",
+      subtitle: "Trip log",
+      price: 14.99,
+      currency: "USD",
+      features: [
+        "One inspection workflow and report",
+        "Comprehensive condition documentation",
+        "Visual damage representation",
+      ],
+      description:
+        "One-time vehicle inspection workflow with report, valid for either departure or return within the selected period after purchase.",
+      value: "Single",
+    },
+    {
+      id: "dual",
+      name: "Dual Inspection workflow",
+      subtitle: "Trip audit",
+      price: 24.99,
+      currency: "USD",
+      features: [
+        "Two inspection workflows and reports",
+        "AI comparative analysis",
+        "Pre- and post-trip condition comparison",
+      ],
+      description:
+        "Two inspections with reports, One at the time of departure, another when returns from the trip.",
+      value: "Dual",
+    },
+    {
+      id: "trip_audit_plus",
+      name: "Trip audit +",
+      subtitle: "Trip invoice",
+      price: 29.99,
+      currency: "USD",
+      features: [
+        "Two inspection workflows with comparison",
+        "Reports with pre- and post-trip invoices",
+        "Driver's license verification and auto report delivery",
+      ],
+      description:
+        "Departure and return inspection workflow with detailed reports, pre/post-trip invoices, and quick driver-license verification before trip-starting.",
+      value: "trip_audit_pluse",
+    },
+  ],
+};
 export {
   faqData,
   blogs_data,
@@ -320,4 +369,5 @@ export {
   full_control_with_virtual_slot_data,
   cards,
   fakeDamageData,
+  pricingPlans,
 };

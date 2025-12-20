@@ -5,6 +5,8 @@ import { useFormContext } from "react-hook-form";
 import z from "zod";
 import { formSchema } from "./TripAuditInspection";
 import Link from "next/link";
+import UnorderListIcon from "../icons/UnorderListIcon";
+import { pricingPlans } from "@/Static_data/data";
 
 type FormData = z.infer<typeof formSchema>;
 const InspectionWorkflow = () => {
@@ -14,7 +16,6 @@ const InspectionWorkflow = () => {
     formState: { errors },
     watch,
   } = useFormContext<FormData>();
-
   const inspectionPlan = watch("inspection.plan");
   const durations = watch("inspection.duration");
   const onSubmit = async (data: FormData) => {
@@ -57,7 +58,8 @@ const InspectionWorkflow = () => {
       );
       if (paymentResponse?.data?.checkout_url) {
         console.log(paymentResponse);
-        window.location.href = paymentResponse?.data?.checkout_url;
+        // router.push(paymentResponse.data.checkout_url);
+        window.open(paymentResponse.data.checkout_url, "_blank");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -66,7 +68,7 @@ const InspectionWorkflow = () => {
   };
 
   return (
-    <div>
+    <div className="mt-10">
       <div className="text-center mb-5 md:mb-10">
         <h2 className="text-[18px] md:text-[22px] font-bold text-[#303030]">
           Inspection workflow
@@ -75,98 +77,59 @@ const InspectionWorkflow = () => {
           Select an inspection plan suitable for the trip
         </p>
       </div>
-      <div className="mb-[10px]">
-        <div
-          className={`px-4 py-5 border rounded-[10px] mb-5 ${
-            inspectionPlan === "Single"
-              ? "border-[#2D65F2] bg-[#F5F9FC]  "
-              : "border-[#DFDFDF] bg-white"
-          }`}
-        >
-          <label className="flex items-center gap-[5px]">
-            <input
-              type="radio"
-              value="Single"
-              {...register("inspection.plan")}
-            />{" "}
-            <p
-              className={` ${
-                inspectionPlan === "Single"
-                  ? "text-[#151515]"
-                  : "text-[#6F6464]"
-              } text-[14px] md:text-[16px] font-openSans font-bold capitalize`}
-            >
-              Single Inspection workflow (One-time)
-            </p>
-          </label>
-          <div className="flex items-start text-[#04082C] my-5">
-            <span className="text-[32px] font-semibold">$14</span>
-            <span className="text-[14px] font-semibold self-end mb-1">.99</span>
+      <div className="mb-2.5">
+        {pricingPlans.plans.map((plan) => (
+          <div
+            key={plan.id}
+            className={`px-4 py-5 border rounded-[10px] mb-5 ${
+              inspectionPlan === plan.value
+                ? "border-[#2D65F2] bg-[#F5F9FC]"
+                : "border-[#DFDFDF] bg-white"
+            }`}
+          >
+            <label className="flex items-center gap-[5px] cursor-pointer">
+              <input
+                type="radio"
+                value={plan.value}
+                {...register("inspection.plan")}
+              />
+              <p
+                className={`${
+                  inspectionPlan === plan.value
+                    ? "text-[#151515]"
+                    : "text-[#6F6464]"
+                } text-[14px] md:text-[16px] font-openSans font-bold capitalize`}
+              >
+                {plan.name} {plan.subtitle && `(${plan.subtitle})`}
+              </p>
+            </label>
+
+            <div className="flex items-center justify-between mt-[30px]">
+              <div className="flex items-start text-[#04082C] my-5">
+                <span className="text-[36px] font-bold">
+                  ${Math.floor(plan.price)}
+                </span>
+                <span className="text-[14px] font-semibold self-end mb-1">
+                  .{(plan.price % 1).toFixed(2).slice(2)}
+                </span>
+              </div>
+
+              {/* Render features if available */}
+              {plan.features && plan.features.length > 0 && (
+                <div className="mb-4">
+                  {plan.features.map((feature, index) => (
+                    <div key={index} className="flex items-center gap-2.5 mb-2">
+                      <UnorderListIcon />
+                      <p className="text-[14px] text-[#04082C] leading-5 font-openSans">
+                        {feature}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
-          <p className="text-[#333] text-[14px] font-openSans leading-5">
-            One-time vehicle inspection workflow with report, valid for either
-            departure or return within the selected period after purchase.
-          </p>
-        </div>
-        <div
-          className={`px-4 py-5 border rounded-[10px] mb-5 ${
-            inspectionPlan === "Dual"
-              ? "border-[#2D65F2] bg-[#F5F9FC]  "
-              : "border-[#DFDFDF] bg-white"
-          }`}
-        >
-          <label className="flex items-center gap-[5px]">
-            <input type="radio" value="Dual" {...register("inspection.plan")} />{" "}
-            <p
-              className={` ${
-                inspectionPlan === "Dual" ? "text-[#151515]" : "text-[#6F6464]"
-              } text-[14px] md:text-[16px] font-openSans font-bold capitalize`}
-            >
-              Dual Inspection workflow (departure & return)
-            </p>
-          </label>
-          <div className="flex items-start text-[#04082C] my-5">
-            <span className="text-[32px] font-semibold">$24</span>
-            <span className="text-[14px] font-semibold self-end mb-1">.99</span>
-          </div>
-          <p className="text-[#333] text-[14px] font-openSans leading-5">
-            Two inspections with reports, One at the time of departure, another
-            when returns from the trip.
-          </p>
-        </div>
-        <div
-          className={`px-4 py-5 border rounded-[10px] mb-5 ${
-            inspectionPlan === "trip_audit_pluse"
-              ? "border-[#2D65F2] bg-[#F5F9FC]  "
-              : "border-[#DFDFDF] bg-white"
-          }`}
-        >
-          <label className="flex items-center gap-[5px]">
-            <input
-              type="radio"
-              value="trip_audit_pluse"
-              {...register("inspection.plan")}
-            />{" "}
-            <p
-              className={` ${
-                inspectionPlan === "trip_audit_pluse"
-                  ? "text-[#151515]"
-                  : "text-[#6F6464]"
-              } text-[14px] md:text-[16px] font-openSans font-bold capitalize`}
-            >
-              Trip audit +
-            </p>
-          </label>
-          <div className="flex items-start text-[#04082C] my-5">
-            <span className="text-[32px] font-semibold">$24</span>
-            <span className="text-[14px] font-semibold self-end mb-1">.99</span>
-          </div>
-          <p className="text-[#333] text-[14px] font-openSans leading-5">
-            Departure and return inspection workflow with detailed reports,
-            pre/post-trip invoices, and quick driver-license verification before
-            trip-staring.
-          </p>
-        </div>
+        ))}
       </div>
       {errors.inspection?.plan && (
         <p className="text-red-500 text-sm">{errors.inspection.plan.message}</p>

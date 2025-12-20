@@ -32,12 +32,12 @@ const page = () => {
     {
       icon: AnywhereAccess,
       title: "Anywhere Access",
-      desc: "Quickly View reports of any trip audit from any device just using your trip id.",
+      desc: "Quickly View reports of any trip wise from any device just using your trip id.",
     },
     {
       icon: LiveInspectionMonitoring,
       title: "Live Inspection Monitoring ",
-      desc: "Monitor every inspection in real time from the trip audit panel.",
+      desc: "Monitor every inspection in real time from the trip wise panel.",
     },
     {
       icon: CostEffectivePlan,
@@ -50,7 +50,7 @@ const page = () => {
     <div className="">
       <div className="bg-[#FAFAFF] pt-[80px] md:pt-[160px] pb-[60px] max-w-[1200px] w-full mx-auto text-center px-5">
         <h1 className="text-[36px] md:text-[52px] text-[#04082C] font-bold mb-5">
-          Trip Audit
+          Trip wise
         </h1>
         <TripAuditSection />
       </div>
@@ -80,9 +80,8 @@ const page = () => {
       </section>
       <div className="bg-white">
         <GlobeSection
-          title="Order a Trip Audit Today"
-          description=" Perform pre-trip and post-trip inspections in minutes, powered by Fleetblox AI.
-Start now and experience hassle-free, 100% digital vehicle inspection"
+          title="Order a Trip Wise Today"
+          description=" Perform pre-trip and post-trip inspections in minutes, powered by Trip Wise.Start now and experience hassle-free, 100% digital vehicle inspection"
           extraButton={
             <button className="bg-[#2D65F2] px-5 py-3 rounded-md text-white font-openSans text-[16px] font-bold">
               Order Now

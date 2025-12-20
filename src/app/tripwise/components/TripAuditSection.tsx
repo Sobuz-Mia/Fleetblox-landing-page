@@ -205,8 +205,8 @@ const TripAuditSection = () => {
           </div>
         </form>
         <p className="text-[#7D7D7D] text-[14px] md:text-[16px] leading-6 text-center mt-5 font-semibold font-openSans">
-          Please enter your Trip ID received after purchasing the trip audit to
-          access and manage your vehicle inspection workflow and monitoring
+          Please enter the Trip ID to manage your vehicle inspection workflow
+          and monitoring
         </p>
       </div>
       <Modal
@@ -241,11 +241,10 @@ const TripAuditSection = () => {
               </svg>
             </button>
           </div>
-
           <div className="mt-[10px] flex justify-between items-end">
             <div>
               <h3 className="text-[22px] text-[#303030] font-bold font-openSans">
-                Trip Audit
+                Trip Wise
               </h3>
               <p className="text-[14px] text-[#999] font-normal font-openSans leading-5">
                 Your Inspection control panel
