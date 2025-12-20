@@ -192,7 +192,7 @@ const GlobalCoverageAndCompatibility = () => {
               </button>
             </Link> */}
 
-            <button
+            {/* <button
               aria-label="Get started with Starter Fleet"
               onClick={() => {
                 handleStarterPlan(starterPlan[0]);
@@ -200,7 +200,7 @@ const GlobalCoverageAndCompatibility = () => {
               className="mt-4 text-[#2D65F2] text-[16px] font-openSans font-bold"
             >
               Check Your Region
-            </button>
+            </button> */}
           </div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -235,7 +235,7 @@ const GlobalCoverageAndCompatibility = () => {
               </button>
             </Link> */}
 
-            <button
+            {/* <button
               aria-label="Get started with Starter Fleet"
               onClick={() => {
                 handleStarterPlan(starterPlan[0]);
@@ -243,7 +243,7 @@ const GlobalCoverageAndCompatibility = () => {
               className="mt-4 text-[#2D65F2] text-[16px] font-openSans font-bold"
             >
               Check Compatibility
-            </button>
+            </button> */}
           </div>
         </div>
       </section>

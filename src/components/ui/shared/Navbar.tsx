@@ -10,7 +10,7 @@ import { Product } from "@/components/modules/navbar/product/Product";
 import { Solutions } from "@/components/modules/navbar/solutions/Solutions";
 import { Resources } from "@/components/modules/navbar/resources/Resources";
 import NavbarMobileView from "@/components/modules/navbar/NavbarMobileView";
-import StarterFleetActionButton from "../StarterFleetActionButton";
+// import StarterFleetActionButton from "../StarterFleetActionButton";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -70,25 +70,25 @@ const Navbar = () => {
               >
                 Trip wise
               </Link>
-              <Link
+              {/* <Link
                 href="/pricings"
                 className={`cursor-pointer text-[16px] font-semibold py-[10px] px-3 transition-all duration-300 ease-in-out text-[#04082C] hover:text-[#7D7D7D]  font-openSans  ${
                   pathname === "/pricings" ? "text-ti_grey" : ""
                 }`}
               >
                 Pricings
-              </Link>
+              </Link> */}
             </div>
           </div>
 
           <div className="hidden lg:flex text-[#04082C] text-[14px] font-semibold items-center gap-[20px]">
-            <button onClick={() => localStorage.setItem("isGetDemo", "true")}>
+            {/* <button onClick={() => localStorage.setItem("isGetDemo", "true")}>
               <Link href="/getting-started">
                 <span className="cursor-pointer text-[16px] transition-all duration-300 ease-in-out hover:text-[#7D7D7D0] py-[10px] px-5 text-[#04082C]  font-openSans">
                   Request Demo
                 </span>
               </Link>
-            </button>
+            </button> */}
             {/* <NotCompatibilityDialog title="Request demo" /> */}
             {/* <Link
               aria-label="Get started with FleetBlox"
@@ -99,7 +99,7 @@ const Navbar = () => {
               </button>
             </Link> */}
 
-            <StarterFleetActionButton />
+            {/* <StarterFleetActionButton /> */}
           </div>
           {/* Desktop Menu end */}
 
