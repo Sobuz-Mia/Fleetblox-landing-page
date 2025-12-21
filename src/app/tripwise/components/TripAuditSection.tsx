@@ -170,7 +170,6 @@ const TripAuditSection = () => {
       </div>
     );
   };
-  console.log();
   return (
     <>
       <div className="py-5">

@@ -15,6 +15,7 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import CarDiagramSvg from "./CarDiagramSvg";
 import moment from "moment";
+import { getVehicleCondition } from "../utils/helper";
 
 type DepartureInspectionReportProps = {
   setOpenDepartureReportModal: (open: boolean) => void;
@@ -66,6 +67,8 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
     total_missing_count,
     total_part_count,
     total_replacement_count,
+    exterior_color_hex,
+    overall_score,
   } = inspectionReport;
   const {
     front,
@@ -156,7 +159,7 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
               inspection report
             </h3>
             <p className="text-[14px] text-[#999] font-normal font-openSans leading-5">
-              #143563
+              {exterior_color_hex ?? ""}
             </p>
           </div>
         </div>
@@ -331,9 +334,9 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
 
                 <div className="text-center flex-center flex flex-col">
                   <div className="text-[56px] h-[70px]">😕</div>
-                  <p className="text-[#45C817] text-[20px] mt-2 font-bold">
-                    Invalid score
-                  </p>
+                  <div className="py-1">
+                    {overall_score && getVehicleCondition(overall_score)}
+                  </div>
                   <p className="text-[#6F6464] text-[10px] font-medium">
                     Overall
                   </p>
