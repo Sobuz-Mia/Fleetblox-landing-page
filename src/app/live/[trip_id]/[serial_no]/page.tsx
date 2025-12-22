@@ -179,7 +179,8 @@ export default function RealTimeDamageDetection() {
       // Get camera stream
       const constraints = {
         video: {
-          deviceId: selectedCamera ? { exact: selectedCamera } : undefined,
+          // deviceId: selectedCamera ? { exact: selectedCamera } : undefined,
+          facingMode: "environment",
           width: { ideal: 640 },
           height: { ideal: 480 },
           frameRate: { ideal: 25 },
