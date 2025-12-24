@@ -119,6 +119,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${montserrat.variable} ${openSans.variable} ${roboto.variable}`}
+      suppressHydrationWarning
     >
       <head>
         {/* Favicon link */}
