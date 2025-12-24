@@ -15,7 +15,7 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import CarDiagramSvg from "./CarDiagramSvg";
 import moment from "moment";
-import { getVehicleCondition } from "../utils/helper";
+import { getVehicleCondition, renderProgressSection } from "../utils/helper";
 
 type DepartureInspectionReportProps = {
   tripId: string;
@@ -25,8 +25,20 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
   tripId,
   serialNo,
 }) => {
+  const [inspectionLog, setInspectionLog] = useState(false);
   const [openDepartureReportModal, setOpenDepartureReportModal] =
     useState(false);
+  const { data: inspectionLogData, isLoading: isLoadingInspectionLog } =
+    useQuery({
+      queryKey: ["inspection log", tripId],
+      queryFn: async () => {
+        const response = await axios.get(
+          `https://real-damage.fleetblox.com/api/get_inspection_progress?trip_id=${tripId}&serial_no=${serialNo}`
+        );
+        return response?.data;
+      },
+      enabled: inspectionLog,
+    });
   const { data: inspectionReport, isLoading } = useQuery({
     queryKey: ["inspectionReport", tripId, serialNo],
     queryFn: async () => {
@@ -107,11 +119,13 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
       alt: "doorVINStickerImage",
     },
   ];
-
   return (
     <>
       <div className="flex items-center gap-[10px] mt-[15px]">
-        <button className="py-2 px-3 border border-[#DFDFDF] rounded-md text-[#7D7D7D] text-[16px] font-bold font-openSans">
+        <button
+          onClick={() => setInspectionLog(true)}
+          className="py-2 px-3 border border-[#DFDFDF] rounded-md text-[#7D7D7D] text-[16px] font-bold font-openSans"
+        >
           Inspection log
         </button>
         <button
@@ -130,7 +144,6 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
         width={1200}
         closeIcon={false}
         className="mt-20"
-        zIndex={1300}
       >
         {isLoading ? (
           <div className="flex flex-col items-center justify-center h-[80vh]">
@@ -550,6 +563,34 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
               </div>
             </div>
           </main>
+        )}
+      </Modal>
+      <Modal
+        open={inspectionLog}
+        onCancel={() => setInspectionLog(false)}
+        footer={null}
+        centered
+        width={800}
+        closeIcon
+        className="mt-20"
+      >
+        {isLoadingInspectionLog ? (
+          <div className="flex flex-col items-center justify-center h-[80vh]">
+            <Spin spinning={true} size="large" tip="Loading..." />
+          </div>
+        ) : (
+          <div className="p-5">
+            <h1 className="text-[#04082C] text-[18px] font-bold text-center">
+              Departure Inspection log
+            </h1>
+            <div>
+              {renderProgressSection(
+                inspectionLogData,
+                "Departure Inspection",
+                true
+              )}
+            </div>
+          </div>
         )}
       </Modal>
     </>

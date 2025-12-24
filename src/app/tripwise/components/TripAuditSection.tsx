@@ -1,23 +1,19 @@
 "use client";
-import { message, Modal, Progress } from "antd";
+import { message, Modal } from "antd";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import LoadingButtonAnimation from "../../../components/ui/shared/ButtonLoadingAnimation";
 import moment from "moment";
-import StepperDotIcon from "../icons/StepperDotIcon";
 import SharedIcon from "../icons/SharedIcon";
 import LinkCopyIcon from "../icons/LinkCopyIcon";
 import Link from "next/link";
 import DepartureInspectionReport from "./DepartureInspectionReport";
 import { useQuery } from "@tanstack/react-query";
 import ReturnInspectionReport from "./ReturnInspectionReport";
-type ProgressData = {
-  in_progress?: boolean;
-  percentage?: number;
-  status?: Record<string, boolean>;
-  start_times?: Record<string, string | null | undefined>;
-};
+import { ProgressData } from "../types";
+import { renderProgressSection } from "../utils/helper";
+
 const TripAuditSection = () => {
   const [openTripAuditModal, setOpenTripAuditModal] = useState(false);
   const [tripId, setTripId] = useState("");
@@ -115,73 +111,7 @@ const TripAuditSection = () => {
     enabled: !!inspectionData.trip_id && openTripAuditModal, // Only run when modal open and trip_id exists
     refetchInterval: 10000, // Optional: auto-refetch every 10 seconds for live progress
   });
-  const steps = [
-    {
-      title: "Capture Vehicle VIN & License plate",
-      key: "vin_licenseplate",
-    },
-    { title: "Capture odometer", key: "odometer" },
-    {
-      title: "Capture vehicle Images & damages",
-      key: "vehicleparts_vehicledamages",
-    },
-    { title: "Review and submit report", key: "submit" },
-  ];
 
-  const renderProgressSection = (
-    progressData: ProgressData | null,
-    title: string
-  ) => {
-    // if (progressData?.in_progress) return null;
-    return (
-      <div className="mt-5">
-        <h2 className="text-[14px] text-[#303030] font-bold mb-2">
-          {title} progress
-        </h2>
-        <Progress percent={progressData?.percentage} />
-        <div className="mt-5">
-          {steps?.map((item, index: number) => {
-            const isCompleted = !!progressData?.status?.[item.key];
-            return (
-              <div
-                key={index}
-                className="flex justify-start items-start flex-col "
-              >
-                <div className="flex justify-start  items-start gap-x-[10px]">
-                  <div
-                    className={`w-[10px] h-[10px] ${
-                      isCompleted ? "bg-[#2D65F2]" : "bg-[#DDD]"
-                    } relative top-[6px] rounded-full`}
-                  ></div>
-                  <div className="">
-                    <p
-                      className={`text-[14px] text-[#303030] font-semibold ${
-                        isCompleted ? "text-[#303030]" : "text-[#6F6464]"
-                      } `}
-                    >
-                      {item?.title}
-                    </p>
-                    <p className="text-[12px] text-[#999]">
-                      {progressData?.start_times?.[item.key]
-                        ? moment(progressData?.start_times?.[item.key])
-                            .local()
-                            .format("DD MMM, YYYY")
-                        : "Not started"}
-                    </p>
-                  </div>
-                </div>
-                <div className="ml-1 mt-1 mb-[10px]">
-                  {index === steps?.length - 1 ? null : (
-                    <StepperDotIcon color={isCompleted} />
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  };
   return (
     <>
       <div className="py-5">

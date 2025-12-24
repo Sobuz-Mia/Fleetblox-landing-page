@@ -17,7 +17,6 @@ import { getVehicleCondition } from "../utils/helper";
 import CarDiagramSvg from "./CarDiagramSvg";
 import InspectionTable from "./InspectionTable";
 import DollerIcon from "../icons/DollerIcon";
-import LoadingButtonAnimation from "./../../../components/ui/shared/ButtonLoadingAnimation";
 type ReturnInspectionReportProps = {
   tripId: string;
   serialNo: number;
@@ -26,7 +25,7 @@ const ReturnInspectionReport = ({
   tripId,
   serialNo,
 }: ReturnInspectionReportProps) => {
-  const [isFetchingReport, setIsFetchingReport] = useState(false);
+  const [inspectionLog, setInspectionLog] = useState(false);
   const [openDepartureReportModal, setOpenDepartureReportModal] =
     useState(false);
   const { data: inspectionReport, isLoading } = useQuery({
@@ -37,7 +36,7 @@ const ReturnInspectionReport = ({
       );
       return response?.data?.data;
     },
-    enabled: isFetchingReport,
+    enabled: openDepartureReportModal,
   });
   const {
     car_make,
@@ -109,14 +108,7 @@ const ReturnInspectionReport = ({
       alt: "doorVINStickerImage",
     },
   ];
-  useEffect(() => {
-    if (inspectionReport) {
-      setOpenDepartureReportModal(true);
-    }
-  }, [inspectionReport]);
-  const handleViewReport = () => {
-    setIsFetchingReport(true);
-  };
+
   return (
     <div>
       <div className="flex items-center gap-[10px] mt-[15px]">
@@ -124,11 +116,11 @@ const ReturnInspectionReport = ({
           Inspection log
         </button>
         <button
-          onClick={handleViewReport}
+          onClick={() => setOpenDepartureReportModal(true)}
           disabled={isLoading}
           className="submit-button"
         >
-          {isLoading ? <LoadingButtonAnimation /> : "View report"}
+          View report
         </button>
       </div>
       <Modal
@@ -139,7 +131,6 @@ const ReturnInspectionReport = ({
         width={1200}
         closeIcon={false}
         className="mt-20"
-        zIndex={1300}
       >
         {isLoading ? (
           <div className="flex flex-col items-center justify-center h-[80vh]">
@@ -560,6 +551,17 @@ const ReturnInspectionReport = ({
             </div>
           </main>
         )}
+      </Modal>
+      <Modal
+        open={inspectionLog}
+        onCancel={() => setInspectionLog(false)}
+        footer={null}
+        centered
+        width={800}
+        closeIcon={false}
+        className="mt-20"
+      >
+        <div>Test</div>
       </Modal>
     </div>
   );
