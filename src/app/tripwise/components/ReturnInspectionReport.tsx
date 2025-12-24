@@ -1,6 +1,6 @@
 "use client";
 import { Divider, Modal, Image as AntImage, Spin } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import CrossIcon from "../icons/CrossIcon";
@@ -13,7 +13,7 @@ import LocationIcon from "./../../../components/icons/LocationIcon";
 import OdometerIcon from "../icons/OdometerIcon";
 import RecommendationIcon from "../icons/RecommendationIcon";
 import UnorderListIcon from "../icons/UnorderListIcon";
-import { getVehicleCondition } from "../utils/helper";
+import { getVehicleCondition, renderProgressSection } from "../utils/helper";
 import CarDiagramSvg from "./CarDiagramSvg";
 import InspectionTable from "./InspectionTable";
 import DollerIcon from "../icons/DollerIcon";
@@ -28,6 +28,19 @@ const ReturnInspectionReport = ({
   const [inspectionLog, setInspectionLog] = useState(false);
   const [openDepartureReportModal, setOpenDepartureReportModal] =
     useState(false);
+  // get inspection log data
+  const { data: inspectionLogData, isLoading: isLoadingInspectionLog } =
+    useQuery({
+      queryKey: ["inspection log", tripId],
+      queryFn: async () => {
+        const response = await axios.get(
+          `https://real-damage.fleetblox.com/api/get_inspection_progress?trip_id=${tripId}&serial_no=${serialNo}`
+        );
+        return response?.data;
+      },
+      enabled: inspectionLog,
+    });
+  // get inspection report data
   const { data: inspectionReport, isLoading } = useQuery({
     queryKey: ["inspectionReport", tripId, serialNo],
     queryFn: async () => {
@@ -38,6 +51,7 @@ const ReturnInspectionReport = ({
     },
     enabled: openDepartureReportModal,
   });
+  // destructure inspection report data
   const {
     car_make,
     car_model,
@@ -62,6 +76,7 @@ const ReturnInspectionReport = ({
     exterior_color_hex,
     overall_score,
   } = inspectionReport || {};
+  // destructure image links
   const {
     front,
     left,
@@ -71,6 +86,7 @@ const ReturnInspectionReport = ({
     right,
     vin: vinImage,
   } = image_links || {};
+  // make images list
   const imagesList = [
     {
       id: 1,
@@ -558,10 +574,27 @@ const ReturnInspectionReport = ({
         footer={null}
         centered
         width={800}
-        closeIcon={false}
+        closeIcon
         className="mt-20"
       >
-        <div>Test</div>
+        {isLoadingInspectionLog ? (
+          <div className="flex flex-col items-center justify-center h-[80vh]">
+            <Spin spinning={true} size="large" tip="Loading..." />
+          </div>
+        ) : (
+          <div className="p-5">
+            <h1 className="text-[#04082C] text-[18px] font-bold text-center">
+              Departure Inspection log
+            </h1>
+            <div>
+              {renderProgressSection(
+                inspectionLogData,
+                "Departure Inspection",
+                true
+              )}
+            </div>
+          </div>
+        )}
       </Modal>
     </div>
   );
