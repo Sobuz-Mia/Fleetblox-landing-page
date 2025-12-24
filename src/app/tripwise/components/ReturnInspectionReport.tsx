@@ -1,30 +1,32 @@
-import { FC, useState } from "react";
+"use client";
+import { Divider, Modal, Image as AntImage, Spin } from "antd";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 import CrossIcon from "../icons/CrossIcon";
 import DepartureInspectionIcon from "./../../inspection/view-report/icons/DepartureInspectionIcon";
 import DownloadIcon from "../icons/DownloadIcon";
 import Image from "next/image";
 import VerifiedIcon from "../icons/VerifiedIcon";
-import LocationIcon from "@/components/icons/LocationIcon";
+import moment from "moment";
+import LocationIcon from "./../../../components/icons/LocationIcon";
 import OdometerIcon from "../icons/OdometerIcon";
-import { Divider, Image as AntImage, Modal, Spin } from "antd";
 import RecommendationIcon from "../icons/RecommendationIcon";
 import UnorderListIcon from "../icons/UnorderListIcon";
+import { getVehicleCondition } from "../utils/helper";
+import CarDiagramSvg from "./CarDiagramSvg";
 import InspectionTable from "./InspectionTable";
 import DollerIcon from "../icons/DollerIcon";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
-import CarDiagramSvg from "./CarDiagramSvg";
-import moment from "moment";
-import { getVehicleCondition } from "../utils/helper";
-
-type DepartureInspectionReportProps = {
+import LoadingButtonAnimation from "./../../../components/ui/shared/ButtonLoadingAnimation";
+type ReturnInspectionReportProps = {
   tripId: string;
   serialNo: number;
 };
-const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
+const ReturnInspectionReport = ({
   tripId,
   serialNo,
-}) => {
+}: ReturnInspectionReportProps) => {
+  const [isFetchingReport, setIsFetchingReport] = useState(false);
   const [openDepartureReportModal, setOpenDepartureReportModal] =
     useState(false);
   const { data: inspectionReport, isLoading } = useQuery({
@@ -35,7 +37,7 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
       );
       return response?.data?.data;
     },
-    enabled: openDepartureReportModal,
+    enabled: isFetchingReport,
   });
   const {
     car_make,
@@ -107,19 +109,26 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
       alt: "doorVINStickerImage",
     },
   ];
-
+  useEffect(() => {
+    if (inspectionReport) {
+      setOpenDepartureReportModal(true);
+    }
+  }, [inspectionReport]);
+  const handleViewReport = () => {
+    setIsFetchingReport(true);
+  };
   return (
-    <>
+    <div>
       <div className="flex items-center gap-[10px] mt-[15px]">
         <button className="py-2 px-3 border border-[#DFDFDF] rounded-md text-[#7D7D7D] text-[16px] font-bold font-openSans">
           Inspection log
         </button>
         <button
-          onClick={() => setOpenDepartureReportModal(true)}
+          onClick={handleViewReport}
           disabled={isLoading}
           className="submit-button"
         >
-          View report
+          {isLoading ? <LoadingButtonAnimation /> : "View report"}
         </button>
       </div>
       <Modal
@@ -552,8 +561,8 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
           </main>
         )}
       </Modal>
-    </>
+    </div>
   );
 };
 
-export default DepartureInspectionReport;
+export default ReturnInspectionReport;

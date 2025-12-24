@@ -10,6 +10,8 @@ import SharedIcon from "../icons/SharedIcon";
 import LinkCopyIcon from "../icons/LinkCopyIcon";
 import Link from "next/link";
 import DepartureInspectionReport from "./DepartureInspectionReport";
+import { useQuery } from "@tanstack/react-query";
+import ReturnInspectionReport from "./ReturnInspectionReport";
 type ProgressData = {
   in_progress?: boolean;
   percentage?: number;
@@ -20,8 +22,6 @@ const TripAuditSection = () => {
   const [openTripAuditModal, setOpenTripAuditModal] = useState(false);
   const [tripId, setTripId] = useState("");
   const [loading, setLoading] = useState(false);
-  const [openDepartureReportModal, setOpenDepartureReportModal] =
-    useState(false);
   const [inspectionData, setInspectionData] = useState<{
     departureLink?: string;
     returnLink?: string;
@@ -41,21 +41,21 @@ const TripAuditSection = () => {
       message.error("Please enter a valid Trip ID.");
       return;
     }
-
     setLoading(true);
-    setOpenTripAuditModal(true);
     try {
       const res = await axios.post(
         `https://real-damage.fleetblox.com/api/create_inspection_links/${tripId}`
       );
-      setInspectionData({
-        departureLink: res.data.inspection_urls[0] || "",
-        returnLink: res.data.inspection_urls[1] || "",
-        purchasedDate: res.data.purchased_at || "",
-        trip_id: res?.data?.trip_id || "",
-      });
-      setOpenTripAuditModal(true);
-      setTripId("");
+      if (res?.status === 200) {
+        setInspectionData({
+          departureLink: res.data.inspection_urls[0] || "",
+          returnLink: res.data.inspection_urls[1] || "",
+          purchasedDate: res.data.purchased_at || "",
+          trip_id: res?.data?.trip_id || "",
+        });
+        setOpenTripAuditModal(true);
+        setTripId("");
+      }
     } catch (error) {
       setTripId("");
       setLoading(false);
@@ -79,7 +79,8 @@ const TripAuditSection = () => {
               `https://real-damage.fleetblox.com/api/get_inspection_progress?trip_id=${inspectionData.trip_id}&serial_no=1`
             );
             setDepartureProgress(depRes?.data as ProgressData);
-          } else if (inspectionData?.returnLink) {
+          }
+          if (inspectionData?.returnLink) {
             const retRes = await axios.get(
               `https://real-damage.fleetblox.com/api/get_inspection_progress?trip_id=${inspectionData.trip_id}&serial_no=2`
             );
@@ -102,6 +103,18 @@ const TripAuditSection = () => {
     inspectionData?.departureLink,
     inspectionData?.returnLink,
   ]);
+  const { data: tripProgress } = useQuery({
+    queryKey: ["trip_progress", inspectionData.trip_id],
+    queryFn: async () => {
+      if (!inspectionData.trip_id) return null;
+      const response = await axios.get(
+        `https://real-damage.fleetblox.com/api/trip_progress?trip_id=${inspectionData.trip_id}`
+      );
+      return response?.data?.data;
+    },
+    enabled: !!inspectionData.trip_id && openTripAuditModal, // Only run when modal open and trip_id exists
+    refetchInterval: 10000, // Optional: auto-refetch every 10 seconds for live progress
+  });
   const steps = [
     {
       title: "Capture Vehicle VIN & License plate",
@@ -119,14 +132,13 @@ const TripAuditSection = () => {
     progressData: ProgressData | null,
     title: string
   ) => {
-    if (!progressData?.in_progress) return null;
-
+    // if (progressData?.in_progress) return null;
     return (
       <div className="mt-5">
         <h2 className="text-[14px] text-[#303030] font-bold mb-2">
           {title} progress
         </h2>
-        <Progress percent={progressData.percentage} />
+        <Progress percent={progressData?.percentage} />
         <div className="mt-5">
           {steps?.map((item, index: number) => {
             const isCompleted = !!progressData?.status?.[item.key];
@@ -208,6 +220,7 @@ const TripAuditSection = () => {
           and monitoring
         </p>
       </div>
+      {/* inspection dashboard */}
       <Modal
         open={openTripAuditModal}
         onCancel={() => setOpenTripAuditModal(false)}
@@ -280,48 +293,62 @@ const TripAuditSection = () => {
                   </div>
                 )}
               </div>
-              {!departureProgress?.in_progress ? (
+              {!tripProgress?.departure_done && (
                 <p className="text-[#999] text-[12px] leading-4">
                   Share this link with the trip driver or any authorized person
                   so they can perform the inspection using a phone or other
                   camera-enabled device.
                 </p>
-              ) : (
-                renderProgressSection(departureProgress, "Inspection")
               )}
-              <div className="flex items-center gap-[10px] mt-[15px]">
-                <button className="py-2 px-3 border border-[#DFDFDF] rounded-md text-[#7D7D7D] text-[16px] font-bold font-openSans">
-                  Inspection log
-                </button>
-                <button
-                  onClick={() => setOpenDepartureReportModal(true)}
-                  className="submit-button"
-                >
-                  View report
-                </button>
-              </div>
+              {departureProgress?.in_progress &&
+                departureProgress &&
+                renderProgressSection(departureProgress, "Inspection")}
+              {/* {departureProgress &&
+                renderProgressSection(departureProgress, "Inspection")} */}
+              {tripProgress?.departure_done && (
+                <DepartureInspectionReport
+                  tripId={inspectionData?.trip_id || ""}
+                  serialNo={1}
+                />
+              )}
             </div>
             <div className="border border-[#DFDFDF] rounded-md p-4 mt-5">
               <h2 className="text-[14px] text-[#303030] font-bold">
                 Return inspection workflow
               </h2>
-              <div className="flex justify-between items-center my-[9px]">
-                <p className="text-[#2D65F2] text-[12px] font-medium leading-4 underline">
-                  {inspectionData?.returnLink}
+              {tripProgress?.departure_done && inspectionData?.returnLink && (
+                <div className="flex justify-between items-center my-[9px]">
+                  <p className="text-[#2D65F2] text-[12px] font-medium leading-4 underline">
+                    {inspectionData?.returnLink}
+                  </p>
+                  {inspectionData?.returnLink && (
+                    <div className="flex items-center gap-[10px] justify-center">
+                      <LinkCopyIcon />
+                      <SharedIcon />
+                    </div>
+                  )}
+                </div>
+              )}
+              {!tripProgress?.departure_done && inspectionData?.returnLink ? (
+                <p className="text-[14px] text-[#666]">
+                  Return inspection link will be available once the departure
+                  inspection is completed.
                 </p>
-                {inspectionData?.returnLink && (
-                  <div className="flex items-center gap-[10px] justify-center">
-                    <LinkCopyIcon />
-                    <SharedIcon />
-                  </div>
-                )}
-              </div>
-              <p className="text-[#999] text-[12px] leading-4">
-                Share this link with the trip driver or any authorized person so
-                they can perform the inspection using a phone or other
-                camera-enabled device.
-              </p>
-              {renderProgressSection(returnProgress, "Inspection")}
+              ) : (
+                <p className="text-[#999] text-[12px] leading-4">
+                  Share this link with the trip driver or any authorized person
+                  so they can perform the inspection using a phone or other
+                  camera-enabled device.
+                </p>
+              )}
+              {returnProgress?.in_progress &&
+                renderProgressSection(returnProgress, "Inspection")}
+              {tripProgress?.return_done && (
+                <ReturnInspectionReport
+                  tripId={inspectionData?.trip_id || ""}
+                  serialNo={2}
+                />
+              )}
             </div>
           </div>
           <p className="mt-auto text-right text-[#999] text-[12px] leading-4">
@@ -329,23 +356,6 @@ const TripAuditSection = () => {
             ID to view or download reports.
           </p>
         </main>
-      </Modal>
-      {/* reparture inspection report */}
-      <Modal
-        open={openDepartureReportModal}
-        onCancel={() => setOpenDepartureReportModal(false)}
-        footer={null}
-        centered
-        width={1200}
-        closeIcon={false}
-        className="mt-20"
-        zIndex={1300}
-      >
-        <DepartureInspectionReport
-          setOpenDepartureReportModal={setOpenDepartureReportModal}
-          tripId="edbc7f2d-5295-4de9-9b0d-26b4686f9f9f"
-          serialNo={1}
-        />
       </Modal>
     </>
   );
