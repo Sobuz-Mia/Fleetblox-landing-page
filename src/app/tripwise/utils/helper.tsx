@@ -30,6 +30,19 @@ export const getVehicleCondition = (score: number) => {
     );
   }
 };
+export const getConditionEmoji = (score: number) => {
+  if (score < 4) {
+    return "😞";
+  } else if (score >= 4 && score < 7) {
+    return "😐";
+  } else if (score >= 7 && score < 9) {
+    return "🙂";
+  } else if (score >= 9 && score <= 10) {
+    return "😄";
+  } else {
+    return "😕";
+  }
+};
 export const formatDuration = (seconds: number) => {
   const duration = moment.duration(seconds, "seconds");
 

@@ -14,7 +14,7 @@ const SideRockerPanelLeftSide = () => {
       <path
         d="M7.31348 153.455H0.520508V0.520508H7.31348V153.455Z"
         fill="#FF0000"
-        fill-opacity="0.36"
+        fillOpacity="0.36"
       />
       <path
         d="M7.31348 153.455H0.520508V0.520508H7.31348V153.455Z"

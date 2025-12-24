@@ -20,7 +20,7 @@ const FogLightFrontRightSide = () => {
         r="4.16149"
         transform="rotate(90 4.6816 4.68168)"
         fill="#FF0000"
-        fill-opacity="0.6"
+        fillOpacity="0.6"
       />
       <circle
         cx="4.6816"

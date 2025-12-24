@@ -148,11 +148,7 @@ const ReturnInspectionReport = ({
         closeIcon={false}
         className="mt-20"
       >
-        {isLoading ? (
-          <div className="flex flex-col items-center justify-center h-[80vh]">
-            <Spin spinning={true} size="large" tip="Loading..." />
-          </div>
-        ) : (
+        <Spin spinning={isLoading} size="large" tip="Loading...">
           <main className=" flex flex-col grow bg-white ">
             <div className="flex justify-end ">
               <button
@@ -566,7 +562,7 @@ const ReturnInspectionReport = ({
               </div>
             </div>
           </main>
-        )}
+        </Spin>
       </Modal>
       <Modal
         open={inspectionLog}
@@ -577,11 +573,7 @@ const ReturnInspectionReport = ({
         closeIcon
         className="mt-20"
       >
-        {isLoadingInspectionLog ? (
-          <div className="flex flex-col items-center justify-center h-[80vh]">
-            <Spin spinning={true} size="large" tip="Loading..." />
-          </div>
-        ) : (
+        <Spin spinning={isLoadingInspectionLog} size="large" tip="Loading...">
           <div className="p-5">
             <h1 className="text-[#04082C] text-[18px] font-bold text-center">
               Departure Inspection log
@@ -594,7 +586,7 @@ const ReturnInspectionReport = ({
               )}
             </div>
           </div>
-        )}
+        </Spin>
       </Modal>
     </div>
   );

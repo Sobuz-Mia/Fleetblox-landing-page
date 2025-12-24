@@ -1,5 +1,5 @@
 "use client";
-import { message, Modal } from "antd";
+import { message, Modal, Spin } from "antd";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
@@ -17,6 +17,8 @@ import { renderProgressSection } from "../utils/helper";
 const TripAuditSection = () => {
   const [openTripAuditModal, setOpenTripAuditModal] = useState(false);
   const [tripId, setTripId] = useState("");
+  const [isLoadingInspectionProgress, setIsLoadingInspectionProgress] =
+    useState(false);
   const [loading, setLoading] = useState(false);
   const [inspectionData, setInspectionData] = useState<{
     departureLink?: string;
@@ -69,6 +71,7 @@ const TripAuditSection = () => {
   useEffect(() => {
     if (openTripAuditModal && inspectionData.trip_id) {
       const fetchProgress = async () => {
+        setIsLoadingInspectionProgress(true);
         try {
           if (inspectionData?.departureLink) {
             const depRes = await axios.get(
@@ -89,6 +92,8 @@ const TripAuditSection = () => {
                 "Failed to fetch inspection progress"
               : "Network error. Please try again.";
           toast.error(msg);
+        } finally {
+          setIsLoadingInspectionProgress(false);
         }
       };
       fetchProgress();
@@ -99,7 +104,7 @@ const TripAuditSection = () => {
     inspectionData?.departureLink,
     inspectionData?.returnLink,
   ]);
-  const { data: tripProgress } = useQuery({
+  const { data: tripProgress, isLoading: isLoadingTripProgress } = useQuery({
     queryKey: ["trip_progress", inspectionData.trip_id],
     queryFn: async () => {
       if (!inspectionData.trip_id) return null;
@@ -230,17 +235,28 @@ const TripAuditSection = () => {
                   camera-enabled device.
                 </p>
               )}
-              {departureProgress?.in_progress &&
-                departureProgress &&
-                renderProgressSection(departureProgress, "Inspection")}
-              {/* {departureProgress &&
-                renderProgressSection(departureProgress, "Inspection")} */}
-              {tripProgress?.departure_done && (
-                <DepartureInspectionReport
-                  tripId={inspectionData?.trip_id || ""}
-                  serialNo={1}
-                />
-              )}
+              <Spin
+                spinning={isLoadingInspectionProgress}
+                size="large"
+                tip="Loading..."
+              >
+                {departureProgress?.in_progress &&
+                  departureProgress &&
+                  renderProgressSection(departureProgress, "Inspection")}
+              </Spin>
+
+              <Spin
+                spinning={isLoadingTripProgress}
+                size="large"
+                tip="Loading..."
+              >
+                {tripProgress?.departure_done && (
+                  <DepartureInspectionReport
+                    tripId={inspectionData?.trip_id || ""}
+                    serialNo={1}
+                  />
+                )}{" "}
+              </Spin>
             </div>
             <div className="border border-[#DFDFDF] rounded-md p-4 mt-5">
               <h2 className="text-[14px] text-[#303030] font-bold">
@@ -271,14 +287,26 @@ const TripAuditSection = () => {
                   camera-enabled device.
                 </p>
               )}
-              {returnProgress?.in_progress &&
-                renderProgressSection(returnProgress, "Inspection")}
-              {tripProgress?.return_done && (
-                <ReturnInspectionReport
-                  tripId={inspectionData?.trip_id || ""}
-                  serialNo={2}
-                />
-              )}
+              <Spin
+                spinning={isLoadingInspectionProgress}
+                size="large"
+                tip="Loading..."
+              >
+                {returnProgress?.in_progress &&
+                  renderProgressSection(returnProgress, "Inspection")}
+              </Spin>
+              <Spin
+                spinning={isLoadingTripProgress}
+                size="large"
+                tip="Loading..."
+              >
+                {tripProgress?.return_done && (
+                  <ReturnInspectionReport
+                    tripId={inspectionData?.trip_id || ""}
+                    serialNo={2}
+                  />
+                )}
+              </Spin>
             </div>
           </div>
           <p className="mt-auto text-right text-[#999] text-[12px] leading-4">

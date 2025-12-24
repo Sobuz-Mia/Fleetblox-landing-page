@@ -20,7 +20,7 @@ const WheelFrontLeftSide = () => {
         r="25.4891"
         transform="matrix(0 1 1 0 0 0)"
         fill="#FF0000"
-        fill-opacity="0.36"
+        fillOpacity="0.36"
       />
       <circle
         cx="26.0093"

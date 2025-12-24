@@ -15,7 +15,11 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import CarDiagramSvg from "./CarDiagramSvg";
 import moment from "moment";
-import { getVehicleCondition, renderProgressSection } from "../utils/helper";
+import {
+  getConditionEmoji,
+  getVehicleCondition,
+  renderProgressSection,
+} from "../utils/helper";
 
 type DepartureInspectionReportProps = {
   tripId: string;
@@ -145,11 +149,7 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
         closeIcon={false}
         className="mt-20"
       >
-        {isLoading ? (
-          <div className="flex flex-col items-center justify-center h-[80vh]">
-            <Spin spinning={true} size="large" tip="Loading..." />
-          </div>
-        ) : (
+        <Spin spinning={isLoading} size="large" tip="Loading...">
           <main className=" flex flex-col grow bg-white ">
             <div className="flex justify-end ">
               <button
@@ -356,7 +356,10 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
               </div> */}
 
                       <div className="text-center flex-center flex flex-col">
-                        <div className="text-[56px] h-[70px]">😕</div>
+                        <div className="text-[56px] h-[70px]">
+                          {" "}
+                          {overall_score && getConditionEmoji(overall_score)}
+                        </div>
                         <div className="py-1">
                           {overall_score && getVehicleCondition(overall_score)}
                         </div>
@@ -563,7 +566,7 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
               </div>
             </div>
           </main>
-        )}
+        </Spin>
       </Modal>
       <Modal
         open={inspectionLog}
@@ -574,11 +577,7 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
         closeIcon
         className="mt-20"
       >
-        {isLoadingInspectionLog ? (
-          <div className="flex flex-col items-center justify-center h-[80vh]">
-            <Spin spinning={true} size="large" tip="Loading..." />
-          </div>
-        ) : (
+        <Spin spinning={isLoadingInspectionLog} size="large" tip="Loading...">
           <div className="p-5">
             <h1 className="text-[#04082C] text-[18px] font-bold text-center">
               Departure Inspection log
@@ -591,7 +590,7 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
               )}
             </div>
           </div>
-        )}
+        </Spin>
       </Modal>
     </>
   );
