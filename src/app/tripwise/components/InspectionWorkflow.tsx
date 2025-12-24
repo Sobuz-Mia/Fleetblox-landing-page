@@ -48,8 +48,8 @@ const InspectionWorkflow = () => {
       const tripId = orderResponse.data.trip_id;
       const createSessionData = {
         // success_url: "https://fleetblox.com/trip-audit/payment-success",
-        success_url: "http://localhost:3000/trip-audit/payment-success",
-        cancel_url: "http://localhost:3000/trip-audit/payment-failed",
+        success_url: "https://fleetblox.com/tripwise/payment-success",
+        cancel_url: "https://fleetblox.com/tripwise/payment-failed",
       };
       // Create payment intent
       const paymentResponse = await axios.post(
@@ -57,7 +57,6 @@ const InspectionWorkflow = () => {
         createSessionData
       );
       if (paymentResponse?.data?.checkout_url) {
-        console.log(paymentResponse);
         // router.push(paymentResponse.data.checkout_url);
         window.open(paymentResponse.data.checkout_url, "_blank");
       }
