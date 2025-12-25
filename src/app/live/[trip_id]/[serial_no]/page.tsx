@@ -1,21 +1,16 @@
 "use client";
-
-import axios from "axios";
+import { Modal } from "antd";
 import { useParams } from "next/navigation";
 import React, { useRef, useEffect, useState } from "react";
-
-interface Damage {
-  damage_id: number;
-  damage_type: string;
-  damage_mask: number[][];
-}
-
+import { CloseOutlined } from "@ant-design/icons";
+import Image from "next/image";
 interface InferenceData {
   frame_id: number;
   res: string;
   elapsed: number;
   spin: string;
-  damages: Damage[];
+  damages: any[]; // simplified, not needed for drawing anymore
+  rtp_ts?: number;
 }
 
 interface DamageDetail {
@@ -24,16 +19,18 @@ interface DamageDetail {
   part_name: string;
   severity: string;
   side?: string;
-  s3_url: string;
-  overlap: number;
+  s3_url: string; // will be base64 data URL from server
+  overlap?: number;
+  [key: string]: any; // in case server sends extra fields
 }
+
 const BASE_URL = "https://real-damage.fleetblox.com";
+
 export default function RealTimeDamageDetection() {
   const params = useParams<{ trip_id: string; serial_no: string }>();
   const tripId = params.trip_id;
   const serialNo = params.serial_no;
   const videoRef = useRef<HTMLVideoElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const [cameras, setCameras] = useState<MediaDeviceInfo[]>([]);
   const [selectedCamera, setSelectedCamera] = useState<string>("");
@@ -41,26 +38,24 @@ export default function RealTimeDamageDetection() {
   const [isConnecting, setIsConnecting] = useState(false);
   const [inference, setInference] = useState<InferenceData | null>(null);
 
+  // Current frame metadata needed for click
+  const [currentFrameMeta, setCurrentFrameMeta] = useState<{
+    frame_id: number | null;
+    rtp_ts: number | null;
+  }>({
+    frame_id: null,
+    rtp_ts: null,
+  });
+
   // Modal states
   const [modalOpen, setModalOpen] = useState(false);
   const [modalLoading, setModalLoading] = useState(false);
   const [modalData, setModalData] = useState<DamageDetail | null>(null);
 
-  // Replace with real values (e.g., from URL params)
-  // const tripId = "edbc7f2d-5295-4de9-9b0d-26b4686f9f9f";
-  // const serialNo = "1";
-
-  // Refs for WebRTC
+  // WebRTC refs
   const pcRef = useRef<RTCPeerConnection | null>(null);
   const dataChannelRef = useRef<RTCDataChannel | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
-
-  const colorMap = new Map<string, string>([
-    ["dent", "rgba(255, 100, 100, 0.4)"],
-    ["scratch", "rgba(100, 255, 100, 0.4)"],
-    ["broken glass", "rgba(100, 100, 255, 0.4)"],
-    ["crack", "rgba(255, 255, 100, 0.4)"],
-  ]);
 
   // List available cameras
   useEffect(() => {
@@ -73,101 +68,56 @@ export default function RealTimeDamageDetection() {
     });
   }, []);
 
-  // Draw masks on canvas
-  const drawMasks = (damages: Damage[]) => {
-    const canvas = canvasRef.current;
+  // Handle click/touch on video (desktop + mobile)
+  const handleVideoInteraction = (
+    e: React.MouseEvent<HTMLVideoElement> | React.TouchEvent<HTMLVideoElement>
+  ) => {
+    if (!dataChannelRef.current || dataChannelRef.current.readyState !== "open")
+      return;
+    if (!currentFrameMeta.frame_id || !currentFrameMeta.rtp_ts) return;
+
     const video = videoRef.current;
-    if (!canvas || !video || !video.videoWidth) return;
+    if (!video || video.videoWidth === 0 || video.videoHeight === 0) return;
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    let clientX: number, clientY: number;
 
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    damages.forEach((dmg) => {
-      if (!dmg.damage_mask || dmg.damage_mask.length < 3) return;
-
-      ctx.beginPath();
-      ctx.moveTo(dmg.damage_mask[0][0], dmg.damage_mask[0][1]);
-      for (let i = 1; i < dmg.damage_mask.length; i++) {
-        ctx.lineTo(dmg.damage_mask[i][0], dmg.damage_mask[i][1]);
-      }
-      ctx.closePath();
-
-      const fillColor = colorMap.get(dmg.damage_type) || "rgba(0, 255, 0, 0.3)";
-      ctx.fillStyle = fillColor;
-      ctx.fill();
-
-      ctx.lineWidth = 3;
-      ctx.strokeStyle = fillColor.replace(/0\.\d+\)$/, "1)");
-      ctx.stroke();
-    });
-  };
-
-  // Click on canvas → detect polygon → pause video → fetch details
-  const handleCanvasClick = async (e: React.MouseEvent<HTMLCanvasElement>) => {
-    if (!inference?.damages || inference.damages.length === 0) return;
-
-    const canvas = canvasRef.current;
-    const video = videoRef.current;
-    if (!canvas || !video) return;
-
-    const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    // Pause video immediately
-    video.pause();
-
-    for (const dmg of inference.damages) {
-      if (!dmg.damage_mask || dmg.damage_mask.length < 3) continue;
-
-      ctx.beginPath();
-      ctx.moveTo(dmg.damage_mask[0][0], dmg.damage_mask[0][1]);
-      for (let i = 1; i < dmg.damage_mask.length; i++) {
-        ctx.lineTo(dmg.damage_mask[i][0], dmg.damage_mask[i][1]);
-      }
-      ctx.closePath();
-
-      if (ctx.isPointInPath(x, y)) {
-        // Found clicked damage
-        setModalLoading(true);
-        setModalData(null);
-        setModalOpen(true);
-        // /api/damage_pop_up?trip_id=test&serial_no=1&damage_id=2
-        const apiUrl = `${BASE_URL}/api/damage_pop_up?trip_id=${tripId}&serial_no=${serialNo}&damage_id=${dmg.damage_id}`;
-        disconnect();
-        try {
-          const res = await axios.post(apiUrl);
-          const json = res?.data;
-
-          if (json.status === "success") {
-            setModalData(json.damage_data);
-          } else {
-            alert("API Error: " + json.status);
-            setModalOpen(false);
-            video.play(); // resume if error
-          }
-        } catch (err) {
-          console.error(err);
-          alert("Failed to load damage details");
-          setModalOpen(false);
-          video.play();
-        } finally {
-          setModalLoading(false);
-        }
-
-        return; // stop checking other polygons
-      }
+    if ("touches" in e) {
+      // Touch event (mobile)
+      const touch = e.touches[0];
+      clientX = touch.clientX;
+      clientY = touch.clientY;
+    } else {
+      // Mouse event (desktop)
+      clientX = e.clientX;
+      clientY = e.clientY;
     }
 
-    // If no polygon clicked, resume video
-    video.play();
+    const rect = video.getBoundingClientRect();
+
+    // Calculate click position in video pixel coordinates
+    const x = Math.round(
+      (clientX - rect.left) * (video.videoWidth / rect.width)
+    );
+    const y = Math.round(
+      (clientY - rect.top) * (video.videoHeight / rect.height)
+    );
+
+    const payload = {
+      type: "frame_click",
+      frame_id: currentFrameMeta.frame_id,
+      rtp_ts: currentFrameMeta.rtp_ts,
+      click_x: x,
+      click_y: y,
+      client_ts: performance.now(),
+    };
+    console.log(payload, "payload data after clcik");
+    dataChannelRef.current.send(JSON.stringify(payload));
+
+    // Pause video and show loading modal
+    video.pause();
+    setModalLoading(true);
+    setModalOpen(true);
+    setModalData(null);
   };
 
   // Connect to WebRTC server
@@ -176,13 +126,11 @@ export default function RealTimeDamageDetection() {
     setIsConnecting(true);
 
     try {
-      // Get camera stream
       const constraints = {
         video: {
-          // deviceId: selectedCamera ? { exact: selectedCamera } : undefined,
-          facingMode: "environment",
-          width: { ideal: 640 },
-          height: { ideal: 480 },
+          facingMode: "environment", // rear camera on mobile
+          width: { ideal: 812 },
+          height: { ideal: 400 },
           frameRate: { ideal: 25 },
         },
         audio: false,
@@ -195,14 +143,20 @@ export default function RealTimeDamageDetection() {
         videoRef.current.srcObject = stream;
       }
 
-      // Setup WebRTC
       const pc = new RTCPeerConnection();
       pcRef.current = pc;
 
-      // Add tracks
-      stream.getTracks().forEach((track) => pc.addTrack(track, stream));
+      // Add video track with bitrate control
+      const videoTrack = stream.getVideoTracks()[0];
+      const sender = pc.addTrack(videoTrack, stream);
 
-      // Data channel for inference results
+      const params = sender.getParameters();
+      if (!params.encodings) params.encodings = [{}];
+      params.encodings[0].maxBitrate = 1_500_000;
+      params.encodings[0].maxFramerate = 25;
+      sender.setParameters(params).catch(console.error);
+
+      // Data channel for inference + click feedback
       const dataChannel = pc.createDataChannel("inferenceData");
       dataChannelRef.current = dataChannel;
 
@@ -211,12 +165,30 @@ export default function RealTimeDamageDetection() {
       dataChannel.onmessage = (evt) => {
         try {
           const data = JSON.parse(evt.data);
+
           if (data.type === "pong") return;
 
-          setInference(data);
-          if (data.damages) {
-            drawMasks(data.damages);
+          if (data.type === "frame_popup") {
+            // Server detected a damage click → show popup
+            const imageUrl = `data:image/jpeg;base64,${data.frame}`;
+            const damageData = data.damage_data;
+            console.log("data type functins popup");
+            setModalData({
+              ...damageData,
+              s3_url: imageUrl,
+            });
+            setModalLoading(false);
+            return;
           }
+
+          // Update current frame metadata (needed for clicks)
+          setCurrentFrameMeta({
+            frame_id: data.frame_id ?? null,
+            rtp_ts: data.rtp_ts ?? null,
+          });
+
+          // Update UI inference info
+          setInference(data);
         } catch (err) {
           console.error("Parse error:", err);
         }
@@ -231,7 +203,6 @@ export default function RealTimeDamageDetection() {
         }
       };
 
-      // Create offer
       const offer = await pc.createOffer();
       await pc.setLocalDescription(offer);
 
@@ -239,8 +210,8 @@ export default function RealTimeDamageDetection() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          sdp: pc?.localDescription?.sdp,
-          type: pc?.localDescription?.type,
+          sdp: pc.localDescription?.sdp,
+          type: pc.localDescription?.type,
           trip_id: tripId,
           serial_no: serialNo,
         }),
@@ -267,7 +238,7 @@ export default function RealTimeDamageDetection() {
   };
 
   // Disconnect
-  const disconnect = async () => {
+  const disconnect = () => {
     if (dataChannelRef.current) dataChannelRef.current.close();
     if (pcRef.current) {
       pcRef.current.close();
@@ -281,53 +252,56 @@ export default function RealTimeDamageDetection() {
 
     setIsConnected(false);
     setInference(null);
-    const canvas = canvasRef.current;
-    if (canvas) {
-      const ctx = canvas.getContext("2d");
-      if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
+    setCurrentFrameMeta({ frame_id: null, rtp_ts: null });
   };
 
   // Close modal → resume video
   const closeModal = () => {
-    connect();
     setModalOpen(false);
     setModalData(null);
+    setModalLoading(false);
+
     if (videoRef.current && isConnected) {
       videoRef.current.play().catch(() => {});
     }
   };
-  // console.log(modalData, "this is modal daata");
+
   return (
-    <div className="p-8 max-w-5xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">
+    <div className="p-5 max-w-5xl mx-auto">
+      {/* <h1 className="text-3xl font-bold mb-6">
         Real-Time Vehicle Damage Inspection
       </h1>
       <p className="text-lg mb-4">
         Trip ID: {tripId} | Serial: {serialNo}
-      </p>
+      </p> */}
 
-      <div className="relative inline-block border-4 border-gray-800 rounded-lg overflow-hidden shadow-2xl">
+      <div className="relative inline-block rounded-[20px] overflow-hidden shadow-2xl">
         <video
           ref={videoRef}
           autoPlay
           playsInline
           muted
-          width={640}
-          height={480}
-          className="bg-black"
+          width={812}
+          height={400}
+          className="bg-[#303030] cursor-pointer touch-none"
+          onClick={handleVideoInteraction}
+          onTouchStart={handleVideoInteraction}
         />
-        <canvas
-          ref={canvasRef}
-          width={640}
-          height={480}
-          className="absolute top-0 left-0 cursor-pointer"
-          onClick={handleCanvasClick}
-        />
+        <button
+          onClick={isConnected ? disconnect : connect}
+          className="absolute right-0 z-50 bottom-0 border cursor-pointer border-[#fff] rounded-md mb-5 mr-5 px-[14px] py-2.5 text-white text-[12px] font-medium"
+        >
+          {isConnecting
+            ? "Detecting..."
+            : isConnected
+            ? "Finish detecting"
+            : "Start detecting"}
+          {/* Start detecting */}
+        </button>
       </div>
 
       <div className="mt-8 flex flex-wrap items-center gap-4">
-        <select
+        {/* <select
           value={selectedCamera}
           onChange={(e) => setSelectedCamera(e.target.value)}
           className="px-4 py-2 border rounded"
@@ -338,9 +312,9 @@ export default function RealTimeDamageDetection() {
               {cam.label || "Unknown Camera"}
             </option>
           ))}
-        </select>
+        </select> */}
 
-        <button
+        {/* <button
           onClick={isConnected ? disconnect : connect}
           disabled={isConnecting}
           className={`px-8 py-3 text-white font-semibold rounded-lg transition ${
@@ -354,19 +328,19 @@ export default function RealTimeDamageDetection() {
             : isConnected
             ? "Disconnect"
             : "Connect"}
-        </button>
+        </button> */}
       </div>
 
-      {inference && (
+      {/* {inference && (
         <div className="mt-8 bg-gray-100 p-4 rounded">
           <p>Frame ID: {inference.frame_id}</p>
           <p>Processing: {inference.spin}</p>
           <p>Elapsed: {inference.elapsed.toFixed(2)}s</p>
         </div>
-      )}
+      )} */}
 
       {/* Modal */}
-      {modalData && (
+      {/* {modalOpen && (
         <dialog
           open={modalOpen}
           className="fixed inset-0 z-50 p-0 bg-black/70 flex items-center justify-center"
@@ -378,14 +352,14 @@ export default function RealTimeDamageDetection() {
               {modalLoading ? (
                 <div className="flex flex-col items-center py-12">
                   <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-600 border-t-transparent mb-4"></div>
-                  <p>Loading damage details...</p>
+                  <p>Detecting clicked damage...</p>
                 </div>
               ) : modalData ? (
                 <>
                   <img
                     src={modalData.s3_url}
                     alt="Damage close-up"
-                    className="w-full rounded-lg mb-6 shadow-md"
+                    className="w-full rounded-lg mb-6 shadow-md object-contain bg-black"
                   />
                   <div className="space-y-3">
                     <p>
@@ -416,7 +390,11 @@ export default function RealTimeDamageDetection() {
                     )}
                   </div>
                 </>
-              ) : null}
+              ) : (
+                <p className="text-center py-8 text-gray-600">
+                  No damage detected at clicked location.
+                </p>
+              )}
 
               <button
                 onClick={closeModal}
@@ -427,7 +405,55 @@ export default function RealTimeDamageDetection() {
             </div>
           </div>
         </dialog>
-      )}
+      )} */}
+      <Modal
+        open={modalOpen}
+        title={null}
+        closeIcon={false}
+        onCancel={() => setModalOpen(false)}
+        footer={null}
+        centered
+        width={200}
+      >
+        {!modalLoading ? (
+          <div className="flex flex-col items-center py-12">
+            <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-600 border-t-transparent mb-4"></div>
+            <p>Detecting clicked damage...</p>
+          </div>
+        ) : (
+          <div className="relative">
+            <div>
+              {/* The image */}
+              <Image
+                src={modalData?.s3_url ?? ""}
+                alt="Damage image"
+                width={140}
+                height={91}
+                className="rounded-md "
+              />
+            </div>
+            {/* Text content */}
+            <div className="text-left">
+              <p>{modalData?.part_name || "Part name missing"}</p>
+              <div style={{ color: "#666", marginBottom: "24px" }}>
+                Damage type name (severity)
+              </div>
+
+              {/* Action button */}
+              <button className="border border-[#fff] text-center">
+                Add to list
+              </button>
+            </div>
+            {/* Red close button overlay */}
+            <div
+              className="absolute -top-10 -right-10 bg-[#FF0202] p-[10px] flex items-center justify-center rounded-full"
+              onClick={() => setModalOpen(false)}
+            >
+              <CloseOutlined style={{ color: "white", fontSize: "18px" }} />
+            </div>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 }

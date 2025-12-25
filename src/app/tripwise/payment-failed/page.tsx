@@ -52,7 +52,7 @@ const PaymentFailed = () => {
             contact our support team for assistance
           </p>
 
-          <Link href={"/trip-audit"}>
+          <Link href={"/tripwise"}>
             <button className="bg-[#2D65F2] rounded-md py-3 px-5 w-full text-white text-[16px] font-bold my-10">
               Okay
             </button>
