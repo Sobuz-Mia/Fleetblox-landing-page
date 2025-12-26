@@ -336,10 +336,7 @@ export default function RealTimeDamageDetection() {
         Trip ID: {tripId} | Serial: {serialNo}
       </p> */}
 
-      <div
-        className="relative inline-block rounded-[20px] overflow-hidden shadow-2xl"
-        style={{ width: "812px", height: "400px" }}
-      >
+      <div className="relative inline-block  rounded-[20px] overflow-hidden shadow-2xl">
         <video
           ref={videoRef}
           autoPlay
