@@ -1,17 +1,19 @@
 "use client";
 import { Modal } from "antd";
 import { useParams } from "next/navigation";
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import { CloseOutlined } from "@ant-design/icons";
 import Image from "next/image";
-interface InferenceData {
-  frame_id: number;
-  res: string;
-  elapsed: number;
-  spin: string;
-  damages: any[]; // simplified, not needed for drawing anymore
-  rtp_ts?: number;
-}
+import toast from "react-hot-toast";
+import LoadingButtonAnimation from "@/components/ui/shared/ButtonLoadingAnimation";
+// interface InferenceData {
+//   frame_id: number;
+//   res: string;
+//   elapsed: number;
+//   spin: string;
+//   damages: any[];
+//   rtp_ts?: number;
+// }
 
 interface DamageDetail {
   damage_id: number;
@@ -21,7 +23,7 @@ interface DamageDetail {
   side?: string;
   s3_url: string; // will be base64 data URL from server
   overlap?: number;
-  [key: string]: any; // in case server sends extra fields
+  [key: string]: unknown;
 }
 
 const BASE_URL = "https://real-damage.fleetblox.com";
@@ -32,11 +34,11 @@ export default function RealTimeDamageDetection() {
   const serialNo = params.serial_no;
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const [cameras, setCameras] = useState<MediaDeviceInfo[]>([]);
-  const [selectedCamera, setSelectedCamera] = useState<string>("");
+  // const [cameras, setCameras] = useState<MediaDeviceInfo[]>([]);
+  // const [selectedCamera, setSelectedCamera] = useState<string>("");
   const [isConnected, setIsConnected] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
-  const [inference, setInference] = useState<InferenceData | null>(null);
+  // const [inference, setInference] = useState<InferenceData | null>(null);
 
   // Current frame metadata needed for click
   const [currentFrameMeta, setCurrentFrameMeta] = useState<{
@@ -50,6 +52,7 @@ export default function RealTimeDamageDetection() {
   // Modal states
   const [modalOpen, setModalOpen] = useState(false);
   const [modalLoading, setModalLoading] = useState(false);
+  const [isAddDamageLoading, setIsAddDamageLoading] = useState(false);
   const [modalData, setModalData] = useState<DamageDetail | null>(null);
 
   // WebRTC refs
@@ -58,15 +61,15 @@ export default function RealTimeDamageDetection() {
   const streamRef = useRef<MediaStream | null>(null);
 
   // List available cameras
-  useEffect(() => {
-    navigator.mediaDevices.enumerateDevices().then((devices) => {
-      const videoDevices = devices.filter((d) => d.kind === "videoinput");
-      setCameras(videoDevices);
-      if (videoDevices.length > 0) {
-        setSelectedCamera(videoDevices[0].deviceId);
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   navigator.mediaDevices.enumerateDevices().then((devices) => {
+  //     const videoDevices = devices.filter((d) => d.kind === "videoinput");
+  //     setCameras(videoDevices);
+  //     if (videoDevices.length > 0) {
+  //       setSelectedCamera(videoDevices[0].deviceId);
+  //     }
+  //   });
+  // }, []);
 
   // Handle click/touch on video (desktop + mobile)
   const handleVideoInteraction = (
@@ -188,7 +191,7 @@ export default function RealTimeDamageDetection() {
           });
 
           // Update UI inference info
-          setInference(data);
+          // setInference(data);
         } catch (err) {
           console.error("Parse error:", err);
         }
@@ -251,7 +254,7 @@ export default function RealTimeDamageDetection() {
     if (videoRef.current) videoRef.current.srcObject = null;
 
     setIsConnected(false);
-    setInference(null);
+    // setInference(null);
     setCurrentFrameMeta({ frame_id: null, rtp_ts: null });
   };
 
@@ -265,7 +268,65 @@ export default function RealTimeDamageDetection() {
       videoRef.current.play().catch(() => {});
     }
   };
+  const handleAddToList = async () => {
+    if (!modalData) return;
 
+    setIsAddDamageLoading(true);
+
+    try {
+      // 1. Extract base64 string from data URL
+      const base64String = modalData.s3_url.split(",")[1]; // Remove "data:image/jpeg;base64,"
+
+      // 2. Convert base64 to binary (Uint8Array)
+      const binaryString = atob(base64String);
+      const bytes = new Uint8Array(binaryString.length);
+      for (let i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+
+      // 3. Create Blob and then File
+      const blob = new Blob([bytes], { type: "image/jpeg" });
+      const file = new File([blob], `damage_${modalData.damage_id}.jpeg`, {
+        type: "image/jpeg",
+      });
+
+      // 4. Prepare FormData
+      const formData = new FormData();
+      formData.append("trip_id", tripId);
+      formData.append("serial_no", serialNo);
+      formData.append("image", file);
+
+      const damageMetadata = {
+        damage_id: modalData.damage_id,
+        damage_type: modalData.damage_type,
+        part_name: modalData.part_name,
+        severity: modalData.severity,
+        side: modalData.side,
+      };
+
+      formData.append("data", JSON.stringify(damageMetadata));
+
+      // 5. Send to API
+      const apiResponse = await fetch(`${BASE_URL}/api/damage_pop_up_confirm`, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (apiResponse.ok) {
+        const result = await apiResponse.json();
+        console.log("Damage saved:", result);
+        toast.success("Damage added successfully!");
+        closeModal();
+      } else {
+        throw new Error("API error: " + apiResponse.status);
+      }
+    } catch (error) {
+      console.error("Upload failed:", error);
+      toast.error("Failed to add damage. Please try again.");
+    } finally {
+      setIsAddDamageLoading(false);
+    }
+  };
   return (
     <div className="p-5 max-w-5xl mx-auto">
       {/* <h1 className="text-3xl font-bold mb-6">
@@ -275,7 +336,10 @@ export default function RealTimeDamageDetection() {
         Trip ID: {tripId} | Serial: {serialNo}
       </p> */}
 
-      <div className="relative inline-block rounded-[20px] overflow-hidden shadow-2xl">
+      <div
+        className="relative inline-block rounded-[20px] overflow-hidden shadow-2xl"
+        style={{ width: "812px", height: "400px" }}
+      >
         <video
           ref={videoRef}
           autoPlay
@@ -283,7 +347,7 @@ export default function RealTimeDamageDetection() {
           muted
           width={812}
           height={400}
-          className="bg-[#303030] cursor-pointer touch-none"
+          className="bg-[#303030] cursor-pointer touch-none object-contain"
           onClick={handleVideoInteraction}
           onTouchStart={handleVideoInteraction}
         />
@@ -414,43 +478,59 @@ export default function RealTimeDamageDetection() {
         footer={null}
         centered
         width={200}
+        styles={{
+          content: {
+            padding: 5, // ✅ overrides 20px 24px
+          },
+        }}
       >
-        {!modalLoading ? (
+        {modalLoading ? (
           <div className="flex flex-col items-center py-12">
             <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-600 border-t-transparent mb-4"></div>
             <p>Detecting clicked damage...</p>
           </div>
         ) : (
           <div className="relative">
-            <div>
-              {/* The image */}
-              <Image
-                src={modalData?.s3_url ?? ""}
-                alt="Damage image"
-                width={140}
-                height={91}
-                className="rounded-md "
-              />
-            </div>
+            {/* The image */}
+            <Image
+              src={modalData?.s3_url ?? ""}
+              alt="Damage image"
+              width={200}
+              height={91}
+              className="rounded-md "
+            />
+
             {/* Text content */}
             <div className="text-left">
-              <p>{modalData?.part_name || "Part name missing"}</p>
-              <div style={{ color: "#666", marginBottom: "24px" }}>
-                Damage type name (severity)
-              </div>
+              <p className="text-[12px] font-medium leading-4 text-[#6F6464] capitalize mt-[5px]">
+                {modalData?.part_name || "Part name missing"}
+              </p>
+              <p className="my-2 text-[12px] font-medium leading-4 text-[#303030] text-[shadow:0_4px_12px_rgba(0,0,0,0.14)] capitalize ">
+                {modalData
+                  ? `${modalData.damage_type} (${modalData.severity})`
+                  : "No damage detected."}
+              </p>
 
               {/* Action button */}
-              <button className="border border-[#fff] text-center">
-                Add to list
+              <button
+                onClick={handleAddToList}
+                disabled={!modalData || isAddDamageLoading}
+                className="bg-[#2D65F2] text-white w-full text-center rounded-md px-[14px] py-2.5 text-[10px] font-semibold"
+              >
+                {isAddDamageLoading ? (
+                  <LoadingButtonAnimation />
+                ) : (
+                  " Add to list"
+                )}
               </button>
             </div>
             {/* Red close button overlay */}
-            <div
-              className="absolute -top-10 -right-10 bg-[#FF0202] p-[10px] flex items-center justify-center rounded-full"
-              onClick={() => setModalOpen(false)}
+            <button
+              className="absolute -top-5 -right-5 bg-[#FF0202] p-[10px] flex items-center justify-center rounded-full"
+              onClick={closeModal}
             >
               <CloseOutlined style={{ color: "white", fontSize: "18px" }} />
-            </div>
+            </button>
           </div>
         )}
       </Modal>
