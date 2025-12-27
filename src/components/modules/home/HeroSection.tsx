@@ -3,6 +3,7 @@ import heroCardImg from "../../../assets/heroCardImage.png";
 import Image from "next/image";
 import VerticalDividerIcon from "@/components/icons/VerticalDividerIcon";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 // import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 
 const HeroSection = () => {
@@ -50,8 +51,25 @@ const HeroSection = () => {
   ];
   return (
     <section className="bg-[#FAFAFF] flex flex-col justify-center items-center z-50 overflow-hidden">
+      <div className="bg-[#FEFAF0] w-full mt-[120px] py-5">
+        <div className="max-w-[1280px] mx-auto flex text-center">
+          <p className="text-[20px] text-[#303030] font-montserrat leading-8">
+            <span>🚀</span> We’re currently rolling out, and Fleetblox products
+            will become available progressively. Explore{" "}
+            <span className="text-[#0336BC] font-semibold">Tripwise</span>, the
+            intelligent on-the-go trip audit, and stay tuned as more features go
+            live.{" "}
+            <Link
+              className="text-[#0336BC] font-bold font-openSans text-[14px]"
+              href="/tripwise"
+            >
+              Learn More
+            </Link>
+          </p>
+        </div>
+      </div>
       {/* Main content section */}
-      <div className="mt-[120px] pb-3 flex flex-col items-center justify-center px-5">
+      <div className="mt-[80px] pb-3 flex flex-col items-center justify-center px-5">
         {/* Text content remains the same */}
         <div className="max-w-[840px] w-full mx-auto text-center flex flex-col items-start lg:items-center ">
           <p className="text-[18px]  lg:text-[28px] text-left lg:text-center font-bold text-[#0336BC] mb-[5px]">
