@@ -54,7 +54,7 @@ export default function RealTimeDamageDetection() {
   const [modalLoading, setModalLoading] = useState(false);
   const [isAddDamageLoading, setIsAddDamageLoading] = useState(false);
   const [modalData, setModalData] = useState<DamageDetail | null>(null);
-
+  const [clickPending, setClickPending] = useState(false);
   // WebRTC refs
   const pcRef = useRef<RTCPeerConnection | null>(null);
   const dataChannelRef = useRef<RTCDataChannel | null>(null);
@@ -121,6 +121,14 @@ export default function RealTimeDamageDetection() {
     setModalLoading(true);
     setModalOpen(true);
     setModalData(null);
+    setClickPending(true);
+    setTimeout(() => {
+      if (clickPending) {
+        setClickPending(false);
+        setModalLoading(false);
+        setModalData(null); // ensures we show "not detected" message
+      }
+    }, 10000);
   };
 
   // Connect to WebRTC server
@@ -132,9 +140,10 @@ export default function RealTimeDamageDetection() {
       const constraints = {
         video: {
           facingMode: "environment", // rear camera on mobile
-          width: { ideal: 812 },
-          height: { ideal: 400 },
+          width: { ideal: 1280 }, // ← Wider for landscape
+          height: { ideal: 720 }, // ← Standard 16:9 landscape
           frameRate: { ideal: 25 },
+          aspectRatio: { exact: 16 / 9 },
         },
         audio: false,
       };
@@ -172,6 +181,7 @@ export default function RealTimeDamageDetection() {
           if (data.type === "pong") return;
 
           if (data.type === "frame_popup") {
+            setClickPending(false);
             // Server detected a damage click → show popup
             const imageUrl = `data:image/jpeg;base64,${data.frame}`;
             const damageData = data.damage_data;
@@ -263,6 +273,7 @@ export default function RealTimeDamageDetection() {
     setModalOpen(false);
     setModalData(null);
     setModalLoading(false);
+    setClickPending(false);
 
     if (videoRef.current && isConnected) {
       videoRef.current.play().catch(() => {});
@@ -336,15 +347,18 @@ export default function RealTimeDamageDetection() {
         Trip ID: {tripId} | Serial: {serialNo}
       </p> */}
 
-      <div className="relative inline-block  rounded-[20px] overflow-hidden shadow-2xl">
+      <div className="relative inline-block  rounded-[20px] overflow-hidden shadow-lg">
         <video
           ref={videoRef}
           autoPlay
           playsInline
           muted
-          width={812}
-          height={400}
-          className="bg-[#303030] cursor-pointer touch-none object-contain"
+          className="w-full max-w-full h-auto object-cover block bg-[#303030] cursor-pointer touch-none"
+          style={{
+            aspectRatio: "16 / 9",
+            minHeight: "300px",
+            transform: "rotate(0deg) scaleX(1)", // ensures no accidental rotation
+          }}
           onClick={handleVideoInteraction}
           onTouchStart={handleVideoInteraction}
         />
@@ -473,7 +487,6 @@ export default function RealTimeDamageDetection() {
         closeIcon={false}
         onCancel={() => setModalOpen(false)}
         footer={null}
-        centered
         width={200}
         styles={{
           content: {
@@ -481,55 +494,71 @@ export default function RealTimeDamageDetection() {
           },
         }}
       >
-        {modalLoading ? (
-          <div className="flex flex-col items-center py-12">
-            <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-600 border-t-transparent mb-4"></div>
-            <p>Detecting clicked damage...</p>
-          </div>
-        ) : (
-          <div className="relative">
-            {/* The image */}
-            <Image
-              src={modalData?.s3_url ?? ""}
-              alt="Damage image"
-              width={200}
-              height={91}
-              className="rounded-md "
-            />
+        <div className="relative">
+          {modalLoading ? (
+            <div className="flex flex-col items-center py-12 ">
+              {/* <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-600 border-t-transparent mb-4"></div>
+            <p>Detecting clicked damage...</p> */}
+              <LoadingButtonAnimation bg={true} />
+              <p className="text-[12px] text-[#6F6464]">Detecting damage...</p>
+            </div>
+          ) : modalData ? (
+            <div className="relative">
+              {/* The image */}
+              <Image
+                src={modalData?.s3_url ?? ""}
+                alt="Damage image"
+                width={200}
+                height={91}
+                className="rounded-md "
+              />
 
-            {/* Text content */}
-            <div className="text-left">
-              <p className="text-[12px] font-medium leading-4 text-[#6F6464] capitalize mt-[5px]">
-                {modalData?.part_name || "Part name missing"}
-              </p>
-              <p className="my-2 text-[12px] font-medium leading-4 text-[#303030] text-[shadow:0_4px_12px_rgba(0,0,0,0.14)] capitalize ">
-                {modalData
-                  ? `${modalData.damage_type} (${modalData.severity})`
-                  : "No damage detected."}
-              </p>
+              {/* Text content */}
+              <div className="text-left">
+                <p className="text-[12px] font-medium leading-4 text-[#6F6464] capitalize mt-[5px]">
+                  {modalData?.part_name || "Part name missing"}
+                </p>
+                <p className="my-2 text-[12px] font-medium leading-4 text-[#303030] text-[shadow:0_4px_12px_rgba(0,0,0,0.14)] capitalize ">
+                  {modalData
+                    ? `${modalData.damage_type} (${modalData.severity})`
+                    : "No damage detected."}
+                </p>
 
-              {/* Action button */}
+                {/* Action button */}
+                <button
+                  onClick={handleAddToList}
+                  disabled={!modalData || isAddDamageLoading}
+                  className="bg-[#2D65F2] text-white w-full text-center rounded-md px-[14px] py-2.5 text-[10px] font-semibold"
+                >
+                  {isAddDamageLoading ? (
+                    <LoadingButtonAnimation />
+                  ) : (
+                    " Add to list"
+                  )}
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-col items-center py-8">
+              <p className="text-[14px] font-medium text-[#303030]">
+                Damage was not detected
+              </p>
               <button
-                onClick={handleAddToList}
-                disabled={!modalData || isAddDamageLoading}
-                className="bg-[#2D65F2] text-white w-full text-center rounded-md px-[14px] py-2.5 text-[10px] font-semibold"
+                onClick={closeModal}
+                className="mt-6 bg-[#2D65F2] text-white w-full text-center rounded-md px-[14px] py-2.5 text-[12px] font-semibold"
               >
-                {isAddDamageLoading ? (
-                  <LoadingButtonAnimation />
-                ) : (
-                  " Add to list"
-                )}
+                Close
               </button>
             </div>
-            {/* Red close button overlay */}
-            <button
-              className="absolute -top-5 -right-5 bg-[#FF0202] p-[10px] flex items-center justify-center rounded-full"
-              onClick={closeModal}
-            >
-              <CloseOutlined style={{ color: "white", fontSize: "18px" }} />
-            </button>
-          </div>
-        )}
+          )}
+          {/* Red close button overlay */}
+          <button
+            className="absolute -top-5 -right-5 bg-[#FF0202] p-[10px] flex items-center justify-center rounded-full"
+            onClick={closeModal}
+          >
+            <CloseOutlined style={{ color: "white", fontSize: "18px" }} />
+          </button>
+        </div>
       </Modal>
     </div>
   );
