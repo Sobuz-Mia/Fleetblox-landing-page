@@ -324,7 +324,7 @@ export default function RealTimeDamageDetection() {
           autoPlay
           playsInline
           muted
-          className="w-full h-full object-fill cursor-pointer"
+          className="w-full h-full object-contain cursor-pointer"
           /* Remove the manual transform style unless absolutely necessary */
           onClick={handleVideoInteraction}
           onTouchStart={handleVideoInteraction}
