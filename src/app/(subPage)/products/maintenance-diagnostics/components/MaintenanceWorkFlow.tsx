@@ -33,7 +33,7 @@ const MaintenanceWorkFlow = () => {
         <path
           d="M3 208L3 3.00001"
           stroke="url(#paint0_linear_8039_38501)"
-          stroke-width="5"
+          strokeWidth="5"
           stroke-linecap="square"
         />
         <defs>
@@ -69,7 +69,7 @@ const MaintenanceWorkFlow = () => {
         <path
           d="M3 208L3 3.00001"
           stroke="url(#paint0_linear_8039_38501)"
-          stroke-width="5"
+          strokeWidth="5"
           stroke-linecap="square"
         />
         <defs>

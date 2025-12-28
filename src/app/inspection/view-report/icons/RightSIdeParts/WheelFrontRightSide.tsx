@@ -14,7 +14,7 @@ const WheelFrontRightSide = () => {
         transform="rotate(90 26.0092 26.0093)"
         fill="white"
         stroke="#6F6464"
-        stroke-width="1.04037"
+        strokeWidth="1.04037"
       />
     </svg>
   );

@@ -28,7 +28,7 @@ const FogLightFrontRightSide = () => {
         r="4.16149"
         transform="rotate(90 4.6816 4.68168)"
         stroke="#6F6464"
-        stroke-width="1.04037"
+        strokeWidth="1.04037"
       />
     </svg>
   );

@@ -28,7 +28,7 @@ const WheelRearLeftSide = () => {
         r="25.4891"
         transform="matrix(0 1 1 0 0 0)"
         stroke="#6F6464"
-        stroke-width="1.04037"
+        strokeWidth="1.04037"
       />
     </svg>
   );

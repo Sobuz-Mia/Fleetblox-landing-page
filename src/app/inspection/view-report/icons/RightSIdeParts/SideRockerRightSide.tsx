@@ -19,7 +19,7 @@ const SideRockerRightSide = () => {
       <path
         d="M0.520508 153.455H7.31348V0.520508H0.520508V153.455Z"
         stroke="#6F6464"
-        stroke-width="1.04037"
+        strokeWidth="1.04037"
       />
     </svg>
   );

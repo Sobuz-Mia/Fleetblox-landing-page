@@ -19,7 +19,7 @@ const SideRockerPanelLeftSide = () => {
       <path
         d="M7.31348 153.455H0.520508V0.520508H7.31348V153.455Z"
         stroke="#6F6464"
-        stroke-width="1.04037"
+        strokeWidth="1.04037"
       />
     </svg>
   );

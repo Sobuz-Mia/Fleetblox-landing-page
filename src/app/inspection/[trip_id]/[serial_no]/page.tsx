@@ -59,20 +59,11 @@ const InspectionSteps = () => {
 
   const scanVin = async (imageData: string) => {
     const file = dataURLtoFile(imageData, "vin.jpg");
-    // ← Add these logs
-    console.log("Converted file:", file);
-    console.log("File name:", file.name);
-    console.log("File size:", file.size);
-    console.log("File type:", file.type);
     const form = new FormData();
     form.append("image", file);
-    // ← These will actually show the content
-    console.log("FormData has 'image' key:", form.has("image"));
-    console.log("FormData entries:", [...form.entries()]);
     const url = `${BASE_URL}/scan_vin?trip_id=${encodeURIComponent(
       tripId
     )}&serial_no=${serialNo}`;
-    console.log(form);
     const res = await fetch(url, { method: "POST", body: form });
     if (!res.ok) throw new Error("VIN scan failed");
     return res.json();
@@ -659,7 +650,15 @@ const InspectionSteps = () => {
                 </h2>
               </div>
               {currentStep === 4 && (
-                <Link href="/inspection/result">
+                <Link
+                  href={{
+                    pathname: "/inspection/result",
+                    query: {
+                      trip_id: tripId,
+                      serial_no: serialNo,
+                    },
+                  }}
+                >
                   <button className="submit-button w-full mt-4">
                     View Report
                   </button>

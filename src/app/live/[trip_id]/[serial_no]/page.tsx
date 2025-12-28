@@ -121,7 +121,7 @@ export default function RealTimeDamageDetection() {
           facingMode: "environment",
           width: { ideal: 1280 },
           height: { ideal: 720 },
-          aspectRatio: { ideal: 16 / 9 }, // Relaxed from 'exact' for better compatibility
+          aspectRatio: { ideal: 16 / 9 },
           frameRate: { ideal: 25 },
         },
         audio: false,
@@ -314,25 +314,17 @@ export default function RealTimeDamageDetection() {
   };
 
   return (
-    <div className="p-2 max-w-5xl mx-auto">
-      <div
-        className="relative w-full rounded-[20px] overflow-hidden shadow-lg bg-black"
-        style={{ aspectRatio: "16/9" }}
-      >
+    <div className="md:p-2 md:max-w-5xl mx-auto w-full h-screen md:h-auto">
+      <div className="relative w-full h-full md:h-auto md:aspect-video bg-black md:rounded-[20px] overflow-hidden shadow-lg">
         <video
           ref={videoRef}
           autoPlay
           playsInline
           muted
-          className="absolute inset-0 w-full h-full object-cover block cursor-pointer touch-none"
+          className="w-full h-full object-cover cursor-pointer md:rounded-[20px] "
           style={{
-            transform: videoRotated ? "rotate(90deg)" : "rotate(0deg)",
-            transformOrigin: videoRotated ? "top left" : "center",
-            // When rotated: make video large enough to cover the 16:9 container
-            width: videoRotated ? "100vh" : "100%",
-            height: videoRotated ? "100vh" : "100%",
-            // Optional: slight scale boost to ensure full coverage on all devices
-            ...(videoRotated && { transform: "rotate(90deg) scale(1.1)" }),
+            // Only apply rotation logic if needed, otherwise object-cover handles the fill
+            transform: videoRotated ? "rotate(90deg) scale(1.1)" : "none",
           }}
           onClick={handleVideoInteraction}
           onTouchStart={handleVideoInteraction}
@@ -340,7 +332,9 @@ export default function RealTimeDamageDetection() {
 
         <button
           onClick={isConnected ? disconnect : connect}
-          className="absolute right-0 bottom-0 z-50 border cursor-pointer border-[#fff] rounded-md mb-5 mr-5 px-[14px] py-2.5 text-white text-[12px] font-medium"
+          className={`absolute right-5 bottom-10 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 backdrop-blur-sm  ${
+            videoRotated ? "rotate-90" : ""
+          }`}
         >
           {isConnecting
             ? "Detecting..."

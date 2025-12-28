@@ -1,6 +1,4 @@
-// src/app/inspection/result/page.tsx   (or any route you prefer: /inspection/review-damages, /inspection/result, etc.)
 "use client";
-
 import React, { useState } from "react";
 import { Table, Tag } from "antd";
 import Image from "next/image";
@@ -118,7 +116,7 @@ const InspectionResult = () => {
   //   return "rotate(0deg)";
   // };
   return (
-    <div className="min-h-screen bg-white px-5 py-5">
+    <div className="min-h-screen bg-white px-5 py-5 max-w-3xl mx-auto">
       {/* Title */}
       <h1 className="text-[20px] font-bold text-center text-[#303030] mb-10">
         Review damages

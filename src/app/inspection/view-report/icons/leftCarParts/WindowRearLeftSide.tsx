@@ -19,7 +19,7 @@ const WindowRearLeftSide = () => {
       <path
         d="M1.03418 65.3193L29.6504 54.7773V2.56641L0.524414 0.556641L1.03418 65.3193Z"
         stroke="#6F6464"
-        stroke-width="1.04037"
+        strokeWidth="1.04037"
       />
     </svg>
   );

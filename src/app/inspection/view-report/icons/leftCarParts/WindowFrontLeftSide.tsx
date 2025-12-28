@@ -11,7 +11,7 @@ const WindowFrontLeftSide = () => {
         d="M2.06641 70.1853L31.7266 76.2185V67.0095C30.0129 53.6792 22.5747 21.2754 0.541016 1.06519L2.06641 70.1853Z"
         fill="white"
         stroke="#6F6464"
-        stroke-width="1.04037"
+        strokeWidth="1.04037"
       />
     </svg>
   );
