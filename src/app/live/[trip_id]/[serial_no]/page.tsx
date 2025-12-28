@@ -47,7 +47,7 @@ export default function RealTimeDamageDetection() {
 
   // Rotation state for mobile portrait → landscape fix
   const [videoRotated, setVideoRotated] = useState(false);
-
+  console.log(videoRotated);
   // WebRTC refs
   const pcRef = useRef<RTCPeerConnection | null>(null);
   const dataChannelRef = useRef<RTCDataChannel | null>(null);
@@ -119,10 +119,13 @@ export default function RealTimeDamageDetection() {
       const constraints = {
         video: {
           facingMode: "environment",
-          width: { ideal: 1280 },
-          height: { ideal: 720 },
-          aspectRatio: { ideal: 16 / 9 },
-          frameRate: { ideal: 25 },
+          // Use 'ideal' for high resolution
+          width: { ideal: 1920 },
+          height: { ideal: 1080 },
+          // Force autofocus (supported on some mobile browsers)
+          focusMode: { ideal: "continuous" },
+          // Increase the quality requirement
+          frameRate: { ideal: 30 },
         },
         audio: false,
       };
@@ -321,20 +324,15 @@ export default function RealTimeDamageDetection() {
           autoPlay
           playsInline
           muted
-          className="w-full h-full object-cover cursor-pointer md:rounded-[20px] "
-          style={{
-            // Only apply rotation logic if needed, otherwise object-cover handles the fill
-            transform: videoRotated ? "rotate(90deg) scale(1.1)" : "none",
-          }}
+          className="w-full h-full object-fill cursor-pointer"
+          /* Remove the manual transform style unless absolutely necessary */
           onClick={handleVideoInteraction}
           onTouchStart={handleVideoInteraction}
         />
 
         <button
           onClick={isConnected ? disconnect : connect}
-          className={`absolute right-5 bottom-10 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 backdrop-blur-sm  ${
-            videoRotated ? "rotate-90" : ""
-          }`}
+          className={`absolute right-5  bottom-14 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0`}
         >
           {isConnecting
             ? "Detecting..."
