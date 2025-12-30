@@ -213,3 +213,10 @@ body {
 .bg-custom-gradient {
   background: linear-gradient(180deg, #fff 0%, #fff5f5 100%);
 }
+.rotate-fix-portrait {
+  transform: rotate(90deg);
+  transform-origin: center;
+  /* width: 100vw !important;
+  height: 100vh !important; */
+  object-fit: contain; /* Changed to contain to avoid crop */
+}

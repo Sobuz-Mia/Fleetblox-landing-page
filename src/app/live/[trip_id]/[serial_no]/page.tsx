@@ -1,7 +1,7 @@
 "use client";
 import { Modal } from "antd";
 import { useParams } from "next/navigation";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CloseOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import toast from "react-hot-toast";
@@ -44,15 +44,42 @@ export default function RealTimeDamageDetection() {
   const [isAddDamageLoading, setIsAddDamageLoading] = useState(false);
   const [modalData, setModalData] = useState<DamageDetail | null>(null);
   const [clickPending, setClickPending] = useState(false);
+  const [isPortrait, setIsPortrait] = useState(
+    window.innerHeight > window.innerWidth
+  );
 
-  // Rotation state for mobile portrait → landscape fix
-  const [videoRotated, setVideoRotated] = useState(false);
-  console.log(videoRotated);
   // WebRTC refs
   const pcRef = useRef<RTCPeerConnection | null>(null);
   const dataChannelRef = useRef<RTCDataChannel | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
+  useEffect(() => {
+    const handleOrientationChange = () => {
+      const portrait = window.innerHeight > window.innerWidth;
+      // Fallback for older browsers
+      if (screen.orientation) {
+        setIsPortrait(screen.orientation.type.includes("portrait"));
+      } else {
+        setIsPortrait(portrait);
+      }
+    };
 
+    window.addEventListener("resize", handleOrientationChange);
+    if (screen.orientation) {
+      screen.orientation.addEventListener("change", handleOrientationChange);
+    }
+
+    handleOrientationChange(); // Initial check
+
+    return () => {
+      window.removeEventListener("resize", handleOrientationChange);
+      if (screen.orientation) {
+        screen.orientation.removeEventListener(
+          "change",
+          handleOrientationChange
+        );
+      }
+    };
+  }, []);
   // Handle click/touch on video
   const handleVideoInteraction = (
     e: React.MouseEvent<HTMLVideoElement> | React.TouchEvent<HTMLVideoElement>
@@ -65,7 +92,6 @@ export default function RealTimeDamageDetection() {
     if (!video || video.videoWidth === 0 || video.videoHeight === 0) return;
 
     let clientX: number, clientY: number;
-
     if ("touches" in e) {
       const touch = e.touches[0];
       clientX = touch.clientX;
@@ -76,20 +102,114 @@ export default function RealTimeDamageDetection() {
     }
 
     const rect = video.getBoundingClientRect();
+    const dx = clientX - rect.left;
+    const dy = clientY - rect.top;
 
-    const x = Math.round(
-      (clientX - rect.left) * (video.videoWidth / rect.width)
-    );
-    const y = Math.round(
-      (clientY - rect.top) * (video.videoHeight / rect.height)
-    );
+    const rawWidth = video.videoWidth;
+    const rawHeight = video.videoHeight;
+
+    let clickX: number, clickY: number;
+
+    if (isPortrait) {
+      // Step 1: Normalize displayed click (0-1)
+      const normDx = dx / rect.width;
+      const normDy = dy / rect.height;
+
+      // Step 2: Center-normalize
+      const centerDx = normDx - 0.5;
+      const centerDy = normDy - 0.5;
+
+      // Step 3: Inverse rotation (for 90deg clockwise → apply -90deg)
+      const preNormX = centerDy + 0.5;
+      const preNormY = -centerDx + 0.5;
+
+      // Now handle object-contain letterboxing in the pre-transform space
+      // Pre-transform CSS dims (swapped due to rotation)
+      const preWidth = rect.height; // ~screen height
+      const preHeight = rect.width; // ~screen width
+
+      const videoAspect = rawWidth / rawHeight;
+      const containerAspect = preWidth / preHeight;
+
+      let fitWidth: number,
+        fitHeight: number,
+        offsetX = 0,
+        offsetY = 0;
+
+      if (containerAspect > videoAspect) {
+        // Bars on sides
+        fitHeight = preHeight;
+        fitWidth = preHeight * videoAspect;
+        offsetX = (preWidth - fitWidth) / 2;
+      } else {
+        // Bars on top/bottom
+        fitWidth = preWidth;
+        fitHeight = preWidth / videoAspect;
+        offsetY = (preHeight - fitHeight) / 2;
+      }
+
+      // Map pre-normalized to pre-pixel
+      const preDx = preNormX * preWidth;
+      const preDy = preNormY * preHeight;
+
+      // Check if click is within content area (ignore if on bar)
+      if (
+        preDx < offsetX ||
+        preDx > offsetX + fitWidth ||
+        preDy < offsetY ||
+        preDy > offsetY + fitHeight
+      ) {
+        console.log("Click on letterbox bar - ignoring");
+        return; // Or show a toast: "Please click on the video area"
+      }
+
+      // Scale to raw
+      clickX = Math.round(((preDx - offsetX) / fitWidth) * rawWidth);
+      clickY = Math.round(((preDy - offsetY) / fitHeight) * rawHeight);
+    } else {
+      // Non-portrait: standard, but add contain adjustment for consistency
+      const videoAspect = rawWidth / rawHeight;
+      const containerAspect = rect.width / rect.height;
+
+      let fitWidth: number,
+        fitHeight: number,
+        offsetX = 0,
+        offsetY = 0;
+
+      if (containerAspect > videoAspect) {
+        fitHeight = rect.height;
+        fitWidth = rect.height * videoAspect;
+        offsetX = (rect.width - fitWidth) / 2;
+      } else {
+        fitWidth = rect.width;
+        fitHeight = rect.width / videoAspect;
+        offsetY = (rect.height - fitHeight) / 2;
+      }
+
+      if (
+        dx < offsetX ||
+        dx > offsetX + fitWidth ||
+        dy < offsetY ||
+        dy > offsetY + fitHeight
+      ) {
+        console.log("Click on letterbox bar - ignoring");
+        return;
+      }
+
+      clickX = Math.round(((dx - offsetX) / fitWidth) * rawWidth);
+      clickY = Math.round(((dy - offsetY) / fitHeight) * rawHeight);
+    }
+
+    // Clamp to valid range
+    clickX = Math.max(0, Math.min(rawWidth - 1, clickX));
+    clickY = Math.max(0, Math.min(rawHeight - 1, clickY));
 
     const payload = {
       type: "frame_click",
       frame_id: currentFrameMeta.frame_id,
       rtp_ts: currentFrameMeta.rtp_ts,
-      click_x: x,
-      click_y: y,
+      click_x: clickX,
+      click_y: clickY,
       client_ts: performance.now(),
     };
     console.log(payload, "payload data after click");
@@ -132,20 +252,6 @@ export default function RealTimeDamageDetection() {
 
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
       streamRef.current = stream;
-
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-
-        // Detect if stream is portrait → need rotation
-        videoRef.current.onloadedmetadata = () => {
-          if (videoRef.current) {
-            const { videoWidth, videoHeight } = videoRef.current;
-            // If width < height → stream is portrait → rotate 90deg
-            setVideoRotated(videoWidth < videoHeight);
-            videoRef.current.play().catch(() => {});
-          }
-        };
-      }
 
       const pc = new RTCPeerConnection();
       pcRef.current = pc;
@@ -249,7 +355,6 @@ export default function RealTimeDamageDetection() {
 
     setIsConnected(false);
     setCurrentFrameMeta({ frame_id: null, rtp_ts: null });
-    setVideoRotated(false);
   };
 
   // Close modal → resume video
@@ -263,7 +368,6 @@ export default function RealTimeDamageDetection() {
       videoRef.current.play().catch(() => {});
     }
   };
-
   const handleAddToList = async () => {
     if (!modalData) return;
 
@@ -315,7 +419,6 @@ export default function RealTimeDamageDetection() {
       setIsAddDamageLoading(false);
     }
   };
-
   return (
     <div className="md:p-2 md:max-w-5xl mx-auto w-full h-screen md:h-auto">
       <div className="relative w-full h-full md:h-auto md:aspect-video bg-black md:rounded-[20px] overflow-hidden shadow-lg">
@@ -324,8 +427,9 @@ export default function RealTimeDamageDetection() {
           autoPlay
           playsInline
           muted
-          className="w-full h-full object-contain cursor-pointer"
-          /* Remove the manual transform style unless absolutely necessary */
+          className={`w-full h-full object-cover cursor-pointer ${
+            isPortrait ? "rotate-fix-portrait" : " "
+          }`}
           onClick={handleVideoInteraction}
           onTouchStart={handleVideoInteraction}
         />
