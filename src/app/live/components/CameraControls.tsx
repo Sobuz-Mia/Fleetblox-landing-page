@@ -271,7 +271,16 @@ export default function RealTimeDamageDetection() {
 
       const pc = new RTCPeerConnection();
       pcRef.current = pc;
-
+      pc.ontrack = (event) => {
+        console.log("Received remote track:", event.track.kind);
+        if (
+          videoRef.current &&
+          videoRef.current.srcObject !== event.streams[0]
+        ) {
+          videoRef.current.srcObject = event.streams[0];
+          videoRef.current.play().catch((e) => console.error("Play error:", e));
+        }
+      };
       const videoTrack = stream.getVideoTracks()[0];
       const sender = pc.addTrack(videoTrack, stream);
 
