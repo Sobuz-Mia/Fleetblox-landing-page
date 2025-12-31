@@ -7,6 +7,7 @@ import { CloseOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import LoadingButtonAnimation from "@/components/ui/shared/ButtonLoadingAnimation";
+import Link from "next/link";
 
 interface DamageDetail {
   damage_id: number;
@@ -83,15 +84,6 @@ export default function RealTimeDamageDetection() {
       offsetY = (rect.height - fitHeight) / 2;
     }
 
-    // Ignore clicks on letterbox bars
-    if (
-      dx < offsetX ||
-      dx > offsetX + fitWidth ||
-      dy < offsetY ||
-      dy > offsetY + fitHeight
-    )
-      return;
-
     const clickX = Math.round(((dx - offsetX) / fitWidth) * video.videoWidth);
     const clickY = Math.round(((dy - offsetY) / fitHeight) * video.videoHeight);
 
@@ -117,6 +109,7 @@ export default function RealTimeDamageDetection() {
       if (clickPending) {
         setClickPending(false);
         setModalLoading(false);
+        setModalOpen(false);
         setModalData(null);
         video.play().catch(() => {});
       }
@@ -178,8 +171,8 @@ export default function RealTimeDamageDetection() {
         try {
           const data = JSON.parse(evt.data);
           if (data.type === "pong") return;
-
           if (data.type === "frame_popup") {
+            console.log(data);
             setClickPending(false);
             const imageUrl = `data:image/jpeg;base64,${data.frame}`;
             setModalData({ ...data.damage_data, s3_url: imageUrl });
@@ -299,10 +292,7 @@ export default function RealTimeDamageDetection() {
       setIsAddDamageLoading(false);
     }
   };
-
-  const sideName = "Driver side";
-  const processTitle = "Inspection process / Camera UI / Driver side";
-
+  console.log(modalData);
   return (
     <>
       <div className="fixed inset-0 bg-black overflow-hidden">
@@ -316,16 +306,6 @@ export default function RealTimeDamageDetection() {
           onTouchStart={handleVideoInteraction}
         />
 
-        <div className="absolute top-0 left-0 right-0 p-5 flex justify-between items-start pointer-events-none z-20">
-          <div className="bg-black/60 backdrop-blur-md text-white px-4 py-3 rounded-2xl pointer-events-auto">
-            <p className="text-base font-semibold">{sideName}</p>
-            <p className="text-xs opacity-80 mt-1">{processTitle}</p>
-          </div>
-          <button className="bg-black/60 backdrop-blur-md text-white w-10 h-10 rounded-full flex items-center justify-center pointer-events-auto">
-            <CloseOutlined style={{ fontSize: "20px" }} />
-          </button>
-        </div>
-
         {damageCount > 0 && (
           <div className="absolute bottom-28 left-1/2 -translate-x-1/2 z-20">
             <div className="bg-black/60 backdrop-blur-md text-white px-5 py-2.5 rounded-full">
@@ -333,26 +313,25 @@ export default function RealTimeDamageDetection() {
             </div>
           </div>
         )}
-
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-auto z-20">
+        {!isConnected && (
           <button
-            onClick={isConnected ? disconnect : connect}
-            disabled={isConnecting}
-            className="bg-white text-black px-8 py-4 rounded-full text-base font-semibold shadow-lg"
+            onClick={connect}
+            className="absolute right-5 bottom-14 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0 "
           >
-            {isConnecting
-              ? "Connecting..."
-              : isConnected
-              ? "Finish detecting"
-              : "Start detecting"}
+            {isConnecting ? "Detecting..." : "Start detecting"}
           </button>
-        </div>
-
-        <div className="absolute bottom-8 right-8 pointer-events-auto z-20">
-          <div className="bg-red-600 w-16 h-16 rounded-full flex items-center justify-center shadow-2xl animate-pulse">
-            <div className="bg-white w-10 h-10 rounded-full" />
-          </div>
-        </div>
+        )}
+        {isConnected && (
+          <Link
+            href={{
+              pathname: "/inspection/result",
+              query: { trip_id: tripId, serial_no: serialNo },
+            }}
+            className="absolute right-5 bottom-14 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0 "
+          >
+            Finish detecting
+          </Link>
+        )}
       </div>
 
       <Modal
@@ -411,7 +390,7 @@ export default function RealTimeDamageDetection() {
           )}
           <button
             onClick={closeModal}
-            className="absolute -top-12 right-0 bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center"
+            className="absolute -top-10 -right-10 bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center"
           >
             <CloseOutlined />
           </button>

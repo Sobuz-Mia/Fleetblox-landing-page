@@ -5,6 +5,7 @@ import Image from "next/image";
 import CaptureImageIcon from "../icons/CaptureImageIcon";
 import ExpandedReportIcon from "../icons/ExpandedReportIcon";
 import EditIcon from "./../icons/EditIcon";
+import { useSearchParams } from "next/navigation";
 type DamageRecord = {
   key: string;
   part: string;
@@ -47,8 +48,11 @@ const damageData = {
   // Rear: [...],
 };
 const InspectionResult = () => {
+  const searchParams = useSearchParams();
+  const tripId = searchParams.get("trip_id");
+  const serialNo = searchParams.get("serial_no");
   const [currentSide] = useState<"Left">("Left");
-
+  console.log(tripId, serialNo, "trip id and serial no");
   const condition = "Poor"; // You can make this dynamic per side if you want
 
   const dataSource = damageData[currentSide] || damageData.Left;
