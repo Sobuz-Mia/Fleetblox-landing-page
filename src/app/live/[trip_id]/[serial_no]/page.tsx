@@ -25,6 +25,7 @@ export default function RealTimeDamageDetection() {
   const params = useParams<{ trip_id: string; serial_no: string }>();
   const tripId = params.trip_id;
   const serialNo = params.serial_no;
+
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const [isConnected, setIsConnected] = useState(false);
@@ -33,27 +34,20 @@ export default function RealTimeDamageDetection() {
   const [currentFrameMeta, setCurrentFrameMeta] = useState<{
     frame_id: number | null;
     rtp_ts: number | null;
-  }>({
-    frame_id: null,
-    rtp_ts: null,
-  });
+  }>({ frame_id: null, rtp_ts: null });
 
-  // Modal states
   const [modalOpen, setModalOpen] = useState(false);
   const [modalLoading, setModalLoading] = useState(false);
   const [isAddDamageLoading, setIsAddDamageLoading] = useState(false);
   const [modalData, setModalData] = useState<DamageDetail | null>(null);
   const [clickPending, setClickPending] = useState(false);
-
-  // Example: update this dynamically when damages are added
   const [damageCount, setDamageCount] = useState(0);
 
-  // WebRTC refs
   const pcRef = useRef<RTCPeerConnection | null>(null);
   const dataChannelRef = useRef<RTCDataChannel | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
 
-  // Simplified click handler (no rotation logic needed)
+  // Handle click/touch on video to request damage details
   const handleVideoInteraction = (
     e: React.MouseEvent<HTMLVideoElement> | React.TouchEvent<HTMLVideoElement>
   ) => {
@@ -62,51 +56,41 @@ export default function RealTimeDamageDetection() {
     if (!currentFrameMeta.frame_id || !currentFrameMeta.rtp_ts) return;
 
     const video = videoRef.current;
-    if (!video || video.videoWidth === 0 || video.videoHeight === 0) return;
+    if (!video || video.videoWidth === 0) return;
 
-    let clientX: number, clientY: number;
-    if ("touches" in e) {
-      clientX = e.touches[0].clientX;
-      clientY = e.touches[0].clientY;
-    } else {
-      clientX = e.clientX;
-      clientY = e.clientY;
-    }
+    const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
+    const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
 
     const rect = video.getBoundingClientRect();
     const dx = clientX - rect.left;
     const dy = clientY - rect.top;
 
-    // Handle letterboxing with object-fit: cover
     const videoAspect = video.videoWidth / video.videoHeight;
     const containerAspect = rect.width / rect.height;
 
-    let fitWidth: number,
-      fitHeight: number,
+    let fitWidth,
+      fitHeight,
       offsetX = 0,
       offsetY = 0;
 
     if (containerAspect > videoAspect) {
-      // Black bars on left/right
       fitHeight = rect.height;
       fitWidth = rect.height * videoAspect;
       offsetX = (rect.width - fitWidth) / 2;
     } else {
-      // Black bars on top/bottom
       fitWidth = rect.width;
       fitHeight = rect.width / videoAspect;
       offsetY = (rect.height - fitHeight) / 2;
     }
 
-    // Ignore clicks on black bars
+    // Ignore clicks on letterbox bars
     if (
       dx < offsetX ||
       dx > offsetX + fitWidth ||
       dy < offsetY ||
       dy > offsetY + fitHeight
-    ) {
+    )
       return;
-    }
 
     const clickX = Math.round(((dx - offsetX) / fitWidth) * video.videoWidth);
     const clickY = Math.round(((dy - offsetY) / fitHeight) * video.videoHeight);
@@ -128,6 +112,7 @@ export default function RealTimeDamageDetection() {
     setModalData(null);
     setClickPending(true);
 
+    // Timeout fallback
     setTimeout(() => {
       if (clickPending) {
         setClickPending(false);
@@ -167,11 +152,22 @@ export default function RealTimeDamageDetection() {
       const videoTrack = stream.getVideoTracks()[0];
       const sender = pc.addTrack(videoTrack, stream);
 
+      // Optional: limit bandwidth/framerate
       const params = sender.getParameters();
       if (!params.encodings) params.encodings = [{}];
       params.encodings[0].maxBitrate = 1_500_000;
       params.encodings[0].maxFramerate = 25;
       await sender.setParameters(params);
+
+      pc.ontrack = (event) => {
+        if (
+          videoRef.current &&
+          videoRef.current.srcObject !== event.streams[0]
+        ) {
+          videoRef.current.srcObject = event.streams[0];
+          videoRef.current.play().catch((e) => console.error("Play error:", e));
+        }
+      };
 
       const dataChannel = pc.createDataChannel("inferenceData");
       dataChannelRef.current = dataChannel;
@@ -186,15 +182,12 @@ export default function RealTimeDamageDetection() {
           if (data.type === "frame_popup") {
             setClickPending(false);
             const imageUrl = `data:image/jpeg;base64,${data.frame}`;
-            const damageData = data.damage_data;
-            setModalData({
-              ...damageData,
-              s3_url: imageUrl,
-            });
+            setModalData({ ...data.damage_data, s3_url: imageUrl });
             setModalLoading(false);
             return;
           }
 
+          // Only update frame metadata (used for clicks)
           setCurrentFrameMeta({
             frame_id: data.frame_id ?? null,
             rtp_ts: data.rtp_ts ?? null,
@@ -219,9 +212,8 @@ export default function RealTimeDamageDetection() {
       });
 
       const answer = await resp.json();
-
       if (answer.status === "busy") {
-        alert(answer.message);
+        toast.error(answer.message || "Device busy");
         disconnect();
         return;
       }
@@ -229,8 +221,8 @@ export default function RealTimeDamageDetection() {
       await pc.setRemoteDescription(answer);
       setIsConnected(true);
     } catch (err) {
-      console.error(err);
-      toast.error("Camera access denied or connection failed");
+      toast.error("Camera/connection failed");
+      console.log(err);
       disconnect();
     } finally {
       setIsConnecting(false);
@@ -291,33 +283,28 @@ export default function RealTimeDamageDetection() {
         })
       );
 
-      const apiResponse = await fetch(`${BASE_URL}/api/damage_pop_up_confirm`, {
+      const res = await fetch(`${BASE_URL}/api/damage_pop_up_confirm`, {
         method: "POST",
         body: formData,
       });
 
-      if (apiResponse.ok) {
-        toast.success("Damage added successfully!");
-        setDamageCount((prev) => prev + 1); // Update count
+      if (res.ok) {
+        toast.success("Damage added!");
+        setDamageCount((prev) => prev + 1);
         closeModal();
-      } else {
-        throw new Error("Failed");
-      }
-    } catch (error) {
+      } else throw new Error();
+    } catch {
       toast.error("Failed to add damage");
-      console.log(error);
     } finally {
       setIsAddDamageLoading(false);
     }
   };
 
-  // You can customize these
   const sideName = "Driver side";
   const processTitle = "Inspection process / Camera UI / Driver side";
 
   return (
     <>
-      {/* Full-screen camera container */}
       <div className="fixed inset-0 bg-black overflow-hidden">
         <video
           ref={videoRef}
@@ -329,33 +316,29 @@ export default function RealTimeDamageDetection() {
           onTouchStart={handleVideoInteraction}
         />
 
-        {/* Top overlay */}
-        <div className="absolute top-0 left-0 right-0 p-5 flex justify-between items-start pointer-events-none">
+        <div className="absolute top-0 left-0 right-0 p-5 flex justify-between items-start pointer-events-none z-20">
           <div className="bg-black/60 backdrop-blur-md text-white px-4 py-3 rounded-2xl pointer-events-auto">
             <p className="text-base font-semibold">{sideName}</p>
             <p className="text-xs opacity-80 mt-1">{processTitle}</p>
           </div>
-
           <button className="bg-black/60 backdrop-blur-md text-white w-10 h-10 rounded-full flex items-center justify-center pointer-events-auto">
             <CloseOutlined style={{ fontSize: "20px" }} />
           </button>
         </div>
 
-        {/* Damage count badge (optional) */}
         {damageCount > 0 && (
-          <div className="absolute bottom-28 left-1/2 -translate-x-1/2">
+          <div className="absolute bottom-28 left-1/2 -translate-x-1/2 z-20">
             <div className="bg-black/60 backdrop-blur-md text-white px-5 py-2.5 rounded-full">
               <p className="text-sm font-medium">{damageCount} Damages added</p>
             </div>
           </div>
         )}
 
-        {/* Finish detecting button */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-auto">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-auto z-20">
           <button
             onClick={isConnected ? disconnect : connect}
             disabled={isConnecting}
-            className="bg-white text-black px-8 py-4 rounded-full text-base font-semibold shadow-lg active:scale-95 transition"
+            className="bg-white text-black px-8 py-4 rounded-full text-base font-semibold shadow-lg"
           >
             {isConnecting
               ? "Connecting..."
@@ -365,15 +348,13 @@ export default function RealTimeDamageDetection() {
           </button>
         </div>
 
-        {/* Red record button */}
-        <div className="absolute bottom-8 right-8 pointer-events-auto">
+        <div className="absolute bottom-8 right-8 pointer-events-auto z-20">
           <div className="bg-red-600 w-16 h-16 rounded-full flex items-center justify-center shadow-2xl animate-pulse">
             <div className="bg-white w-10 h-10 rounded-full" />
           </div>
         </div>
       </div>
 
-      {/* Damage popup modal */}
       <Modal
         open={modalOpen}
         onCancel={closeModal}
@@ -381,7 +362,6 @@ export default function RealTimeDamageDetection() {
         closeIcon={false}
         centered
         width={320}
-        styles={{ content: { padding: 16, borderRadius: 16 } }}
       >
         <div className="relative">
           {modalLoading ? (
@@ -393,7 +373,7 @@ export default function RealTimeDamageDetection() {
             <>
               <Image
                 src={modalData.s3_url}
-                alt="Detected damage"
+                alt="Damage"
                 width={300}
                 height={200}
                 className="rounded-xl w-full object-cover"
@@ -429,10 +409,9 @@ export default function RealTimeDamageDetection() {
               </button>
             </div>
           )}
-
           <button
             onClick={closeModal}
-            className="absolute -top-12 right-0 bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg"
+            className="absolute -top-12 right-0 bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center"
           >
             <CloseOutlined />
           </button>
