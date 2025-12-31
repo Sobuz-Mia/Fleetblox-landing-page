@@ -1,5 +1,4 @@
 "use client";
-
 import { Modal } from "antd";
 import { useParams } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
@@ -299,20 +298,17 @@ export default function RealTimeDamageDetection() {
           videoRef.current.srcObject !== event.streams[0]
         ) {
           videoRef.current.srcObject = event.streams[0];
-          videoRef.current.play().catch((e) => console.error("Play error:", e));
         }
       };
       stream.getTracks().forEach((track) => {
         const sender = pc.addTrack(track, stream);
-        type ParamsWithEncodings = RTCRtpParameters & {
-          encodings: RTCRtpEncodingParameters[];
-        };
-        const params = sender.getParameters() as ParamsWithEncodings;
-        if (!params.encodings)
+        const params = sender.getParameters();
+        if (!params.encodings) {
           params.encodings = [{} as RTCRtpEncodingParameters];
+        }
         params.encodings[0].maxBitrate = 1_500_000;
         params.encodings[0].maxFramerate = 25;
-        sender.setParameters(params).catch(() => {});
+        sender.setParameters(params as RTCRtpSendParameters).catch(() => {});
       });
 
       const dataChannel = pc.createDataChannel("inferenceData");
