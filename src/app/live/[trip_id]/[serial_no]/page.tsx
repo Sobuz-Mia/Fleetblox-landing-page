@@ -1,7 +1,8 @@
 "use client";
+
 import { Modal } from "antd";
 import { useParams } from "next/navigation";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { CloseOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import toast from "react-hot-toast";
@@ -29,7 +30,6 @@ export default function RealTimeDamageDetection() {
   const [isConnected, setIsConnected] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
 
-  // Current frame metadata needed for click
   const [currentFrameMeta, setCurrentFrameMeta] = useState<{
     frame_id: number | null;
     rtp_ts: number | null;
@@ -44,45 +44,16 @@ export default function RealTimeDamageDetection() {
   const [isAddDamageLoading, setIsAddDamageLoading] = useState(false);
   const [modalData, setModalData] = useState<DamageDetail | null>(null);
   const [clickPending, setClickPending] = useState(false);
-  const [isPortrait, setIsPortrait] = useState(
-    window.innerHeight > window.innerWidth
-  );
-  // Rotation state for mobile portrait → landscape fix
-  const [videoRotated, setVideoRotated] = useState(false);
-  console.log(videoRotated);
+
+  // Example: update this dynamically when damages are added
+  const [damageCount, setDamageCount] = useState(0);
+
   // WebRTC refs
   const pcRef = useRef<RTCPeerConnection | null>(null);
   const dataChannelRef = useRef<RTCDataChannel | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
-  useEffect(() => {
-    const handleOrientationChange = () => {
-      const portrait = window.innerHeight > window.innerWidth;
-      // Fallback for older browsers
-      if (screen.orientation) {
-        setIsPortrait(screen.orientation.type.includes("portrait"));
-      } else {
-        setIsPortrait(portrait);
-      }
-    };
 
-    window.addEventListener("resize", handleOrientationChange);
-    if (screen.orientation) {
-      screen.orientation.addEventListener("change", handleOrientationChange);
-    }
-
-    handleOrientationChange(); // Initial check
-
-    return () => {
-      window.removeEventListener("resize", handleOrientationChange);
-      if (screen.orientation) {
-        screen.orientation.removeEventListener(
-          "change",
-          handleOrientationChange
-        );
-      }
-    };
-  }, []);
-  // Handle click/touch on video
+  // Simplified click handler (no rotation logic needed)
   const handleVideoInteraction = (
     e: React.MouseEvent<HTMLVideoElement> | React.TouchEvent<HTMLVideoElement>
   ) => {
@@ -95,9 +66,8 @@ export default function RealTimeDamageDetection() {
 
     let clientX: number, clientY: number;
     if ("touches" in e) {
-      const touch = e.touches[0];
-      clientX = touch.clientX;
-      clientY = touch.clientY;
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
     } else {
       clientX = e.clientX;
       clientY = e.clientY;
@@ -107,104 +77,39 @@ export default function RealTimeDamageDetection() {
     const dx = clientX - rect.left;
     const dy = clientY - rect.top;
 
-    const rawWidth = video.videoWidth;
-    const rawHeight = video.videoHeight;
+    // Handle letterboxing with object-fit: cover
+    const videoAspect = video.videoWidth / video.videoHeight;
+    const containerAspect = rect.width / rect.height;
 
-    let clickX: number, clickY: number;
+    let fitWidth: number,
+      fitHeight: number,
+      offsetX = 0,
+      offsetY = 0;
 
-    if (isPortrait) {
-      // Step 1: Normalize displayed click (0-1)
-      const normDx = dx / rect.width;
-      const normDy = dy / rect.height;
-
-      // Step 2: Center-normalize
-      const centerDx = normDx - 0.5;
-      const centerDy = normDy - 0.5;
-
-      // Step 3: Inverse rotation (for 90deg clockwise → apply -90deg)
-      const preNormX = centerDy + 0.5;
-      const preNormY = -centerDx + 0.5;
-
-      // Now handle object-contain letterboxing in the pre-transform space
-      // Pre-transform CSS dims (swapped due to rotation)
-      const preWidth = rect.height; // ~screen height
-      const preHeight = rect.width; // ~screen width
-
-      const videoAspect = rawWidth / rawHeight;
-      const containerAspect = preWidth / preHeight;
-
-      let fitWidth: number,
-        fitHeight: number,
-        offsetX = 0,
-        offsetY = 0;
-
-      if (containerAspect > videoAspect) {
-        // Bars on sides
-        fitHeight = preHeight;
-        fitWidth = preHeight * videoAspect;
-        offsetX = (preWidth - fitWidth) / 2;
-      } else {
-        // Bars on top/bottom
-        fitWidth = preWidth;
-        fitHeight = preWidth / videoAspect;
-        offsetY = (preHeight - fitHeight) / 2;
-      }
-
-      // Map pre-normalized to pre-pixel
-      const preDx = preNormX * preWidth;
-      const preDy = preNormY * preHeight;
-
-      // Check if click is within content area (ignore if on bar)
-      if (
-        preDx < offsetX ||
-        preDx > offsetX + fitWidth ||
-        preDy < offsetY ||
-        preDy > offsetY + fitHeight
-      ) {
-        console.log("Click on letterbox bar - ignoring");
-        return; // Or show a toast: "Please click on the video area"
-      }
-
-      // Scale to raw
-      clickX = Math.round(((preDx - offsetX) / fitWidth) * rawWidth);
-      clickY = Math.round(((preDy - offsetY) / fitHeight) * rawHeight);
+    if (containerAspect > videoAspect) {
+      // Black bars on left/right
+      fitHeight = rect.height;
+      fitWidth = rect.height * videoAspect;
+      offsetX = (rect.width - fitWidth) / 2;
     } else {
-      // Non-portrait: standard, but add contain adjustment for consistency
-      const videoAspect = rawWidth / rawHeight;
-      const containerAspect = rect.width / rect.height;
-
-      let fitWidth: number,
-        fitHeight: number,
-        offsetX = 0,
-        offsetY = 0;
-
-      if (containerAspect > videoAspect) {
-        fitHeight = rect.height;
-        fitWidth = rect.height * videoAspect;
-        offsetX = (rect.width - fitWidth) / 2;
-      } else {
-        fitWidth = rect.width;
-        fitHeight = rect.width / videoAspect;
-        offsetY = (rect.height - fitHeight) / 2;
-      }
-
-      if (
-        dx < offsetX ||
-        dx > offsetX + fitWidth ||
-        dy < offsetY ||
-        dy > offsetY + fitHeight
-      ) {
-        console.log("Click on letterbox bar - ignoring");
-        return;
-      }
-
-      clickX = Math.round(((dx - offsetX) / fitWidth) * rawWidth);
-      clickY = Math.round(((dy - offsetY) / fitHeight) * rawHeight);
+      // Black bars on top/bottom
+      fitWidth = rect.width;
+      fitHeight = rect.width / videoAspect;
+      offsetY = (rect.height - fitHeight) / 2;
     }
 
-    // Clamp to valid range
-    clickX = Math.max(0, Math.min(rawWidth - 1, clickX));
-    clickY = Math.max(0, Math.min(rawHeight - 1, clickY));
+    // Ignore clicks on black bars
+    if (
+      dx < offsetX ||
+      dx > offsetX + fitWidth ||
+      dy < offsetY ||
+      dy > offsetY + fitHeight
+    ) {
+      return;
+    }
+
+    const clickX = Math.round(((dx - offsetX) / fitWidth) * video.videoWidth);
+    const clickY = Math.round(((dy - offsetY) / fitHeight) * video.videoHeight);
 
     const payload = {
       type: "frame_click",
@@ -214,7 +119,7 @@ export default function RealTimeDamageDetection() {
       click_y: clickY,
       client_ts: performance.now(),
     };
-    console.log(payload, "payload data after click");
+
     dataChannelRef.current.send(JSON.stringify(payload));
 
     video.pause();
@@ -228,11 +133,11 @@ export default function RealTimeDamageDetection() {
         setClickPending(false);
         setModalLoading(false);
         setModalData(null);
+        video.play().catch(() => {});
       }
     }, 10000);
   };
 
-  // Connect to WebRTC server
   const connect = async () => {
     if (isConnecting || isConnected) return;
     setIsConnecting(true);
@@ -241,12 +146,8 @@ export default function RealTimeDamageDetection() {
       const constraints = {
         video: {
           facingMode: "environment",
-          // Use 'ideal' for high resolution
-          width: { ideal: 1920 },
-          height: { ideal: 1080 },
-          // Force autofocus (supported on some mobile browsers)
-          focusMode: { ideal: "continuous" },
-          // Increase the quality requirement
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
           frameRate: { ideal: 30 },
         },
         audio: false,
@@ -257,16 +158,7 @@ export default function RealTimeDamageDetection() {
 
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
-
-        // Detect if stream is portrait → need rotation
-        videoRef.current.onloadedmetadata = () => {
-          if (videoRef.current) {
-            const { videoWidth, videoHeight } = videoRef.current;
-            // If width < height → stream is portrait → rotate 90deg
-            setVideoRotated(videoWidth < videoHeight);
-            videoRef.current.play().catch(() => {});
-          }
-        };
+        videoRef.current.play().catch(() => {});
       }
 
       const pc = new RTCPeerConnection();
@@ -279,7 +171,7 @@ export default function RealTimeDamageDetection() {
       if (!params.encodings) params.encodings = [{}];
       params.encodings[0].maxBitrate = 1_500_000;
       params.encodings[0].maxFramerate = 25;
-      sender.setParameters(params).catch(console.error);
+      await sender.setParameters(params);
 
       const dataChannel = pc.createDataChannel("inferenceData");
       dataChannelRef.current = dataChannel;
@@ -289,7 +181,6 @@ export default function RealTimeDamageDetection() {
       dataChannel.onmessage = (evt) => {
         try {
           const data = JSON.parse(evt.data);
-
           if (data.type === "pong") return;
 
           if (data.type === "frame_popup") {
@@ -310,15 +201,6 @@ export default function RealTimeDamageDetection() {
           });
         } catch (err) {
           console.error("Parse error:", err);
-        }
-      };
-
-      pc.ontrack = (event) => {
-        if (
-          videoRef.current &&
-          videoRef.current.srcObject !== event.streams[0]
-        ) {
-          videoRef.current.srcObject = event.streams[0];
         }
       };
 
@@ -346,48 +228,39 @@ export default function RealTimeDamageDetection() {
 
       await pc.setRemoteDescription(answer);
       setIsConnected(true);
-      console.log("WebRTC Connected");
     } catch (err) {
       console.error(err);
-      alert("Connection failed");
+      toast.error("Camera access denied or connection failed");
       disconnect();
     } finally {
       setIsConnecting(false);
     }
   };
 
-  // Disconnect
   const disconnect = () => {
-    if (dataChannelRef.current) dataChannelRef.current.close();
-    if (pcRef.current) {
-      pcRef.current.close();
-      pcRef.current = null;
-    }
-    if (streamRef.current) {
-      streamRef.current.getTracks().forEach((t) => t.stop());
-      streamRef.current = null;
-    }
+    dataChannelRef.current?.close();
+    pcRef.current?.close();
+    pcRef.current = null;
+    streamRef.current?.getTracks().forEach((t) => t.stop());
+    streamRef.current = null;
     if (videoRef.current) videoRef.current.srcObject = null;
 
     setIsConnected(false);
     setCurrentFrameMeta({ frame_id: null, rtp_ts: null });
-    setVideoRotated(false);
   };
 
-  // Close modal → resume video
   const closeModal = () => {
     setModalOpen(false);
     setModalData(null);
     setModalLoading(false);
     setClickPending(false);
-
     if (videoRef.current && isConnected) {
       videoRef.current.play().catch(() => {});
     }
   };
+
   const handleAddToList = async () => {
     if (!modalData) return;
-
     setIsAddDamageLoading(true);
 
     try {
@@ -407,16 +280,16 @@ export default function RealTimeDamageDetection() {
       formData.append("trip_id", tripId);
       formData.append("serial_no", serialNo);
       formData.append("image", file);
-
-      const damageMetadata = {
-        damage_id: modalData.damage_id,
-        damage_type: modalData.damage_type,
-        part_name: modalData.part_name,
-        severity: modalData.severity,
-        side: modalData.side,
-      };
-
-      formData.append("data", JSON.stringify(damageMetadata));
+      formData.append(
+        "data",
+        JSON.stringify({
+          damage_id: modalData.damage_id,
+          damage_type: modalData.damage_type,
+          part_name: modalData.part_name,
+          severity: modalData.severity,
+          side: modalData.side,
+        })
+      );
 
       const apiResponse = await fetch(`${BASE_URL}/api/damage_pop_up_confirm`, {
         method: "POST",
@@ -425,85 +298,117 @@ export default function RealTimeDamageDetection() {
 
       if (apiResponse.ok) {
         toast.success("Damage added successfully!");
+        setDamageCount((prev) => prev + 1); // Update count
         closeModal();
       } else {
-        throw new Error("API error: " + apiResponse.status);
+        throw new Error("Failed");
       }
     } catch (error) {
-      console.error("Upload failed:", error);
-      toast.error("Failed to add damage. Please try again.");
+      toast.error("Failed to add damage");
+      console.log(error);
     } finally {
       setIsAddDamageLoading(false);
     }
   };
+
+  // You can customize these
+  const sideName = "Driver side";
+  const processTitle = "Inspection process / Camera UI / Driver side";
+
   return (
-    <div className="md:p-2 md:max-w-5xl mx-auto w-full h-screen md:h-auto">
-      <div className="relative w-full h-full md:h-auto md:aspect-video bg-black md:rounded-[20px] overflow-hidden shadow-lg">
+    <>
+      {/* Full-screen camera container */}
+      <div className="fixed inset-0 bg-black overflow-hidden">
         <video
           ref={videoRef}
           autoPlay
           playsInline
           muted
-          className={`w-full h-full object-cover cursor-pointer ${
-            isPortrait ? "rotate-fix-portrait" : " "
-          }`}
+          className="w-full h-full object-cover"
           onClick={handleVideoInteraction}
           onTouchStart={handleVideoInteraction}
         />
 
-        <button
-          onClick={isConnected ? disconnect : connect}
-          className={`absolute right-5  bottom-14 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0`}
-        >
-          {isConnecting
-            ? "Detecting..."
-            : isConnected
-            ? "Finish detecting"
-            : "Start detecting"}
-        </button>
+        {/* Top overlay */}
+        <div className="absolute top-0 left-0 right-0 p-5 flex justify-between items-start pointer-events-none">
+          <div className="bg-black/60 backdrop-blur-md text-white px-4 py-3 rounded-2xl pointer-events-auto">
+            <p className="text-base font-semibold">{sideName}</p>
+            <p className="text-xs opacity-80 mt-1">{processTitle}</p>
+          </div>
+
+          <button className="bg-black/60 backdrop-blur-md text-white w-10 h-10 rounded-full flex items-center justify-center pointer-events-auto">
+            <CloseOutlined style={{ fontSize: "20px" }} />
+          </button>
+        </div>
+
+        {/* Damage count badge (optional) */}
+        {damageCount > 0 && (
+          <div className="absolute bottom-28 left-1/2 -translate-x-1/2">
+            <div className="bg-black/60 backdrop-blur-md text-white px-5 py-2.5 rounded-full">
+              <p className="text-sm font-medium">{damageCount} Damages added</p>
+            </div>
+          </div>
+        )}
+
+        {/* Finish detecting button */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-auto">
+          <button
+            onClick={isConnected ? disconnect : connect}
+            disabled={isConnecting}
+            className="bg-white text-black px-8 py-4 rounded-full text-base font-semibold shadow-lg active:scale-95 transition"
+          >
+            {isConnecting
+              ? "Connecting..."
+              : isConnected
+              ? "Finish detecting"
+              : "Start detecting"}
+          </button>
+        </div>
+
+        {/* Red record button */}
+        <div className="absolute bottom-8 right-8 pointer-events-auto">
+          <div className="bg-red-600 w-16 h-16 rounded-full flex items-center justify-center shadow-2xl animate-pulse">
+            <div className="bg-white w-10 h-10 rounded-full" />
+          </div>
+        </div>
       </div>
 
+      {/* Damage popup modal */}
       <Modal
         open={modalOpen}
-        title={null}
-        closeIcon={false}
-        onCancel={() => setModalOpen(false)}
+        onCancel={closeModal}
         footer={null}
-        width={200}
-        styles={{
-          content: { padding: 5 },
-        }}
+        closeIcon={false}
+        centered
+        width={320}
+        styles={{ content: { padding: 16, borderRadius: 16 } }}
       >
         <div className="relative">
           {modalLoading ? (
-            <div className="flex flex-col items-center py-12">
+            <div className="flex flex-col items-center py-16">
               <LoadingButtonAnimation bg={true} />
-              <p className="text-[12px] text-[#6F6464]">Detecting damage...</p>
+              <p className="mt-4 text-sm text-gray-600">Detecting damage...</p>
             </div>
           ) : modalData ? (
-            <div className="relative">
+            <>
               <Image
-                src={modalData?.s3_url ?? ""}
-                alt="Damage image"
-                width={200}
-                height={91}
-                className="rounded-md"
+                src={modalData.s3_url}
+                alt="Detected damage"
+                width={300}
+                height={200}
+                className="rounded-xl w-full object-cover"
               />
-
-              <div className="text-left">
-                <p className="text-[12px] font-medium leading-4 text-[#6F6464] capitalize mt-[5px]">
-                  {modalData?.part_name || "Part name missing"}
+              <div className="mt-4">
+                <p className="text-sm text-gray-600 capitalize">
+                  {modalData.part_name}
                 </p>
-                <p className="my-2 text-[12px] font-medium leading-4 text-[#303030] capitalize">
-                  {modalData
-                    ? `${modalData.damage_type} (${modalData.severity})`
-                    : "No damage detected."}
+                <p className="mt-2 text-base font-medium capitalize">
+                  {modalData.damage_type} ({modalData.severity})
                 </p>
-
                 <button
                   onClick={handleAddToList}
-                  disabled={!modalData || isAddDamageLoading}
-                  className="bg-[#2D65F2] text-white w-full text-center rounded-md px-[14px] py-2.5 text-[10px] font-semibold"
+                  disabled={isAddDamageLoading}
+                  className="mt-6 w-full bg-blue-600 text-white py-3 rounded-lg font-semibold"
                 >
                   {isAddDamageLoading ? (
                     <LoadingButtonAnimation />
@@ -512,15 +417,13 @@ export default function RealTimeDamageDetection() {
                   )}
                 </button>
               </div>
-            </div>
+            </>
           ) : (
-            <div className="flex flex-col items-center py-8">
-              <p className="text-[14px] font-medium text-[#303030]">
-                Damage was not detected
-              </p>
+            <div className="text-center py-12">
+              <p className="text-lg font-medium">No damage detected</p>
               <button
                 onClick={closeModal}
-                className="mt-6 bg-[#2D65F2] text-white w-full text-center rounded-md px-[14px] py-2.5 text-[12px] font-semibold"
+                className="mt-6 w-full bg-blue-600 text-white py-3 rounded-lg font-semibold"
               >
                 Close
               </button>
@@ -528,13 +431,13 @@ export default function RealTimeDamageDetection() {
           )}
 
           <button
-            className="absolute -top-5 -right-5 bg-[#FF0202] p-[10px] flex items-center justify-center rounded-full"
             onClick={closeModal}
+            className="absolute -top-12 right-0 bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg"
           >
-            <CloseOutlined style={{ color: "white", fontSize: "18px" }} />
+            <CloseOutlined />
           </button>
         </div>
       </Modal>
-    </div>
+    </>
   );
 }
