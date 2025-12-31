@@ -292,7 +292,7 @@ export default function RealTimeDamageDetection() {
       setIsAddDamageLoading(false);
     }
   };
-  console.log(modalData);
+  console.log(modalData, "modal data");
   return (
     <>
       <div className="fixed inset-0 bg-black overflow-hidden">
