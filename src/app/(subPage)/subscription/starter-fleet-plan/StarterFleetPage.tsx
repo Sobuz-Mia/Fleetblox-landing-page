@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import { useEffect, useState } from "react";
 import GlobeSection from "@/components/modules/home/globe";
-import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
+// import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 
 const StarterFleetPage = () => {
   const [showMobileCta, setShowMobileCta] = useState(false);
@@ -79,7 +79,7 @@ const StarterFleetPage = () => {
               </div>
             </button>
           </Link> */}
-          <StarterFleetActionButton text="Start Today" />
+          {/* <StarterFleetActionButton text="Start Today" /> */}
         </div>
         {/* Blurred spotlight ellipse with animation */}
         <div

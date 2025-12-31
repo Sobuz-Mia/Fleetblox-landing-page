@@ -57,26 +57,26 @@ const GlobeSection = ({
 
   const [staterPlanLoading, setStarterPlanLoading] = useState(true);
   const [staterPlanError, setStarterPlanError] = useState<string | null>(null);
-  useEffect(() => {
-    const fetchStaterPlanData = async () => {
-      try {
-        const response = await axios.get(
-          `${baseUrl}/api/subscription/plan/starter`
-        );
-        setStarterPlan(response.data.data);
-      } catch (err) {
-        if (err instanceof Error) {
-          setStarterPlanError(err.message);
-        } else {
-          setStarterPlanError("Unexpected error!! Please try again later.");
-        }
-      } finally {
-        setStarterPlanLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchStaterPlanData = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `${baseUrl}/api/subscription/plan/starter`
+  //       );
+  //       setStarterPlan(response.data.data);
+  //     } catch (err) {
+  //       if (err instanceof Error) {
+  //         setStarterPlanError(err.message);
+  //       } else {
+  //         setStarterPlanError("Unexpected error!! Please try again later.");
+  //       }
+  //     } finally {
+  //       setStarterPlanLoading(false);
+  //     }
+  //   };
 
-    fetchStaterPlanData();
-  }, []);
+  //   fetchStaterPlanData();
+  // }, []);
   const handleStarterPlan = async (starterPlan: TStaterPlanData) => {
     const planData = {
       price: starterPlan?.price,

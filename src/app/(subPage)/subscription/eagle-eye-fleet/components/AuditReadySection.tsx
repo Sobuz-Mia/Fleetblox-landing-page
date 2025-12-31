@@ -58,7 +58,7 @@ const AuditReadySection = () => {
           Have Eagle Eye remind you of deadlines and handle paperwork on your
           behalf. No more messy spreadsheets. One neat command center only.
         </p>
-        <div className="flex justify-center items-center gap-5 mb-[60px]">
+        {/* <div className="flex justify-center items-center gap-5 mb-[60px]">
           <button onClick={() => localStorage.setItem("isGetDemo", "true")}>
             <Link href="/getting-started">
               <span className="cursor-pointer text-[16px] transition-all duration-300 ease-in-out hover:text-[#7D7D7D0] py-[13px] rounded-md px-5 border-[#B8CBFC] border text-[#2D65F2] font-bold  font-openSans">
@@ -75,7 +75,7 @@ const AuditReadySection = () => {
           >
             Start Today
           </button>
-        </div>
+        </div> */}
       </div>
       <div className="relative text-center hidden md:block">
         <Image

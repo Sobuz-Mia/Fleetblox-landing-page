@@ -25,6 +25,8 @@ export function DamageList() {
                 src={d.thumbnail}
                 alt="damage"
                 className="w-full h-48 object-cover"
+                height={100}
+                width={100}
               />
               <div className="p-4">
                 <p className="font-semibold">

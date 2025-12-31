@@ -4,7 +4,7 @@ import Image from "next/image";
 import StepCard from "../component/StepCard";
 import { NoHardware, RealtimeVisibility } from "../fleet-integration/page";
 import FleetConnectionStep from "../component/FleetConnectionStep";
-import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
+// import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 
 const page = () => {
   const whyFleetTeamChoose = [
@@ -88,8 +88,8 @@ const page = () => {
               </button>
             </Link> */}
 
-            <StarterFleetActionButton text="Start Today" />
-            <StarterFleetActionButton isMobile={true} text="Start Today" />
+            {/* <StarterFleetActionButton text="Start Today" />
+            <StarterFleetActionButton isMobile={true} text="Start Today" /> */}
           </div>
           <div className=" w-full py-5 lg:pl-[60px]">
             <Image

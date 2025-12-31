@@ -2,7 +2,7 @@ import GlobeSection from "@/components/modules/home/globe";
 import FeatureCard from "@/components/ui/FeatureCard";
 import Image from "next/image";
 import FeatureItem from "./components/FeatureItem";
-import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
+// import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 
 // Icon Components
 const ControlWithoutPhysicalPresence = () => {
@@ -273,8 +273,8 @@ const RemoteOperation = () => {
               </button>
             </Link> */}
 
-            <StarterFleetActionButton text="Start Today" />
-            <StarterFleetActionButton isMobile={true} text="Start Today" />
+            {/* <StarterFleetActionButton text="Start Today" />
+            <StarterFleetActionButton isMobile={true} text="Start Today" /> */}
           </div>
           <div className=" w-full py-10 lg:pl-[60px]">
             <Image

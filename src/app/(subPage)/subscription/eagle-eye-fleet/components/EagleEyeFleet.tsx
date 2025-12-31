@@ -4,7 +4,7 @@ import RealtimeFleetAwareness from "./RealtimeFleetAwareness";
 import ReducedRiskAndDowntime from "./ReducedRiskAndDowntime";
 import AuditReadySection from "./AuditReadySection";
 import ExpansionCrossSites from "./ExpansionCrossSites";
-import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
+// import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 
 const EagleEyeFleet = () => {
   return (
@@ -40,8 +40,8 @@ const EagleEyeFleet = () => {
             </button>
           </Link> */}
 
-          <StarterFleetActionButton text="Start Today" />
-          <StarterFleetActionButton isMobile={true} text="Start Today" />
+          {/* <StarterFleetActionButton text="Start Today" />
+          <StarterFleetActionButton isMobile={true} text="Start Today" /> */}
         </div>
         {/* Blurred spotlight ellipse */}
         <div

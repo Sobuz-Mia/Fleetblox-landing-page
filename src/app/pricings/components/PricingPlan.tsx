@@ -244,17 +244,34 @@ const PricingPlan = () => {
               </div>
             </div>
             {/* right card */}
-            <div className="max-w-[360px] z-50 p-[20px] bg-white w-full rounded-[24px] shadow-lg md:shadow-none ">
+            <div className="max-w-[400px] z-50 p-[20px] bg-white w-full rounded-[24px] shadow-lg md:shadow-none relative overflow-hidden">
+              <div className="absolute top-0 -right-2 bg-[#02636F] rounded-[4px] rounded-r-[16px] z-50 text-[#000] py-[6px] px-5">
+                <p className="text-[12px] font-normal text-white">Beta</p>
+              </div>
               <div className="">
-                <div className="text-[36px] lg:text-[52px] font-montserrat font-bold text-[#04082C]">
-                  ${whole}
-                  <span className="text-[14px] lg:text-[16px] font-montserrat font-semibold text-[#04082C] leading-[150%]">
-                    .{decimal}
-                  </span>
-                  <span className="text-[14px] lg:text-[16px] font-semibold text-[#999] leading-[150%]">
-                    {" "}
-                    /month
-                  </span>
+                {/* stater price  */}
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="text-[36px] lg:text-[52px] font-montserrat font-bold text-[#04082C]">
+                      ${whole}
+                      <span className="text-[14px] lg:text-[16px] font-montserrat font-semibold text-[#04082C] leading-[150%]">
+                        .{decimal}
+                      </span>
+                      <span className="text-[14px] lg:text-[16px] font-semibold text-[#999] leading-[150%]">
+                        {" "}
+                        /month
+                      </span>
+                    </div>
+                    <p className="text-[#04082C] font-openSans text-[14px] font-semibold leading-5">
+                      43% offer discount
+                    </p>
+                  </div>
+                  <div className="text-[18px] lg:text-[22px] font-montserrat font-bold text-[#7D7D7D] line-through">
+                    ${349}
+                    <span className="text-[14px]  font-montserrat font-semibold leading-[20px]">
+                      .{99}
+                    </span>
+                  </div>
                 </div>
                 <p className="mt-[30px] font-openSans text-[#7D7D7D] text-[14px] leading-5">
                   For small fleets needing basic visibility
@@ -319,13 +336,20 @@ const PricingPlan = () => {
           {currentPlans?.data?.map((plan: any, index: number) => (
             <Card
               key={index}
-              className="relative min-w-[350px] max-w-[400px] shadow-none rounded-[16px] "
+              className="relative min-w-[350px] max-w-[400px] shadow-none rounded-[16px] overflow-hidden"
             >
               {/* Ribbon */}
-              {plan && plan?.name === "Dynamic fleet" && (
-                <div className="absolute -top-2 hidden -right-2 bg-[#0A2540] rounded-[4px] z-50 text-[#000] p-2">
+              {plan && plan?.name !== "Eagle eye fleet" && (
+                <div className="absolute top-0 -right-2 bg-[#0A2540] rounded-[4px] rounded-r-[16px] z-50 text-[#000] py-[6px] px-4">
                   <p className="text-[12px] font-normal text-white">
-                    Launching Soon
+                    Coming Soon
+                  </p>
+                </div>
+              )}
+              {plan && plan?.name === "Eagle eye fleet" && (
+                <div className="absolute top-0 -right-2 bg-[#02636F] rounded-[4px] rounded-r-[16px] z-50 text-[#000] py-[6px] px-4">
+                  <p className="text-[12px] font-normal text-white">
+                    Almost there
                   </p>
                 </div>
               )}

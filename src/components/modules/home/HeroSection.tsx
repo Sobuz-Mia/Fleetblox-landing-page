@@ -3,7 +3,8 @@ import heroCardImg from "../../../assets/heroCardImage.png";
 import Image from "next/image";
 import VerticalDividerIcon from "@/components/icons/VerticalDividerIcon";
 import { useState, useEffect } from "react";
-import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
+import Link from "next/link";
+// import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 
 const HeroSection = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
@@ -50,8 +51,25 @@ const HeroSection = () => {
   ];
   return (
     <section className="bg-[#FAFAFF] flex flex-col justify-center items-center z-50 overflow-hidden">
+      <div className="bg-[#FEFAF0] w-full mt-[120px] py-5">
+        <div className="max-w-[1280px] mx-auto flex text-center">
+          <p className="text-[20px] text-[#303030] font-montserrat leading-8">
+            <span>🚀</span> We’re currently rolling out, and Fleetblox products
+            will become available progressively. Explore{" "}
+            <span className="text-[#0336BC] font-semibold">Tripwise</span>, the
+            intelligent on-the-go trip audit, and stay tuned as more features go
+            live.{" "}
+            <Link
+              className="text-[#0336BC] font-bold font-openSans text-[14px]"
+              href="/tripwise"
+            >
+              Learn More
+            </Link>
+          </p>
+        </div>
+      </div>
       {/* Main content section */}
-      <div className="mt-[120px] pb-3 flex flex-col items-center justify-center px-5">
+      <div className="mt-[80px] pb-3 flex flex-col items-center justify-center px-5">
         {/* Text content remains the same */}
         <div className="max-w-[840px] w-full mx-auto text-center flex flex-col items-start lg:items-center ">
           <p className="text-[18px]  lg:text-[28px] text-left lg:text-center font-bold text-[#0336BC] mb-[5px]">
@@ -90,15 +108,15 @@ const HeroSection = () => {
             </div>
           </button>
         </Link> */}
-        <StarterFleetActionButton />
-        <div className="w-full flex justify-center lg:hidden">
-          <StarterFleetActionButton isMobile={true} />
-          {/* <Link aria-label="Get started with FleetBlox" href="/getting-started">
+        {/* <StarterFleetActionButton /> */}
+        {/* <div className="w-full flex justify-center lg:hidden"> */}
+        {/* <StarterFleetActionButton isMobile={true} /> */}
+        {/* <Link aria-label="Get started with FleetBlox" href="/getting-started">
             <button className=" py-3 rounded-md w-full text-center bg-[#2D65F2] font-openSans text-[14px] font-bold text-[#fff] flex justify-center lg:hidden">
               Start Today
             </button>
           </Link> */}
-        </div>
+        {/* </div> */}
         {/* Desktop hero with skeleton loader */}
         <div className="hidden lg:block relative max-h-[800px] lg:h-[800px] md:h-[500px] lg:w-[1200px] xl:w-[1400px] z-[0] overflow-hidden">
           <div className="relative h-full w-full flex justify-center items-center">

@@ -6,7 +6,7 @@ import PreventBudget from "@/components/icons/solution/fleet-intelligence/Preven
 import ReduceCostOfOwnership from "@/components/icons/solution/fleet-intelligence/ReduceCostOfOwnership";
 import GlobeSection from "@/components/modules/home/globe";
 import FeatureCard from "@/components/ui/FeatureCard";
-import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
+// import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 import Image from "next/image";
 
 const page = () => {
@@ -74,8 +74,8 @@ const page = () => {
               </button>
             </Link> */}
 
-            <StarterFleetActionButton text="Start Today" />
-            <StarterFleetActionButton isMobile={true} text="Start Today" />
+            {/* <StarterFleetActionButton text="Start Today" />
+            <StarterFleetActionButton isMobile={true} text="Start Today" /> */}
           </div>
           <div className=" w-full py-10 lg:pl-[60px]">
             <Image
@@ -262,7 +262,7 @@ const page = () => {
           paddingTop="pt-[40px]"
           title="Transform your Fleet Data into Business Value"
           description="FleetBlox leverages advanced AI and intelligent automation to simplify fleet management, turning complex data into actionable insights."
-          extraButton={<StarterFleetActionButton />}
+          // extraButton={<StarterFleetActionButton />}
         />
       </div>
     </div>

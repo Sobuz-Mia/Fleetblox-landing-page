@@ -1,11 +1,11 @@
 "use client";
 import FeatureCard from "@/components/ui/FeatureCard";
 import Image from "next/image";
-import Link from "next/link";
+// import Link from "next/link";
 import GlobeSection from "@/components/modules/home/globe";
 import StepCard from "../component/StepCard";
 import FleetConnectionStep from "../component/FleetConnectionStep";
-import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
+// import StarterFleetActionButton from "@/components/ui/StarterFleetActionButton";
 const Scalability = () => {
   const FleetEfficiency = [
     {
@@ -75,7 +75,7 @@ const Scalability = () => {
                 </button>
               </Link> */}
 
-              <StarterFleetActionButton text="Start Today" />
+              {/* <StarterFleetActionButton text="Start Today" />
               <button
                 className="hidden lg:block"
                 onClick={() => localStorage.setItem("isGetDemo", "true")}
@@ -85,16 +85,16 @@ const Scalability = () => {
                     Get Demo
                   </span>
                 </Link>
-              </button>
+              </button> */}
             </div>
             <div className="flex flex-col gap-5">
-              <button
+              {/* <button
                 className="lg:hidden block cursor-pointer text-[16px] transition-all duration-300 ease-in-out hover:text-[#7D7D7D0] py-[13px] rounded-md px-5 border-[#B8CBFC] border text-[#2D65F2] font-bold  font-openSans"
                 onClick={() => localStorage.setItem("isGetDemo", "true")}
               >
                 <Link href="/getting-started">Get Demo</Link>
-              </button>
-              <StarterFleetActionButton isMobile={true} text="Start Today" />
+              </button> */}
+              {/* <StarterFleetActionButton isMobile={true} text="Start Today" /> */}
               {/* <Link
                 aria-label="Get started with FleetBlox"
                 href="/getting-started"
@@ -266,13 +266,13 @@ const Scalability = () => {
               Check Compatibility
             </button>
             {/* </Link> */}
-            <button onClick={() => localStorage.setItem("isGetDemo", "true")}>
+            {/* <button onClick={() => localStorage.setItem("isGetDemo", "true")}>
               <Link href="/getting-started">
                 <span className="cursor-pointer text-[16px] transition-all duration-300 ease-in-out hover:text-[#7D7D7D0] py-[13px] rounded-md px-5 border-[#B8CBFC] border text-[#2D65F2] font-bold  font-openSans">
                   Get Demo
                 </span>
               </Link>
-            </button>
+            </button> */}
           </div>
         }
       />

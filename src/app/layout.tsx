@@ -5,7 +5,7 @@ import ClientSideInitialization from "./ClientSideInitialization";
 import { Toaster } from "react-hot-toast";
 import { Montserrat, Open_Sans, Roboto } from "next/font/google";
 import { CookieConsentProvider } from "@/providers/CookieConsentProvider";
-
+import QueryProvider from "@/providers/QueryProvider";
 // Configure primary font
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -119,6 +119,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${montserrat.variable} ${openSans.variable} ${roboto.variable}`}
+      suppressHydrationWarning
     >
       <head>
         {/* Favicon link */}
@@ -151,7 +152,8 @@ export default function RootLayout({
                 max-width: 240px !important;
                 max-height: 300px !important;
                 object-fit: contain !important;
-              }
+              }import QueryProvider from './../providers/QueryProvider';
+
             }
           `,
           }}
@@ -163,8 +165,10 @@ export default function RootLayout({
       <body className={`antialiased bg-white`}>
         <CookieConsentProvider>
           <ClientSideInitialization>
-            {/* <Navbar /> */}
-            {children}
+            <QueryProvider>
+              {/* <Navbar /> */}
+              {children}
+            </QueryProvider>
             {/* <Footer /> */}
             <Toaster />
           </ClientSideInitialization>
