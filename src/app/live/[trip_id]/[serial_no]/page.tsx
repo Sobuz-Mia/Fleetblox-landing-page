@@ -2,7 +2,7 @@
 
 import { Modal } from "antd";
 import { useParams } from "next/navigation";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { CloseOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import toast from "react-hot-toast";
@@ -28,6 +28,12 @@ export default function RealTimeDamageDetection() {
   const serialNo = params.serial_no;
 
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  const [isPortrait, setIsPortrait] = useState<boolean>(
+    typeof window !== "undefined"
+      ? window.innerHeight > window.innerWidth
+      : true
+  );
 
   const [isConnected, setIsConnected] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
@@ -121,11 +127,13 @@ export default function RealTimeDamageDetection() {
     setIsConnecting(true);
 
     try {
+      // Choose resolution based on current orientation so portrait mode
+      // requests a taller stream and landscape requests a wider stream.
       const constraints = {
         video: {
           facingMode: "environment",
-          width: { ideal: 1280 },
-          height: { ideal: 720 },
+          width: isPortrait ? { ideal: 720 } : { ideal: 1280 },
+          height: isPortrait ? { ideal: 1280 } : { ideal: 720 },
           frameRate: { ideal: 30 },
         },
         audio: false,
@@ -135,7 +143,12 @@ export default function RealTimeDamageDetection() {
       streamRef.current = stream;
 
       if (videoRef.current) {
+        // Preserve resolution and aspect ratio using contain; avoid
+        // object-cover/object-fill which crop or stretch the video.
         videoRef.current.srcObject = stream;
+        videoRef.current.style.objectFit = "contain";
+        videoRef.current.style.maxWidth = "100%";
+        videoRef.current.style.maxHeight = "100%";
         videoRef.current.play().catch(() => {});
       }
 
@@ -222,6 +235,34 @@ export default function RealTimeDamageDetection() {
     }
   };
 
+  // When device orientation or size changes, update orientation state
+  // and restart the stream to request the appropriate resolution.
+  useEffect(() => {
+    const update = () => setIsPortrait(window.innerHeight > window.innerWidth);
+    update();
+
+    let timer: number | null = null;
+    const handler = () => {
+      update();
+      if (isConnected && !isConnecting) {
+        // Restart stream to apply new constraints for orientation
+        disconnect();
+        timer = window.setTimeout(() => {
+          connect();
+        }, 700);
+      }
+    };
+
+    window.addEventListener("orientationchange", handler);
+    window.addEventListener("resize", handler);
+    return () => {
+      window.removeEventListener("orientationchange", handler);
+      window.removeEventListener("resize", handler);
+      if (timer) clearTimeout(timer);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isConnected, isConnecting]);
+
   const disconnect = () => {
     dataChannelRef.current?.close();
     pcRef.current?.close();
@@ -295,13 +336,13 @@ export default function RealTimeDamageDetection() {
   console.log(modalData, "modal data");
   return (
     <>
-      <div className="fixed inset-0 bg-black overflow-hidden max-w-[520px] min-h-[576px] sm:max-w-screen-sm md:max-w-screen-md mx-auto flex items-center justify-center">
+      <div className="fixed inset-0 bg-black overflow-hidden">
         <video
           ref={videoRef}
           autoPlay
           playsInline
           muted
-          className="w-full h-auto max-h-full object-contain"
+          className="w-full h-full object-fill"
           onClick={handleVideoInteraction}
           onTouchStart={handleVideoInteraction}
         />
