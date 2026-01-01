@@ -35,6 +35,35 @@ export default function RealTimeDamageDetection() {
       : true
   );
 
+  // Adjust video element sizing so one dimension always fills the
+  // viewport (height in portrait, width in landscape) and keep the
+  // other dimension auto to avoid cropping. Center the video so any
+  // overflow is evenly clipped.
+  const updateVideoLayout = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (isPortrait) {
+      video.style.width = "auto";
+      video.style.height = "100vh";
+      video.style.maxWidth = "100vw";
+      video.style.maxHeight = "none";
+    } else {
+      video.style.width = "100vw";
+      video.style.height = "auto";
+      video.style.maxHeight = "100vh";
+      video.style.maxWidth = "none";
+    }
+
+    video.style.position = "absolute";
+    video.style.left = "50%";
+    video.style.top = "50%";
+    video.style.transform = "translate(-50%, -50%)";
+    video.style.background = "black";
+    // keep objectFit as contain for safety, but sizing controls fill behavior
+    video.style.objectFit = "contain";
+  };
+
   const [isConnected, setIsConnected] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
 
@@ -146,9 +175,8 @@ export default function RealTimeDamageDetection() {
         // Preserve resolution and aspect ratio using contain; avoid
         // object-cover/object-fill which crop or stretch the video.
         videoRef.current.srcObject = stream;
-        videoRef.current.style.objectFit = "contain";
-        videoRef.current.style.maxWidth = "100%";
-        videoRef.current.style.maxHeight = "100%";
+        // layout will be handled by updateVideoLayout()
+        updateVideoLayout();
         videoRef.current.play().catch(() => {});
       }
 
@@ -249,8 +277,12 @@ export default function RealTimeDamageDetection() {
         disconnect();
         timer = window.setTimeout(() => {
           connect();
+          // adjust layout after reconnect attempt
+          setTimeout(updateVideoLayout, 300);
         }, 700);
       }
+      // also update layout immediately for UI responsiveness
+      setTimeout(updateVideoLayout, 120);
     };
 
     window.addEventListener("orientationchange", handler);
@@ -342,11 +374,10 @@ export default function RealTimeDamageDetection() {
           autoPlay
           playsInline
           muted
-          className="w-full h-full object-fill"
+          className="w-full h-full object-contain"
           onClick={handleVideoInteraction}
           onTouchStart={handleVideoInteraction}
         />
-
         {damageCount > 0 && (
           <div className="absolute bottom-28 left-1/2 -translate-x-1/2 z-20">
             <div className="bg-black/60 backdrop-blur-md text-white px-5 py-2.5 rounded-full">
