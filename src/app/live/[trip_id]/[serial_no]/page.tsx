@@ -44,8 +44,8 @@ export default function RealTimeDamageDetection() {
     if (!video) return;
 
     // ফিক্সড সাইজ সেট করুন
-    video.style.width = "1000px"; // আপনার পছন্দমতো width
-    video.style.height = "800px"; // আপনার পছন্দমতো height
+    video.style.width = "720px"; // আপনার পছন্দমতো width
+    video.style.height = "400px"; // আপনার পছন্দমতো height
     video.style.maxWidth = "none";
     video.style.maxHeight = "none";
 
@@ -369,7 +369,7 @@ export default function RealTimeDamageDetection() {
           autoPlay
           playsInline
           muted
-          className="w-full  object-contain border h-[600px] flex items-center justify-center my-auto"
+          className="w-full  object-contain border h-full"
           onClick={handleVideoInteraction}
           onTouchStart={handleVideoInteraction}
         />
