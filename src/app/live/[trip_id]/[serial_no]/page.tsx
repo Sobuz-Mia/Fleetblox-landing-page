@@ -43,20 +43,23 @@ export default function RealTimeDamageDetection() {
     const video = videoRef.current;
     if (!video) return;
 
-    // ফিক্সড সাইজ সেট করুন
-    video.style.width = "720px"; // আপনার পছন্দমতো width
-    video.style.height = "400px"; // আপনার পছন্দমতো height
+    // স্ক্রিনের 100% এর কাছাকাছি নিয়ে যাই, কিন্তু জুম না করে
+    video.style.width = "100vw"; // পুরো চওড়া
+    video.style.height = "100vh"; // পুরো উঁচু
     video.style.maxWidth = "none";
     video.style.maxHeight = "none";
 
-    // ভিডিওকে স্ক্রিনের মাঝে রাখুন
+    // কোয়ালিটি ভালো রাখতে contain ব্যবহার করুন
+    video.style.objectFit = "contain"; // কোনো জুম/ব্লার হবে না
+
+    // কালো বার কম দেখাতে ব্যাকগ্রাউন্ড কালো রাখুন (যাতে লক্ষ্য না হয়)
+    video.style.background = "black";
+
+    // সেন্টারে রাখুন
     video.style.position = "absolute";
     video.style.left = "50%";
     video.style.top = "50%";
     video.style.transform = "translate(-50%, -50%)";
-
-    video.style.background = "black";
-    video.style.objectFit = "contain"; // ভিডিও কাটবে না, পুরোটা দেখাবে
   };
 
   const [isConnected, setIsConnected] = useState(false);
