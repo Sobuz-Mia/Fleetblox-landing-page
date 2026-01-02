@@ -155,7 +155,7 @@ export default function RealTimeDamageDetection() {
       // Bandwidth and framerate limits
       const params = sender.getParameters();
       if (!params.encodings) params.encodings = [{}];
-      params.encodings[0].maxBitrate = 1_500_000; // 1.5 Mbps
+      params.encodings[0].maxBitrate = 3_000_000; // 3 Mbps
       params.encodings[0].maxFramerate = 25;
       await sender.setParameters(params);
 
@@ -334,7 +334,7 @@ export default function RealTimeDamageDetection() {
           autoPlay
           playsInline
           muted
-          className="w-full h-full object-cover md:object-contain md:max-w-[700px] md:h-auto md:my-auto scale-105 md:scale-100"
+          className="w-full h-full object-contain md:object-contain md:max-w-[700px] md:h-auto md:my-auto scale-[1.15] md:scale-100"
           onClick={handleVideoInteraction}
           onTouchStart={handleVideoInteraction}
           style={{ background: "black" }}
