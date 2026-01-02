@@ -423,15 +423,17 @@ export default function RealTimeDamageDetection() {
   return (
     <>
       <div className="fixed inset-0 bg-black overflow-hidden">
-        <video
-          ref={videoRef}
-          autoPlay
-          playsInline
-          muted
-          className="w-full h-full object-contain"
-          onClick={handleVideoInteraction}
-          onTouchStart={handleVideoInteraction}
-        />
+        <div className="w-full h-full rotate-90 md:rotate-0 ">
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            muted
+            className="w-full h-full object-contain"
+            onClick={handleVideoInteraction}
+            onTouchStart={handleVideoInteraction}
+          />
+        </div>
         {damageCount > 0 && (
           <div className="absolute bottom-28 left-1/2 -translate-x-1/2 z-20">
             <div className="bg-black/60 backdrop-blur-md text-white px-5 py-2.5 rounded-full">
