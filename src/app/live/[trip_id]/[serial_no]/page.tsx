@@ -44,7 +44,7 @@ export default function RealTimeDamageDetection() {
     if (!video) return;
 
     // ফিক্সড সাইজ সেট করুন
-    video.style.width = "600px"; // আপনার পছন্দমতো width
+    video.style.width = "1000px"; // আপনার পছন্দমতো width
     video.style.height = "800px"; // আপনার পছন্দমতো height
     video.style.maxWidth = "none";
     video.style.maxHeight = "none";
