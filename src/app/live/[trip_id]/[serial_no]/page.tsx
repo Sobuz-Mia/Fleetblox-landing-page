@@ -328,49 +328,58 @@ export default function RealTimeDamageDetection() {
 
   return (
     <>
-      <div className="fixed inset-0 bg-black flex justify-center items-center overflow-hidden">
-        <video
-          ref={videoRef}
-          autoPlay
-          playsInline
-          muted
-          className="w-full h-full object-contain scale-[1.15] landscape:scale-[1.35] md:scale-100 md:object-contain md:max-w-[700px] md:h-auto md:my-auto"
-          onClick={handleVideoInteraction}
-          onTouchStart={handleVideoInteraction}
-          style={{ background: "black" }}
-        />
+      <div className="fixed inset-0 bg-black flex flex-col justify-center items-center">
+        {/* Top safe-area spacer - pushes video down from status bar/notch */}
+        <div className="w-full h-12 shrink-0"></div>
+        {/* Video container - takes remaining space, expands video upward */}
+        <div className="relative flex-1 w-full flex justify-center items-center">
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            muted
+            className="max-w-full max-h-full object-contain scale-[1.35] portrait:scale-[1.15] md:scale-100 md:max-w-[700px] md:h-auto md:my-auto"
+            onClick={handleVideoInteraction}
+            onTouchStart={handleVideoInteraction}
+            style={{ background: "black" }}
+          />
+        </div>
 
-        {/* Damage count badge */}
-        {damageCount > 0 && (
-          <div className="absolute bottom-28 left-1/2 -translate-x-1/2 z-20">
-            <div className="bg-black/60 backdrop-blur-md text-white px-5 py-2.5 rounded-full">
-              <p className="text-sm font-medium">{damageCount} Damages added</p>
+        {/* Bottom controls area - fixed height for button + damage badge */}
+        <div className="w-full shrink-0 pb-8 pt-4 flex flex-col items-center">
+          {/* Damage count badge - moved higher */}
+          {damageCount > 0 && (
+            <div className="mb-8 z-20">
+              <div className="bg-black/60 backdrop-blur-md text-white px-5 py-2.5 rounded-full">
+                <p className="text-sm font-medium">
+                  {damageCount} Damages added
+                </p>
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Start button */}
-        {!isConnected && (
-          <button
-            onClick={connect}
-            className="absolute right-5 bottom-14 md:bottom-5 z-50 border border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0"
-          >
-            {isConnecting ? "Detecting..." : "Start detecting"}
-          </button>
-        )}
+          {/* Start / Finish button */}
+          {!isConnected && (
+            <button
+              onClick={connect}
+              className="z-50 border border-white rounded-md px-6 py-3 text-white text-base font-medium bg-black/40 backdrop-blur-sm"
+            >
+              {isConnecting ? "Detecting..." : "Start detecting"}
+            </button>
+          )}
 
-        {/* Finish button */}
-        {isConnected && (
-          <Link
-            href={{
-              pathname: "/inspection/result",
-              query: { trip_id: tripId, serial_no: serialNo },
-            }}
-            className="absolute right-5 bottom-14 md:bottom-5 z-50 border border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0"
-          >
-            Finish detecting
-          </Link>
-        )}
+          {isConnected && (
+            <Link
+              href={{
+                pathname: "/inspection/result",
+                query: { trip_id: tripId, serial_no: serialNo },
+              }}
+              className="z-50 border border-white rounded-md px-6 py-3 text-white text-base font-medium bg-black/40 backdrop-blur-sm"
+            >
+              Finish detecting
+            </Link>
+          )}
+        </div>
       </div>
 
       {/* Damage detail modal */}
