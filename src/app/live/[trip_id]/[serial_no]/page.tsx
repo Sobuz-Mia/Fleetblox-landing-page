@@ -334,7 +334,7 @@ export default function RealTimeDamageDetection() {
           autoPlay
           playsInline
           muted
-          className="w-full h-[420px] object-contain border border-red-600 scale-[1.5] landscape:scale-[1.35] md:scale-100 md:object-contain md:max-w-[700px] md:h-auto md:my-auto"
+          className="w-full h-[420px] object-contain scale-[1.5] landscape:scale-[1.4] md:scale-100 md:object-contain md:max-w-[700px] md:h-auto md:my-auto"
           onClick={handleVideoInteraction}
           onTouchStart={handleVideoInteraction}
           style={{ background: "black" }}
@@ -353,7 +353,7 @@ export default function RealTimeDamageDetection() {
         {!isConnected && (
           <button
             onClick={connect}
-            className="absolute right-5 bottom-14 md:bottom-5 z-50 border border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0"
+            className="absolute right-5 bottom-5 z-50 border border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 "
           >
             {isConnecting ? "Detecting..." : "Start detecting"}
           </button>
@@ -366,7 +366,7 @@ export default function RealTimeDamageDetection() {
               pathname: "/inspection/result",
               query: { trip_id: tripId, serial_no: serialNo },
             }}
-            className="absolute right-5 bottom-14 md:bottom-5 z-50 border border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0"
+            className="absolute right-5 bottom-14 md:bottom-5 z-50 border border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 "
           >
             Finish detecting
           </Link>
