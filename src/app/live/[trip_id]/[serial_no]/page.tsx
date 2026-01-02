@@ -35,17 +35,6 @@ export default function RealTimeDamageDetection() {
       : true
   );
 
-  // Adjust video element sizing so one dimension always fills the
-  // viewport (height in portrait, width in landscape) and keep the
-  // other dimension auto to avoid cropping. Center the video so any
-  // overflow is evenly clipped.
-  const updateVideoLayout = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.style.objectFit = "contain";
-    video.style.background = "black";
-  };
-
   const [isConnected, setIsConnected] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
 
@@ -138,8 +127,6 @@ export default function RealTimeDamageDetection() {
     setIsConnecting(true);
 
     try {
-      // Choose resolution based on current orientation so portrait mode
-      // requests a taller stream and landscape requests a wider stream.
       const constraints = {
         video: {
           facingMode: "environment",
@@ -153,12 +140,9 @@ export default function RealTimeDamageDetection() {
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
       streamRef.current = stream;
 
+      // Show local camera preview immediately for zero perceived delay
       if (videoRef.current) {
-        // Preserve resolution and aspect ratio using contain; avoid
-        // object-cover/object-fill which crop or stretch the video.
         videoRef.current.srcObject = stream;
-        // layout will be handled by updateVideoLayout()
-        updateVideoLayout();
         videoRef.current.play().catch(() => {});
       }
 
@@ -168,13 +152,14 @@ export default function RealTimeDamageDetection() {
       const videoTrack = stream.getVideoTracks()[0];
       const sender = pc.addTrack(videoTrack, stream);
 
-      // Optional: limit bandwidth/framerate
+      // Bandwidth and framerate limits
       const params = sender.getParameters();
       if (!params.encodings) params.encodings = [{}];
-      params.encodings[0].maxBitrate = 1_500_000;
+      params.encodings[0].maxBitrate = 1_500_000; // 1.5 Mbps
       params.encodings[0].maxFramerate = 25;
       await sender.setParameters(params);
 
+      // Remote processed stream (from server) will replace the local one
       pc.ontrack = (event) => {
         if (
           videoRef.current &&
@@ -194,8 +179,8 @@ export default function RealTimeDamageDetection() {
         try {
           const data = JSON.parse(evt.data);
           if (data.type === "pong") return;
+
           if (data.type === "frame_popup") {
-            console.log(data);
             setClickPending(false);
             const imageUrl = `data:image/jpeg;base64,${data.frame}`;
             setModalData({ ...data.damage_data, s3_url: imageUrl });
@@ -203,7 +188,7 @@ export default function RealTimeDamageDetection() {
             return;
           }
 
-          // Only update frame metadata (used for clicks)
+          // Update frame metadata for clicks
           setCurrentFrameMeta({
             frame_id: data.frame_id ?? null,
             rtp_ts: data.rtp_ts ?? null,
@@ -238,15 +223,14 @@ export default function RealTimeDamageDetection() {
       setIsConnected(true);
     } catch (err) {
       toast.error("Camera/connection failed");
-      console.log(err);
+      console.error(err);
       disconnect();
     } finally {
       setIsConnecting(false);
     }
   };
 
-  // When device orientation or size changes, update orientation state
-  // and restart the stream to request the appropriate resolution.
+  // Handle orientation change → restart stream with correct resolution
   useEffect(() => {
     const update = () => setIsPortrait(window.innerHeight > window.innerWidth);
     update();
@@ -255,20 +239,14 @@ export default function RealTimeDamageDetection() {
     const handler = () => {
       update();
       if (isConnected && !isConnecting) {
-        // Restart stream to apply new constraints for orientation
         disconnect();
-        timer = window.setTimeout(() => {
-          connect();
-          // adjust layout after reconnect attempt
-          setTimeout(updateVideoLayout, 300);
-        }, 700);
+        timer = window.setTimeout(() => connect(), 700);
       }
-      // also update layout immediately for UI responsiveness
-      setTimeout(updateVideoLayout, 120);
     };
 
     window.addEventListener("orientationchange", handler);
     window.addEventListener("resize", handler);
+
     return () => {
       window.removeEventListener("orientationchange", handler);
       window.removeEventListener("resize", handler);
@@ -347,19 +325,22 @@ export default function RealTimeDamageDetection() {
       setIsAddDamageLoading(false);
     }
   };
-  console.log(modalData, "modal data");
+
   return (
     <>
-      <div className="fixed inset-0 bg-black flex justify-center items-center">
+      <div className="fixed inset-0 bg-black flex justify-center items-center overflow-hidden">
         <video
           ref={videoRef}
           autoPlay
           playsInline
           muted
-          className="w-screen h-screen object-contain sm:w-screen sm:h-screen md:max-w-[700px] md:w-auto md:h-screen lg:h-auto"
+          className="w-full h-full object-cover md:object-contain md:max-w-[700px] md:h-auto md:my-auto scale-105 md:scale-100"
           onClick={handleVideoInteraction}
           onTouchStart={handleVideoInteraction}
+          style={{ background: "black" }}
         />
+
+        {/* Damage count badge */}
         {damageCount > 0 && (
           <div className="absolute bottom-28 left-1/2 -translate-x-1/2 z-20">
             <div className="bg-black/60 backdrop-blur-md text-white px-5 py-2.5 rounded-full">
@@ -367,27 +348,32 @@ export default function RealTimeDamageDetection() {
             </div>
           </div>
         )}
+
+        {/* Start button */}
         {!isConnected && (
           <button
             onClick={connect}
-            className="absolute right-5 bottom-14 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0 "
+            className="absolute right-5 bottom-14 md:bottom-5 z-50 border border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0"
           >
             {isConnecting ? "Detecting..." : "Start detecting"}
           </button>
         )}
+
+        {/* Finish button */}
         {isConnected && (
           <Link
             href={{
               pathname: "/inspection/result",
               query: { trip_id: tripId, serial_no: serialNo },
             }}
-            className="absolute right-5 bottom-14 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0 "
+            className="absolute right-5 bottom-14 md:bottom-5 z-50 border border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0"
           >
             Finish detecting
           </Link>
         )}
       </div>
 
+      {/* Damage detail modal */}
       <Modal
         open={modalOpen}
         onCancel={closeModal}
@@ -407,9 +393,9 @@ export default function RealTimeDamageDetection() {
               <Image
                 src={modalData.s3_url}
                 alt="Damage"
-                width={300}
-                height={200}
-                className="rounded-xl w-full object-cover"
+                width={320}
+                height={240}
+                className="rounded-xl w-full object-contain bg-black"
               />
               <div className="mt-4">
                 <p className="text-sm text-gray-600 capitalize">
@@ -442,6 +428,7 @@ export default function RealTimeDamageDetection() {
               </button>
             </div>
           )}
+
           <button
             onClick={closeModal}
             className="absolute -top-10 -right-10 bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center"
