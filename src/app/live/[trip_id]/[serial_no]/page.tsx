@@ -44,7 +44,7 @@ export default function RealTimeDamageDetection() {
     if (!video) return;
 
     // স্ক্রিনের 100% এর কাছাকাছি নিয়ে যাই, কিন্তু জুম না করে
-    video.style.width = "100vw"; // পুরো চওড়া
+    video.style.width = "800px"; // পুরো চওড়া
     video.style.height = "100vh"; // পুরো উঁচু
     video.style.maxWidth = "none";
     video.style.maxHeight = "none";
