@@ -43,25 +43,43 @@ export default function RealTimeDamageDetection() {
     const video = videoRef.current;
     if (!video) return;
 
-    if (isPortrait) {
-      video.style.width = "auto";
-      video.style.height = "100vh";
-      video.style.maxWidth = "100vw";
-      video.style.maxHeight = "none";
-    } else {
-      video.style.width = "100vw";
-      video.style.height = "auto";
-      video.style.maxHeight = "100vh";
-      video.style.maxWidth = "none";
-    }
-
+    // We'll make the video fill the viewport and use object-fit to
+    // control whether it is letterboxed ('contain') or fills and
+    // crops ('cover'). For landscape, use 'cover' so width grows to
+    // fill the screen; for portrait keep 'contain' so full height is
+    // visible without unwanted cropping.
     video.style.position = "absolute";
     video.style.left = "50%";
     video.style.top = "50%";
     video.style.transform = "translate(-50%, -50%)";
     video.style.background = "black";
-    // keep objectFit as contain for safety, but sizing controls fill behavior
-    video.style.objectFit = "contain";
+
+    if (isPortrait) {
+      video.style.width = "auto";
+      video.style.height = "100vh";
+      video.style.maxWidth = "100vw";
+      video.style.maxHeight = "none";
+      video.style.objectFit = "contain";
+    } else {
+      // Landscape: set fixed display width to viewport width and
+      // compute display height using intrinsic aspect ratio so the
+      // video isn't stretched/cropped by 'cover'. This keeps quality
+      // while making the feed visually wider.
+      if (video.videoWidth > 0 && video.videoHeight > 0) {
+        const aspect = video.videoHeight / video.videoWidth;
+        const displayWidth = window.innerWidth; // px
+        const displayHeight = Math.round(displayWidth * aspect); // px
+        video.style.width = `${displayWidth}px`;
+        video.style.height = `${displayHeight}px`;
+      } else {
+        // Fallback: use full width and auto height
+        video.style.width = "100vw";
+        video.style.height = "auto";
+      }
+      video.style.maxWidth = "none";
+      video.style.maxHeight = "none";
+      video.style.objectFit = "contain";
+    }
   };
 
   const [isConnected, setIsConnected] = useState(false);
@@ -101,26 +119,56 @@ export default function RealTimeDamageDetection() {
     const dx = clientX - rect.left;
     const dy = clientY - rect.top;
 
-    const videoAspect = video.videoWidth / video.videoHeight;
-    const containerAspect = rect.width / rect.height;
+    // If objectFit is 'contain' (letterbox) we map clicks using the
+    // contained video area. If it's 'cover' the video fills and is
+    // cropped; mapping must account for the cropped offsets.
+    const computedFit =
+      (video.style && video.style.objectFit) ||
+      window.getComputedStyle(video).getPropertyValue("object-fit") ||
+      "contain";
 
-    let fitWidth,
-      fitHeight,
-      offsetX = 0,
-      offsetY = 0;
+    let clickX: number;
+    let clickY: number;
 
-    if (containerAspect > videoAspect) {
-      fitHeight = rect.height;
-      fitWidth = rect.height * videoAspect;
-      offsetX = (rect.width - fitWidth) / 2;
+    if (computedFit === "cover") {
+      // scale = max(containerWidth / intrinsicWidth, containerHeight / intrinsicHeight)
+      const scale = Math.max(
+        rect.width / video.videoWidth,
+        rect.height / video.videoHeight
+      );
+      const displayedWidth = video.videoWidth * scale;
+      const displayedHeight = video.videoHeight * scale;
+      const offsetX = (displayedWidth - rect.width) / 2;
+      const offsetY = (displayedHeight - rect.height) / 2;
+
+      // dx is relative to container; add offset to get coordinate inside displayed video
+      clickX = Math.round(((dx + offsetX) / displayedWidth) * video.videoWidth);
+      clickY = Math.round(
+        ((dy + offsetY) / displayedHeight) * video.videoHeight
+      );
     } else {
-      fitWidth = rect.width;
-      fitHeight = rect.width / videoAspect;
-      offsetY = (rect.height - fitHeight) / 2;
-    }
+      // 'contain' behavior — compute fitted area inside container
+      const videoAspect = video.videoWidth / video.videoHeight;
+      const containerAspect = rect.width / rect.height;
 
-    const clickX = Math.round(((dx - offsetX) / fitWidth) * video.videoWidth);
-    const clickY = Math.round(((dy - offsetY) / fitHeight) * video.videoHeight);
+      let fitWidth: number,
+        fitHeight: number,
+        offsetX = 0,
+        offsetY = 0;
+
+      if (containerAspect > videoAspect) {
+        fitHeight = rect.height;
+        fitWidth = rect.height * videoAspect;
+        offsetX = (rect.width - fitWidth) / 2;
+      } else {
+        fitWidth = rect.width;
+        fitHeight = rect.width / videoAspect;
+        offsetY = (rect.height - fitHeight) / 2;
+      }
+
+      clickX = Math.round(((dx - offsetX) / fitWidth) * video.videoWidth);
+      clickY = Math.round(((dy - offsetY) / fitHeight) * video.videoHeight);
+    }
 
     const payload = {
       type: "frame_click",
@@ -161,8 +209,10 @@ export default function RealTimeDamageDetection() {
       const constraints = {
         video: {
           facingMode: "environment",
-          width: isPortrait ? { ideal: 720 } : { ideal: 1280 },
-          height: isPortrait ? { ideal: 1280 } : { ideal: 720 },
+          // Request higher resolution in landscape so the camera feed
+          // can appear larger without upscaling in the browser.
+          width: isPortrait ? { ideal: 720 } : { ideal: 1920 },
+          height: isPortrait ? { ideal: 1280 } : { ideal: 1080 },
           frameRate: { ideal: 30 },
         },
         audio: false,
@@ -175,7 +225,11 @@ export default function RealTimeDamageDetection() {
         // Preserve resolution and aspect ratio using contain; avoid
         // object-cover/object-fill which crop or stretch the video.
         videoRef.current.srcObject = stream;
-        // layout will be handled by updateVideoLayout()
+        // layout will be handled by updateVideoLayout(); also call
+        // after metadata loads so intrinsic dimensions are available.
+        videoRef.current.addEventListener("loadedmetadata", updateVideoLayout, {
+          once: true,
+        });
         updateVideoLayout();
         videoRef.current.play().catch(() => {});
       }
