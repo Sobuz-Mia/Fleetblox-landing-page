@@ -42,24 +42,8 @@ export default function RealTimeDamageDetection() {
   const updateVideoLayout = () => {
     const video = videoRef.current;
     if (!video) return;
-
-    // স্ক্রিনের 100% এর কাছাকাছি নিয়ে যাই, কিন্তু জুম না করে
-    video.style.width = "800px"; // পুরো চওড়া
-    video.style.height = "100vh"; // পুরো উঁচু
-    video.style.maxWidth = "none";
-    video.style.maxHeight = "none";
-
-    // কোয়ালিটি ভালো রাখতে contain ব্যবহার করুন
-    video.style.objectFit = "contain"; // কোনো জুম/ব্লার হবে না
-
-    // কালো বার কম দেখাতে ব্যাকগ্রাউন্ড কালো রাখুন (যাতে লক্ষ্য না হয়)
+    video.style.objectFit = "contain";
     video.style.background = "black";
-
-    // সেন্টারে রাখুন
-    video.style.position = "absolute";
-    video.style.left = "50%";
-    video.style.top = "50%";
-    video.style.transform = "translate(-50%, -50%)";
   };
 
   const [isConnected, setIsConnected] = useState(false);
@@ -366,13 +350,13 @@ export default function RealTimeDamageDetection() {
   console.log(modalData, "modal data");
   return (
     <>
-      <div className="fixed inset-0 bg-black overflow-hidden flex justify-center items-center">
+      <div className="fixed inset-0 bg-black flex justify-center items-center">
         <video
           ref={videoRef}
           autoPlay
           playsInline
           muted
-          className="w-full  object-cover object-center h-full"
+          className="w-screen h-screen object-contain sm:w-screen sm:h-screen md:max-w-[700px] md:w-auto md:h-screen lg:h-auto"
           onClick={handleVideoInteraction}
           onTouchStart={handleVideoInteraction}
         />
