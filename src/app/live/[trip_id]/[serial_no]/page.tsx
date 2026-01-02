@@ -43,25 +43,20 @@ export default function RealTimeDamageDetection() {
     const video = videoRef.current;
     if (!video) return;
 
-    if (isPortrait) {
-      video.style.width = "auto";
-      video.style.height = "100vh";
-      video.style.maxWidth = "100vw";
-      video.style.maxHeight = "none";
-    } else {
-      video.style.width = "100vw";
-      video.style.height = "auto";
-      video.style.maxHeight = "100vh";
-      video.style.maxWidth = "none";
-    }
+    // ফিক্সড সাইজ সেট করুন
+    video.style.width = "600px"; // আপনার পছন্দমতো width
+    video.style.height = "800px"; // আপনার পছন্দমতো height
+    video.style.maxWidth = "none";
+    video.style.maxHeight = "none";
 
+    // ভিডিওকে স্ক্রিনের মাঝে রাখুন
     video.style.position = "absolute";
     video.style.left = "50%";
     video.style.top = "50%";
     video.style.transform = "translate(-50%, -50%)";
+
     video.style.background = "black";
-    // keep objectFit as contain for safety, but sizing controls fill behavior
-    video.style.objectFit = "contain";
+    video.style.objectFit = "contain"; // ভিডিও কাটবে না, পুরোটা দেখাবে
   };
 
   const [isConnected, setIsConnected] = useState(false);
@@ -368,13 +363,13 @@ export default function RealTimeDamageDetection() {
   console.log(modalData, "modal data");
   return (
     <>
-      <div className="fixed inset-0 bg-black overflow-hidden">
+      <div className="fixed inset-0 bg-black overflow-hidden flex justify-center items-center">
         <video
           ref={videoRef}
           autoPlay
           playsInline
           muted
-          className="w-full h-full object-contain"
+          className="w-full  object-contain border h-[600px] flex items-center justify-center my-auto"
           onClick={handleVideoInteraction}
           onTouchStart={handleVideoInteraction}
         />
