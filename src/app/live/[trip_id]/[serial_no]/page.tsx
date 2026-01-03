@@ -146,17 +146,33 @@ export default function RealTimeDamageDetection() {
         videoRef.current.play().catch(() => {});
       }
 
-      const pc = new RTCPeerConnection();
+      const pc = new RTCPeerConnection({
+        iceServers: [
+          { urls: "stun:stun.l.google.com:19302" },
+          // Adding a TURN server here is highly recommended for mobile networks
+        ],
+        // Helps with mobile network transitions
+        iceCandidatePoolSize: 10,
+      });
       pcRef.current = pc;
 
       const videoTrack = stream.getVideoTracks()[0];
+      // Tell the browser this is "detail" heavy content
+      if ("contentHint" in videoTrack) {
+        videoTrack.contentHint = "detail";
+      }
       const sender = pc.addTrack(videoTrack, stream);
 
       // Bandwidth and framerate limits
       const params = sender.getParameters();
       if (!params.encodings) params.encodings = [{}];
-      params.encodings[0].maxBitrate = 3_000_000; // 3 Mbps
-      params.encodings[0].maxFramerate = 25;
+      // 2. Adjust bitrate (3Mbps is good for 720p, but 1080p needs ~5-6Mbps)
+      params.encodings[0].maxBitrate = 5_000_000;
+      params.encodings[0].maxFramerate = 30;
+      params.encodings[0].scaleResolutionDownBy = 1.0;
+
+      //  Prioritize resolution over frame rate (better for AI detection)
+      params.degradationPreference = "maintain-resolution";
       await sender.setParameters(params);
 
       // Remote processed stream (from server) will replace the local one
@@ -179,12 +195,19 @@ export default function RealTimeDamageDetection() {
         try {
           const data = JSON.parse(evt.data);
           if (data.type === "pong") return;
-
           if (data.type === "frame_popup") {
             setClickPending(false);
+            setModalLoading(false);
+            if (
+              data.message === "Click not inside any damage mask" ||
+              data.s3_url === "data:image/jpeg;base64,null" ||
+              !data.damage_data
+            ) {
+              setModalData(null); // This will trigger the "No damage detected" UI
+              return;
+            }
             const imageUrl = `data:image/jpeg;base64,${data.frame}`;
             setModalData({ ...data.damage_data, s3_url: imageUrl });
-            setModalLoading(false);
             return;
           }
 
@@ -230,30 +253,21 @@ export default function RealTimeDamageDetection() {
     }
   };
 
-  // Handle orientation change → restart stream with correct resolution
   useEffect(() => {
-    const update = () => setIsPortrait(window.innerHeight > window.innerWidth);
-    update();
-
-    let timer: number | null = null;
-    const handler = () => {
-      update();
-      if (isConnected && !isConnecting) {
-        disconnect();
-        timer = window.setTimeout(() => connect(), 700);
+    const handleResize = () => {
+      const newIsPortrait = window.innerHeight > window.innerWidth;
+      if (newIsPortrait !== isPortrait) {
+        setIsPortrait(newIsPortrait);
+        if (isConnected) {
+          disconnect();
+          setTimeout(() => connect(), 700);
+        }
       }
     };
 
-    window.addEventListener("orientationchange", handler);
-    window.addEventListener("resize", handler);
-
-    return () => {
-      window.removeEventListener("orientationchange", handler);
-      window.removeEventListener("resize", handler);
-      if (timer) clearTimeout(timer);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isConnected, isConnecting]);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [isConnected, isPortrait]);
 
   const disconnect = () => {
     dataChannelRef.current?.close();
@@ -325,17 +339,16 @@ export default function RealTimeDamageDetection() {
       setIsAddDamageLoading(false);
     }
   };
-
   return (
     <>
       <div className="fixed inset-0 bg-black flex justify-center items-center overflow-hidden">
-        <div className="relative w-full h-full portrait:aspect-[9/16] landscape:aspect-video max-w-full max-h-full border">
+        <div className="relative w-full h-full portrait:aspect-[9/16] landscape:aspect-video max-w-full max-h-full ">
           <video
             ref={videoRef}
             autoPlay
             playsInline
             muted
-            className="absolute inset-0 w-full h-full object-contain bg-black border border-red-500"
+            className="absolute inset-0 w-full h-full object-contain bg-black"
             onClick={handleVideoInteraction}
             onTouchStart={handleVideoInteraction}
           />
@@ -389,7 +402,7 @@ export default function RealTimeDamageDetection() {
               <LoadingButtonAnimation bg={true} />
               <p className="mt-4 text-sm text-gray-600">Detecting damage...</p>
             </div>
-          ) : modalData ? (
+          ) : modalData && !modalData?.message ? (
             <>
               <Image
                 src={modalData.s3_url}
