@@ -130,8 +130,8 @@ export default function RealTimeDamageDetection() {
       const constraints = {
         video: {
           facingMode: "environment",
-          width: isPortrait ? { ideal: 720 } : { ideal: 1280 },
-          height: isPortrait ? { ideal: 1280 } : { ideal: 720 },
+          width: isPortrait ? { ideal: 1280 } : { ideal: 720 },
+          height: isPortrait ? { ideal: 720 } : { ideal: 1280 },
           frameRate: { ideal: 30 },
         },
         audio: false,
@@ -329,16 +329,17 @@ export default function RealTimeDamageDetection() {
   return (
     <>
       <div className="fixed inset-0 bg-black flex justify-center items-center overflow-hidden">
-        <video
-          ref={videoRef}
-          autoPlay
-          playsInline
-          muted
-          className="w-full h-[420px] object-contain scale-[1.5] landscape:scale-[1.4] md:scale-100 md:object-contain md:max-w-[700px] md:h-auto md:my-auto"
-          onClick={handleVideoInteraction}
-          onTouchStart={handleVideoInteraction}
-          style={{ background: "black" }}
-        />
+        <div className="relative w-full h-full portrait:aspect-[9/16] landscape:aspect-video max-w-full max-h-full border">
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            muted
+            className="absolute inset-0 w-full h-full object-contain bg-black border border-red-500"
+            onClick={handleVideoInteraction}
+            onTouchStart={handleVideoInteraction}
+          />
+        </div>
 
         {/* Damage count badge */}
         {damageCount > 0 && (
