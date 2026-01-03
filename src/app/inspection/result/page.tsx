@@ -49,7 +49,7 @@ const damageData = {
 const InspectionResult = () => {
   const [currentSide] = useState<"Left">("Left");
 
-  const condition = "Poor"; // You can make this dynamic per side if you want
+  const condition = "Poor";
 
   const dataSource = damageData[currentSide] || damageData.Left;
 
