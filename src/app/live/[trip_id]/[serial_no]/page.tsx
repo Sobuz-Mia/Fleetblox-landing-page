@@ -130,8 +130,8 @@ export default function RealTimeDamageDetection() {
       const constraints = {
         video: {
           facingMode: "environment",
-          width: isPortrait ? { ideal: 1280 } : { ideal: 720 },
-          height: isPortrait ? { ideal: 720 } : { ideal: 1280 },
+          width: isPortrait ? { ideal: 1080 } : { ideal: 1920 },
+          height: isPortrait ? { ideal: 1080 } : { ideal: 1920 },
           frameRate: { ideal: 30 },
         },
         audio: false,
@@ -348,7 +348,7 @@ export default function RealTimeDamageDetection() {
             autoPlay
             playsInline
             muted
-            className="absolute inset-0 w-full h-full object-contain bg-black"
+            className="absolute inset-0 w-full h-full object-contain bg-black "
             onClick={handleVideoInteraction}
             onTouchStart={handleVideoInteraction}
           />
