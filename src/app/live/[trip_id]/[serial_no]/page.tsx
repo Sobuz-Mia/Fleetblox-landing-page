@@ -402,10 +402,7 @@ export default function RealTimeDamageDetection() {
         {/* Finish button */}
         {isConnected && (
           <Link
-            href={{
-              pathname: "/inspection/result",
-              query: { trip_id: tripId, serial_no: serialNo },
-            }}
+            href={`/inspection/result/${tripId}/${serialNo}`}
             className={`absolute left-5 md:right-5 bottom-5 z-50 border border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 ${
               isPortrait ? "rotate-90" : ""
             }`}

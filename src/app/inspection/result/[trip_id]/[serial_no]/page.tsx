@@ -2,20 +2,24 @@
 import React, { useState } from "react";
 import { Tag, Image as antdImage } from "antd";
 import Image from "next/image";
-import ExpandedReportIcon from "../icons/ExpandedReportIcon";
-import EditIcon from "./../icons/EditIcon";
+import ExpandedReportIcon from "../../../icons/ExpandedReportIcon";
+import EditIcon from "../../../icons/EditIcon";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 // import CollapseIcon from "./Icons/CollapseIcon";
 // import ExpandeIcon from "./Icons/ExpandeIcon";
 // import LeftSideDoorIcon from "./Icons/LeftSideDoorIcon";
 // const { Panel } = Collapse;
-import { apiToDisplayMap, templates } from "./../../tripwise/const/partKeys";
-import CollapseIcon from "./Icons/CollapseIcon";
-import LeftSideDoorIcon from "./Icons/LeftSideDoorIcon";
-import RightSideDoorIcon from "./Icons/RightSideDoorIcon";
-import FrontCarIcon from "./Icons/FrontCarIcon";
-import RearDoorIcon from "./Icons/RearDoorIcon";
+import {
+  apiToDisplayMap,
+  templates,
+} from "../../../../tripwise/const/partKeys";
+import CollapseIcon from "../../Icons/CollapseIcon";
+import LeftSideDoorIcon from "../../Icons/LeftSideDoorIcon";
+import RightSideDoorIcon from "../../Icons/RightSideDoorIcon";
+import FrontCarIcon from "../../Icons/FrontCarIcon";
+import RearDoorIcon from "../../Icons/RearDoorIcon";
+import { useParams } from "next/navigation";
 
 export type SideKey = "left-side" | "right-side" | "front-side" | "rear-side";
 
@@ -46,6 +50,9 @@ type TableRow = {
 };
 
 const InspectionResult = () => {
+  const params = useParams<{ trip_id: string; serial_no: string }>();
+  const tripId = params.trip_id;
+  const serialNo = params.serial_no;
   const [openSide, setOpenSide] = useState<
     "Left" | "Right" | "Front" | "Rear" | null
   >("Left");
@@ -54,13 +61,14 @@ const InspectionResult = () => {
   };
   // const [activeKey, setActiveKey] = useState<string[]>([]);
   const { data: reviewReportData, isLoading } = useQuery({
-    queryKey: ["review-inspection-report"],
+    queryKey: ["review-inspection-report", tripId, tripId],
     queryFn: async () => {
       const response = await axios.get(
-        `https://real-damage.fleetblox.com/api/get_all_damages?trip_id=edbc7f2d-5295-4de9-9b0d-26b4686f9f9f&serial_no=1`
+        `https://real-damage.fleetblox.com/api/get_all_damages?trip_id=${tripId}&serial_no=${serialNo}`
       );
       return response?.data;
     },
+    enabled: !!tripId && !!serialNo,
   });
   // const isExpanded = activeKey.length > 0;
   const condition = "Poor";
