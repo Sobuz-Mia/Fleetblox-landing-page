@@ -368,9 +368,34 @@ export default function RealTimeDamageDetection() {
         {!isConnected && (
           <button
             onClick={connect}
-            className="absolute right-5 bottom-5 z-50 border border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 "
+            className={`absolute left-5 md:right-5 bottom-5 z-50 border border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 ${
+              isPortrait ? "rotate-90" : ""
+            }`}
           >
             {isConnecting ? "Detecting..." : "Start detecting"}
+          </button>
+        )}
+        {/* back button */}
+        {isConnected && (
+          <button
+            className={`absolute right-5 bottom-5 z-50 px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 p-2 rounded-full w-fit ${
+              isPortrait ? "rotate-90" : ""
+            }`}
+            onClick={() => window.history.back()}
+            style={{ background: `rgb(21, 21, 21, 0.28)` }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M12.0003 12.993L6.9599 18.0334C6.82145 18.1719 6.6567 18.2406 6.46567 18.2397C6.27465 18.2387 6.10831 18.1674 5.96665 18.0257C5.83011 17.884 5.76313 17.7206 5.7657 17.5353C5.76826 17.3501 5.83781 17.1892 5.97435 17.0527L11.007 11.9998L5.97435 6.94686C5.84421 6.81674 5.77755 6.65745 5.77435 6.46899C5.77115 6.28054 5.83781 6.11548 5.97435 5.97381C6.11088 5.83214 6.27305 5.75923 6.46087 5.75506C6.64869 5.75089 6.81503 5.81964 6.9599 5.96131L12.0003 11.0065L17.0455 5.96131C17.1807 5.82606 17.3439 5.75891 17.5349 5.75986C17.7259 5.76083 17.8939 5.83214 18.0387 5.97381C18.1721 6.11548 18.2375 6.27894 18.2349 6.46419C18.2323 6.64944 18.1628 6.81033 18.0262 6.94686L12.9935 11.9998L18.0262 17.0527C18.1564 17.1828 18.223 17.3421 18.2262 17.5305C18.2294 17.719 18.1628 17.884 18.0262 18.0257C17.8897 18.1674 17.7275 18.2403 17.5397 18.2445C17.3519 18.2486 17.1872 18.1783 17.0455 18.0334L12.0003 12.993Z"
+                fill="white"
+              />
+            </svg>
           </button>
         )}
 
@@ -381,7 +406,9 @@ export default function RealTimeDamageDetection() {
               pathname: "/inspection/result",
               query: { trip_id: tripId, serial_no: serialNo },
             }}
-            className="absolute right-5 bottom-14 md:bottom-5 z-50 border border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 "
+            className={`absolute left-5 md:right-5 bottom-5 z-50 border border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 ${
+              isPortrait ? "rotate-90" : ""
+            }`}
           >
             Finish detecting
           </Link>
