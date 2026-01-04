@@ -167,7 +167,7 @@ export default function RealTimeDamageDetection() {
       const params = sender.getParameters();
       if (!params.encodings) params.encodings = [{}];
       // 2. Adjust bitrate (3Mbps is good for 720p, but 1080p needs ~5-6Mbps)
-      params.encodings[0].maxBitrate = 5_000_000;
+      params.encodings[0].maxBitrate = 10_000_000;
       params.encodings[0].maxFramerate = 30;
       params.encodings[0].scaleResolutionDownBy = 1.0;
 
@@ -339,6 +339,7 @@ export default function RealTimeDamageDetection() {
       setIsAddDamageLoading(false);
     }
   };
+  console.log(modalData);
   return (
     <>
       <div className="fixed inset-0 bg-black flex justify-center items-center overflow-hidden">

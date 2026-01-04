@@ -220,3 +220,14 @@ body {
   height: 100vh !important; */
   object-fit: contain; /* Changed to contain to avoid crop */
 }
+.custom-collapse .ant-collapse-content {
+  background-color: #f5f9fc !important;
+  border: none !important;
+}
+.custom-collapse-with-linear .ant-collapse-content {
+  /* background: linear-gradient(180deg, #f5f9fc 0%, #fff 3.81%) !important; */
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.05);
+  border: none !important;
+  border-radius: 6px;
+  padding: 0 !important;
+}
