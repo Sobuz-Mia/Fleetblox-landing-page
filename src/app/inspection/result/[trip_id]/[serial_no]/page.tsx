@@ -6,20 +6,16 @@ import ExpandedReportIcon from "../../../icons/ExpandedReportIcon";
 import EditIcon from "../../../icons/EditIcon";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-// import CollapseIcon from "./Icons/CollapseIcon";
-// import ExpandeIcon from "./Icons/ExpandeIcon";
-// import LeftSideDoorIcon from "./Icons/LeftSideDoorIcon";
-// const { Panel } = Collapse;
 import {
   apiToDisplayMap,
   templates,
 } from "../../../../tripwise/const/partKeys";
 import CollapseIcon from "../../Icons/CollapseIcon";
-import LeftSideDoorIcon from "../../Icons/LeftSideDoorIcon";
 import RightSideDoorIcon from "../../Icons/RightSideDoorIcon";
 import FrontCarIcon from "../../Icons/FrontCarIcon";
 import RearDoorIcon from "../../Icons/RearDoorIcon";
 import { useParams } from "next/navigation";
+import LeftSideDamagesReviewConfirm from "../../components/LeftSideDamagesReviewConfirm";
 
 export type SideKey = "left-side" | "right-side" | "front-side" | "rear-side";
 
@@ -71,7 +67,6 @@ const InspectionResult = () => {
     enabled: !!tripId && !!serialNo,
   });
   // const isExpanded = activeKey.length > 0;
-  const condition = "Poor";
 
   const generateTableData = (sideKey: SideKey): TableRow[] => {
     const template = templates[sideKey] || [];
@@ -187,67 +182,13 @@ const InspectionResult = () => {
           Review damages
         </h1>
         {/*Left Side table review  */}
-        <div
-          className={` border rounded-md  ${
-            openSide === "Left"
-              ? " border-t border-l border-r border-[#DDD] bg-[#F6F6F6] "
-              : "  border-b-none rounded-t-md  border-[#F6F6F6] bg-white"
-          }`}
-        >
-          <div
-            className="flex items-center justify-between  border-b-none p-3 cursor-pointer"
-            onClick={() => toggleSide("Left")}
-          >
-            <div className="flex items-center gap-[10px]">
-              <LeftSideDoorIcon />
-              <div>
-                <div className="text-[#303030] text-[14px] font-bold ">
-                  Left side
-                </div>
-                <Tag
-                  color={getConditionColor(condition)}
-                  className="text-[14px] font-medium leading-4 border-none text-left "
-                >
-                  {condition}
-                </Tag>
-              </div>
-            </div>
+        <LeftSideDamagesReviewConfirm
+          openSide={openSide}
+          toggleSide={toggleSide}
+          getConditionColor={getConditionColor}
+          leftSideDamageData={leftSideTableData}
+        />
 
-            {/* Back arrow – you can hook this up to router.back() or navigation */}
-            {openSide !== "Left" ? <ExpandedReportIcon /> : <CollapseIcon />}
-          </div>
-          {openSide === "Left" && (
-            <div>
-              <div className="grid grid-cols-12 bg-[#F5F9FC] font-semibold text-12 text-black-softlight border-t border-gray-200">
-                <div className="col-span-6 p-3 border-b border-r border-gray-200 text-[12px] font-semibold text-[#6F6464]">
-                  Vehicle parts
-                </div>
-                <div className="col-span-6 p-3 border-b border-r border-gray-200 text-[12px] font-semibold text-[#6F6464]">
-                  Damages
-                </div>
-              </div>
-
-              <div className=" border-gray-200 text-12">
-                {leftSideTableData?.map((item) => (
-                  <div
-                    key={item.sn}
-                    className="grid grid-cols-12 border-b border-gray-200 hover:bg-gray-100"
-                  >
-                    <div className="col-span-6 p-3 border-r border-gray-200 font-normal text-[12px] leading-4 text-[#151515]">
-                      {item.part}
-                    </div>
-                    <div className="col-span-6 p-3 border-r border-gray-200 font-normal text-[12px] leading-4 text-[#151515] flex justify-between gap-2.5">
-                      {renderDamages(item.damages)}{" "}
-                      <button className="">
-                        <EditIcon />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
         {/* Right side table review */}
         <div
           className={` border rounded-md  ${
