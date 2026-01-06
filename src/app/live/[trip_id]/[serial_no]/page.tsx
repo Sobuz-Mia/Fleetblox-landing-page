@@ -352,11 +352,8 @@ export default function RealTimeDamageDetection() {
 
         {isConnected && (
           <Link
-            href={{
-              pathname: "/inspection/result",
-              query: { trip_id: tripId, serial_no: serialNo },
-            }}
-            className="absolute right-5 bottom-14 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0 "
+            href={`/inspection/result/${tripId}/${serialNo}`}
+            className="absolute left-5 md:right-5 bottom-14 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0 "
           >
             Finish detecting
           </Link>
