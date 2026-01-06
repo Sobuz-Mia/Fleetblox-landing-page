@@ -2,7 +2,7 @@
 
 import { Modal } from "antd";
 import { useParams } from "next/navigation";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import { CloseOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import toast from "react-hot-toast";
@@ -17,6 +17,7 @@ interface DamageDetail {
   side?: string;
   s3_url: string;
   overlap?: number;
+  message?: string | null;
   [key: string]: unknown;
 }
 
@@ -28,12 +29,6 @@ export default function RealTimeDamageDetection() {
   const serialNo = params.serial_no;
 
   const videoRef = useRef<HTMLVideoElement>(null);
-
-  const [isPortrait, setIsPortrait] = useState<boolean>(
-    typeof window !== "undefined"
-      ? window.innerHeight > window.innerWidth
-      : true
-  );
 
   const [isConnected, setIsConnected] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
@@ -130,8 +125,8 @@ export default function RealTimeDamageDetection() {
       const constraints = {
         video: {
           facingMode: "environment",
-          width: isPortrait ? { ideal: 1080 } : { ideal: 1920 },
-          height: isPortrait ? { ideal: 1080 } : { ideal: 1920 },
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
           frameRate: { ideal: 30 },
         },
         audio: false,
@@ -140,42 +135,24 @@ export default function RealTimeDamageDetection() {
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
       streamRef.current = stream;
 
-      // Show local camera preview immediately for zero perceived delay
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
         videoRef.current.play().catch(() => {});
       }
 
-      const pc = new RTCPeerConnection({
-        iceServers: [
-          { urls: "stun:stun.l.google.com:19302" },
-          // Adding a TURN server here is highly recommended for mobile networks
-        ],
-        // Helps with mobile network transitions
-        iceCandidatePoolSize: 10,
-      });
+      const pc = new RTCPeerConnection();
       pcRef.current = pc;
 
       const videoTrack = stream.getVideoTracks()[0];
-      // Tell the browser this is "detail" heavy content
-      if ("contentHint" in videoTrack) {
-        videoTrack.contentHint = "detail";
-      }
       const sender = pc.addTrack(videoTrack, stream);
 
-      // Bandwidth and framerate limits
+      // Optional: limit bandwidth/framerate
       const params = sender.getParameters();
       if (!params.encodings) params.encodings = [{}];
-      // 2. Adjust bitrate (3Mbps is good for 720p, but 1080p needs ~5-6Mbps)
-      params.encodings[0].maxBitrate = 10_000_000;
-      params.encodings[0].maxFramerate = 30;
-      params.encodings[0].scaleResolutionDownBy = 1.0;
-
-      //  Prioritize resolution over frame rate (better for AI detection)
-      params.degradationPreference = "maintain-resolution";
+      params.encodings[0].maxBitrate = 1_500_000;
+      params.encodings[0].maxFramerate = 25;
       await sender.setParameters(params);
 
-      // Remote processed stream (from server) will replace the local one
       pc.ontrack = (event) => {
         if (
           videoRef.current &&
@@ -211,7 +188,7 @@ export default function RealTimeDamageDetection() {
             return;
           }
 
-          // Update frame metadata for clicks
+          // Only update frame metadata (used for clicks)
           setCurrentFrameMeta({
             frame_id: data.frame_id ?? null,
             rtp_ts: data.rtp_ts ?? null,
@@ -246,28 +223,12 @@ export default function RealTimeDamageDetection() {
       setIsConnected(true);
     } catch (err) {
       toast.error("Camera/connection failed");
-      console.error(err);
+      console.log(err);
       disconnect();
     } finally {
       setIsConnecting(false);
     }
   };
-
-  useEffect(() => {
-    const handleResize = () => {
-      const newIsPortrait = window.innerHeight > window.innerWidth;
-      if (newIsPortrait !== isPortrait) {
-        setIsPortrait(newIsPortrait);
-        if (isConnected) {
-          disconnect();
-          setTimeout(() => connect(), 700);
-        }
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [isConnected, isPortrait]);
 
   const disconnect = () => {
     dataChannelRef.current?.close();
@@ -339,23 +300,19 @@ export default function RealTimeDamageDetection() {
       setIsAddDamageLoading(false);
     }
   };
-  console.log(modalData);
   return (
     <>
-      <div className="fixed inset-0 bg-black flex justify-center items-center overflow-hidden">
-        <div className="relative w-full h-full portrait:aspect-[9/16] landscape:aspect-video max-w-full max-h-full ">
-          <video
-            ref={videoRef}
-            autoPlay
-            playsInline
-            muted
-            className="absolute inset-0 w-full h-full object-contain bg-black "
-            onClick={handleVideoInteraction}
-            onTouchStart={handleVideoInteraction}
-          />
-        </div>
+      <div className="fixed inset-0 bg-black overflow-hidden max-w-[520px] min-h-[576px] sm:max-w-screen-sm md:max-w-screen-md mx-auto flex items-center justify-center">
+        <video
+          ref={videoRef}
+          autoPlay
+          playsInline
+          muted
+          className="w-full h-auto max-h-full object-contain"
+          onClick={handleVideoInteraction}
+          onTouchStart={handleVideoInteraction}
+        />
 
-        {/* Damage count badge */}
         {damageCount > 0 && (
           <div className="absolute bottom-28 left-1/2 -translate-x-1/2 z-20">
             <div className="bg-black/60 backdrop-blur-md text-white px-5 py-2.5 rounded-full">
@@ -363,14 +320,10 @@ export default function RealTimeDamageDetection() {
             </div>
           </div>
         )}
-
-        {/* Start button */}
         {!isConnected && (
           <button
             onClick={connect}
-            className={`absolute left-5 md:right-5 bottom-14 z-50 border border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 ${
-              isPortrait ? "rotate-90" : ""
-            }`}
+            className={`absolute left-5 md:right-5 bottom-14 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0 `}
           >
             {isConnecting ? "Detecting..." : "Start detecting"}
           </button>
@@ -378,9 +331,7 @@ export default function RealTimeDamageDetection() {
         {/* back button */}
         {isConnected && (
           <button
-            className={`absolute right-5 bottom-5 z-50 px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 p-2 rounded-full w-fit ${
-              isPortrait ? "rotate-90" : ""
-            }`}
+            className={`absolute right-5 bottom-5 z-50 px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 p-2 rounded-full w-fit rotate-90 md:rotate-0 `}
             onClick={() => window.history.back()}
             style={{ background: `rgb(21, 21, 21, 0.28)` }}
           >
@@ -399,20 +350,19 @@ export default function RealTimeDamageDetection() {
           </button>
         )}
 
-        {/* Finish button */}
         {isConnected && (
           <Link
-            href={`/inspection/result/${tripId}/${serialNo}`}
-            className={`absolute left-5 md:right-5 bottom-14 z-50 border border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 ${
-              isPortrait ? "rotate-90" : ""
-            }`}
+            href={{
+              pathname: "/inspection/result",
+              query: { trip_id: tripId, serial_no: serialNo },
+            }}
+            className="absolute right-5 bottom-14 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0 "
           >
             Finish detecting
           </Link>
         )}
       </div>
 
-      {/* Damage detail modal */}
       <Modal
         open={modalOpen}
         onCancel={closeModal}
@@ -432,9 +382,9 @@ export default function RealTimeDamageDetection() {
               <Image
                 src={modalData.s3_url}
                 alt="Damage"
-                width={320}
-                height={240}
-                className="rounded-xl w-full object-contain bg-black"
+                width={300}
+                height={200}
+                className="rounded-xl w-full object-cover"
               />
               <div className="mt-4">
                 <p className="text-sm text-gray-600 capitalize">
@@ -467,7 +417,6 @@ export default function RealTimeDamageDetection() {
               </button>
             </div>
           )}
-
           <button
             onClick={closeModal}
             className="absolute -top-10 -right-10 bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center"
