@@ -175,8 +175,8 @@ const InspectionResult = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white px-5 py-5 max-w-3xl mx-auto flex flex-col justify-between">
-      <div className=" space-y-2.5">
+    <div className="min-h-[80vh] bg-white px-5 py-5 max-w-3xl mx-auto flex flex-col justify-between">
+      <div className=" space-y-2.5 ">
         {/* Title */}
         <h1 className="text-[20px] font-bold text-center text-[#303030] mb-10">
           Review damages

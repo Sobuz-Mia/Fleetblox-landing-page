@@ -99,7 +99,7 @@ const CustomSelector: React.FC<CustomSelectorProps> = ({
 
   // Classes for the dropdown
   const dropdownClasses = classNames(
-    "absolute border pb-2 overflow-y-auto hide-scroll border-white-light shadow-lg z-10 bg-white-primary rounded-md",
+    "absolute border pb-2 overflow-y-auto hide-scroll z-[2000] border-white-light shadow-lg bg-white-primary rounded-md",
     dropdownHeight,
     dropdownshowright ? "right-0" : "left-0",
     showDropDownToTop ? "top-0" : label ? "top-[78px]" : "top-[37px]",

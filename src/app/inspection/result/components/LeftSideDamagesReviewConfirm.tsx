@@ -1,4 +1,4 @@
-import { Drawer, Tag } from "antd";
+import { Drawer, Select, Tag } from "antd";
 import LeftSideDoorIcon from "../Icons/LeftSideDoorIcon";
 import ExpandedReportIcon from "../../icons/ExpandedReportIcon";
 import CollapseIcon from "../Icons/CollapseIcon";
@@ -6,7 +6,7 @@ import EditIcon from "../../icons/EditIcon";
 import { renderDamages } from "../Index";
 import { useState } from "react";
 import PlusIcon from "../Icons/PlusIcon";
-import CustomSelector from "@/components/ui/CustomSelector";
+import CameraIcon from "../Icons/CameraIcon";
 type DamageGroupItem = {
   type: string;
   count: number;
@@ -15,7 +15,7 @@ type DamageGroupItem = {
   images: string[];
 };
 export type TLocationDropdown = {
-  value: string | number;
+  value: string | number | null;
   label: string;
 };
 type TDamageData = {
@@ -36,9 +36,13 @@ const LeftSideDamagesReviewConfirm = ({
 }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
-  const [maintenanceType, setMaintenanceType] = useState<TLocationDropdown>({
+  const [damageType, setDamageType] = useState<TLocationDropdown>({
     label: "Select damage type",
-    value: "",
+    value: null,
+  });
+  const [damageSeverity, setDamageSeverity] = useState<TLocationDropdown>({
+    label: "Select damage severity",
+    value: null,
   });
   return (
     <>
@@ -75,29 +79,103 @@ const LeftSideDamagesReviewConfirm = ({
                 </h1>
               </div>
             }
+            height="50vh"
             placement={"bottom"}
             closable={false}
             onClose={() => setOpenDrawer(false)}
             open={openDrawer}
             key={"bottom"}
           >
-            <CustomSelector
-              selectorValue={maintenanceType}
-              setSelector={setMaintenanceType}
-              search={false}
-              dropdownHeight="h-[130px]"
-              options={[
-                { label: "All type", value: "" },
-                {
-                  label: "Regular servicing",
-                  value: "regular",
-                },
-                {
-                  label: "Damage repairing",
-                  value: "damage",
-                },
-              ]}
-            />
+            <div className="space-y-4">
+              <Select
+                value={damageType.value}
+                onChange={(value, option) => {
+                  const selectedLabel = Array.isArray(option)
+                    ? option[0]?.label || String(value)
+                    : option?.label || String(value);
+                  setDamageType({
+                    value: value as string,
+                    label: selectedLabel,
+                  });
+                }}
+                className="w-full h-[50px]"
+                placeholder="Select damage type"
+                options={[
+                  { value: "scratch", label: "Scratch" },
+                  { value: "dent", label: "Dent" },
+                  { value: "crack", label: "Crack" },
+                  { value: "detachment", label: "Detachment" },
+                  { value: "broken_part", label: "Broken part" },
+                  { value: "missing_part", label: "Missing part" },
+                  { value: "broken_light", label: "Broken light" },
+                  { value: "broken_window", label: "Broken window" },
+                  { value: "corrosion_rust", label: "Corrosion rust" },
+                ]}
+              />
+              <Select
+                value={damageSeverity.value}
+                onChange={(value, option) => {
+                  const selectedLabel = Array.isArray(option)
+                    ? option[0]?.label || String(value)
+                    : option?.label || String(value);
+                  setDamageSeverity({
+                    value: value as string,
+                    label: selectedLabel,
+                  });
+                }}
+                className="w-full h-[50px]"
+                placeholder="Select damage type"
+                options={[
+                  { label: "All type", value: "" },
+                  {
+                    label: "High",
+                    value: "high",
+                  },
+                  {
+                    label: "Medium",
+                    value: "medium",
+                  },
+                  {
+                    label: "Low",
+                    value: "low",
+                  },
+                ]}
+              />
+              {/* <CustomSelector
+                selectorValue={damageSevirity}
+                setSelector={setDamageSevirity}
+                search={false}
+                // dropdownHeight="h-[130px]"
+                height="h-[50px]"
+                options={[
+                  { label: "All type", value: "" },
+                  {
+                    label: "High",
+                    value: "high",
+                  },
+                  {
+                    label: "Medium",
+                    value: "medium",
+                  },
+                  {
+                    label: "Low",
+                    value: "low",
+                  },
+                ]}
+              /> */}
+              <div className="border border-[#B8CBFC] py-5 rounded-[10px] flex flex-col justify-center items-center">
+                <CameraIcon />
+                <p className="text-[#6F6464] text-[12px] leading-4">
+                  Upload damage area image
+                </p>
+              </div>
+              <div className="flex items-center gap-[5px] border-t pt-5">
+                <button className="px-[14px] py-2 border border-[#DDD] w-full text-[#999] text-[14px] font-semibold h-[42px] rounded-md">
+                  Cancel
+                </button>
+                <button className="submit-button w-full h-[42px]">Add</button>
+              </div>
+            </div>
           </Drawer>
         </div>
       ) : (
