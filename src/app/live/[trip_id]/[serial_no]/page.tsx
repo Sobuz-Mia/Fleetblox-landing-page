@@ -27,6 +27,7 @@ export default function RealTimeDamageDetection() {
   const params = useParams<{ trip_id: string; serial_no: string }>();
   const tripId = params.trip_id;
   const serialNo = params.serial_no;
+  const [debugRes, setDebugRes] = useState<string>("");
 
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -144,6 +145,10 @@ export default function RealTimeDamageDetection() {
       pcRef.current = pc;
 
       const videoTrack = stream.getVideoTracks()[0];
+      const settings = videoTrack.getSettings();
+
+      setDebugRes(`${settings.width} × ${settings.height}`);
+      console.log("Camera resolution:", settings.width, settings.height);
       await videoTrack.applyConstraints({
         width: { ideal: 1280 },
         height: { ideal: 720 },
@@ -326,6 +331,12 @@ export default function RealTimeDamageDetection() {
             </div>
           </div>
         )}
+        {debugRes && (
+          <div className="absolute top-4 left-4 z-50 bg-black/70 text-white text-xs px-3 py-1 rounded">
+            Camera: {debugRes}
+          </div>
+        )}
+
         {!isConnected && (
           <button
             onClick={connect}
