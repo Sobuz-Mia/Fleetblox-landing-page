@@ -123,20 +123,17 @@ export default function RealTimeDamageDetection() {
     setIsConnecting(true);
 
     try {
-      // const constraints = {
-      //   video: {
-      //     facingMode: "environment",
-      //     width: { ideal: 1280 },
-      //     height: { ideal: 720 },
-      //     frameRate: { ideal: 30 },
-      //   },
-      //   audio: false,
-      // };
-
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: true, // Let browser choose best settings
+      const constraints = {
+        video: {
+          facingMode: "environment",
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
+          // frameRate: { ideal: 30 },
+        },
         audio: false,
-      });
+      };
+
+      const stream = await navigator.mediaDevices.getUserMedia(constraints);
       streamRef.current = stream;
 
       if (videoRef.current) {
@@ -155,7 +152,7 @@ export default function RealTimeDamageDetection() {
       await videoTrack.applyConstraints({
         width: 1280,
         height: 720,
-        frameRate: 30,
+        // frameRate: 30,
       });
       const sender = pc.addTrack(videoTrack, stream);
 
