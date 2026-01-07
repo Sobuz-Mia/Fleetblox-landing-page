@@ -313,13 +313,18 @@ export default function RealTimeDamageDetection() {
   };
   return (
     <>
-      <div className="fixed inset-0 bg-black overflow-hidden max-w-[520px] min-h-[576px] sm:max-w-screen-sm md:max-w-screen-md mx-auto flex items-center justify-center">
+      <div className="fixed inset-0 bg-black overflow-hidden w-full h-full">
         <video
           ref={videoRef}
           autoPlay
           playsInline
           muted
-          className="w-full h-auto max-h-full object-contain"
+          className="w-full h-full object-contain"
+          style={{
+            WebkitTransform: "translateZ(0)",
+            WebkitBackfaceVisibility: "hidden",
+            aspectRatio: "16/9",
+          }}
           onClick={handleVideoInteraction}
           onTouchStart={handleVideoInteraction}
         />
