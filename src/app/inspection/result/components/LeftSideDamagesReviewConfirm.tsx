@@ -4,9 +4,13 @@ import ExpandedReportIcon from "../../icons/ExpandedReportIcon";
 import CollapseIcon from "../Icons/CollapseIcon";
 import EditIcon from "../../icons/EditIcon";
 import { renderDamages } from "../Index";
-import { useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import PlusIcon from "../Icons/PlusIcon";
 import CameraIcon from "../Icons/CameraIcon";
+import Webcam from "react-webcam";
+// import axios from "axios";
+import Image from "next/image";
+
 type DamageGroupItem = {
   type: string;
   count: number;
@@ -34,8 +38,10 @@ const LeftSideDamagesReviewConfirm = ({
   toggleSide: (side: "Left" | "Right" | "Front" | "Rear") => void;
   getConditionColor: (condition: string) => string;
 }) => {
+  const webcamRef = useRef<Webcam | null>(null);
   const [isEdit, setIsEdit] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [openCamera, setOpenCamera] = useState(false);
   const [damageType, setDamageType] = useState<TLocationDropdown>({
     label: "Select damage type",
     value: null,
@@ -44,6 +50,40 @@ const LeftSideDamagesReviewConfirm = ({
     label: "Select damage severity",
     value: null,
   });
+  const [capturedImage, setCapturedImage] = useState<string | null>(null);
+  const capture = useCallback(() => {
+    const imageSrc = webcamRef?.current?.getScreenshot();
+    if (imageSrc) {
+      setCapturedImage(imageSrc);
+    }
+  }, [webcamRef]);
+  const addDamage = async () => {
+    if (!capturedImage || !damageType.value || !damageSeverity.value) return;
+
+    // Convert base64 to Blob
+    const response = await fetch(capturedImage);
+    const blob = await response.blob();
+
+    const formData = new FormData();
+    formData.append("image", blob, "damage.jpg");
+    formData.append("damageType", damageType.value as string);
+    formData.append("severity", damageSeverity.value as string);
+    formData.append("side", "Left"); // since this is Left side component
+    formData.append("part", "Front side bumper"); // replace with actual part name (pass as prop if needed)
+    console.log(formData);
+    // try {
+    //   await axios.post("/your-api-endpoint/attach-image", formData, {
+    //     headers: { "Content-Type": "multipart/form-data" },
+    //   });
+    //   // Success: close drawer, reset states, maybe refresh damage list
+    //   setOpenDrawer(false);
+    //   // ... reset states
+    // } catch (error) {
+    //   console.error("Upload failed", error);
+    //   // Handle error (show toast, etc.)
+    // }
+  };
+  console.log(capturedImage);
   return (
     <>
       {isEdit ? (
@@ -141,39 +181,46 @@ const LeftSideDamagesReviewConfirm = ({
                   },
                 ]}
               />
-              {/* <CustomSelector
-                selectorValue={damageSevirity}
-                setSelector={setDamageSevirity}
-                search={false}
-                // dropdownHeight="h-[130px]"
-                height="h-[50px]"
-                options={[
-                  { label: "All type", value: "" },
-                  {
-                    label: "High",
-                    value: "high",
-                  },
-                  {
-                    label: "Medium",
-                    value: "medium",
-                  },
-                  {
-                    label: "Low",
-                    value: "low",
-                  },
-                ]}
-              /> */}
-              <div className="border border-[#B8CBFC] py-5 rounded-[10px] flex flex-col justify-center items-center">
-                <CameraIcon />
-                <p className="text-[#6F6464] text-[12px] leading-4">
-                  Upload damage area image
-                </p>
+              {/* camera section */}
+
+              <div>
+                {openCamera ? (
+                  <div>
+                    <Webcam
+                      screenshotFormat="image/jpeg"
+                      ref={webcamRef}
+                    ></Webcam>
+                    <Image
+                      src={capturedImage || ""}
+                      width={400}
+                      height={400}
+                      alt="captured image"
+                    />
+                    <button onClick={capture}>Capture photo</button>
+                  </div>
+                ) : (
+                  <div
+                    onClick={() => setOpenCamera(true)}
+                    className="border border-[#B8CBFC] py-5 rounded-[10px] flex flex-col justify-center items-center cursor-pointer"
+                  >
+                    <CameraIcon />
+                    <p className="text-[#6F6464] text-[12px] leading-4">
+                      Upload damage area image
+                    </p>
+                  </div>
+                )}
               </div>
+              {/* button */}
               <div className="flex items-center gap-[5px] border-t pt-5">
                 <button className="px-[14px] py-2 border border-[#DDD] w-full text-[#999] text-[14px] font-semibold h-[42px] rounded-md">
                   Cancel
                 </button>
-                <button className="submit-button w-full h-[42px]">Add</button>
+                <button
+                  onClick={addDamage}
+                  className="submit-button w-full h-[42px]"
+                >
+                  Add
+                </button>
               </div>
             </div>
           </Drawer>
