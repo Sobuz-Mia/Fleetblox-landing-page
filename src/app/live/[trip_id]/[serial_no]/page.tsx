@@ -144,13 +144,19 @@ export default function RealTimeDamageDetection() {
       pcRef.current = pc;
 
       const videoTrack = stream.getVideoTracks()[0];
+      await videoTrack.applyConstraints({
+        width: { ideal: 1280 },
+        height: { ideal: 720 },
+        frameRate: { ideal: 30 },
+      });
       const sender = pc.addTrack(videoTrack, stream);
 
       // Optional: limit bandwidth/framerate
       const params = sender.getParameters();
       if (!params.encodings) params.encodings = [{}];
-      params.encodings[0].maxBitrate = 1_500_000;
-      params.encodings[0].maxFramerate = 25;
+      params.encodings[0].maxBitrate = 5000000;
+      params.encodings[0].maxFramerate = 30;
+      params.degradationPreference = "maintain-resolution";
       await sender.setParameters(params);
 
       pc.ontrack = (event) => {
