@@ -150,16 +150,16 @@ export default function RealTimeDamageDetection() {
       setDebugRes(`${settings.width} × ${settings.height}`);
       console.log("Camera resolution:", settings.width, settings.height);
       await videoTrack.applyConstraints({
-        width: { ideal: 1280 },
-        height: { ideal: 720 },
-        frameRate: { ideal: 30 },
+        width: 1280,
+        height: 720,
+        frameRate: 30,
       });
       const sender = pc.addTrack(videoTrack, stream);
 
       // Optional: limit bandwidth/framerate
       const params = sender.getParameters();
       if (!params.encodings) params.encodings = [{}];
-      params.encodings[0].maxBitrate = 5000000;
+      params.encodings[0].maxBitrate = 10000000;
       params.encodings[0].maxFramerate = 30;
       params.degradationPreference = "maintain-resolution";
       await sender.setParameters(params);
@@ -211,7 +211,15 @@ export default function RealTimeDamageDetection() {
 
       const offer = await pc.createOffer();
       await pc.setLocalDescription(offer);
+      let sdp = pc?.localDescription?.sdp;
+      // Insert after the video m=line
+      sdp = sdp?.replace(
+        /m=video(.*)\r\n/,
+        `m=video$1\r\nb=AS:10000\r\nb=TIAS:10000000\r\n`
+      );
+      // Or higher: b=AS:8000 for ~8 Mbps
 
+      await pc.setLocalDescription({ type: "offer", sdp });
       const resp = await fetch(`${BASE_URL}/offer`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
