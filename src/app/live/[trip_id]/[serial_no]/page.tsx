@@ -128,8 +128,8 @@ export default function RealTimeDamageDetection() {
           facingMode: "environment",
           // width: { ideal: 1280 },
           // height: { ideal: 720 },
-          aspectRatio: { ideal: 16 / 9 },
-          // frameRate: { ideal: 30 },
+         // aspectRatio: { ideal: 16 / 9 },
+           frameRate: { ideal: 30 },
         },
         audio: false,
       };
@@ -332,7 +332,7 @@ export default function RealTimeDamageDetection() {
           style={{
             WebkitTransform: "translateZ(0)",
             WebkitBackfaceVisibility: "hidden",
-            aspectRatio: "16/9",
+            //aspectRatio: "16/9",
           }}
           onClick={handleVideoInteraction}
           onTouchStart={handleVideoInteraction}
