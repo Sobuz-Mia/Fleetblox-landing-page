@@ -238,7 +238,6 @@ export default function RealTimeDamageDetection() {
         disconnect();
         return;
       }
-
       await pc.setRemoteDescription(answer);
       setIsConnected(true);
     } catch (err) {
@@ -322,13 +321,13 @@ export default function RealTimeDamageDetection() {
   };
   return (
     <>
-      <div className="fixed inset-0 bg-black overflow-hidden w-full h-full">
+      <div className="fixed inset-0 bg-black overflow-hidden w-full h-full ">
         <video
           ref={videoRef}
           autoPlay
           playsInline
           muted
-          className="w-full h-full object-contain"
+          className="w-full object-cover h-full "
           style={{
             WebkitTransform: "translateZ(0)",
             WebkitBackfaceVisibility: "hidden",
