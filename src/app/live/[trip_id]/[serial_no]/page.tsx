@@ -128,7 +128,7 @@ export default function RealTimeDamageDetection() {
           facingMode: "environment",
           // width: { ideal: 1280 },
           // height: { ideal: 720 },
-          aspectRatio: { ideal: 16 / 9 },
+          // aspectRatio: { ideal: 16 / 9 },
           // frameRate: { ideal: 30 },
         },
         audio: false,
