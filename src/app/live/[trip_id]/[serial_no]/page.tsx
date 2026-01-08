@@ -117,7 +117,7 @@ export default function RealTimeDamageDetection() {
       }
     }, 10000);
   };
-
+  // changes something
   const connect = async () => {
     if (isConnecting || isConnected) return;
     setIsConnecting(true);
@@ -160,8 +160,8 @@ export default function RealTimeDamageDetection() {
       // Optional: limit bandwidth/framerate
       const params = sender.getParameters();
       if (!params.encodings) params.encodings = [{}];
-      params.encodings[0].maxBitrate = 10000000;
-      params.encodings[0].maxFramerate = 30;
+      params.encodings[0].maxBitrate = 2500000;
+      params.encodings[0].maxFramerate = 24;
       params.degradationPreference = "maintain-resolution";
       await sender.setParameters(params);
 
