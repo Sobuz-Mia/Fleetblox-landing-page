@@ -332,7 +332,7 @@ export default function RealTimeDamageDetection() {
           style={{
             WebkitTransform: "translateZ(0)",
             WebkitBackfaceVisibility: "hidden",
-            //aspectRatio: "16/9",
+            aspectRatio: "16/9",
           }}
           onClick={handleVideoInteraction}
           onTouchStart={handleVideoInteraction}
