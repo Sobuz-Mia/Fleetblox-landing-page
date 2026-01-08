@@ -126,9 +126,9 @@ export default function RealTimeDamageDetection() {
       const constraints = {
         video: {
           facingMode: "environment",
-          width: { ideal: 1280 },
-          height: { ideal: 720 },
-          aspectRatio: { ideal: 16 / 9 },
+          // width: { ideal: 1280 },
+          // height: { ideal: 720 },
+          // aspectRatio: { ideal: 16 / 9 },
           // frameRate: { ideal: 30 },
         },
         audio: false,
@@ -150,11 +150,11 @@ export default function RealTimeDamageDetection() {
 
       setDebugRes(`${settings.width} × ${settings.height}`);
       console.log("Camera resolution:", settings.width, settings.height);
-      await videoTrack.applyConstraints({
-        width: 1280,
-        height: 720,
-        // frameRate: 30,
-      });
+      // await videoTrack.applyConstraints({
+      //   width: 1280,
+      //   height: 720,
+      //   // frameRate: 30,
+      // });
       const sender = pc.addTrack(videoTrack, stream);
 
       // Optional: limit bandwidth/framerate
