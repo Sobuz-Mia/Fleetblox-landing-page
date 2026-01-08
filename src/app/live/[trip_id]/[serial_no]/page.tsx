@@ -327,9 +327,9 @@ export default function RealTimeDamageDetection() {
           autoPlay
           playsInline
           muted
-          className="w-full object-cover h-full "
+          className="w-full h-full scale-[1.5] object-contain"
           style={{
-            WebkitTransform: "translateZ(0)",
+            // WebkitTransform: "translateZ(0)",
             WebkitBackfaceVisibility: "hidden",
             aspectRatio: "16/9",
           }}
