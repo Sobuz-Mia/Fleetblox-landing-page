@@ -121,7 +121,7 @@ export default function RealTimeDamageDetection() {
   const connect = async () => {
     if (isConnecting || isConnected) return;
     setIsConnecting(true);
-
+    // constains
     try {
       const constraints = {
         video: {
