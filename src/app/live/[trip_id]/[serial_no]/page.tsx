@@ -123,16 +123,17 @@ export default function RealTimeDamageDetection() {
     setIsConnecting(true);
     // constains
     try {
-      const constraints = {
-        video: {
-          facingMode: "environment",
-          // width: { ideal: 1280 },
-          // height: { ideal: 720 },
-         // aspectRatio: { ideal: 16 / 9 },
-         //  frameRate: { ideal: 30 },
-        },
-        audio: false,
-      };
+   const constraints = {
+  video: {
+    facingMode: "environment",
+    // 720p is the "sweet spot" for mobile WebRTC
+    width: { ideal: 1280 }, 
+    height: { ideal: 720 },
+    // Do not force 30fps; let it fluctuate between 20-30 to prevent lag
+    frameRate: { max: 30 } 
+  },
+  audio: false,
+};
 
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
       streamRef.current = stream;
@@ -160,8 +161,8 @@ export default function RealTimeDamageDetection() {
       // Optional: limit bandwidth/framerate
       const params = sender.getParameters();
       if (!params.encodings) params.encodings = [{}];
-      params.encodings[0].maxBitrate = 10000000;
-      params.encodings[0].maxFramerate = 30;
+      params.encodings[0].maxBitrate = 2500000;
+      params.encodings[0].maxFramerate = 24;
       params.degradationPreference = "maintain-resolution";
       await sender.setParameters(params);
 
@@ -214,10 +215,7 @@ export default function RealTimeDamageDetection() {
       await pc.setLocalDescription(offer);
       let sdp = pc?.localDescription?.sdp;
       // Insert after the video m=line
-      sdp = sdp?.replace(
-        /m=video(.*)\r\n/,
-        `m=video$1\r\nb=AS:10000\r\nb=TIAS:10000000\r\n`
-      );
+    
       // Or higher: b=AS:8000 for ~8 Mbps
 
       await pc.setLocalDescription({ type: "offer", sdp });
