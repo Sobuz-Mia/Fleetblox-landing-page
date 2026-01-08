@@ -117,7 +117,7 @@ export default function RealTimeDamageDetection() {
       }
     }, 10000);
   };
-
+// changes something 
   const connect = async () => {
     if (isConnecting || isConnected) return;
     setIsConnecting(true);
