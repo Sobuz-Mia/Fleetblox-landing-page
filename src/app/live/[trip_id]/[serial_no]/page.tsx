@@ -27,7 +27,6 @@ export default function RealTimeDamageDetection() {
   const params = useParams<{ trip_id: string; serial_no: string }>();
   const tripId = params.trip_id;
   const serialNo = params.serial_no;
-  const [debugRes, setDebugRes] = useState<string>("");
 
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -146,10 +145,8 @@ export default function RealTimeDamageDetection() {
       pcRef.current = pc;
 
       const videoTrack = stream.getVideoTracks()[0];
-      const settings = videoTrack.getSettings();
+      // const settings = videoTrack.getSettings();
 
-      setDebugRes(`${settings.width} × ${settings.height}`);
-      console.log("Camera resolution:", settings.width, settings.height);
       // await videoTrack.applyConstraints({
       //   width: 1280,
       //   height: 720,
@@ -321,7 +318,7 @@ export default function RealTimeDamageDetection() {
   };
   return (
     <>
-      <div className="fixed inset-0 bg-black overflow-hidden w-full h-full ">
+      <div className="fixed inset-0 bg-white overflow-hidden w-full h-full ">
         <video
           ref={videoRef}
           autoPlay
@@ -344,16 +341,11 @@ export default function RealTimeDamageDetection() {
             </div>
           </div>
         )}
-        {debugRes && (
-          <div className="absolute top-4 left-4 z-50 bg-black/70 text-white text-xs px-3 py-1 rounded">
-            Camera: {debugRes}
-          </div>
-        )}
 
         {!isConnected && (
           <button
             onClick={connect}
-            className={`absolute left-5 md:right-5 bottom-14 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0 `}
+            className={`absolute left-5 md:right-5 bottom-14 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-semibold bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0 w-[130px] `}
           >
             {isConnecting ? "Detecting..." : "Start detecting"}
           </button>
@@ -361,7 +353,7 @@ export default function RealTimeDamageDetection() {
         {/* back button */}
         {isConnected && (
           <button
-            className={`absolute right-5 bottom-5 z-50 px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 p-2 rounded-full w-fit rotate-90 md:rotate-0 `}
+            className={`absolute right-5 bottom-5 z-50 px-4 py-2.5 text-white text-[12px] font-semibold bg-black/40 p-2 rounded-full w-fit rotate-90 md:rotate-0 `}
             onClick={() => window.history.back()}
             style={{ background: `rgb(21, 21, 21, 0.28)` }}
           >
@@ -383,7 +375,7 @@ export default function RealTimeDamageDetection() {
         {isConnected && (
           <Link
             href={`/inspection/result/${tripId}/${serialNo}`}
-            className="absolute left-5 md:right-5 bottom-14 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-medium bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0 "
+            className="absolute left-5 md:right-5 bottom-14 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-semibold bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0 w-[135px] "
           >
             Finish detecting
           </Link>
@@ -396,7 +388,12 @@ export default function RealTimeDamageDetection() {
         footer={null}
         closeIcon={false}
         centered
-        width={320}
+        width={200}
+        styles={{
+          content: {
+            padding: "10px",
+          },
+        }}
       >
         <div className="relative">
           {modalLoading ? (
@@ -409,9 +406,9 @@ export default function RealTimeDamageDetection() {
               <Image
                 src={modalData.s3_url}
                 alt="Damage"
-                width={300}
-                height={200}
-                className="rounded-xl w-full object-cover"
+                width={140}
+                height={91}
+                className="rounded-xl w-full object-contain h-[91px]"
               />
               <div className="mt-4">
                 <p className="text-sm text-gray-600 capitalize">
@@ -423,7 +420,7 @@ export default function RealTimeDamageDetection() {
                 <button
                   onClick={handleAddToList}
                   disabled={isAddDamageLoading}
-                  className="mt-6 w-full bg-blue-600 text-white py-3 rounded-lg font-semibold"
+                  className="mt-6 w-full  text-white submit-button font-semibold"
                 >
                   {isAddDamageLoading ? (
                     <LoadingButtonAnimation />
@@ -438,7 +435,7 @@ export default function RealTimeDamageDetection() {
               <p className="text-lg font-medium">No damage detected</p>
               <button
                 onClick={closeModal}
-                className="mt-6 w-full bg-blue-600 text-white py-3 rounded-lg font-semibold"
+                className="mt-6 w-full submit-button  text-white  font-semibold"
               >
                 Close
               </button>
@@ -446,7 +443,7 @@ export default function RealTimeDamageDetection() {
           )}
           <button
             onClick={closeModal}
-            className="absolute -top-10 -right-10 bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center"
+            className="absolute -top-7 -right-7 bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center"
           >
             <CloseOutlined />
           </button>
