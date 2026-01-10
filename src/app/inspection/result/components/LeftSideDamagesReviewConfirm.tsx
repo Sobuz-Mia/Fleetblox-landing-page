@@ -12,6 +12,7 @@ import Image from "next/image";
 import ImageCaptureButtonIcon from "../../icons/ImageCaptureButtonIcon";
 import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
+import { FaArrowLeft } from "react-icons/fa6";
 
 type DamageGroupItem = {
   type: string;
@@ -31,20 +32,27 @@ type TDamageData = {
   part: string;
   damages: DamageGroupItem[];
 };
-
+type DamageReviewProps = {
+  openSide: string | null;
+  leftSideDamageData: TDamageData[] | undefined;
+  toggleSide: (side: "Left" | "Right" | "Front" | "Rear") => void;
+  getConditionColor: (condition: string) => string;
+  tripId: string;
+  serialNo: string;
+  setIsEdit: (val: boolean) => void;
+  isEdit: boolean;
+};
 const LeftSideDamagesReviewConfirm = ({
   openSide,
   toggleSide,
   getConditionColor,
   leftSideDamageData,
-}: {
-  openSide: string | null;
-  leftSideDamageData: TDamageData[] | undefined;
-  toggleSide: (side: "Left" | "Right" | "Front" | "Rear") => void;
-  getConditionColor: (condition: string) => string;
-}) => {
+  tripId,
+  serialNo,
+  setIsEdit,
+  isEdit,
+}: DamageReviewProps) => {
   const webcamRef = useRef<Webcam | null>(null);
-  const [isEdit, setIsEdit] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openCamera, setOpenCamera] = useState(false);
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
@@ -67,7 +75,7 @@ const LeftSideDamagesReviewConfirm = ({
       setOpenCamera(false); // Close camera
       setOpenDrawer(true); // Open drawer with captured image
     }
-  }, []);
+  }, [setIsEdit]);
 
   // Reset form when drawer closes
   const handleDrawerClose = () => {
@@ -78,7 +86,14 @@ const LeftSideDamagesReviewConfirm = ({
   };
 
   const addDamage = async () => {
-    if (!capturedImage || !damageType.value || !damageSeverity.value) return;
+    if (
+      !capturedImage ||
+      !damageType.value ||
+      !damageSeverity.value ||
+      tripId ||
+      serialNo
+    )
+      return;
 
     const response = await fetch(capturedImage);
     const blob = await response.blob();
@@ -91,11 +106,10 @@ const LeftSideDamagesReviewConfirm = ({
       side: "Left",
       part_name: "Front side bumper",
     };
-    console.log("Submitting:", formData);
     formData.append("data", JSON.stringify(metadata));
     try {
       const res = await axios.post(
-        `https://real-damage.fleetblox.com/api/add_manual_damage?trip_id=edbc7f2d-5295-4de9-9b0d-26b4686f9f9f&serial_no=1`,
+        `https://real-damage.fleetblox.com/api/add_manual_damage?trip_id=${tripId}&serial_no=${serialNo}`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -140,7 +154,13 @@ const LeftSideDamagesReviewConfirm = ({
     <>
       {isEdit ? (
         // === EDIT MODE ===
-        <div className="h-screen p-4">
+        <div className="h-screen ">
+          <button
+            onClick={() => setIsEdit(false)}
+            className="flex items-center justify-center gap-2 text-[#6F6464] text-[16px] font-semibold flex-initial mb-5"
+          >
+            <FaArrowLeft /> Back{" "}
+          </button>
           <h2 className="text-[#151515] text-[20px] font-bold text-center">
             {selectedPart || "Missing part name"}
           </h2>

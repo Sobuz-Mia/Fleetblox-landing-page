@@ -47,11 +47,13 @@ type TableRow = {
 
 const InspectionResult = () => {
   const params = useParams<{ trip_id: string; serial_no: string }>();
+
   const tripId = params.trip_id;
   const serialNo = params.serial_no;
   const [openSide, setOpenSide] = useState<
     "Left" | "Right" | "Front" | "Rear" | null
   >("Left");
+  const [isEdit, setIsEdit] = useState(false);
   const toggleSide = (side: "Left" | "Right" | "Front" | "Rear") => {
     setOpenSide((prev) => (prev === side ? null : side));
   };
@@ -178,18 +180,25 @@ const InspectionResult = () => {
     <div className="min-h-[80vh] bg-white px-5 py-5 max-w-3xl mx-auto flex flex-col justify-between">
       <div className=" space-y-2.5 ">
         {/* Title */}
-        <h1 className="text-[20px] font-bold text-center text-[#303030] mb-10">
-          Review damages
-        </h1>
+        {!isEdit && (
+          <h1 className="text-[20px] font-bold text-center text-[#303030] mb-10">
+            Review damages
+          </h1>
+        )}
         {/*Left Side table review  */}
         <LeftSideDamagesReviewConfirm
           openSide={openSide}
           toggleSide={toggleSide}
           getConditionColor={getConditionColor}
           leftSideDamageData={leftSideTableData}
+          tripId={tripId}
+          serialNo={serialNo}
+          setIsEdit={setIsEdit}
+          isEdit={isEdit}
         />
 
         {/* Right side table review */}
+
         <div
           className={` border rounded-md  ${
             openSide === "Right"
