@@ -8,6 +8,8 @@ import Image from "next/image";
 import toast from "react-hot-toast";
 import LoadingButtonAnimation from "@/components/ui/shared/ButtonLoadingAnimation";
 import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 interface DamageDetail {
   damage_id: number;
@@ -43,13 +45,22 @@ export default function RealTimeDamageDetection() {
   const [isAddDamageLoading, setIsAddDamageLoading] = useState(false);
   const [modalData, setModalData] = useState<DamageDetail | null>(null);
   const [clickPending, setClickPending] = useState(false);
-  const [damageCount, setDamageCount] = useState(0);
   const [isCarVisible, setIsCarVisible] = useState<boolean | null>(null);
 
   const pcRef = useRef<RTCPeerConnection | null>(null);
   const dataChannelRef = useRef<RTCDataChannel | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
 
+  // get the totol damages added
+  const { data: AddedDamageCount, refetch } = useQuery({
+    queryKey: ["addedDamages"],
+    queryFn: async () => {
+      const res = await axios.get(
+        `${BASE_URL}/api/get_num_added_damage?trip_id=${tripId}&serial_no=${serialNo}`
+      );
+      return res?.data?.num_added_damage;
+    },
+  });
   // Handle click/touch on video to request damage details
   const handleVideoInteraction = (
     e: React.MouseEvent<HTMLVideoElement> | React.TouchEvent<HTMLVideoElement>
@@ -313,7 +324,7 @@ export default function RealTimeDamageDetection() {
 
       if (res.ok) {
         toast.success("Damage added!");
-        setDamageCount((prev) => prev + 1);
+        refetch();
         closeModal();
       } else throw new Error();
     } catch {
@@ -324,7 +335,7 @@ export default function RealTimeDamageDetection() {
   };
   return (
     <>
-      <div className="fixed inset-0 bg-white overflow-hidden w-full h-full px-5">
+      <div className="fixed inset-0 bg-[#303030] overflow-hidden w-full h-full px-5">
         {isConnected && isCarVisible !== null && (
           <div
             className={`absolute top-1/2 rotate-90 left-[40%] w-full z-30 
@@ -358,10 +369,13 @@ export default function RealTimeDamageDetection() {
             </div>
           </div>
         )} */}
-        <div className="absolute top-10 left-5  z-20">
-          <div className="bg-black/60  text-white py-3 px-2.5 text-[18px] font-semibold rounded-md rotate-90 md:rotate-0 flex flex-col items-center">
-            <h2>{damageCount}</h2>
-            <p className="text-sm font-medium"> Damages added</p>
+        <div className="absolute top-14 left-5  z-20">
+          <div
+            style={{ textShadow: "0 4px 12px rgba(0, 0, 0, 0.14)" }}
+            className="  text-white py-3 px-2.5 text-[18px] font-semibold rounded-md rotate-90 md:rotate-0 "
+          >
+            <h2>{AddedDamageCount}</h2>
+            <p className=""> Damages added</p>
           </div>
         </div>
 
