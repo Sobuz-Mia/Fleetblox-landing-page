@@ -97,7 +97,7 @@ const LeftSideDamagesReviewConfirm = ({
       damage_type: damageType.value, // try both camelCase & snake_case
       severity: damageSeverity.value,
       side: "Left",
-      part_name: "Front side bumper",
+      part_name: selectedPart ?? "",
     };
     formData.append("data", JSON.stringify(metadata));
     try {
