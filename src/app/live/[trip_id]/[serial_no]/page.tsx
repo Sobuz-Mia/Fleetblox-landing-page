@@ -369,15 +369,17 @@ export default function RealTimeDamageDetection() {
             </div>
           </div>
         )} */}
-        <div className="absolute top-14 left-5  z-20">
-          <div
-            style={{ textShadow: "0 4px 12px rgba(0, 0, 0, 0.14)" }}
-            className="  text-white py-3 px-2.5 text-[18px] font-semibold rounded-md rotate-90 md:rotate-0 "
-          >
-            <h2>{AddedDamageCount}</h2>
-            <p className=""> Damages added</p>
+        {AddedDamageCount && isConnected && (
+          <div className="absolute top-14 left-5  z-20">
+            <div
+              style={{ textShadow: "0 4px 12px rgba(0, 0, 0, 0.14)" }}
+              className="  text-white py-3 px-2.5 text-[18px] font-semibold rounded-md rotate-90 md:rotate-0 "
+            >
+              <h2>{AddedDamageCount}</h2>
+              <p className=""> Damages added</p>
+            </div>
           </div>
-        </div>
+        )}
 
         {!isConnected && (
           <button
