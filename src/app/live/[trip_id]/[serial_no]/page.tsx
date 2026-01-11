@@ -44,6 +44,7 @@ export default function RealTimeDamageDetection() {
   const [modalData, setModalData] = useState<DamageDetail | null>(null);
   const [clickPending, setClickPending] = useState(false);
   const [damageCount, setDamageCount] = useState(0);
+  const [isCarVisible, setIsCarVisible] = useState<boolean | null>(null);
 
   const pcRef = useRef<RTCPeerConnection | null>(null);
   const dataChannelRef = useRef<RTCDataChannel | null>(null);
@@ -180,6 +181,11 @@ export default function RealTimeDamageDetection() {
       dataChannel.onmessage = (evt) => {
         try {
           const data = JSON.parse(evt.data);
+          if (data.type === "frame_meta") {
+            if (typeof data.car_visibility_flag === "boolean") {
+              setIsCarVisible(data.car_visibility_flag);
+            }
+          }
           if (data.type === "pong") return;
           if (data.type === "frame_popup") {
             setClickPending(false);
@@ -318,7 +324,18 @@ export default function RealTimeDamageDetection() {
   };
   return (
     <>
-      <div className="fixed inset-0 bg-white overflow-hidden w-full h-full ">
+      <div className="fixed inset-0 bg-white overflow-hidden w-full h-full px-5">
+        {isConnected && isCarVisible !== null && (
+          <div
+            className={`absolute top-1/2 rotate-90 left-[40%] w-full z-30 
+    px-4 py-2 rounded-md text-center text-[14px] font-semibold
+    ${isCarVisible ? "  text-green-600" : " text-red-600"}`}
+          >
+            {isCarVisible
+              ? "Vehicle detected – tap on damage area"
+              : "No vehicle damage detected – adjust camera"}
+          </div>
+        )}
         <video
           ref={videoRef}
           autoPlay
