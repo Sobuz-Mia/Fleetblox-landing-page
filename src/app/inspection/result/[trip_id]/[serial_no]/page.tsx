@@ -48,7 +48,10 @@ const InspectionResult = () => {
   const [openSide, setOpenSide] = useState<
     "Left" | "Right" | "Front" | "Rear" | null
   >("Left");
-  const [isEdit, setIsEdit] = useState(false);
+  const [isEditLeftSide, setIsEditLeftSide] = useState(false);
+  const [isEditRightSide, setIsEditRightSide] = useState(false);
+  const [isEditFrontSide, setIsEditFrontSide] = useState(false);
+  const [isEditRearSide, setIsEditRearSide] = useState(false);
   const toggleSide = (side: "Left" | "Right" | "Front" | "Rear") => {
     setOpenSide((prev) => (prev === side ? null : side));
   };
@@ -134,64 +137,74 @@ const InspectionResult = () => {
     if (cond === "Fair") return "orange";
     return "green";
   };
-
   return (
     <div className="min-h-[80vh] bg-white px-5 py-5 max-w-3xl mx-auto flex flex-col justify-between">
       <div className=" space-y-2.5 ">
         {/* Title */}
-        {!isEdit && (
-          <h1 className="text-[20px] font-bold text-center text-[#303030] mb-10">
-            Review damages
-          </h1>
-        )}
+        {!isEditLeftSide &&
+          !isEditFrontSide &&
+          !isEditRightSide &&
+          !isEditRearSide && (
+            <h1 className="text-[20px] font-bold text-center text-[#303030] mb-10">
+              Review damages
+            </h1>
+          )}
+
         {/*Left Side table review  */}
-        <LeftSideDamagesReviewConfirm
-          openSide={openSide}
-          toggleSide={toggleSide}
-          getConditionColor={getConditionColor}
-          leftSideDamageData={leftSideTableData}
-          tripId={tripId}
-          serialNo={serialNo}
-          setIsEdit={setIsEdit}
-          isEdit={isEdit}
-        />
+        {isEditRightSide || isEditFrontSide || isEditRearSide ? null : (
+          <LeftSideDamagesReviewConfirm
+            openSide={openSide}
+            toggleSide={toggleSide}
+            getConditionColor={getConditionColor}
+            leftSideDamageData={leftSideTableData}
+            tripId={tripId}
+            serialNo={serialNo}
+            setIsEdit={setIsEditLeftSide}
+            isEdit={isEditLeftSide}
+          />
+        )}
 
         {/* Right side table review */}
-
-        <RightSideDamagesReviewConfirm
-          openSide={openSide}
-          toggleSide={toggleSide}
-          getConditionColor={getConditionColor}
-          leftSideDamageData={rightSideTableData}
-          tripId={tripId}
-          serialNo={serialNo}
-          setIsEdit={setIsEdit}
-          isEdit={isEdit}
-        />
+        {isEditLeftSide || isEditFrontSide || isEditRearSide ? null : (
+          <RightSideDamagesReviewConfirm
+            openSide={openSide}
+            toggleSide={toggleSide}
+            getConditionColor={getConditionColor}
+            leftSideDamageData={rightSideTableData}
+            tripId={tripId}
+            serialNo={serialNo}
+            setIsEdit={setIsEditRightSide}
+            isEdit={isEditRightSide}
+          />
+        )}
 
         {/* Front side table review */}
-        <FrontSideDamagesReviewConfirm
-          openSide={openSide}
-          toggleSide={toggleSide}
-          getConditionColor={getConditionColor}
-          leftSideDamageData={frontSideTableData}
-          tripId={tripId}
-          serialNo={serialNo}
-          setIsEdit={setIsEdit}
-          isEdit={isEdit}
-        />
+        {isEditRightSide || isEditLeftSide || isEditRearSide ? null : (
+          <FrontSideDamagesReviewConfirm
+            openSide={openSide}
+            toggleSide={toggleSide}
+            getConditionColor={getConditionColor}
+            leftSideDamageData={frontSideTableData}
+            tripId={tripId}
+            serialNo={serialNo}
+            setIsEdit={setIsEditFrontSide}
+            isEdit={isEditFrontSide}
+          />
+        )}
 
         {/* Rear side table review */}
-        <RearSideDamagesReviewConfirm
-          openSide={openSide}
-          toggleSide={toggleSide}
-          getConditionColor={getConditionColor}
-          leftSideDamageData={rearSideTableData}
-          tripId={tripId}
-          serialNo={serialNo}
-          setIsEdit={setIsEdit}
-          isEdit={isEdit}
-        />
+        {isEditRightSide || isEditFrontSide || isEditLeftSide ? null : (
+          <RearSideDamagesReviewConfirm
+            openSide={openSide}
+            toggleSide={toggleSide}
+            getConditionColor={getConditionColor}
+            leftSideDamageData={rearSideTableData}
+            tripId={tripId}
+            serialNo={serialNo}
+            setIsEdit={setIsEditRearSide}
+            isEdit={isEditRearSide}
+          />
+        )}
       </div>
       <div className="space-y-2.5">
         <button className="border border-[#DDD] rounded-md w-full py-2 px-[14px] text-[#999] text-[14px]">
