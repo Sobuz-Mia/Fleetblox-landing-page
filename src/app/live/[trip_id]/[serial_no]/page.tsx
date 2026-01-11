@@ -334,13 +334,19 @@ export default function RealTimeDamageDetection() {
           onTouchStart={handleVideoInteraction}
         />
 
-        {damageCount > 0 && (
+        {/* {damageCount < 0 && (
           <div className="absolute bottom-28 left-1/2 -translate-x-1/2 z-20">
             <div className="bg-black/60 backdrop-blur-md text-white px-5 py-2.5 rounded-full">
               <p className="text-sm font-medium">{damageCount} Damages added</p>
             </div>
           </div>
-        )}
+        )} */}
+        <div className="absolute top-10 left-5  z-20">
+          <div className="bg-black/60  text-white py-3 px-2.5 text-[18px] font-semibold rounded-md rotate-90 md:rotate-0 flex flex-col items-center">
+            <h2>{damageCount}</h2>
+            <p className="text-sm font-medium"> Damages added</p>
+          </div>
+        </div>
 
         {!isConnected && (
           <button

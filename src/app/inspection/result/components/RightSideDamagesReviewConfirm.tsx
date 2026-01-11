@@ -42,7 +42,7 @@ type DamageReviewProps = {
   setIsEdit: (val: boolean) => void;
   isEdit: boolean;
 };
-const LeftSideDamagesReviewConfirm = ({
+const RightSideDamagesReviewConfirm = ({
   openSide,
   toggleSide,
   getConditionColor,
@@ -318,20 +318,20 @@ const LeftSideDamagesReviewConfirm = ({
         // === NORMAL VIEW ===
         <div
           className={`border rounded-md ${
-            openSide === "Left"
+            openSide === "Right"
               ? "border-t border-l border-r border-[#DDD] bg-[#F6F6F6]"
               : "border-b-none rounded-t-md border-[#F6F6F6] bg-white"
           }`}
         >
           <div
             className="flex items-center justify-between p-3 cursor-pointer"
-            onClick={() => toggleSide("Left")}
+            onClick={() => toggleSide("Right")}
           >
             <div className="flex items-center gap-[10px]">
               <LeftSideDoorIcon />
               <div>
                 <div className="text-[#303030] text-[14px] font-bold">
-                  Left side
+                  Right side
                 </div>
                 <Tag
                   color={getConditionColor("Poor")}
@@ -341,10 +341,10 @@ const LeftSideDamagesReviewConfirm = ({
                 </Tag>
               </div>
             </div>
-            {openSide !== "Left" ? <ExpandedReportIcon /> : <CollapseIcon />}
+            {openSide !== "Right" ? <ExpandedReportIcon /> : <CollapseIcon />}
           </div>
 
-          {openSide === "Left" && (
+          {openSide === "Right" && (
             <div>
               <div className="grid grid-cols-12 bg-[#F5F9FC] font-semibold text-12 text-black-softlight border-t border-gray-200">
                 <div className="col-span-6 p-3 border-b border-r border-gray-200 text-[12px] font-semibold text-[#6F6464]">
@@ -386,4 +386,4 @@ const LeftSideDamagesReviewConfirm = ({
   );
 };
 
-export default LeftSideDamagesReviewConfirm;
+export default RightSideDamagesReviewConfirm;

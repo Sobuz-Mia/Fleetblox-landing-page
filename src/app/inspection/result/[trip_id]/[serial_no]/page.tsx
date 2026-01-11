@@ -1,21 +1,16 @@
 "use client";
 import React, { useState } from "react";
-import { Tag, Image as antdImage } from "antd";
-import Image from "next/image";
-import ExpandedReportIcon from "../../../icons/ExpandedReportIcon";
-import EditIcon from "../../../icons/EditIcon";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import {
   apiToDisplayMap,
   templates,
 } from "../../../../tripwise/const/partKeys";
-import CollapseIcon from "../../Icons/CollapseIcon";
-import RightSideDoorIcon from "../../Icons/RightSideDoorIcon";
-import FrontCarIcon from "../../Icons/FrontCarIcon";
-import RearDoorIcon from "../../Icons/RearDoorIcon";
 import { useParams } from "next/navigation";
 import LeftSideDamagesReviewConfirm from "../../components/LeftSideDamagesReviewConfirm";
+import RightSideDamagesReviewConfirm from "../../components/RightSideDamagesReviewConfirm";
+import FrontSideDamagesReviewConfirm from "../../components/FrontSideDamagesReviewConfirm";
+import RearSideDamagesReviewConfirm from "../../components/RearSideDamagesReviewConfirm";
 
 export type SideKey = "left-side" | "right-side" | "front-side" | "rear-side";
 
@@ -130,42 +125,6 @@ const InspectionResult = () => {
     });
   };
 
-  const renderDamages = (damages: DamageGroupItem[]) => {
-    if (damages.length === 0) {
-      return (
-        <p className="font-normal text-[12px] leading-4 text-[#151515]">-</p>
-      );
-    }
-
-    return (
-      <div className="space-y-3">
-        {damages.map((d, i) => (
-          <div key={i} className="flex items-center gap-3">
-            <antdImage.PreviewGroup>
-              {d.images.map((url, idx) => (
-                <Image
-                  key={idx}
-                  width={32}
-                  height={32}
-                  src={url}
-                  alt={d.type}
-                  className="rounded-md object-contain w-[24px] h-[24px]"
-                />
-              ))}
-            </antdImage.PreviewGroup>
-            <div>
-              <span className="text-[12px] font-normal  leading-4 text-[#151515]">
-                {d.count > 1 ? `${d.count} ` : ""}
-                {d.type}
-                {d.count > 1 ? "s" : ""}
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-  };
-
   const leftSideTableData = isLoading ? [] : generateTableData("left-side");
   const rightSideTableData = isLoading ? [] : generateTableData("right-side");
   const frontSideTableData = isLoading ? [] : generateTableData("front-side");
@@ -199,191 +158,40 @@ const InspectionResult = () => {
 
         {/* Right side table review */}
 
-        <div
-          className={` border rounded-md  ${
-            openSide === "Right"
-              ? " border-t border-l border-r border-[#DDD] bg-[#F6F6F6] "
-              : "  border-b-none rounded-t-md  border-[#F6F6F6] bg-white"
-          }`}
-        >
-          <div
-            className="flex items-center justify-between  border-b-none p-3 cursor-pointer"
-            onClick={() => toggleSide("Right")}
-          >
-            <div className="flex items-center gap-[10px]">
-              <RightSideDoorIcon />
-              <div>
-                <div className="text-[#303030] text-[14px] font-bold ">
-                  Right side
-                </div>
-                <Tag
-                  color={getConditionColor("Good")}
-                  className="text-[14px] font-medium leading-4 border-none text-left "
-                >
-                  Good
-                </Tag>
-              </div>
-            </div>
+        <RightSideDamagesReviewConfirm
+          openSide={openSide}
+          toggleSide={toggleSide}
+          getConditionColor={getConditionColor}
+          leftSideDamageData={rightSideTableData}
+          tripId={tripId}
+          serialNo={serialNo}
+          setIsEdit={setIsEdit}
+          isEdit={isEdit}
+        />
 
-            {/* Back arrow – you can hook this up to router.back() or navigation */}
-            {openSide !== "Right" ? <ExpandedReportIcon /> : <CollapseIcon />}
-          </div>
-          {openSide === "Right" && (
-            <div>
-              <div className="grid grid-cols-12 bg-[#F5F9FC] font-semibold text-12 text-black-softlight border-t border-gray-200">
-                <div className="col-span-6 p-3 border-b border-r border-gray-200 text-[12px] font-semibold text-[#6F6464]">
-                  Vehicle parts
-                </div>
-                <div className="col-span-6 p-3 border-b border-r border-gray-200 text-[12px] font-semibold text-[#6F6464]">
-                  Damages
-                </div>
-              </div>
-
-              <div className=" border-gray-200 text-12">
-                {rightSideTableData?.map((item) => (
-                  <div
-                    key={item.sn}
-                    className="grid grid-cols-12 border-b border-gray-200 hover:bg-gray-100"
-                  >
-                    <div className="col-span-6 p-3 border-r border-gray-200 font-normal text-[12px] leading-4 text-[#151515]">
-                      {item.part}
-                    </div>
-                    <div className="col-span-6 p-3 border-r border-gray-200 font-normal text-[12px] leading-4 text-[#151515] flex justify-between gap-2.5">
-                      {renderDamages(item.damages)}{" "}
-                      <button className="">
-                        <EditIcon />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
         {/* Front side table review */}
-        <div
-          className={` border rounded-md  ${
-            openSide === "Front"
-              ? " border-t border-l border-r border-[#DDD] bg-[#F6F6F6] "
-              : "  border-b-none rounded-t-md  border-[#F6F6F6] bg-white"
-          }`}
-        >
-          <div
-            className="flex items-center justify-between  border-b-none p-3 cursor-pointer"
-            onClick={() => toggleSide("Front")}
-          >
-            <div className="flex items-center gap-[10px]">
-              <FrontCarIcon />
-              <div>
-                <div className="text-[#303030] text-[14px] font-bold ">
-                  Front side
-                </div>
-                <Tag
-                  color={getConditionColor("Good")}
-                  className="text-[14px] font-medium leading-4 border-none text-left "
-                >
-                  Good
-                </Tag>
-              </div>
-            </div>
+        <FrontSideDamagesReviewConfirm
+          openSide={openSide}
+          toggleSide={toggleSide}
+          getConditionColor={getConditionColor}
+          leftSideDamageData={frontSideTableData}
+          tripId={tripId}
+          serialNo={serialNo}
+          setIsEdit={setIsEdit}
+          isEdit={isEdit}
+        />
 
-            {/* Back arrow – you can hook this up to router.back() or navigation */}
-            {openSide !== "Front" ? <ExpandedReportIcon /> : <CollapseIcon />}
-          </div>
-          {openSide === "Front" && (
-            <div>
-              <div className="grid grid-cols-12 bg-[#F5F9FC] font-semibold text-12 text-black-softlight border-t border-gray-200">
-                <div className="col-span-6 p-3 border-b border-r border-gray-200 text-[12px] font-semibold text-[#6F6464]">
-                  Vehicle parts
-                </div>
-                <div className="col-span-6 p-3 border-b border-r border-gray-200 text-[12px] font-semibold text-[#6F6464]">
-                  Damages
-                </div>
-              </div>
-
-              <div className=" border-gray-200 text-12">
-                {frontSideTableData?.map((item) => (
-                  <div
-                    key={item.sn}
-                    className="grid grid-cols-12 border-b border-gray-200 hover:bg-gray-100"
-                  >
-                    <div className="col-span-6 p-3 border-r border-gray-200 font-normal text-[12px] leading-4 text-[#151515]">
-                      {item.part}
-                    </div>
-                    <div className="col-span-6 p-3 border-r border-gray-200 font-normal text-[12px] leading-4 text-[#151515] flex justify-between gap-2.5">
-                      {renderDamages(item.damages)}{" "}
-                      <button className="">
-                        <EditIcon />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
         {/* Rear side table review */}
-        <div
-          className={` border rounded-md  ${
-            openSide === "Rear"
-              ? " border-t border-l border-r border-[#DDD] bg-[#F6F6F6] "
-              : "  border-b-none rounded-t-md  border-[#F6F6F6] bg-white"
-          }`}
-        >
-          <div
-            className="flex items-center justify-between  border-b-none p-3 cursor-pointer"
-            onClick={() => toggleSide("Rear")}
-          >
-            <div className="flex items-center gap-[10px]">
-              <RearDoorIcon />
-              <div>
-                <div className="text-[#303030] text-[14px] font-bold ">
-                  Rear side
-                </div>
-                <Tag
-                  color={getConditionColor("Good")}
-                  className="text-[14px] font-medium leading-4 border-none text-left "
-                >
-                  Good
-                </Tag>
-              </div>
-            </div>
-
-            {/* Back arrow – you can hook this up to router.back() or navigation */}
-            {openSide !== "Rear" ? <ExpandedReportIcon /> : <CollapseIcon />}
-          </div>
-          {openSide === "Rear" && (
-            <div>
-              <div className="grid grid-cols-12 bg-[#F5F9FC] font-semibold text-12 text-black-softlight border-t border-gray-200">
-                <div className="col-span-6 p-3 border-b border-r border-gray-200 text-[12px] font-semibold text-[#6F6464]">
-                  Vehicle parts
-                </div>
-                <div className="col-span-6 p-3 border-b border-r border-gray-200 text-[12px] font-semibold text-[#6F6464]">
-                  Damages
-                </div>
-              </div>
-
-              <div className=" border-gray-200 text-12">
-                {rearSideTableData?.map((item) => (
-                  <div
-                    key={item.sn}
-                    className="grid grid-cols-12 border-b border-gray-200 hover:bg-gray-100"
-                  >
-                    <div className="col-span-6 p-3 border-r border-gray-200 font-normal text-[12px] leading-4 text-[#151515]">
-                      {item.part}
-                    </div>
-                    <div className="col-span-6 p-3 border-r border-gray-200 font-normal text-[12px] leading-4 text-[#151515] flex justify-between gap-2.5">
-                      {renderDamages(item.damages)}{" "}
-                      <button className="">
-                        <EditIcon />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
+        <RearSideDamagesReviewConfirm
+          openSide={openSide}
+          toggleSide={toggleSide}
+          getConditionColor={getConditionColor}
+          leftSideDamageData={rearSideTableData}
+          tripId={tripId}
+          serialNo={serialNo}
+          setIsEdit={setIsEdit}
+          isEdit={isEdit}
+        />
       </div>
       <div className="space-y-2.5">
         <button className="border border-[#DDD] rounded-md w-full py-2 px-[14px] text-[#999] text-[14px]">
