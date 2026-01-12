@@ -427,6 +427,10 @@ export default function RealTimeDamageDetection() {
         closeIcon={false}
         centered
         width={200}
+        modalRender={(modal) => (
+          <div className="rotate-90 md:rotate-0 origin-center">{modal}</div>
+        )}
+        // className="rotate-90 md:rotate-0"
         styles={{
           content: {
             padding: "10px",
