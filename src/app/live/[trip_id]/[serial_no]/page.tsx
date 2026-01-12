@@ -344,7 +344,7 @@ export default function RealTimeDamageDetection() {
           >
             {isCarVisible
               ? "Vehicle detected – tap on damage area"
-              : "No vehicle damage detected – adjust camera"}
+              : "No vehicle detected. Keep your camera on vehicles"}
           </div>
         )}
         <video
@@ -368,7 +368,7 @@ export default function RealTimeDamageDetection() {
             </div>
           </div>
         )} */}
-        {AddedDamageCount && isConnected && (
+        {AddedDamageCount > 0 && isConnected && (
           <div className="absolute top-14 left-5  z-20">
             <div
               style={{ textShadow: "0 4px 12px rgba(0, 0, 0, 0.14)" }}
