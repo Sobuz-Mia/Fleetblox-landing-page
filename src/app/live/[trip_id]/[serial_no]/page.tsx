@@ -361,7 +361,6 @@ export default function RealTimeDamageDetection() {
           onClick={handleVideoInteraction}
           onTouchStart={handleVideoInteraction}
         />
-
         {/* {damageCount < 0 && (
           <div className="absolute bottom-28 left-1/2 -translate-x-1/2 z-20">
             <div className="bg-black/60 backdrop-blur-md text-white px-5 py-2.5 rounded-full">
