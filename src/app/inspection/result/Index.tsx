@@ -13,7 +13,7 @@ export const renderDamages = (damages: DamageGroupItem[]) => {
       <p className="font-normal text-[12px] leading-4 text-[#151515]">-</p>
     );
   }
-
+  console.log(damages);
   return (
     <div className="space-y-3">
       {damages.map((d, i) => (

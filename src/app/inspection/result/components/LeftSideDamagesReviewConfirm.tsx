@@ -41,6 +41,7 @@ type DamageReviewProps = {
   serialNo: string;
   setIsEdit: (val: boolean) => void;
   isEdit: boolean;
+  refreshData: () => void;
 };
 const LeftSideDamagesReviewConfirm = ({
   openSide,
@@ -51,6 +52,7 @@ const LeftSideDamagesReviewConfirm = ({
   serialNo,
   setIsEdit,
   isEdit,
+  refreshData,
 }: DamageReviewProps) => {
   const webcamRef = useRef<Webcam | null>(null);
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -65,7 +67,9 @@ const LeftSideDamagesReviewConfirm = ({
     label: "Select damage severity",
     value: null,
   });
-
+  const existingDamages = leftSideDamageData?.find(
+    (item) => item?.part === selectedPart
+  );
   // Capture photo
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current?.getScreenshot();
@@ -109,6 +113,7 @@ const LeftSideDamagesReviewConfirm = ({
         }
       );
       if (res?.status === 200) {
+        refreshData();
         toast.success("Damage added successfully!");
         // Success: close drawer, reset states, maybe refresh damage list
         handleDrawerClose();
@@ -135,7 +140,7 @@ const LeftSideDamagesReviewConfirm = ({
 
     // Optionally refresh data or show success message
   };
-
+  console.log(leftSideDamageData);
   // Auto-open drawer when image is captured
   useEffect(() => {
     if (capturedImage && !openCamera) {
@@ -157,10 +162,75 @@ const LeftSideDamagesReviewConfirm = ({
           <h2 className="text-[#151515] text-[20px] font-bold text-center">
             {selectedPart || "Missing part name"}
           </h2>
+          {/* existing damages */}
           <h3 className="text-[#6F6464] text-[16px] font-semibold my-5">
             Existing damages
           </h3>
-
+          <div className="py-4">
+            {existingDamages?.damages?.map((damage, indx) => {
+              return (
+                <div
+                  key={indx}
+                  className="border border-[#B8CBFC] rounded-[10px] px-3 py-4 shadow-[0_2px_5px_0_rgba(0,0,0,0.05)] flex gap-2.5"
+                >
+                  <Image
+                    src={damage?.images[0]}
+                    alt="damage image"
+                    width={72}
+                    height={72}
+                    className="object-contain"
+                  />
+                  <div className="w-full space-y-2.5">
+                    <Select
+                      value={damage?.type}
+                      onChange={(value, option) => {
+                        console.log(value);
+                        const label = Array.isArray(option)
+                          ? option[0]?.label
+                          : option?.label;
+                        setDamageType({
+                          value: value as string,
+                          label: label || String(value),
+                        });
+                      }}
+                      className="w-full h-[50px]"
+                      // placeholder="Select damage type"
+                      options={[
+                        { value: "scratch", label: "Scratch" },
+                        { value: "dent", label: "Dent" },
+                        { value: "crack", label: "Crack" },
+                        { value: "detachment", label: "Detachment" },
+                        { value: "broken_part", label: "Broken part" },
+                        { value: "missing_part", label: "Missing part" },
+                        { value: "broken_light", label: "Broken light" },
+                        { value: "broken_window", label: "Broken window" },
+                        { value: "corrosion_rust", label: "Corrosion rust" },
+                      ]}
+                    />
+                    <Select
+                      value={damage.severity}
+                      onChange={(value, option) => {
+                        const label = Array.isArray(option)
+                          ? option[0]?.label
+                          : option?.label;
+                        setDamageSeverity({
+                          value: value as string,
+                          label: label || String(value),
+                        });
+                      }}
+                      className="w-full h-[50px]"
+                      placeholder="Select severity"
+                      options={[
+                        { label: "High", value: "high" },
+                        { label: "Medium", value: "medium" },
+                        { label: "Low", value: "low" },
+                      ]}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
           {/* No damages yet */}
           <div className="text-center max-w-[277px] w-full mx-auto my-10">
             <h2 className="mb-2.5 text-[#303030] text-[20px] font-bold">

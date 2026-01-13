@@ -41,6 +41,7 @@ type DamageReviewProps = {
   serialNo: string;
   setIsEdit: (val: boolean) => void;
   isEdit: boolean;
+  refreshData: () => void;
 };
 const FrontSideDamagesReviewConfirm = ({
   openSide,
@@ -51,6 +52,7 @@ const FrontSideDamagesReviewConfirm = ({
   serialNo,
   setIsEdit,
   isEdit,
+  refreshData,
 }: DamageReviewProps) => {
   const webcamRef = useRef<Webcam | null>(null);
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -97,7 +99,7 @@ const FrontSideDamagesReviewConfirm = ({
       damage_type: damageType.value, // try both camelCase & snake_case
       severity: damageSeverity.value,
       side: "Left",
-      part_name: "Front side bumper",
+      part_name: selectedPart ?? "",
     };
     formData.append("data", JSON.stringify(metadata));
     try {
@@ -109,6 +111,7 @@ const FrontSideDamagesReviewConfirm = ({
         }
       );
       if (res?.status === 200) {
+        refreshData();
         toast.success("Damage added successfully!");
         // Success: close drawer, reset states, maybe refresh damage list
         handleDrawerClose();

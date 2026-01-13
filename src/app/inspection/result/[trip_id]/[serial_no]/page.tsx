@@ -56,7 +56,11 @@ const InspectionResult = () => {
     setOpenSide((prev) => (prev === side ? null : side));
   };
   // const [activeKey, setActiveKey] = useState<string[]>([]);
-  const { data: reviewReportData, isLoading } = useQuery({
+  const {
+    data: reviewReportData,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["review-inspection-report", tripId, tripId],
     queryFn: async () => {
       const response = await axios.get(
@@ -153,6 +157,7 @@ const InspectionResult = () => {
         {/*Left Side table review  */}
         {isEditRightSide || isEditFrontSide || isEditRearSide ? null : (
           <LeftSideDamagesReviewConfirm
+            refreshData={refetch}
             openSide={openSide}
             toggleSide={toggleSide}
             getConditionColor={getConditionColor}
@@ -167,6 +172,7 @@ const InspectionResult = () => {
         {/* Right side table review */}
         {isEditLeftSide || isEditFrontSide || isEditRearSide ? null : (
           <RightSideDamagesReviewConfirm
+            refreshData={refetch}
             openSide={openSide}
             toggleSide={toggleSide}
             getConditionColor={getConditionColor}
@@ -181,6 +187,7 @@ const InspectionResult = () => {
         {/* Front side table review */}
         {isEditRightSide || isEditLeftSide || isEditRearSide ? null : (
           <FrontSideDamagesReviewConfirm
+            refreshData={refetch}
             openSide={openSide}
             toggleSide={toggleSide}
             getConditionColor={getConditionColor}
@@ -195,6 +202,7 @@ const InspectionResult = () => {
         {/* Rear side table review */}
         {isEditRightSide || isEditFrontSide || isEditLeftSide ? null : (
           <RearSideDamagesReviewConfirm
+            refreshData={refetch}
             openSide={openSide}
             toggleSide={toggleSide}
             getConditionColor={getConditionColor}
