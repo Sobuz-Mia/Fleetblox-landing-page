@@ -2,7 +2,7 @@
 
 import { Modal } from "antd";
 import { useParams } from "next/navigation";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CloseOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import toast from "react-hot-toast";
@@ -50,7 +50,9 @@ export default function RealTimeDamageDetection() {
   const pcRef = useRef<RTCPeerConnection | null>(null);
   const dataChannelRef = useRef<RTCDataChannel | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
-
+  const [networkQuality, setNetworkQuality] = useState<
+    "good" | "poor" | "very-poor" | "unknown"
+  >("unknown");
   // get the totol damages added
   const { data: AddedDamageCount, refetch } = useQuery({
     queryKey: ["addedDamages"],
@@ -284,7 +286,52 @@ export default function RealTimeDamageDetection() {
       videoRef.current.play().catch(() => {});
     }
   };
+  // Call this every ~3–5 seconds when connected
+  useEffect(() => {
+    if (!isConnected || !pcRef.current) return;
 
+    const interval = setInterval(async () => {
+      try {
+        const stats = await pcRef?.current?.getStats();
+        let packetLoss = 0;
+        let nackCount = 0;
+        let currentRTT = 0;
+        // let videoBytesReceived = 0;
+
+        stats?.forEach((report) => {
+          if (report.type === "inbound-rtp" && report.kind === "video") {
+            packetLoss =
+              report.packetsLost /
+                (report.packetsReceived + report.packetsLost) || 0;
+            nackCount = report.nackCount || 0;
+            // videoBytesReceived = report.bytesReceived || 0;
+          }
+          if (report.type === "candidate-pair" && report.currentRoundTripTime) {
+            currentRTT = report.currentRoundTripTime * 1000; // ms
+          }
+        });
+
+        // Simple but quite effective heuristic
+        let quality: "good" | "poor" | "very-poor" = "good";
+
+        if (packetLoss > 0.12 || nackCount > 15 || currentRTT > 400) {
+          quality = "very-poor";
+        } else if (packetLoss > 0.04 || nackCount > 5 || currentRTT > 220) {
+          quality = "poor";
+        }
+
+        setNetworkQuality(quality);
+
+        // Optional: you can also compare bytesReceived delta to detect freezes
+        // setLastStats({ ...lastStats, bytes: videoBytesReceived, timestamp: Date.now() });
+      } catch (err) {
+        console.warn("getStats failed", err);
+      }
+    }, 4000); // every 4 seconds is usually good balance
+
+    return () => clearInterval(interval);
+  }, [isConnected]);
+  console.log(networkQuality);
   const handleAddToList = async () => {
     if (!modalData) return;
     setIsAddDamageLoading(true);
@@ -368,22 +415,22 @@ export default function RealTimeDamageDetection() {
             </div>
           </div>
         )} */}
-        {AddedDamageCount > 0 && isConnected && (
-          <div className="absolute top-14 left-5  z-20">
-            <div
-              style={{ textShadow: "0 4px 12px rgba(0, 0, 0, 0.14)" }}
-              className="  text-white py-3 px-2.5 text-[18px] font-semibold rounded-md rotate-90 md:rotate-0 "
-            >
-              <h2>{AddedDamageCount}</h2>
-              <p className=""> Damages added</p>
-            </div>
+        {/* {AddedDamageCount > 0 && isConnected && ( */}
+        <div className="absolute top-14 left-5  z-20">
+          <div
+            style={{ textShadow: "0 4px 12px rgba(0, 0, 0, 0.14)" }}
+            className="  text-white py-3 px-2.5 text-[12px] border border-white rounded-md font-semibold bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0 "
+          >
+            <h2>{AddedDamageCount} Added</h2>
+            {/* <p className=""> Damages added</p> */}
           </div>
-        )}
+        </div>
+        {/* )} */}
 
         {!isConnected && (
           <button
             onClick={connect}
-            className={`absolute left-5 md:right-5 bottom-14 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-semibold bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0 w-[130px] `}
+            className={`absolute -left-2 md:right-5 bottom-14 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-semibold bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0 w-[130px] `}
           >
             {isConnecting ? "Detecting..." : "Start detecting"}
           </button>
@@ -413,7 +460,7 @@ export default function RealTimeDamageDetection() {
         {isConnected && (
           <Link
             href={`/inspection/result/${tripId}/${serialNo}`}
-            className="absolute left-5 md:right-5 bottom-14 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-semibold bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0 w-[135px] "
+            className="absolute -left-2 md:right-5 bottom-14 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-semibold bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0 w-[135px] "
           >
             Finish detecting
           </Link>
@@ -446,18 +493,19 @@ export default function RealTimeDamageDetection() {
           ) : modalData && !modalData?.message ? (
             <>
               <Image
-                src={modalData.s3_url}
+                src={modalData?.s3_url}
                 alt="Damage"
                 width={140}
                 height={91}
-                className="rounded-xl w-full object-contain h-[91px]"
+                className="rounded-md object-contain w-full h-[91px] rotate-90 md:rotate-0 md:h-[91px]
+  "
               />
               <div className="mt-4">
                 <p className="text-sm text-gray-600 capitalize">
-                  {modalData.part_name}
+                  {modalData?.part_name}
                 </p>
                 <p className="mt-2 text-base font-medium capitalize">
-                  {modalData.damage_type} ({modalData.severity})
+                  {modalData?.damage_type} ({modalData?.severity})
                 </p>
                 <button
                   onClick={handleAddToList}
