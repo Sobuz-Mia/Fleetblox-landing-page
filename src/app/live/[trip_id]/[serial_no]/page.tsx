@@ -10,7 +10,7 @@ import LoadingButtonAnimation from "@/components/ui/shared/ButtonLoadingAnimatio
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-
+import { RiErrorWarningFill } from "react-icons/ri";
 interface DamageDetail {
   damage_id: number;
   damage_type: string;
@@ -46,12 +46,17 @@ export default function RealTimeDamageDetection() {
   const [modalData, setModalData] = useState<DamageDetail | null>(null);
   const [clickPending, setClickPending] = useState(false);
   const [isCarVisible, setIsCarVisible] = useState<boolean | null>(null);
-
+  const prevVideoStats = useRef({
+    packetsReceived: 0,
+    packetsLost: 0,
+    timestamp: 0,
+    nackCount: 0,
+  });
   const pcRef = useRef<RTCPeerConnection | null>(null);
   const dataChannelRef = useRef<RTCDataChannel | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const [networkQuality, setNetworkQuality] = useState<
-    "good" | "poor" | "very-poor" | "unknown"
+    "good" | "poor" | "very-poor" | "fair" | "unknown"
   >("unknown");
   // get the totol damages added
   const { data: AddedDamageCount, refetch } = useQuery({
@@ -286,52 +291,128 @@ export default function RealTimeDamageDetection() {
       videoRef.current.play().catch(() => {});
     }
   };
-  // Call this every ~3–5 seconds when connected
+  // Inside the interval:
+  // Network monitoring effect
   useEffect(() => {
-    if (!isConnected || !pcRef.current) return;
+    if (!isConnected || !pcRef.current) {
+      setNetworkQuality("unknown");
+      return;
+    }
 
     const interval = setInterval(async () => {
       try {
         const stats = await pcRef?.current?.getStats();
-        let packetLoss = 0;
-        let nackCount = 0;
+
+        let currentPacketsReceived = 0;
+        let currentPacketsLost = 0;
+        let currentNackCount = 0;
         let currentRTT = 0;
-        // let videoBytesReceived = 0;
+        let reportTimestamp = 0;
+        let foundInbound = false;
 
         stats?.forEach((report) => {
           if (report.type === "inbound-rtp" && report.kind === "video") {
-            packetLoss =
-              report.packetsLost /
-                (report.packetsReceived + report.packetsLost) || 0;
-            nackCount = report.nackCount || 0;
-            // videoBytesReceived = report.bytesReceived || 0;
+            currentPacketsReceived = report.packetsReceived || 0;
+            currentPacketsLost = report.packetsLost || 0;
+            currentNackCount = report.nackCount || 0;
+            reportTimestamp = report.timestamp || Date.now();
+            foundInbound = true;
           }
-          if (report.type === "candidate-pair" && report.currentRoundTripTime) {
-            currentRTT = report.currentRoundTripTime * 1000; // ms
+          if (
+            report.type === "candidate-pair" &&
+            report.state === "succeeded"
+          ) {
+            currentRTT = (report.currentRoundTripTime || 0) * 1000;
           }
         });
 
-        // Simple but quite effective heuristic
-        let quality: "good" | "poor" | "very-poor" = "good";
+        if (!foundInbound) return;
 
-        if (packetLoss > 0.12 || nackCount > 15 || currentRTT > 400) {
+        // First measurement - just initialize
+        if (prevVideoStats.current.timestamp === 0) {
+          prevVideoStats.current = {
+            packetsReceived: currentPacketsReceived,
+            packetsLost: currentPacketsLost,
+            nackCount: currentNackCount,
+            timestamp: reportTimestamp,
+          };
+          setNetworkQuality("good");
+          return;
+        }
+
+        // Calculate deltas
+        const packetsReceivedDelta =
+          currentPacketsReceived - prevVideoStats.current.packetsReceived;
+        const packetsLostDelta =
+          currentPacketsLost - prevVideoStats.current.packetsLost;
+        const nackDelta = currentNackCount - prevVideoStats.current.nackCount;
+
+        const totalPackets = packetsReceivedDelta + packetsLostDelta;
+        const intervalLoss =
+          totalPackets > 0 ? packetsLostDelta / totalPackets : 0;
+
+        // Update previous values
+        prevVideoStats.current = {
+          packetsReceived: currentPacketsReceived,
+          packetsLost: currentPacketsLost,
+          nackCount: currentNackCount,
+          timestamp: reportTimestamp,
+        };
+
+        // ────────────────────────────────────────────────────────────────
+        // Updated realistic logic - tuned for mobile networks in 2025/2026
+        // Especially tolerant to NACKs when real loss is very low
+        // ────────────────────────────────────────────────────────────────
+
+        let quality: "good" | "fair" | "poor" | "very-poor" = "good";
+
+        const hasRealLoss = intervalLoss > 0.003; // >0.3% is already some loss
+
+        if (intervalLoss > 0.07 || (hasRealLoss && nackDelta > 45)) {
           quality = "very-poor";
-        } else if (packetLoss > 0.04 || nackCount > 5 || currentRTT > 220) {
+        } else if (
+          intervalLoss > 0.025 ||
+          nackDelta > 28 ||
+          (currentRTT > 380 && currentRTT !== 0)
+        ) {
           quality = "poor";
+        } else if (
+          nackDelta > 12 ||
+          (hasRealLoss && nackDelta > 6) ||
+          (currentRTT > 220 && currentRTT !== 0)
+        ) {
+          quality = "fair"; // mild retransmissions - still usable
+        } else {
+          quality = "good";
         }
 
         setNetworkQuality(quality);
 
-        // Optional: you can also compare bytesReceived delta to detect freezes
-        // setLastStats({ ...lastStats, bytes: videoBytesReceived, timestamp: Date.now() });
+        // ── Debug output (remove in production) ──────────────────────────
+        // console.log({
+        //   intervalLossPercent: (intervalLoss * 100).toFixed(2) + "%",
+        //   nackDelta,
+        //   rttMs: currentRTT.toFixed(0),
+        //   quality,
+        //   totalPacketsThisInterval: totalPackets,
+        // });
+        // ────────────────────────────────────────────────────────────────
       } catch (err) {
-        console.warn("getStats failed", err);
+        console.warn("getStats failed:", err);
       }
-    }, 4000); // every 4 seconds is usually good balance
+    }, 3500); // 3.5 seconds - good balance between responsiveness and noise
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      // Optional: reset on cleanup
+      prevVideoStats.current = {
+        packetsReceived: 0,
+        packetsLost: 0,
+        nackCount: 0,
+        timestamp: 0,
+      };
+    };
   }, [isConnected]);
-  console.log(networkQuality);
   const handleAddToList = async () => {
     if (!modalData) return;
     setIsAddDamageLoading(true);
@@ -408,24 +489,18 @@ export default function RealTimeDamageDetection() {
           onClick={handleVideoInteraction}
           onTouchStart={handleVideoInteraction}
         />
-        {/* {damageCount < 0 && (
-          <div className="absolute bottom-28 left-1/2 -translate-x-1/2 z-20">
-            <div className="bg-black/60 backdrop-blur-md text-white px-5 py-2.5 rounded-full">
-              <p className="text-sm font-medium">{damageCount} Damages added</p>
+        {/*  total damage added */}
+        {AddedDamageCount > 0 && isConnected && (
+          <div className="absolute top-14 left-5  z-20">
+            <div
+              style={{ textShadow: "0 4px 12px rgba(0, 0, 0, 0.14)" }}
+              className="  text-white py-3 px-2.5 text-[12px] border border-white rounded-md font-semibold bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0 "
+            >
+              <h2>{AddedDamageCount} Added</h2>
+              {/* <p className=""> Damages added</p> */}
             </div>
           </div>
-        )} */}
-        {/* {AddedDamageCount > 0 && isConnected && ( */}
-        <div className="absolute top-14 left-5  z-20">
-          <div
-            style={{ textShadow: "0 4px 12px rgba(0, 0, 0, 0.14)" }}
-            className="  text-white py-3 px-2.5 text-[12px] border border-white rounded-md font-semibold bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0 "
-          >
-            <h2>{AddedDamageCount} Added</h2>
-            {/* <p className=""> Damages added</p> */}
-          </div>
-        </div>
-        {/* )} */}
+        )}
 
         {!isConnected && (
           <button
@@ -456,6 +531,28 @@ export default function RealTimeDamageDetection() {
             </svg>
           </button>
         )}
+        {/* network warning */}
+
+        {isConnected &&
+          (networkQuality === "poor" || networkQuality === "very-poor") && (
+            <div
+              className={`absolute -right-10 top-20 z-50 px-4 py-2.5 text-[12px] font-semibold w-fit rotate-90 md:rotate-0 flex items-center gap-2.5 transition-all duration-300 ${
+                networkQuality === "very-poor"
+                  ? "text-red-600"
+                  : "text-[#E2CE02]"
+              }`}
+            >
+              <RiErrorWarningFill
+                color={networkQuality === "very-poor" ? "#DC2626" : "#E2CE02"}
+                size={24}
+              />
+              <p>
+                {networkQuality === "very-poor"
+                  ? "Very unstable connection"
+                  : "Unstable connection"}
+              </p>
+            </div>
+          )}
 
         {isConnected && (
           <Link
