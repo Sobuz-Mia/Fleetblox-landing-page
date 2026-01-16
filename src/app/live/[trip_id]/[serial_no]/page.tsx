@@ -10,7 +10,7 @@ import LoadingButtonAnimation from "@/components/ui/shared/ButtonLoadingAnimatio
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { RiErrorWarningFill } from "react-icons/ri";
+import CarConnectIcon from "./../../../inspection/icons/CarConnectIcon";
 interface DamageDetail {
   damage_id: number;
   damage_type: string;
@@ -466,8 +466,8 @@ export default function RealTimeDamageDetection() {
       <div className="fixed inset-0 bg-[#303030] overflow-hidden w-full h-full px-5">
         {isConnected && isCarVisible !== null && (
           <div
-            className={`absolute top-1/2 rotate-90 left-[40%] w-full z-30 
-    px-4 py-2 rounded-md text-center text-[14px] font-semibold
+            className={`absolute top-[11%] mx-auto max-w-[360px] w-full z-30 
+   rounded-md text-center text-[14px] font-semibold
     ${isCarVisible ? "  text-green-600" : " text-red-600"}`}
           >
             {isCarVisible
@@ -490,22 +490,22 @@ export default function RealTimeDamageDetection() {
           onTouchStart={handleVideoInteraction}
         />
         {/*  total damage added */}
-        {AddedDamageCount > 0 && isConnected && (
-          <div className="absolute top-14 left-5  z-20">
-            <div
-              style={{ textShadow: "0 4px 12px rgba(0, 0, 0, 0.14)" }}
-              className="  text-white py-3 px-2.5 text-[12px] border border-white rounded-md font-semibold bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0 "
-            >
-              <h2>{AddedDamageCount} Added</h2>
-              {/* <p className=""> Damages added</p> */}
-            </div>
+        {/* {AddedDamageCount > 0 && isConnected && ( */}
+        <div className="absolute bottom-5 left-2  z-20">
+          <div
+            style={{ textShadow: "0 4px 12px rgba(0, 0, 0, 0.14)" }}
+            className="  text-white py-3 px-2.5 text-[12px] border border-white rounded-md font-semibold bg-black/40 backdrop-blur-sm "
+          >
+            <h2>{AddedDamageCount} Added</h2>
+            {/* <p className=""> Damages added</p> */}
           </div>
-        )}
+        </div>
+        {/* )} */}
 
         {!isConnected && (
           <button
             onClick={connect}
-            className={`absolute -left-2 md:right-5 bottom-14 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-semibold bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0 w-[130px] `}
+            className={`absolute right-2 bottom-5 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-semibold bg-black/40 backdrop-blur-sm w-[130px] `}
           >
             {isConnecting ? "Detecting..." : "Start detecting"}
           </button>
@@ -513,7 +513,7 @@ export default function RealTimeDamageDetection() {
         {/* back button */}
         {isConnected && (
           <button
-            className={`absolute right-5 bottom-5 z-50 px-4 py-2.5 text-white text-[12px] font-semibold bg-black/40 p-2 rounded-full w-fit rotate-90 md:rotate-0 `}
+            className={`absolute right-5 top-10 z-50 px-4 py-2.5 text-white text-[12px] font-semibold bg-black/40 p-2 rounded-full w-fit  `}
             onClick={() => window.history.back()}
             style={{ background: `rgb(21, 21, 21, 0.28)` }}
           >
@@ -533,31 +533,29 @@ export default function RealTimeDamageDetection() {
         )}
         {/* network warning */}
 
-        {isConnected &&
-          (networkQuality === "poor" || networkQuality === "very-poor") && (
-            <div
-              className={`absolute -right-10 top-20 z-50 px-4 py-2.5 text-[12px] font-semibold w-fit rotate-90 md:rotate-0 flex items-center gap-2.5 transition-all duration-300 ${
-                networkQuality === "very-poor"
-                  ? "text-red-600"
-                  : "text-[#E2CE02]"
-              }`}
-            >
-              <RiErrorWarningFill
-                color={networkQuality === "very-poor" ? "#DC2626" : "#E2CE02"}
-                size={24}
-              />
-              <p>
-                {networkQuality === "very-poor"
-                  ? "Very unstable connection"
-                  : "Unstable connection"}
-              </p>
-            </div>
-          )}
+        {isConnected && (
+          <div
+            className={`absolute left-1 top-1 z-50 px-4 py-2.5 text-[12px] font-semibold w-fit  flex items-center gap-2.5 transition-all duration-300 `}
+          >
+            <CarConnectIcon
+              fill={networkQuality === "very-poor" ? "#DC2626" : "#2D65F2"}
+            />
+            {/* <RiErrorWarningFill
+              color={networkQuality === "very-poor" ? "#DC2626" : "#E2CE02"}
+              size={24}
+            />
+            <p>
+              {networkQuality === "very-poor"
+                ? "Very unstable connection"
+                : "Unstable connection"}
+            </p> */}
+          </div>
+        )}
 
         {isConnected && (
           <Link
             href={`/inspection/result/${tripId}/${serialNo}`}
-            className="absolute -left-2 md:right-5 bottom-14 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-semibold bg-black/40 backdrop-blur-sm rotate-90 md:rotate-0 w-[135px] "
+            className="absolute right-2 bottom-5 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-semibold bg-black/40 backdrop-blur-sm w-[135px] "
           >
             Finish detecting
           </Link>
@@ -571,9 +569,9 @@ export default function RealTimeDamageDetection() {
         closeIcon={false}
         centered
         width={200}
-        modalRender={(modal) => (
-          <div className="rotate-90 md:rotate-0 origin-center">{modal}</div>
-        )}
+        // modalRender={(modal) => (
+        //   <div className="rotate-90 md:rotate-0 origin-center">{modal}</div>
+        // )}
         // className="rotate-90 md:rotate-0"
         styles={{
           content: {
@@ -594,8 +592,7 @@ export default function RealTimeDamageDetection() {
                 alt="Damage"
                 width={140}
                 height={91}
-                className="rounded-md object-contain w-full h-[91px] rotate-90 md:rotate-0 md:h-[91px]
-  "
+                className="rounded-md object-contain w-full h-[91px]"
               />
               <div className="mt-4">
                 <p className="text-sm text-gray-600 capitalize">

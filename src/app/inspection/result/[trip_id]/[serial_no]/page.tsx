@@ -214,7 +214,7 @@ const InspectionResult = () => {
           />
         )}
       </div>
-      <div className="space-y-2.5">
+      <div className="space-y-2.5 mt-5">
         <button className="border border-[#DDD] rounded-md w-full py-2 px-[14px] text-[#999] text-[14px]">
           Recapture
         </button>
