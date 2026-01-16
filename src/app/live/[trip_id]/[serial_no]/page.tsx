@@ -466,9 +466,7 @@ export default function RealTimeDamageDetection() {
       <div className="fixed inset-0 bg-[#303030] overflow-hidden w-full h-full px-5">
         {isConnected && isCarVisible !== null && (
           <div
-            className={`absolute top-[7%] mx-auto max-w-[360px] w-full z-30 
-   rounded-md text-center text-[14px] font-semibold
-    ${isCarVisible ? "  text-green-600" : " text-red-600"}`}
+            className={`absolute top-[7%] left-1/2 -translate-x-1/2 max-w-[360px] w-[90%] z-30 rounded-md text-center text-[14px] font-semibold ${isCarVisible ? "  text-green-600" : " text-red-600"}`}
           >
             {isCarVisible
               ? "Vehicle detected – tap on damage area"
