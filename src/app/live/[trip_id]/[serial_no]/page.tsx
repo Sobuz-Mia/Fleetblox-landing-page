@@ -466,7 +466,7 @@ export default function RealTimeDamageDetection() {
       <div className="fixed inset-0 bg-[#303030] overflow-hidden w-full h-full px-5">
         {isConnected && isCarVisible !== null && (
           <div
-            className={`absolute top-[11%] mx-auto max-w-[360px] w-full z-30 
+            className={`absolute top-[7%] mx-auto max-w-[360px] w-full z-30 
    rounded-md text-center text-[14px] font-semibold
     ${isCarVisible ? "  text-green-600" : " text-red-600"}`}
           >
@@ -490,17 +490,17 @@ export default function RealTimeDamageDetection() {
           onTouchStart={handleVideoInteraction}
         />
         {/*  total damage added */}
-        {/* {AddedDamageCount > 0 && isConnected && ( */}
-        <div className="absolute bottom-5 left-2  z-20">
-          <div
-            style={{ textShadow: "0 4px 12px rgba(0, 0, 0, 0.14)" }}
-            className="  text-white py-3 px-2.5 text-[12px] border border-white rounded-md font-semibold bg-black/40 backdrop-blur-sm "
-          >
-            <h2>{AddedDamageCount} Added</h2>
-            {/* <p className=""> Damages added</p> */}
+        {AddedDamageCount > 0 && isConnected && (
+          <div className="absolute bottom-5 left-2  z-20">
+            <div
+              style={{ textShadow: "0 4px 12px rgba(0, 0, 0, 0.14)" }}
+              className="  text-white py-3 px-2.5 text-[12px] border border-white rounded-md font-semibold bg-black/40 backdrop-blur-sm "
+            >
+              <h2>{AddedDamageCount} Added</h2>
+              {/* <p className=""> Damages added</p> */}
+            </div>
           </div>
-        </div>
-        {/* )} */}
+        )}
 
         {!isConnected && (
           <button
@@ -513,7 +513,7 @@ export default function RealTimeDamageDetection() {
         {/* back button */}
         {isConnected && (
           <button
-            className={`absolute right-5 top-10 z-50 px-4 py-2.5 text-white text-[12px] font-semibold bg-black/40 p-2 rounded-full w-fit  `}
+            className={`absolute right-2 top-2 z-50  text-white text-[12px] font-semibold bg-black/40 p-2 rounded-full   `}
             onClick={() => window.history.back()}
             style={{ background: `rgb(21, 21, 21, 0.28)` }}
           >
@@ -535,7 +535,7 @@ export default function RealTimeDamageDetection() {
 
         {isConnected && (
           <div
-            className={`absolute left-1 top-1 z-50 px-4 py-2.5 text-[12px] font-semibold w-fit  flex items-center gap-2.5 transition-all duration-300 `}
+            className={`absolute left-1 top-0  z-50 px-4 py-2.5 text-[12px] font-semibold w-fit  flex items-center gap-2.5 transition-all duration-300 `}
           >
             <CarConnectIcon
               fill={networkQuality === "very-poor" ? "#DC2626" : "#2D65F2"}

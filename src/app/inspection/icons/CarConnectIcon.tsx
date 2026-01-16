@@ -3,7 +3,7 @@ const CarConnectIcon = ({ fill = "#2D65F2" }: { fill?: string }) => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
-      height="100"
+      height="32"
       viewBox="0 0 111 100"
       fill="none"
     >
