@@ -1,16 +1,13 @@
 "use client";
-
 import { Modal } from "antd";
 import { useParams } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
-import { CloseOutlined } from "@ant-design/icons";
-import Image from "next/image";
 import toast from "react-hot-toast";
-import LoadingButtonAnimation from "@/components/ui/shared/ButtonLoadingAnimation";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import CarConnectIcon from "./../../../inspection/icons/CarConnectIcon";
+import { DamageModal } from "../../components/DamageModal";
 interface DamageDetail {
   damage_id: number;
   damage_type: string;
@@ -42,7 +39,6 @@ export default function RealTimeDamageDetection() {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalLoading, setModalLoading] = useState(false);
-  const [isAddDamageLoading, setIsAddDamageLoading] = useState(false);
   const [modalData, setModalData] = useState<DamageDetail | null>(null);
   const [clickPending, setClickPending] = useState(false);
   const [isCarVisible, setIsCarVisible] = useState<boolean | null>(null);
@@ -63,14 +59,14 @@ export default function RealTimeDamageDetection() {
     queryKey: ["addedDamages"],
     queryFn: async () => {
       const res = await axios.get(
-        `${BASE_URL}/api/get_num_added_damage?trip_id=${tripId}&serial_no=${serialNo}`
+        `${BASE_URL}/api/get_num_added_damage?trip_id=${tripId}&serial_no=${serialNo}`,
       );
       return res?.data?.num_added_damage;
     },
   });
   // Handle click/touch on video to request damage details
   const handleVideoInteraction = (
-    e: React.MouseEvent<HTMLVideoElement> | React.TouchEvent<HTMLVideoElement>
+    e: React.MouseEvent<HTMLVideoElement> | React.TouchEvent<HTMLVideoElement>,
   ) => {
     if (!dataChannelRef.current || dataChannelRef.current.readyState !== "open")
       return;
@@ -237,7 +233,7 @@ export default function RealTimeDamageDetection() {
       // Insert after the video m=line
       sdp = sdp?.replace(
         /m=video(.*)\r\n/,
-        `m=video$1\r\nb=AS:10000\r\nb=TIAS:10000000\r\n`
+        `m=video$1\r\nb=AS:10000\r\nb=TIAS:10000000\r\n`,
       );
       // Or higher: b=AS:8000 for ~8 Mbps
 
@@ -413,54 +409,7 @@ export default function RealTimeDamageDetection() {
       };
     };
   }, [isConnected]);
-  const handleAddToList = async () => {
-    if (!modalData) return;
-    setIsAddDamageLoading(true);
 
-    try {
-      const base64String = modalData.s3_url.split(",")[1];
-      const binaryString = atob(base64String);
-      const bytes = new Uint8Array(binaryString.length);
-      for (let i = 0; i < binaryString.length; i++) {
-        bytes[i] = binaryString.charCodeAt(i);
-      }
-
-      const blob = new Blob([bytes], { type: "image/jpeg" });
-      const file = new File([blob], `damage_${modalData.damage_id}.jpeg`, {
-        type: "image/jpeg",
-      });
-
-      const formData = new FormData();
-      formData.append("trip_id", tripId);
-      formData.append("serial_no", serialNo);
-      formData.append("image", file);
-      formData.append(
-        "data",
-        JSON.stringify({
-          damage_id: modalData.damage_id,
-          damage_type: modalData.damage_type,
-          part_name: modalData.part_name,
-          severity: modalData.severity,
-          side: modalData.side,
-        })
-      );
-
-      const res = await fetch(`${BASE_URL}/api/damage_pop_up_confirm`, {
-        method: "POST",
-        body: formData,
-      });
-
-      if (res.ok) {
-        toast.success("Damage added!");
-        refetch();
-        closeModal();
-      } else throw new Error();
-    } catch {
-      toast.error("Failed to add damage");
-    } finally {
-      setIsAddDamageLoading(false);
-    }
-  };
   return (
     <>
       <div className="fixed inset-0 bg-[#303030] overflow-hidden w-full h-full px-5">
@@ -470,7 +419,7 @@ export default function RealTimeDamageDetection() {
           >
             {isCarVisible
               ? "Vehicle detected – tap on damage area"
-              : "No vehicle detected. Keep your camera on vehicles"}
+              : "No vehicle detected. Keep your camera on vehicle"}
           </div>
         )}
         <video
@@ -505,7 +454,7 @@ export default function RealTimeDamageDetection() {
             onClick={connect}
             className={`absolute right-2 bottom-5 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-semibold bg-black/40 backdrop-blur-sm w-[130px] `}
           >
-            {isConnecting ? "Detecting..." : "Start detecting"}
+            {isConnecting ? "Scanning..." : "Start scanning"}
           </button>
         )}
         {/* back button */}
@@ -536,7 +485,13 @@ export default function RealTimeDamageDetection() {
             className={`absolute left-1 top-0  z-50 px-4 py-2.5 text-[12px] font-semibold w-fit  flex items-center gap-2.5 transition-all duration-300 `}
           >
             <CarConnectIcon
-              fill={networkQuality === "very-poor" ? "#DC2626" : "#2D65F2"}
+              fill={
+                networkQuality === "very-poor"
+                  ? "#DC2626"
+                  : networkQuality === "poor"
+                    ? "#FACC15"
+                    : "#008000 "
+              }
             />
             {/* <RiErrorWarningFill
               color={networkQuality === "very-poor" ? "#DC2626" : "#E2CE02"}
@@ -555,7 +510,7 @@ export default function RealTimeDamageDetection() {
             href={`/inspection/result/${tripId}/${serialNo}`}
             className="absolute right-2 bottom-5 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-semibold bg-black/40 backdrop-blur-sm w-[135px] "
           >
-            Finish detecting
+            Finish scanning
           </Link>
         )}
       </div>
@@ -577,7 +532,31 @@ export default function RealTimeDamageDetection() {
           },
         }}
       >
-        <div className="relative">
+        <DamageModal
+          modalLoading={modalLoading}
+          tripId={tripId}
+          serialNo={serialNo}
+          modalData={modalData}
+          refetch={refetch}
+          closeModal={closeModal}
+        />
+        {/* <DamageModal
+          modalLoading={modalLoading}
+          tripId={tripId}
+          serialNo={serialNo}
+          modalData={{
+            damage_id: 101,
+            damage_type: "Scratch",
+            part_name: "Front Bumper",
+            severity: "Moderate",
+            side: "Left",
+            s3_url: "",
+            overlap: 0.32,
+          }}
+          refetch={refetch}
+          closeModal={closeModal}
+        /> */}
+        {/* <div className="relative">
           {modalLoading ? (
             <div className="flex flex-col items-center py-16">
               <LoadingButtonAnimation bg={true} />
@@ -629,7 +608,7 @@ export default function RealTimeDamageDetection() {
           >
             <CloseOutlined />
           </button>
-        </div>
+        </div> */}
       </Modal>
     </>
   );

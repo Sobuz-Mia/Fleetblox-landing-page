@@ -1,182 +1,194 @@
-// components/DamageModal.tsx
-"use client";
-
+import Image from "next/image";
+import LoadingButtonAnimation from "./../../../components/ui/shared/ButtonLoadingAnimation";
 import { useState } from "react";
-import { useAddedDamages } from "./../../../hooks/useAddedDamages";
-
-interface Damage {
+import toast from "react-hot-toast";
+import { CloseOutlined } from "@ant-design/icons";
+import { Select } from "antd";
+interface DamageDetail {
   damage_id: number;
   damage_type: string;
-  damage_confidence: number;
-  damage_mask: [number, number][];
+  part_name: string;
+  severity: string;
+  side?: string;
+  s3_url: string;
+  overlap?: number;
+  message?: string | null;
+  [key: string]: unknown;
+}
+import { ReactNode } from "react";
+import { DefaultOptionType } from "antd/es/select";
+import { vehiclePartOptions } from "./../../tripwise/const/PartsName";
+
+export interface SelectGroupOption {
+  label: ReactNode;
+  title: string;
+  options: {
+    label: ReactNode;
+    value: string;
+  }[];
 }
 
+const BASE_URL = "https://real-damage.fleetblox.com";
 export function DamageModal({
-  isOpen,
-  onClose,
-  damage,
-  currentSide,
+  modalLoading,
+  tripId,
+  modalData,
+  serialNo,
+  refetch,
+  closeModal,
 }: {
-  isOpen: boolean;
-  onClose: () => void;
-  damage: Damage | null;
-  currentSide: string;
+  modalLoading: boolean;
+  tripId: string;
+  modalData: DamageDetail | null;
+  serialNo: string;
+  refetch: () => void;
+  closeModal: () => void;
 }) {
-  const [part, setPart] = useState("front-bumper");
-  const [type, setType] = useState("scratch");
-  const [severity, setSeverity] = useState("minor");
-  const { addDamage } = useAddedDamages();
+  const [selectedPartName, setSelectedPartName] = useState(
+    modalData?.part_name || "",
+  );
+  const [selectedDamageType, setSelectedDamageType] = useState(
+    modalData?.damage_type || "",
+  );
+  const [isAddDamageLoading, setIsAddDamageLoading] = useState(false);
+  const handleAddToList = async () => {
+    if (!modalData) return;
+    setIsAddDamageLoading(true);
 
-  if (!isOpen || !damage) return null;
+    try {
+      const base64String = modalData.s3_url.split(",")[1];
+      const binaryString = atob(base64String);
+      const bytes = new Uint8Array(binaryString.length);
+      for (let i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
 
-  const captureAndSend = async () => {
-    const video = document.querySelector("video") as HTMLVideoElement;
-    if (!video) return;
+      const blob = new Blob([bytes], { type: "image/jpeg" });
+      const file = new File([blob], `damage_${modalData.damage_id}.jpeg`, {
+        type: "image/jpeg",
+      });
 
-    const canvas = document.createElement("canvas");
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    const ctx = canvas.getContext("2d")!;
-    ctx.drawImage(video, 0, 0);
+      const formData = new FormData();
+      formData.append("trip_id", tripId);
+      formData.append("serial_no", serialNo);
+      formData.append("image", file);
+      formData.append(
+        "data",
+        JSON.stringify({
+          damage_id: modalData.damage_id,
+          damage_type: selectedDamageType,
+          part_name: selectedPartName,
+          severity: modalData.severity,
+          side: modalData.side,
+        }),
+      );
 
-    const blob = await new Promise<Blob>((res) =>
-      canvas.toBlob((b) => res(b!), "image/jpeg", 0.95)
-    );
+      const res = await fetch(`${BASE_URL}/api/damage_pop_up_confirm`, {
+        method: "POST",
+        body: formData,
+      });
 
-    // Build exact string like your Postman
-    let dataStr = `(damage_id:${damage.damage_id},damage_type:${type},damage_confidence:${damage.damage_confidence},part_name:${part},severity:${severity})`;
-    damage.damage_mask.forEach((p) => (dataStr += `[${p[0]},${p[1]}]`));
-
-    const form = new FormData();
-    form.append("image", blob, "damage.jpg");
-    form.append("data", dataStr);
-
-    await fetch("/api/process_single_damage", { method: "POST", body: form });
-
-    // Create thumbnail
-    const bbox = damage.damage_mask.reduce(
-      (a, p) => ({
-        minX: Math.min(a.minX, p[0]),
-        minY: Math.min(a.minY, p[1]),
-        maxX: Math.max(a.maxX, p[0]),
-        maxY: Math.max(a.maxY, p[1]),
-      }),
-      { minX: Infinity, minY: Infinity, maxX: -Infinity, maxY: -Infinity }
-    );
-
-    const thumbCanvas = document.createElement("canvas");
-    thumbCanvas.width = bbox.maxX - bbox.minX + 60;
-    thumbCanvas.height = bbox.maxY - bbox.minY + 60;
-    const tctx = thumbCanvas.getContext("2d")!;
-    tctx.drawImage(
-      video,
-      bbox.minX - 30,
-      bbox.minY - 30,
-      thumbCanvas.width,
-      thumbCanvas.height,
-      0,
-      0,
-      thumbCanvas.width,
-      thumbCanvas.height
-    );
-    tctx.strokeStyle = "#22c55e";
-    tctx.lineWidth = 6;
-    tctx.beginPath();
-    damage.damage_mask.forEach((p, i) =>
-      i === 0
-        ? tctx.moveTo(p[0] - bbox.minX + 30, p[1] - bbox.minY + 30)
-        : tctx.lineTo(p[0] - bbox.minX + 30, p[1] - bbox.minY + 30)
-    );
-    tctx.closePath();
-    tctx.stroke();
-
-    addDamage({
-      side: currentSide,
-      part,
-      type,
-      severity,
-      confidence: damage.damage_confidence,
-      thumbnail: thumbCanvas.toDataURL(),
-    });
-
-    onClose();
+      if (res.ok) {
+        toast.success("Damage added!");
+        refetch();
+        closeModal();
+      } else throw new Error();
+    } catch (err) {
+      console.log(err);
+      toast.error("Failed to add damage");
+    } finally {
+      setIsAddDamageLoading(false);
+    }
   };
-
   return (
-    <div
-      className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
-      onClick={onClose}
-    >
-      <div
-        className="bg-white rounded-2xl p-8 max-w-md w-full mx-4"
-        onClick={(e) => e.stopPropagation()}
+    <div className="relative">
+      {modalLoading ? (
+        <div className="flex flex-col items-center py-16">
+          <LoadingButtonAnimation bg={true} />
+          <p className="mt-4 text-sm text-gray-600">Detecting damage...</p>
+        </div>
+      ) : modalData && !modalData?.message ? (
+        <>
+          {modalData?.s3_url && (
+            <Image
+              src={modalData?.s3_url || ""}
+              alt="Damage image"
+              width={140}
+              height={91}
+              className="rounded-md object-cover w-full h-[91px]"
+            />
+          )}
+          <div className="mt-4 space-y-4">
+            {/* <p className="text-sm text-gray-600 capitalize">
+              {modalData?.part_name}
+            </p> */}
+            <div>
+              <p className="text-[12px] font-medium leading-4 text-[#6F6464] mb-1.5">
+                Body part name
+              </p>
+              <Select
+                value={selectedPartName}
+                onChange={(value) => setSelectedPartName(value)}
+                className="w-full h-[38px]"
+                showSearch
+                filterOption={(input, option?: DefaultOptionType) =>
+                  String(option?.value ?? "")
+                    .toLowerCase()
+                    .includes(input.toLowerCase())
+                }
+                options={vehiclePartOptions}
+              />
+            </div>
+            <div>
+              <p className="text-[12px] font-medium leading-4 text-[#6F6464] mb-1.5">
+                Damage type ({modalData?.severity})
+              </p>
+              <Select
+                value={selectedDamageType}
+                onChange={(value) => setSelectedDamageType(value)}
+                className="w-full h-[38px]"
+                options={[
+                  { value: "scratch", label: "Scratch" },
+                  { value: "dent", label: "Dent" },
+                  { value: "crack", label: "Crack" },
+                  { value: "detachment", label: "Detachment" },
+                  { value: "broken_part", label: "Broken part" },
+                  { value: "missing_part", label: "Missing part" },
+                  { value: "broken_light", label: "Broken light" },
+                  { value: "broken_window", label: "Broken window" },
+                  { value: "corrosion_rust", label: "Corrosion rust" },
+                ]}
+              />
+            </div>
+            {/* <p className="mt-2 text-base font-medium capitalize">
+              {modalData?.damage_type} ({modalData?.severity})
+            </p> */}
+            <button
+              onClick={handleAddToList}
+              disabled={isAddDamageLoading}
+              className="mt-6 w-full  text-white submit-button font-semibold"
+            >
+              {isAddDamageLoading ? <LoadingButtonAnimation /> : "Add to list"}
+            </button>
+          </div>
+        </>
+      ) : (
+        <div className="text-center py-12">
+          <p className="text-lg font-medium">No damage detected</p>
+          <button
+            onClick={closeModal}
+            className="mt-6 w-full submit-button  text-white  font-semibold"
+          >
+            Close
+          </button>
+        </div>
+      )}
+      <button
+        onClick={closeModal}
+        className="absolute -top-7 -right-7 bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center"
       >
-        <h3 className="text-2xl font-bold mb-4">Confirm Damage</h3>
-        <p className="text-gray-600 mb-6">
-          Confidence: {(damage.damage_confidence * 100).toFixed(1)}%
-        </p>
-
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium mb-1">Body Part</label>
-            <select
-              value={part}
-              onChange={(e) => setPart(e.target.value)}
-              className="w-full border rounded-lg px-4 py-2"
-            >
-              <option value="front-bumper">Front Bumper</option>
-              <option value="hood">Hood</option>
-              <option value="headlight-left">Left Headlight</option>
-              <option value="fender-right">Right Fender</option>
-              {/* Add more */}
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium mb-1">
-              Damage Type
-            </label>
-            <select
-              value={type}
-              onChange={(e) => setType(e.target.value)}
-              className="w-full border rounded-lg px-4 py-2"
-            >
-              <option>scratch</option>
-              <option>dent</option>
-              <option>crack</option>
-              <option>broken</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium mb-1">Severity</label>
-            <select
-              value={severity}
-              onChange={(e) => setSeverity(e.target.value)}
-              className="w-full border rounded-lg px-4 py-2"
-            >
-              <option>minor</option>
-              <option>medium</option>
-              <option>major</option>
-            </select>
-          </div>
-        </div>
-
-        <div className="flex gap-3 mt-8">
-          <button
-            onClick={captureAndSend}
-            className="flex-1 bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition"
-          >
-            Add to List
-          </button>
-          <button
-            onClick={onClose}
-            className="flex-1 bg-gray-200 py-3 rounded-lg font-medium hover:bg-gray-300 transition"
-          >
-            Cancel
-          </button>
-        </div>
-      </div>
+        <CloseOutlined />
+      </button>
     </div>
   );
 }
