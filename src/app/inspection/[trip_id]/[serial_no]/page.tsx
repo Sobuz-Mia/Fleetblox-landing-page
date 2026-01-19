@@ -217,7 +217,7 @@ const InspectionSteps = () => {
   };
   if (showCameraFor) {
     return (
-      <div className="bg-[#F5F9FC] h-screen p-5 flex flex-col items-center justify-center relative">
+      <div className="bg-[#F5F9FC] h-screen p-5 border flex flex-col items-center justify-center relative">
         {isProcessing && <LoadingDiv title={processingMessage} />}
 
         <h1 className="z-50 text-[14px] text-white font-bold mb-4">
@@ -232,7 +232,7 @@ const InspectionSteps = () => {
               audio={false}
               screenshotFormat="image/jpeg"
               videoConstraints={videoConstraints}
-              className={`absolute object-cover transition-all duration-500 ${
+              className={`absolute object-contain transition-all duration-500 ${
                 isLandscape ? "w-full h-auto rotate-90" : "h-full w-auto"
               }`}
             />
@@ -304,7 +304,7 @@ const InspectionSteps = () => {
 
             <button
               onClick={handleCapture}
-              className="absolute bottom-5 h-[50px] w-[50px] rounded-[83px] bg-[#F00] shadow-[0_0_0_30px_0_rgba(255,0,0,0.75)] flex items-center justify-center border-[2px] border-white active:scale-95"
+              className="absolute bottom-20 h-[50px] w-[50px] rounded-[83px] bg-[#F00] shadow-[0_0_0_30px_0_rgba(255,0,0,0.75)] flex items-center justify-center border-[2px] border-white active:scale-95"
             />
 
             <button
