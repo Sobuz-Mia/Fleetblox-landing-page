@@ -130,7 +130,6 @@ export function DamageModal({
       const foundDamage = vehiclePartOptions?.find(
         (opt: SelectGroupOption) => opt?.value === modalData.damage_type,
       );
-
       setSelectedDamageType({
         value: modalData.damage_type || "",
         label: foundDamage?.label || modalData.damage_type || "Select Damage",
