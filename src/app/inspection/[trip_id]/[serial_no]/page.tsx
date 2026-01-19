@@ -62,7 +62,7 @@ const InspectionSteps = () => {
     const form = new FormData();
     form.append("image", file);
     const url = `${BASE_URL}/scan_vin?trip_id=${encodeURIComponent(
-      tripId
+      tripId,
     )}&serial_no=${serialNo}`;
     const res = await fetch(url, { method: "POST", body: form });
     if (!res.ok) throw new Error("VIN scan failed");
@@ -74,7 +74,7 @@ const InspectionSteps = () => {
     const form = new FormData();
     form.append("image", file);
     const url = `${BASE_URL}/scan_license_plate?trip_id=${encodeURIComponent(
-      tripId
+      tripId,
     )}&serial_no=${serialNo}`;
     const res = await fetch(url, { method: "POST", body: form });
     if (!res.ok) throw new Error("License plate scan failed");
@@ -86,7 +86,7 @@ const InspectionSteps = () => {
     const form = new FormData();
     form.append("image", file);
     const url = `${BASE_URL}/scan_odometer?trip_id=${encodeURIComponent(
-      tripId
+      tripId,
     )}&serial_no=${serialNo}`;
     const res = await fetch(url, { method: "POST", body: form });
     if (!res.ok) throw new Error("Odometer scan failed");
@@ -101,7 +101,7 @@ const InspectionSteps = () => {
       form.append(positions[i], file);
     });
     const url = `${BASE_URL}/scan_car_sides_images?trip_id=${encodeURIComponent(
-      tripId
+      tripId,
     )}&serial_no=${serialNo}`;
     const res = await fetch(url, { method: "POST", body: form });
     if (!res.ok) throw new Error("Side images processing failed");
@@ -325,7 +325,7 @@ const InspectionSteps = () => {
                     alt="Captured"
                     width={800}
                     height={800}
-                    className="object-scale-down h-full w-full rounded-md"
+                    className="object-cover h-full w-full rounded-md"
                   />
                   <button
                     onClick={handleRetake}
