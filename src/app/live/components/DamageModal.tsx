@@ -54,7 +54,6 @@ export function DamageModal({
   const handleAddToList = async () => {
     if (!modalData) return;
     setIsAddDamageLoading(true);
-
     try {
       const base64String = modalData.s3_url.split(",")[1];
       const binaryString = atob(base64String);
