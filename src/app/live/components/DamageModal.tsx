@@ -1,6 +1,6 @@
 import Image from "next/image";
 import LoadingButtonAnimation from "./../../../components/ui/shared/ButtonLoadingAnimation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { CloseOutlined } from "@ant-design/icons";
 import { Select } from "antd";
@@ -16,17 +16,21 @@ interface DamageDetail {
   [key: string]: unknown;
 }
 import { ReactNode } from "react";
-import { DefaultOptionType } from "antd/es/select";
 import { vehiclePartOptions } from "./../../tripwise/const/PartsName";
 import { extractSideFromPartValue } from "./../../tripwise/utils/helper";
 
 export interface SelectGroupOption {
   label: ReactNode;
   title: string;
+  value?: string;
   options: {
     label: ReactNode;
     value: string;
   }[];
+}
+interface SelectValue {
+  label: string | React.ReactNode;
+  value: string;
 }
 
 const BASE_URL = "https://real-damage.fleetblox.com";
@@ -45,33 +49,23 @@ export function DamageModal({
   refetch: () => void;
   closeModal: () => void;
 }) {
-  const initialSide =
-    modalData?.side || extractSideFromPartValue(modalData?.part_name || "");
-  const [selectedPartName, setSelectedPartName] = useState(
-    modalData?.part_name || "",
-  );
-  const [selectedDamageType, setSelectedDamageType] = useState(
-    modalData?.damage_type ? modalData?.damage_type : "",
-  );
-  const [selectedSide, setSelectedSide] = useState<string | undefined>(
-    initialSide,
-  );
+  const [selectedPartName, setSelectedPartName] = useState<
+    SelectValue | undefined
+  >();
+  const [selectedDamageType, setSelectedDamageType] = useState<
+    SelectValue | undefined
+  >();
+  const [selectedSide, setSelectedSide] = useState<string | undefined>();
   console.log(modalData, " this is modal data inside the modal");
   console.log(modalData?.part_name, " this is part name in the modal");
   console.log(modalData?.damage_type, " this is damage type in the modal");
-  const handlePartChange = (newValue: string) => {
-    setSelectedPartName(newValue);
 
-    const sideFromNewPart = extractSideFromPartValue(newValue);
-
-    // Update side only if the new part gives us clear information
-    if (sideFromNewPart !== undefined) {
-      setSelectedSide(sideFromNewPart);
-    }
-    // If new part doesn't have side info → keep previous (usually AI's)
-  };
   const [isAddDamageLoading, setIsAddDamageLoading] = useState(false);
   const handleAddToList = async () => {
+    if (!modalData || !selectedPartName?.value || !selectedDamageType?.value) {
+      toast.error("Please ensure part name and damage type are selected");
+      return;
+    }
     if (!modalData) return;
     setIsAddDamageLoading(true);
     try {
@@ -95,8 +89,8 @@ export function DamageModal({
         "data",
         JSON.stringify({
           damage_id: modalData.damage_id,
-          damage_type: selectedDamageType,
-          part_name: selectedPartName,
+          damage_type: selectedDamageType.value, // Extracting the string value
+          part_name: selectedPartName.value, // Extracting the string value
           severity: modalData.severity,
           side: selectedSide,
         }),
@@ -119,6 +113,35 @@ export function DamageModal({
       setIsAddDamageLoading(false);
     }
   };
+  useEffect(() => {
+    if (modalData) {
+      // 1. Find Part Name Label from the grouped options
+      const allParts = vehiclePartOptions.flatMap((group) => group.options);
+      const foundPart = allParts.find(
+        (opt) => opt.value === modalData.part_name,
+      );
+
+      setSelectedPartName({
+        value: modalData.part_name || "",
+        label: foundPart?.label || modalData.part_name || "Select Part",
+      });
+
+      // 2. Find Damage Type Label
+      const foundDamage = vehiclePartOptions?.find(
+        (opt: SelectGroupOption) => opt?.value === modalData.damage_type,
+      );
+
+      setSelectedDamageType({
+        value: modalData.damage_type || "",
+        label: foundDamage?.label || modalData.damage_type || "Select Damage",
+      });
+
+      // 3. Side logic
+      const side =
+        modalData.side || extractSideFromPartValue(modalData.part_name || "");
+      setSelectedSide(side);
+    }
+  }, [modalData]);
   return (
     <div className="relative">
       {modalLoading ? (
@@ -146,15 +169,15 @@ export function DamageModal({
                 Body part name
               </p>
               <Select
+                labelInValue // Crucial for using {label, value} objects
                 value={selectedPartName}
-                onChange={handlePartChange}
+                onChange={(val: SelectValue) => {
+                  setSelectedPartName(val);
+                  const sideFromNewPart = extractSideFromPartValue(val.value);
+                  if (sideFromNewPart) setSelectedSide(sideFromNewPart);
+                }}
                 className="w-full h-[38px]"
                 showSearch
-                filterOption={(input, option?: DefaultOptionType) =>
-                  String(option?.value ?? "")
-                    .toLowerCase()
-                    .includes(input.toLowerCase())
-                }
                 options={vehiclePartOptions}
               />
             </div>
@@ -163,8 +186,9 @@ export function DamageModal({
                 Damage type ({modalData?.severity})
               </p>
               <Select
+                labelInValue
                 value={selectedDamageType}
-                onChange={(value) => setSelectedDamageType(value)}
+                onChange={(val: SelectValue) => setSelectedDamageType(val)}
                 className="w-full h-[38px]"
                 options={[
                   { value: "scratch", label: "Scratch" },
