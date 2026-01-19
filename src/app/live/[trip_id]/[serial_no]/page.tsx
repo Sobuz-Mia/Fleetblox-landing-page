@@ -265,7 +265,6 @@ export default function RealTimeDamageDetection() {
       setIsConnecting(false);
     }
   };
-
   const disconnect = () => {
     dataChannelRef.current?.close();
     pcRef.current?.close();

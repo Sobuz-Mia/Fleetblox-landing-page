@@ -18,6 +18,7 @@ interface DamageDetail {
 import { ReactNode } from "react";
 import { DefaultOptionType } from "antd/es/select";
 import { vehiclePartOptions } from "./../../tripwise/const/PartsName";
+import { extractSideFromPartValue } from "./../../tripwise/utils/helper";
 
 export interface SelectGroupOption {
   label: ReactNode;
@@ -44,12 +45,31 @@ export function DamageModal({
   refetch: () => void;
   closeModal: () => void;
 }) {
+  const initialSide =
+    modalData?.side || extractSideFromPartValue(modalData?.part_name || "");
   const [selectedPartName, setSelectedPartName] = useState(
     modalData?.part_name || "",
   );
   const [selectedDamageType, setSelectedDamageType] = useState(
-    modalData?.damage_type || "",
+    modalData?.damage_type ? modalData?.damage_type : "",
   );
+  const [selectedSide, setSelectedSide] = useState<string | undefined>(
+    initialSide,
+  );
+  console.log(modalData, " this is modal data inside the modal");
+  console.log(modalData?.part_name, " this is part name in the modal");
+  console.log(modalData?.damage_type, " this is damage type in the modal");
+  const handlePartChange = (newValue: string) => {
+    setSelectedPartName(newValue);
+
+    const sideFromNewPart = extractSideFromPartValue(newValue);
+
+    // Update side only if the new part gives us clear information
+    if (sideFromNewPart !== undefined) {
+      setSelectedSide(sideFromNewPart);
+    }
+    // If new part doesn't have side info → keep previous (usually AI's)
+  };
   const [isAddDamageLoading, setIsAddDamageLoading] = useState(false);
   const handleAddToList = async () => {
     if (!modalData) return;
@@ -66,7 +86,7 @@ export function DamageModal({
       const file = new File([blob], `damage_${modalData.damage_id}.jpeg`, {
         type: "image/jpeg",
       });
-
+      console.log(selectedPartName);
       const formData = new FormData();
       formData.append("trip_id", tripId);
       formData.append("serial_no", serialNo);
@@ -78,7 +98,7 @@ export function DamageModal({
           damage_type: selectedDamageType,
           part_name: selectedPartName,
           severity: modalData.severity,
-          side: modalData.side,
+          side: selectedSide,
         }),
       );
 
@@ -127,7 +147,7 @@ export function DamageModal({
               </p>
               <Select
                 value={selectedPartName}
-                onChange={(value) => setSelectedPartName(value)}
+                onChange={handlePartChange}
                 className="w-full h-[38px]"
                 showSearch
                 filterOption={(input, option?: DefaultOptionType) =>

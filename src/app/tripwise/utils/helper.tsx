@@ -59,7 +59,7 @@ export const formatDuration = (seconds: number) => {
 export const renderProgressSection = (
   progressData: ProgressData | null,
   title: string,
-  log?: boolean
+  log?: boolean,
 ) => {
   // if (progressData?.in_progress) return null;
   return (
@@ -158,4 +158,20 @@ export const renderProgressSection = (
       </div>
     </div>
   );
+};
+export const extractSideFromPartValue = (value: string): string | undefined => {
+  if (!value) return undefined;
+  const v = value.toLowerCase();
+  if (v.includes("left-side") || v.endsWith("left")) return "left";
+  if (v.includes("right-side") || v.endsWith("right")) return "right";
+  if (v.includes("front")) return "front";
+  if (v.includes("rear") || v.includes("back")) return "rear";
+  if (v.includes("fuel-cap")) return "left";
+  if (v.includes("roof")) return "left";
+  if (v.includes("hood")) return "front";
+  if (v.includes("license-plate")) return "rear";
+  if (v.includes("spoiler")) return "rear";
+  if (v.includes("trunk")) return "rear";
+  if (v.includes("Antenna")) return "rear";
+  return undefined; // Roof, Antenna, License-Plate, etc.
 };
