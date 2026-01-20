@@ -217,29 +217,33 @@ const InspectionSteps = () => {
   };
   if (showCameraFor) {
     return (
-      <div className="bg-[#F5F9FC] h-screen p-5 border flex flex-col items-center justify-center relative">
+      <div className="bg-[#F5F9FC] h-[100vh] p-5 flex flex-col items-center justify-center relative">
         {isProcessing && <LoadingDiv title={processingMessage} />}
-
-        <h1 className="z-50 text-[14px] text-white font-bold mb-4">
-          {getCameraTitle()}
-          {showCameraFor === "exterior" && ` (${exteriorCaptureStep + 1}/4)`}
-        </h1>
 
         {!capturedImage ? (
           <>
-            <Webcam
-              ref={webcamRef}
-              audio={false}
-              screenshotFormat="image/jpeg"
-              videoConstraints={videoConstraints}
-              className={`absolute object-contain transition-all duration-500 ${
-                isLandscape ? "w-full h-auto rotate-90" : "h-full w-auto"
-              }`}
-            />
+            <div className="relative">
+              <Webcam
+                ref={webcamRef}
+                audio={false}
+                screenshotFormat="image/jpeg"
+                videoConstraints={videoConstraints}
+                className={` transition-all duration-500 rounded-2xl border${
+                  isLandscape
+                    ? "w-[360px] h-[600px] border object-fill"
+                    : "h-full w-auto"
+                }`}
+              />
+              <h1 className="z-50 text-[14px] absolute left-3 top-2 text-white font-bold mb-4">
+                {getCameraTitle()}
+                {showCameraFor === "exterior" &&
+                  ` (${exteriorCaptureStep + 1}/4)`}
+              </h1>
+            </div>
             <div className="absolute inset-0 bg-black/50" />
 
             {/* Corner frame overlay */}
-            <div className="relative z-10 rounded-md transition-all duration-500 w-[100%] max-w-[812px] aspect-[7/5]">
+            {/* <div className="relative z-10 rounded-md transition-all duration-500 w-[100%] max-w-[812px] aspect-[7/5]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="60"
@@ -300,7 +304,7 @@ const InspectionSteps = () => {
                   strokeLinecap="round"
                 />
               </svg>
-            </div>
+            </div> */}
 
             <button
               onClick={handleCapture}
