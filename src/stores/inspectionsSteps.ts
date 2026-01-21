@@ -9,7 +9,7 @@ interface InspectionState {
 }
 
 export const useInspectionStepsStore = create<InspectionState>((set) => ({
-  currentStep: 3,
+  currentStep: 1,
   startedInspection: false,
   setCurrentStep: (step) => set({ currentStep: step }),
   resetInspection: () => set({ currentStep: 1 }),
