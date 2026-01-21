@@ -68,7 +68,7 @@ const LeftSideDamagesReviewConfirm = ({
     value: null,
   });
   const existingDamages = leftSideDamageData?.find(
-    (item) => item?.part === selectedPart
+    (item) => item?.part === selectedPart,
   );
   // Capture photo
   const capture = useCallback(() => {
@@ -110,7 +110,7 @@ const LeftSideDamagesReviewConfirm = ({
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
-        }
+        },
       );
       if (res?.status === 200) {
         refreshData();
@@ -127,7 +127,7 @@ const LeftSideDamagesReviewConfirm = ({
             ? String((respData as { message?: unknown }).message)
             : undefined;
         toast.error(
-          serverMessage || axiosError.message || "Something went wrong"
+          serverMessage || axiosError.message || "Something went wrong",
         );
         console.error("Upload failed", axiosError);
       } else {
@@ -140,7 +140,6 @@ const LeftSideDamagesReviewConfirm = ({
 
     // Optionally refresh data or show success message
   };
-  console.log(leftSideDamageData);
   // Auto-open drawer when image is captured
   useEffect(() => {
     if (capturedImage && !openCamera) {

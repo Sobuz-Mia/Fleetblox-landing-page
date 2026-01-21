@@ -11,6 +11,7 @@ import LeftSideDamagesReviewConfirm from "../../components/LeftSideDamagesReview
 import RightSideDamagesReviewConfirm from "../../components/RightSideDamagesReviewConfirm";
 import FrontSideDamagesReviewConfirm from "../../components/FrontSideDamagesReviewConfirm";
 import RearSideDamagesReviewConfirm from "../../components/RearSideDamagesReviewConfirm";
+import toast from "react-hot-toast";
 
 export type SideKey = "left-side" | "right-side" | "front-side" | "rear-side";
 
@@ -39,7 +40,7 @@ type TableRow = {
   part: string;
   damages: DamageGroupItem[];
 };
-
+const BASE_API = "https://real-damage.fleetblox.com/api";
 const InspectionResult = () => {
   const params = useParams<{ trip_id: string; serial_no: string }>();
 
@@ -64,7 +65,7 @@ const InspectionResult = () => {
     queryKey: ["review-inspection-report", tripId, tripId],
     queryFn: async () => {
       const response = await axios.get(
-        `https://real-damage.fleetblox.com/api/get_all_damages?trip_id=${tripId}&serial_no=${serialNo}`
+        `${BASE_API}/get_all_damages?trip_id=${tripId}&serial_no=${serialNo}`,
       );
       return response?.data;
     },
@@ -90,7 +91,7 @@ const InspectionResult = () => {
 
         return acc;
       },
-      {}
+      {},
     );
 
     return template.map((slot) => {
@@ -121,7 +122,7 @@ const InspectionResult = () => {
         ([type, info]) => ({
           type: type.charAt(0).toUpperCase() + type.slice(1),
           ...(info as Omit<DamageGroupItem, "type">),
-        })
+        }),
       );
 
       return {
@@ -218,7 +219,24 @@ const InspectionResult = () => {
         <button className="border border-[#DDD] rounded-md w-full py-2 px-[14px] text-[#999] text-[14px]">
           Recapture
         </button>
-        <button className="submit-button w-full">Submit Report</button>
+        <button
+          onClick={async () => {
+            try {
+              const res = await axios.post(
+                `${BASE_API}/get_all_damages?trip_id=${tripId}&serial_no=${serialNo}`,
+              );
+              if (res?.status === 200) {
+                toast.success("Report Submit successfully");
+              }
+            } catch (e) {
+              console.log(e);
+              toast.error("Something went wrong ");
+            }
+          }}
+          className="submit-button w-full"
+        >
+          Submit Report
+        </button>
       </div>
     </div>
   );
