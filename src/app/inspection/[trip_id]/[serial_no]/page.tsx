@@ -12,9 +12,11 @@ import CaptureImageIcon from "../../icons/CaptureImageIcon";
 import DetectExteriorDamageIcon from "../../icons/DetectExteriorDamageIcon";
 import FleetBloxIcon from "../../icons/FleetBloxIcon";
 import DriverAndOwnerInfo from "../../components/DriverAndOwnerInfo";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import LoadingDiv from "../../components/LoadingDiv";
+import toast from "react-hot-toast";
+import { useInspectionStepsStore } from "./../../../../stores/inspectionsSteps";
 
 const BASE_URL = "https://real-damage.fleetblox.com/api";
 
@@ -29,19 +31,24 @@ function dataURLtoFile(dataurl: string, filename: string): File {
 }
 
 const InspectionSteps = () => {
+  const currentStep = useInspectionStepsStore((s) => s.currentStep);
+  const setCurrentStep = useInspectionStepsStore((s) => s.setCurrentStep);
   const params = useParams<{ trip_id: string; serial_no: string }>();
   const tripId = params.trip_id;
   const serialNo = params.serial_no;
-
-  const [startedInspection, setStartedInspection] = useState(false);
-  const [currentStep, setCurrentStep] = useState(1);
+  const router = useRouter();
+  const startedInspection = useInspectionStepsStore((s) => s.startedInspection);
+  const setStartedInspection = useInspectionStepsStore(
+    (s) => s.setStartedInspection,
+  );
+  // const [currentStep, setCurrentStep] = useState(3);
   const [showSubScreen, setShowSubScreen] = useState(false);
   const [vinDone, setVinDone] = useState(false);
   const [licenseDone, setLicenseDone] = useState(false);
   const [odometerDone, setOdometerDone] = useState(false);
   const [exteriorDataUrls, setExteriorDataUrls] = useState<string[]>([]);
   const [exteriorCaptureStep, setExteriorCaptureStep] = useState(0);
-  const [damagesDone, setDamagesDone] = useState(false);
+  // const [damagesDone, setDamagesDone] = useState(true);
   const [showCameraFor, setShowCameraFor] = useState<string | null>(null);
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -153,12 +160,12 @@ const InspectionSteps = () => {
 
         try {
           await scanCarSides(newUrls); // your API call
-          setDamagesDone(true);
+          // setDamagesDone(true);
 
           // Optional – auto-advance to the next step (recommended)
           // If you don't want auto-advance, just comment these 2 lines out
-          setShowSubScreen(false);
-          setCurrentStep(currentStep + 1);
+          setShowSubScreen(true);
+          // setCurrentStep(currentStep + 1);
         } catch (err) {
           const errorMessage =
             err instanceof Error
@@ -178,7 +185,7 @@ const InspectionSteps = () => {
         err instanceof Error
           ? err.message
           : "Processing failed – please retake";
-      alert(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setIsProcessing(false);
     }
@@ -187,7 +194,7 @@ const InspectionSteps = () => {
   const allItemsDoneForStep = (step: number) => {
     if (step === 1) return vinDone && licenseDone;
     if (step === 2) return odometerDone;
-    if (step === 3) return exteriorDataUrls.length === 4 && damagesDone;
+    if (step === 3) return exteriorDataUrls.length === 4;
     return false;
   };
 
@@ -230,7 +237,7 @@ const InspectionSteps = () => {
                 videoConstraints={videoConstraints}
                 className={` transition-all duration-500 rounded-2xl border${
                   isLandscape
-                    ? "w-[360px] h-[600px] border object-fill"
+                    ? "w-[360px] h-[705px] border object-fill"
                     : "h-full w-auto"
                 }`}
               />
@@ -313,7 +320,7 @@ const InspectionSteps = () => {
 
             <button
               onClick={() => setIsLandscape((p) => !p)}
-              className="absolute top-5 right-5 bg-white/20 p-3 rounded-full text-white"
+              className="absolute top-5 z-50 right-5 bg-white/20 p-3 rounded-full text-white"
               title="Rotate camera"
             >
               <RotateCcw className="h-6 w-6" />
@@ -352,7 +359,7 @@ const InspectionSteps = () => {
                 <div className="mt-4 flex gap-4">
                   <button
                     onClick={handleConfirm}
-                    className={`absolute bottom-5 h-[50px] right-1/2 w-[50px] mx-auto rounded-[83px] bg-[#2D65F2] shadow-[0_0_30px_0_rgba(45,101,242,0.75)] flex items-center justify-center border-[2px] border-white active:scale-95`}
+                    className={`absolute bottom-20 h-[50px] right-1/2 w-[50px] mx-auto rounded-[83px] bg-[#2D65F2] shadow-[0_0_30px_0_rgba(45,101,242,0.75)] flex items-center justify-center border-[2px] border-white active:scale-95`}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -410,9 +417,9 @@ const InspectionSteps = () => {
       items = [
         {
           key: "exterior",
-          label: "Capture 4 side images",
+          label: "Capture exterior images",
           icon: <CaptureImageIcon />,
-          done: exteriorDataUrls.length === 4 && damagesDone,
+          done: exteriorDataUrls.length === 4,
           onClick: () => {
             setExteriorCaptureStep(exteriorDataUrls.length);
             setShowCameraFor("exterior");
@@ -422,22 +429,24 @@ const InspectionSteps = () => {
           key: "damages",
           label: "Detect exterior damages",
           icon: <DetectExteriorDamageIcon />,
-          done: damagesDone,
+          done: false,
+          // disabled: exteriorDataUrls.length !== 4 || isProcessing,
           onClick: async () => {
-            if (exteriorDataUrls.length !== 4) return;
-            setIsProcessing(true);
-            try {
-              await scanCarSides(exteriorDataUrls);
-              setDamagesDone(true);
-            } catch (err) {
-              const errorMessage =
-                err instanceof Error ? err.message : "Damage detection failed";
-              alert(errorMessage);
-            } finally {
-              setIsProcessing(false);
-            }
+            router.push(`/live/${tripId}/${serialNo}`);
+            // if (exteriorDataUrls.length !== 4) return;
+            // setIsProcessing(true);
+            // try {
+            //   await scanCarSides(exteriorDataUrls);
+            //   setDamagesDone(true);
+            // } catch (err) {
+            //   const errorMessage =
+            //     err instanceof Error ? err.message : "Damage detection failed";
+            //   alert(errorMessage);
+            // } finally {
+            //   setIsProcessing(false);
+            // }
           },
-          disabled: exteriorDataUrls.length !== 4,
+          // disabled: exteriorDataUrls.length !== 4,
         },
       ];
     }
@@ -654,15 +663,7 @@ const InspectionSteps = () => {
                 </h2>
               </div>
               {currentStep === 4 && (
-                <Link
-                  href={{
-                    pathname: "/inspection/result",
-                    query: {
-                      trip_id: tripId,
-                      serial_no: serialNo,
-                    },
-                  }}
-                >
+                <Link href={`/inspection/result/${tripId}/${serialNo}`}>
                   <button className="submit-button w-full mt-4">
                     View Report
                   </button>

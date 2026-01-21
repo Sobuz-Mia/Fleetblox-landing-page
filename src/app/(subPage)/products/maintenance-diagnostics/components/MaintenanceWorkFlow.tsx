@@ -34,7 +34,7 @@ const MaintenanceWorkFlow = () => {
           d="M3 208L3 3.00001"
           stroke="url(#paint0_linear_8039_38501)"
           strokeWidth="5"
-          stroke-linecap="square"
+          strokeLinecap="square"
         />
         <defs>
           <linearGradient
@@ -70,7 +70,7 @@ const MaintenanceWorkFlow = () => {
           d="M3 208L3 3.00001"
           stroke="url(#paint0_linear_8039_38501)"
           strokeWidth="5"
-          stroke-linecap="square"
+          strokeLinecap="square"
         />
         <defs>
           <linearGradient

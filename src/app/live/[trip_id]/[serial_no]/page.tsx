@@ -1,13 +1,13 @@
 "use client";
 import { Modal } from "antd";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import CarConnectIcon from "./../../../inspection/icons/CarConnectIcon";
 import { DamageModal } from "../../components/DamageModal";
+import { useInspectionStepsStore } from "./../../../../stores/inspectionsSteps";
 interface DamageDetail {
   damage_id: number;
   damage_type: string;
@@ -23,15 +23,17 @@ interface DamageDetail {
 const BASE_URL = "https://real-damage.fleetblox.com";
 
 export default function RealTimeDamageDetection() {
+  const route = useRouter();
+  const setCurrentStep = useInspectionStepsStore((s) => s.setCurrentStep);
+  const setStartedInspection = useInspectionStepsStore(
+    (s) => s.setStartedInspection,
+  );
   const params = useParams<{ trip_id: string; serial_no: string }>();
   const tripId = params.trip_id;
   const serialNo = params.serial_no;
-
   const videoRef = useRef<HTMLVideoElement>(null);
-
   const [isConnected, setIsConnected] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
-
   const [currentFrameMeta, setCurrentFrameMeta] = useState<{
     frame_id: number | null;
     rtp_ts: number | null;
@@ -408,7 +410,6 @@ export default function RealTimeDamageDetection() {
       };
     };
   }, [isConnected]);
-
   return (
     <>
       <div className="fixed inset-0 bg-[#303030] overflow-hidden w-full h-full px-5">
@@ -505,15 +506,27 @@ export default function RealTimeDamageDetection() {
         )}
 
         {isConnected && (
+          <button
+            onClick={() => {
+              setCurrentStep(4);
+              setStartedInspection(true);
+              route.push(`/inspection/${tripId}/${serialNo}`);
+            }}
+            // href={`/inspection/result/${tripId}/${serialNo}`}
+            className="absolute right-2 bottom-5 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-semibold bg-black/40 backdrop-blur-sm w-[135px] "
+          >
+            Finish scanning
+          </button>
+        )}
+        {/* {isConnected && (
           <Link
             href={`/inspection/result/${tripId}/${serialNo}`}
             className="absolute right-2 bottom-5 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-semibold bg-black/40 backdrop-blur-sm w-[135px] "
           >
             Finish scanning
           </Link>
-        )}
+        )} */}
       </div>
-
       <Modal
         open={modalOpen}
         onCancel={closeModal}
@@ -539,75 +552,6 @@ export default function RealTimeDamageDetection() {
           refetch={refetch}
           closeModal={closeModal}
         />
-        {/* <DamageModal
-          modalLoading={modalLoading}
-          tripId={tripId}
-          serialNo={serialNo}
-          modalData={{
-            damage_id: 101,
-            damage_type: "Scratch",
-            part_name: "Front Bumper",
-            severity: "Moderate",
-            side: "Left",
-            s3_url: "",
-            overlap: 0.32,
-          }}
-          refetch={refetch}
-          closeModal={closeModal}
-        /> */}
-        {/* <div className="relative">
-          {modalLoading ? (
-            <div className="flex flex-col items-center py-16">
-              <LoadingButtonAnimation bg={true} />
-              <p className="mt-4 text-sm text-gray-600">Detecting damage...</p>
-            </div>
-          ) : modalData && !modalData?.message ? (
-            <>
-              <Image
-                src={modalData?.s3_url}
-                alt="Damage"
-                width={140}
-                height={91}
-                className="rounded-md object-contain w-full h-[91px]"
-              />
-              <div className="mt-4">
-                <p className="text-sm text-gray-600 capitalize">
-                  {modalData?.part_name}
-                </p>
-                <p className="mt-2 text-base font-medium capitalize">
-                  {modalData?.damage_type} ({modalData?.severity})
-                </p>
-                <button
-                  onClick={handleAddToList}
-                  disabled={isAddDamageLoading}
-                  className="mt-6 w-full  text-white submit-button font-semibold"
-                >
-                  {isAddDamageLoading ? (
-                    <LoadingButtonAnimation />
-                  ) : (
-                    "Add to list"
-                  )}
-                </button>
-              </div>
-            </>
-          ) : (
-            <div className="text-center py-12">
-              <p className="text-lg font-medium">No damage detected</p>
-              <button
-                onClick={closeModal}
-                className="mt-6 w-full submit-button  text-white  font-semibold"
-              >
-                Close
-              </button>
-            </div>
-          )}
-          <button
-            onClick={closeModal}
-            className="absolute -top-7 -right-7 bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center"
-          >
-            <CloseOutlined />
-          </button>
-        </div> */}
       </Modal>
     </>
   );

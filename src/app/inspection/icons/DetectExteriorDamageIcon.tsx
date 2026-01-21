@@ -80,7 +80,7 @@ const DetectExteriorDamageIcon = () => {
           y2="18.5354"
           stroke="#999999"
           strokeWidth="0.662154"
-          stroke-linecap="round"
+          strokeLinecap="round"
         />
         <circle
           cx="6.04663"
