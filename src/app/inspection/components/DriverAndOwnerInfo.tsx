@@ -43,7 +43,7 @@ const DriverAndOwnerInfo = ({
       }
 
       try {
-        const url = `https://real-damage.fleetblox.com/api/vehicle_info?trip_id=${tripId}&serial_no=${serialNo}`;
+        const url = `https://dev-real-damage.fleetblox.com/api/vehicle_info?trip_id=${tripId}&serial_no=${serialNo}`;
         const response = await axios.get(url);
 
         if (response.data.status === "success") {

@@ -104,11 +104,11 @@ const RightSideDamagesReviewConfirm = ({
     formData.append("data", JSON.stringify(metadata));
     try {
       const res = await axios.post(
-        `https://real-damage.fleetblox.com/api/add_manual_damage?trip_id=${tripId}&serial_no=${serialNo}`,
+        `https://dev-real-damage.fleetblox.com/api/add_manual_damage?trip_id=${tripId}&serial_no=${serialNo}`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
-        }
+        },
       );
       if (res?.status === 200) {
         refreshData();
@@ -125,7 +125,7 @@ const RightSideDamagesReviewConfirm = ({
             ? String((respData as { message?: unknown }).message)
             : undefined;
         toast.error(
-          serverMessage || axiosError.message || "Something went wrong"
+          serverMessage || axiosError.message || "Something went wrong",
         );
         console.error("Upload failed", axiosError);
       } else {

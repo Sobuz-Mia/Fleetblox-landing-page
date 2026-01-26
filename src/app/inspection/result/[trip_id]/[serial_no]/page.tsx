@@ -40,7 +40,7 @@ type TableRow = {
   part: string;
   damages: DamageGroupItem[];
 };
-const BASE_API = "https://real-damage.fleetblox.com/api";
+const BASE_API = "https://dev-real-damage.fleetblox.com/api";
 const InspectionResult = () => {
   const params = useParams<{ trip_id: string; serial_no: string }>();
 

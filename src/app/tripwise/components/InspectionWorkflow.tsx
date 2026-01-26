@@ -21,7 +21,7 @@ const InspectionWorkflow = () => {
   const onSubmit = async (data: FormData) => {
     try {
       const orderResponse = await axios.post(
-        "https://real-damage.fleetblox.com/api/create_order",
+        "https://dev-real-damage.fleetblox.com/api/create_order",
         {
           car_make: data.vehicle.make,
           car_model: data.vehicle.model,
@@ -43,7 +43,7 @@ const InspectionWorkflow = () => {
               : "dual",
           trip_duration: Number(data.inspection.duration),
         },
-        { headers: { "Content-Type": "application/json" } }
+        { headers: { "Content-Type": "application/json" } },
       );
       const tripId = orderResponse.data.trip_id;
       const createSessionData = {
@@ -53,8 +53,8 @@ const InspectionWorkflow = () => {
       };
       // Create payment intent
       const paymentResponse = await axios.post(
-        `https://real-damage.fleetblox.com/api/create_checkout_session?trip_id=${tripId}`,
-        createSessionData
+        `https://dev-real-damage.fleetblox.com/api/create_checkout_session?trip_id=${tripId}`,
+        createSessionData,
       );
       if (paymentResponse?.data?.checkout_url) {
         // router.push(paymentResponse.data.checkout_url);

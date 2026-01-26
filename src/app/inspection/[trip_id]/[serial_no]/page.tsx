@@ -18,7 +18,7 @@ import LoadingDiv from "../../components/LoadingDiv";
 import toast from "react-hot-toast";
 import { useInspectionStepsStore } from "./../../../../stores/inspectionsSteps";
 
-const BASE_URL = "https://real-damage.fleetblox.com/api";
+const BASE_URL = "https://dev-real-damage.fleetblox.com/api";
 
 function dataURLtoFile(dataurl: string, filename: string): File {
   const arr = dataurl.split(",");

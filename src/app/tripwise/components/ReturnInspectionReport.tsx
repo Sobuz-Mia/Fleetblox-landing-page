@@ -34,7 +34,7 @@ const ReturnInspectionReport = ({
       queryKey: ["inspection log", tripId],
       queryFn: async () => {
         const response = await axios.get(
-          `https://real-damage.fleetblox.com/api/get_inspection_progress?trip_id=${tripId}&serial_no=${serialNo}`
+          `https://dev-real-damage.fleetblox.com/api/get_inspection_progress?trip_id=${tripId}&serial_no=${serialNo}`,
         );
         return response?.data;
       },
@@ -45,7 +45,7 @@ const ReturnInspectionReport = ({
     queryKey: ["inspectionReport", tripId, serialNo],
     queryFn: async () => {
       const response = await axios.get(
-        `https://real-damage.fleetblox.com/api/get_inspection_report?trip_id=${tripId}&serial_no=${serialNo}`
+        `https://dev-real-damage.fleetblox.com/api/get_inspection_report?trip_id=${tripId}&serial_no=${serialNo}`,
       );
       return response?.data?.data;
     },
@@ -435,7 +435,7 @@ const ReturnInspectionReport = ({
                           src={image?.src}
                           alt={image?.alt || "Image"}
                         />
-                      ) : null
+                      ) : null,
                     )}
                   </AntImage.PreviewGroup>
                 </div>
@@ -582,7 +582,7 @@ const ReturnInspectionReport = ({
               {renderProgressSection(
                 inspectionLogData,
                 "Departure Inspection",
-                true
+                true,
               )}
             </div>
           </div>

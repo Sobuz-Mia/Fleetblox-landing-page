@@ -29,7 +29,7 @@ const TripAuditSection = () => {
   const [departureProgress, setDepartureProgress] =
     useState<ProgressData | null>(null);
   const [returnProgress, setReturnProgress] = useState<ProgressData | null>(
-    null
+    null,
   );
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -42,7 +42,7 @@ const TripAuditSection = () => {
     setLoading(true);
     try {
       const res = await axios.post(
-        `https://real-damage.fleetblox.com/api/create_inspection_links/${tripId}`
+        `https://dev-real-damage.fleetblox.com/api/create_inspection_links/${tripId}`,
       );
       if (res?.status === 200) {
         setInspectionData({
@@ -75,13 +75,13 @@ const TripAuditSection = () => {
         try {
           if (inspectionData?.departureLink) {
             const depRes = await axios.get(
-              `https://real-damage.fleetblox.com/api/get_inspection_progress?trip_id=${inspectionData.trip_id}&serial_no=1`
+              `https://dev-real-damage.fleetblox.com/api/get_inspection_progress?trip_id=${inspectionData.trip_id}&serial_no=1`,
             );
             setDepartureProgress(depRes?.data as ProgressData);
           }
           if (inspectionData?.returnLink) {
             const retRes = await axios.get(
-              `https://real-damage.fleetblox.com/api/get_inspection_progress?trip_id=${inspectionData.trip_id}&serial_no=2`
+              `https://dev-real-damage.fleetblox.com/api/get_inspection_progress?trip_id=${inspectionData.trip_id}&serial_no=2`,
             );
             setReturnProgress(retRes?.data as ProgressData);
           }
@@ -109,7 +109,7 @@ const TripAuditSection = () => {
     queryFn: async () => {
       if (!inspectionData.trip_id) return null;
       const response = await axios.get(
-        `https://real-damage.fleetblox.com/api/trip_progress?trip_id=${inspectionData.trip_id}`
+        `https://dev-real-damage.fleetblox.com/api/trip_progress?trip_id=${inspectionData.trip_id}`,
       );
       return response?.data?.data;
     },

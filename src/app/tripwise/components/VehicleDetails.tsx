@@ -23,7 +23,7 @@ const VehicleDetails = ({ onNext }: { onNext: () => void }) => {
     const fetchMakes = async () => {
       try {
         const response = await axios.get(
-          "https://real-damage.fleetblox.com/api/get_makes"
+          "https://dev-real-damage.fleetblox.com/api/get_makes",
         );
         setMakes(response.data); // Assuming API returns an array of strings like ["AC", "AK", ...]
       } catch (error) {
@@ -39,9 +39,9 @@ const VehicleDetails = ({ onNext }: { onNext: () => void }) => {
       if (selectedMake) {
         try {
           const response = await axios.get(
-            `https://real-damage.fleetblox.com/api/get_models?make=${encodeURIComponent(
-              selectedMake
-            )}`
+            `https://dev-real-damage.fleetblox.com/api/get_models?make=${encodeURIComponent(
+              selectedMake,
+            )}`,
           );
           setModels(response.data); // Assuming API returns an array of strings for models
         } catch (error) {

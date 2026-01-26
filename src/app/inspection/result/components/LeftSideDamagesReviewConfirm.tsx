@@ -106,7 +106,7 @@ const LeftSideDamagesReviewConfirm = ({
     formData.append("data", JSON.stringify(metadata));
     try {
       const res = await axios.post(
-        `https://real-damage.fleetblox.com/api/add_manual_damage?trip_id=${tripId}&serial_no=${serialNo}`,
+        `https://dev-real-damage.fleetblox.com/api/add_manual_damage?trip_id=${tripId}&serial_no=${serialNo}`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
