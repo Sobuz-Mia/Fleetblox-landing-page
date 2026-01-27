@@ -20,7 +20,7 @@ interface DamageDetail {
   [key: string]: unknown;
 }
 
-const BASE_URL = "https://real-damage.fleetblox.com";
+const BASE_URL = "https://dev-real-damage.fleetblox.com";
 
 export default function RealTimeDamageDetection() {
   const route = useRouter();

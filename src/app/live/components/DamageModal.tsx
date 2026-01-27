@@ -33,7 +33,7 @@ interface SelectValue {
   value: string;
 }
 
-const BASE_URL = "https://real-damage.fleetblox.com";
+const BASE_URL = "https://dev-real-damage.fleetblox.com";
 export function DamageModal({
   modalLoading,
   tripId,
