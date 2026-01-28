@@ -92,10 +92,18 @@ const NavbarMobileView = () => {
               {isResources && <ResourcesSubpage />}
             </div>
             <div className="flex justify-between items-center py-5 border-b text-[#04082C] text-[18px] font-bold font-openSans px-5">
+              <Link
+                href="/tripwise"
+                className={`cursor-pointer text-[16px]  transition-all duration-300 ease-in-out font-bold text-[#04082C] hover:text-[#7D7D7D]  font-openSans  `}
+              >
+                Trip wise
+              </Link>
+            </div>
+            {/* <div className="flex justify-between items-center py-5 border-b text-[#04082C] text-[18px] font-bold font-openSans px-5">
               <Link href="/pricings">
                 <h4>Pricings</h4>
               </Link>
-            </div>
+            </div> */}
           </div>
 
           {/* Fixed bottom buttons */}
