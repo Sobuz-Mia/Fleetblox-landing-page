@@ -133,6 +133,21 @@ export default function RealTimeDamageDetection() {
       }
     }, 10000);
   };
+  //  reset the polygon
+
+  const resetPolygons = () => {
+    if (!dataChannelRef.current || dataChannelRef.current.readyState !== "open")
+      return;
+    if (!currentFrameMeta.frame_id) return;
+
+    dataChannelRef.current.send(
+      JSON.stringify({
+        type: "reset_polygons",
+        frame_id: currentFrameMeta.frame_id,
+      }),
+    );
+    toast.success("Reset the polygons for the current frame successfully");
+  };
   // changes something
   const connect = async () => {
     if (isConnecting || isConnected) return;
@@ -504,7 +519,7 @@ export default function RealTimeDamageDetection() {
             </p> */}
           </div>
         )}
-
+        {/* finished button */}
         {isConnected && (
           <button
             onClick={() => {
@@ -516,6 +531,16 @@ export default function RealTimeDamageDetection() {
             className="absolute right-2 bottom-5 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-semibold bg-black/40 backdrop-blur-sm w-[135px] "
           >
             Finish scanning
+          </button>
+        )}
+        {/* refresh button */}
+        {isConnected && isCarVisible && (
+          <button
+            onClick={resetPolygons}
+            // href={`/inspection/result/${tripId}/${serialNo}`}
+            className="absolute left-1/2 -translate-x-1/2 mx-auto bottom-5 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-semibold bg-black/40 backdrop-blur-sm w-[80px] "
+          >
+            Refresh
           </button>
         )}
         {/* {isConnected && (
