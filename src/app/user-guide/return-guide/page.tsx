@@ -233,44 +233,76 @@ const ReturnInspectionPage = () => {
           </div>
         </div>
 
-        {/* Do NOT */}
-        <div className="border border-[#F6F6F6] rounded-md p-4 text-left mt-2.5">
-          <h3 className="text-[14px] font-bold text-[#6F6464] pb-4">Do NOT</h3>
+        {/* ── WARNING STYLE ── Do NOT */}
+        <div className="mt-5 rounded-lg border border-red-200 bg-red-50/70 p-4 text-left">
+          <h3 className="text-[14px] font-bold text-red-700 pb-4 flex items-center gap-2">
+            <span className="text-red-600 text-[16px] font-black">!</span>
+            Do NOT
+          </h3>
           <div className="space-y-2.5">
             <div className="flex items-center gap-[5px]">
-              <UnorderListIcon fill="#999" size={6} />
+              <UnorderListIcon fill="#ef4444" size={6} />
               <p className="text-[#303030] text-[12px] leading-4 font-medium">
                 Scan while driving
               </p>
             </div>
             <div className="flex items-center gap-[5px]">
-              <UnorderListIcon fill="#999" size={6} />
+              <UnorderListIcon fill="#ef4444" size={6} />
               <p className="text-[#303030] text-[12px] leading-4 font-medium">
                 Scan in the dark, rain, or snow
               </p>
             </div>
             <div className="flex items-center gap-[5px]">
-              <UnorderListIcon fill="#999" size={6} />
+              <UnorderListIcon fill="#ef4444" size={6} />
               <p className="text-[#303030] text-[12px] leading-4 font-medium">
                 Zoom digitally
               </p>
             </div>
             <div className="flex items-center gap-[5px]">
-              <UnorderListIcon fill="#999" size={6} />
+              <UnorderListIcon fill="#ef4444" size={6} />
               <p className="text-[#303030] text-[12px] leading-4 font-medium">
                 Wave the phone around excessively
               </p>
             </div>
             <div className="flex items-center gap-[5px]">
-              <UnorderListIcon fill="#999" size={6} />
+              <UnorderListIcon fill="#ef4444" size={6} />
               <p className="text-[#303030] text-[12px] leading-4 font-medium">
                 Assume AI is always correct
               </p>
             </div>
             <div className="flex items-center gap-[5px]">
-              <UnorderListIcon fill="#999" size={6} />
+              <UnorderListIcon fill="#ef4444" size={6} />
               <p className="text-[#303030] text-[12px] leading-4 font-medium">
                 Scan without stable Internet connection
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ── INFO STYLE ── On-screen Reminders */}
+        <div className="mt-2.5 rounded-lg border border-blue-200 bg-blue-50/70 p-4 text-left">
+          <h3 className="text-[14px] font-bold text-blue-700 pb-4 flex items-center gap-2">
+            <span className="text-blue-600 text-[16px] font-semibold">i</span>
+            On-screen Reminders
+          </h3>
+          <div className="space-y-2.5">
+            <div className="flex items-center gap-[5px]">
+              <UnorderListIcon fill="#3b82f6" size={6} />
+              <p className="text-[#303030] text-[12px] leading-4 font-medium">
+                “Move slowly and steadily around the vehicle.”
+              </p>
+            </div>
+            <div className="flex items-center gap-[5px]">
+              <UnorderListIcon fill="#3b82f6" size={6} />
+              <p className="text-[#303030] text-[12px] leading-4 font-medium">
+                “Tap red polygons to confirm new damages.”
+              </p>
+            </div>
+            <div className="flex items-center gap-[5px]">
+              <UnorderListIcon fill="#3b82f6" size={6} />
+              <p className="text-[#303030] text-[12px] leading-4 font-medium">
+                Connectivity warning: “Weak network detected. Move to a stronger
+                signal.”
               </p>
             </div>
           </div>

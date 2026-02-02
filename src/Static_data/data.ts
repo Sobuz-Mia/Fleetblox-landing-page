@@ -322,10 +322,34 @@ const pricingPlans = {
       price: 14.99,
       currency: "USD",
       features: [
-        "One inspection workflow and report",
-        "Comprehensive condition documentation",
-        "Visual damage representation",
+        {
+          title: "App-Free Access",
+          des: "Run inspections instantly via browser — no downloads, no friction.",
+        },
+        {
+          title: "Real-Time AI Vehicle Body Scanning",
+          des: "Live detection of exterior damage with intelligent body-panel mapping.",
+        },
+        {
+          title: "Automated Vehicle Data Capture",
+          des: "VIN, odometer, and license plate extracted in real time with high accuracy.",
+        },
+        {
+          title: "Departure Condition Report",
+          des: "Auto-generated inspection report including a detailed vehicle body diagram and documented damage points.",
+        },
+        {
+          title: "AI Pre-Trip Risk & Care Recommendations",
+          des: "Smart insights to minimize disputes, prevent damage escalation, and improve vehicle handling before departure",
+        },
       ],
+      features_list: [
+        "Real-Time AI Vehicle Body Scanning",
+        "Automated Vehicle Data Capture",
+        "Departure Condition Report",
+        "AI Pre-Trip Risk & Care Recommendations",
+      ],
+
       description:
         "One-time vehicle inspection workflow with report, valid for either departure or return within the selected period after purchase.",
       value: "Single",
@@ -337,30 +361,62 @@ const pricingPlans = {
       price: 24.99,
       currency: "USD",
       features: [
-        "Two inspection workflows and reports",
-        "AI comparative analysis",
-        "Pre- and post-trip condition comparison",
+        {
+          title: "Includes all Single Inspection features, plus:",
+          des: "Everything in Single Inspection, along with additional benefits for comprehensive trip audits.",
+        },
+        {
+          title: "Return Inspection Report",
+          des: "Comparative post-trip inspection with highlighted new or changed damage areas.",
+        },
+        {
+          title: "VIN Consistency Verification",
+          des: "AI confirms vehicle identity between inspections to prevent fraud or mismatch.",
+        },
+        {
+          title: "AI Post-Trip Insights & Liability Signals",
+          des: "Intelligent recommendations highlighting potential claims, wear patterns, and next-step actions. ",
+        },
+      ],
+      features_list: [
+        "Includes all Single Inspection features, plus:",
+        "Return Inspection Report",
+        "VIN Consistency Verification",
+        "AI Post-Trip Insights & Liability Signals",
       ],
       description:
         "Two inspections with reports, One at the time of departure, another when returns from the trip.",
       value: "Dual",
     },
-    {
-      id: "trip_audit_plus",
-      name: "Trip audit +",
-      subtitle: "Trip invoice",
-      price: 29.99,
-      currency: "USD",
-      features: [
-        "Two inspection workflows with comparison",
-        "Reports with pre- and post-trip invoices",
-        "Driver's license verification and auto report delivery",
-      ],
-      description:
-        "Departure and return inspection workflow with detailed reports, pre/post-trip invoices, and quick driver-license verification before trip-starting.",
-      value: "trip_audit_pluse",
-    },
+    // {
+    //   id: "trip_audit_plus",
+    //   name: "Trip audit +",
+    //   subtitle: "Trip invoice",
+    //   price: 29.99,
+    //   currency: "USD",
+    //   features: [
+    //     "Two inspection workflows with comparison",
+    //     "Reports with pre- and post-trip invoices",
+    //     "Driver's license verification and auto report delivery",
+    //   ],
+    //   description:
+    //     "Departure and return inspection workflow with detailed reports, pre/post-trip invoices, and quick driver-license verification before trip-starting.",
+    //   value: "trip_audit_pluse",
+    // },
   ],
+  prices: {
+    Single: {
+      "7": 14.99,
+      "15": 19.99,
+      "30": 24.99,
+    },
+    Dual: {
+      "7": 24.99,
+      "15": 34.99,
+      "30": 44.99,
+    },
+    // "trip_audit_pluse": { ... }  // add later if needed
+  } as const,
 };
 export {
   faqData,

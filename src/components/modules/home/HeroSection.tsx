@@ -56,15 +56,14 @@ const HeroSection = () => {
           <p className="text-[20px] text-[#303030] font-montserrat leading-8">
             <span>🚀</span> We’re currently rolling out, and Fleetblox products
             will become available progressively. Explore{" "}
-            <span className="text-[#0336BC] font-semibold">Tripwise</span>, the
-            intelligent on-the-go trip audit, and stay tuned as more features go
-            live.{" "}
-            <Link
-              className="text-[#0336BC] font-bold font-openSans text-[14px]"
-              href="/tripwise"
-            >
-              Learn More
+            <Link href="/tripwise">
+              <span className="text-[#0336BC] font-semibold">Tripwise</span>
             </Link>
+            , the intelligent on the go trip audit, and stay tuned as more
+            features go live.{" "}
+            {/* <Link className="text-[#0336BC] font-bold font-openSans text-[14px]">
+              Learn More
+            </Link> */}
           </p>
         </div>
       </div>
