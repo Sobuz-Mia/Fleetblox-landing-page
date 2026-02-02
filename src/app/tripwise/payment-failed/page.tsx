@@ -9,7 +9,7 @@ const PaymentFailed = () => {
     <div>
       <div className="bg-[#FAFAFF] pt-[80px] md:pt-[160px] pb-[60px] max-w-[1200px] w-full mx-auto text-center px-5">
         <h1 className="text-[36px] md:text-[52px] text-[#04082C] font-bold mb-5">
-          Trip Audit
+          Trip Wise
         </h1>
         <TripAuditSection />
       </div>

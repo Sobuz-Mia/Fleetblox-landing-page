@@ -10,7 +10,7 @@ const PaymentSuccess = () => {
     <div>
       <div className="bg-[#FAFAFF] pt-[80px] md:pt-[160px] pb-[60px] max-w-[1200px] w-full mx-auto text-center px-5">
         <h1 className="text-[36px] md:text-[52px] text-[#04082C] font-bold mb-5">
-          Trip Audit
+          Trip Wise
         </h1>
         <TripAuditSection />
       </div>
@@ -50,8 +50,8 @@ const PaymentSuccess = () => {
           <p className="text-[14px] text-[#6F6464] leading-[18px] text-center">
             A Trip ID has been sent to your{" "}
             <span className="text-[#0336BC] font-medium"> email</span>{" "}
-            (hum*****@gmail.com). Please enter it in the field above on this
-            PaymentSuccess to access your operations.
+            (hum*****@gmail.com). Please inter your tip id to access your order
+            page
           </p>
           <div className="border-[2px] border-[#002D9F] p-[10px] rounded-[10px] my-[30px] w-full h-full shadow-[4px_4px_12px_0_rgba(0,0,0,0.14)]">
             <div className="bg-[#FAFAFF] rounded-[11px] filter blur-[0.44999998807907104px] pt-[26px] pb-[19px] px-16">
@@ -71,7 +71,7 @@ const PaymentSuccess = () => {
                   </svg>
                   <div>
                     <h5 className="text-[#04082C] text-[18px] font-montserrat font-bold text-center mb-2 ">
-                      Trip Audit
+                      Trip wise
                     </h5>
                     <div className="flex justify-center">
                       <Image
@@ -86,8 +86,8 @@ const PaymentSuccess = () => {
                 </div>
                 <p className="text-center text-[#7D7D7D] text-[7px] font-semibold mt-[10px]">
                   Please enter your Trip ID received after purchasing the trip
-                  audit to access and manage your vehicle inspection workflow
-                  and monitoring
+                  wise to access and manage your vehicle inspection workflow and
+                  monitoring
                 </p>
               </div>
             </div>
