@@ -223,7 +223,7 @@ const InspectionResult = () => {
           onClick={async () => {
             try {
               const res = await axios.post(
-                `${BASE_API}/get_all_damages?trip_id=${tripId}&serial_no=${serialNo}`,
+                `${BASE_API}/submit_report?trip_id=${tripId}&serial_no=${serialNo}`,
               );
               if (res?.status === 200) {
                 toast.success("Report Submit successfully");
