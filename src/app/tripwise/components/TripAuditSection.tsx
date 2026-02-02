@@ -1,7 +1,7 @@
 "use client";
 import { message, Modal, Spin } from "antd";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react"; // Removed useEffect since we're using queries
 import toast from "react-hot-toast";
 import LoadingButtonAnimation from "../../../components/ui/shared/ButtonLoadingAnimation";
 import moment from "moment";
@@ -17,8 +17,6 @@ import { renderProgressSection } from "../utils/helper";
 const TripAuditSection = () => {
   const [openTripAuditModal, setOpenTripAuditModal] = useState(false);
   const [tripId, setTripId] = useState("");
-  const [isLoadingInspectionProgress, setIsLoadingInspectionProgress] =
-    useState(false);
   const [loading, setLoading] = useState(false);
   const [inspectionData, setInspectionData] = useState<{
     departureLink?: string;
@@ -26,16 +24,10 @@ const TripAuditSection = () => {
     purchasedDate?: string;
     trip_id?: string;
   }>({});
-  const [departureProgress, setDepartureProgress] =
-    useState<ProgressData | null>(null);
-  const [returnProgress, setReturnProgress] = useState<ProgressData | null>(
-    null,
-  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!tripId.trim()) {
-      // Extra check after trim
       message.error("Please enter a valid Trip ID.");
       return;
     }
@@ -56,7 +48,6 @@ const TripAuditSection = () => {
       }
     } catch (error) {
       setTripId("");
-      setLoading(false);
       const msg =
         axios.isAxiosError(error) && error.response
           ? error.response.data?.error || "Something went wrong"
@@ -68,42 +59,43 @@ const TripAuditSection = () => {
     }
   };
 
-  useEffect(() => {
-    if (openTripAuditModal && inspectionData.trip_id) {
-      const fetchProgress = async () => {
-        setIsLoadingInspectionProgress(true);
-        try {
-          if (inspectionData?.departureLink) {
-            const depRes = await axios.get(
-              `https://dev-real-damage.fleetblox.com/api/get_inspection_progress?trip_id=${inspectionData.trip_id}&serial_no=1`,
-            );
-            setDepartureProgress(depRes?.data as ProgressData);
-          }
-          if (inspectionData?.returnLink) {
-            const retRes = await axios.get(
-              `https://dev-real-damage.fleetblox.com/api/get_inspection_progress?trip_id=${inspectionData.trip_id}&serial_no=2`,
-            );
-            setReturnProgress(retRes?.data as ProgressData);
-          }
-        } catch (error) {
-          const msg =
-            axios.isAxiosError(error) && error.response
-              ? error.response.data?.error ||
-                "Failed to fetch inspection progress"
-              : "Network error. Please try again.";
-          toast.error(msg);
-        } finally {
-          setIsLoadingInspectionProgress(false);
-        }
-      };
-      fetchProgress();
-    }
-  }, [
-    openTripAuditModal,
-    inspectionData.trip_id,
-    inspectionData?.departureLink,
-    inspectionData?.returnLink,
-  ]);
+  // New query for departure progress (polls every 10s)
+  const { data: departureProgress, isLoading: isLoadingDepartureProgress } =
+    useQuery<ProgressData | null>({
+      queryKey: ["departure_progress", inspectionData.trip_id],
+      queryFn: async () => {
+        if (!inspectionData.trip_id || !inspectionData.departureLink)
+          return null;
+        const res = await axios.get(
+          `https://dev-real-damage.fleetblox.com/api/get_inspection_progress?trip_id=${inspectionData.trip_id}&serial_no=1`,
+        );
+        return res?.data as ProgressData;
+      },
+      enabled:
+        !!inspectionData.trip_id &&
+        !!inspectionData.departureLink &&
+        openTripAuditModal,
+      refetchInterval: 10000, // Poll every 10 seconds
+    });
+
+  // New query for return progress (polls every 10s)
+  const { data: returnProgress, isLoading: isLoadingReturnProgress } =
+    useQuery<ProgressData | null>({
+      queryKey: ["return_progress", inspectionData.trip_id],
+      queryFn: async () => {
+        if (!inspectionData.trip_id || !inspectionData.returnLink) return null;
+        const res = await axios.get(
+          `https://dev-real-damage.fleetblox.com/api/get_inspection_progress?trip_id=${inspectionData.trip_id}&serial_no=2`,
+        );
+        return res?.data as ProgressData;
+      },
+      enabled:
+        !!inspectionData.trip_id &&
+        !!inspectionData.returnLink &&
+        openTripAuditModal,
+      refetchInterval: 10000, // Poll every 10 seconds
+    });
+
   const { data: tripProgress, isLoading: isLoadingTripProgress } = useQuery({
     queryKey: ["trip_progress", inspectionData.trip_id],
     queryFn: async () => {
@@ -113,8 +105,8 @@ const TripAuditSection = () => {
       );
       return response?.data?.data;
     },
-    enabled: !!inspectionData.trip_id && openTripAuditModal, // Only run when modal open and trip_id exists
-    refetchInterval: 10000, // Optional: auto-refetch every 10 seconds for live progress
+    enabled: !!inspectionData.trip_id && openTripAuditModal,
+    refetchInterval: 10000,
   });
 
   return (
@@ -129,7 +121,7 @@ const TripAuditSection = () => {
               <input
                 type="text"
                 id="tripId"
-                value={tripId} // Bind to state
+                value={tripId}
                 onChange={(e) => setTripId(e.target.value.trim())}
                 className="w-full px-4 py-3 border border-[#DFDFDF] rounded-lg  placeholder-gray-400 outline-[#DFDFDF] peer"
                 required
@@ -236,12 +228,11 @@ const TripAuditSection = () => {
                 </p>
               )}
               <Spin
-                spinning={isLoadingInspectionProgress}
+                spinning={isLoadingDepartureProgress}
                 size="large"
                 tip="Loading..."
               >
                 {departureProgress?.in_progress &&
-                  departureProgress &&
                   renderProgressSection(departureProgress, "Inspection")}
               </Spin>
 
@@ -289,7 +280,7 @@ const TripAuditSection = () => {
                   </p>
                 )}
                 <Spin
-                  spinning={isLoadingInspectionProgress}
+                  spinning={isLoadingReturnProgress}
                   size="large"
                   tip="Loading..."
                 >
