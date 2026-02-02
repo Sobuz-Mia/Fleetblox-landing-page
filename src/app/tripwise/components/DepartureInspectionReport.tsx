@@ -10,7 +10,7 @@ import { Divider, Image as AntImage, Modal, Spin } from "antd";
 import RecommendationIcon from "../icons/RecommendationIcon";
 import UnorderListIcon from "../icons/UnorderListIcon";
 import InspectionTable from "./InspectionTable";
-import DollerIcon from "../icons/DollerIcon";
+// import DollerIcon from "../icons/DollerIcon";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import CarDiagramSvg from "./CarDiagramSvg";
@@ -445,10 +445,10 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
                 </div>
               </div>
               <InspectionTable data={vehicledamages} />
+              {/*
               <div className="py-5">
                 <Divider />
               </div>
-              {/* invoice section */}
               <div>
                 <div className="flex items-center gap-2.5">
                   <div
@@ -466,7 +466,6 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
                     </p>
                   </div>
                 </div>
-                {/* Header Section - Main Charges */}
                 <div className="space-y-4 mb-8">
                   <div className="mt-8">
                     <div className="grid grid-cols-12 text-[12px] font-medium text-[#6F6464] mb-2.5 bg-[#F5F9FC] rounded-md py-2.5 px-4">
@@ -509,7 +508,7 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
                   </div>
                 </div>
 
-                {/* Totals */}
+                // Totals 
                 <div className="space-y-2.5 mb-8 border-t pt-2.5 border-gray-300 pr-4 pl-[110px]">
                   <div className="flex justify-between text-[12px]">
                     <span className="text-[#7D7D7D] font-semibold">
@@ -525,7 +524,7 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
                   </div>
                 </div>
 
-                {/* Additional Charges Notice */}
+                //  Additional Charges Notice
                 <div className=" p-4 flex items-start gap-[5px]">
                   <div className="shrink-0 w-6 h-6 bg-[#7D7D7D] rounded-full flex items-center justify-center text-white text-xs font-bold">
                     i
@@ -536,7 +535,7 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
                   </p>
                 </div>
 
-                {/* Additional Fees List */}
+                //  Additional Fees List 
                 <div className="space-y-2 text-sm px-12">
                   <div className="flex gap-10">
                     <span className="text-[#7D7D7D] max-w-60 w-full">
@@ -564,6 +563,7 @@ const DepartureInspectionReport: FC<DepartureInspectionReportProps> = ({
                   </div>
                 </div>
               </div>
+              */}
             </div>
           </main>
         </Spin>

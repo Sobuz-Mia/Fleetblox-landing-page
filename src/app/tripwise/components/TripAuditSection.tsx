@@ -258,56 +258,58 @@ const TripAuditSection = () => {
                 )}{" "}
               </Spin>
             </div>
-            <div className="border border-[#DFDFDF] rounded-md p-4 mt-5">
-              <h2 className="text-[14px] text-[#303030] font-bold">
-                Return inspection workflow
-              </h2>
-              {tripProgress?.departure_done && inspectionData?.returnLink && (
-                <div className="flex justify-between items-center my-[9px]">
-                  <p className="text-[#2D65F2] text-[12px] font-medium leading-4 underline">
-                    {inspectionData?.returnLink}
-                  </p>
-                  {inspectionData?.returnLink && (
-                    <div className="flex items-center gap-[10px] justify-center">
-                      <LinkCopyIcon />
-                      <SharedIcon />
-                    </div>
-                  )}
-                </div>
-              )}
-              {!tripProgress?.departure_done && inspectionData?.returnLink ? (
-                <p className="text-[14px] text-[#666]">
-                  Return inspection link will be available once the departure
-                  inspection is completed.
-                </p>
-              ) : (
-                <p className="text-[#999] text-[12px] leading-4">
-                  Share this link with the trip driver or any authorized person
-                  so they can perform the inspection using a phone or other
-                  camera-enabled device.
-                </p>
-              )}
-              <Spin
-                spinning={isLoadingInspectionProgress}
-                size="large"
-                tip="Loading..."
-              >
-                {returnProgress?.in_progress &&
-                  renderProgressSection(returnProgress, "Inspection")}
-              </Spin>
-              <Spin
-                spinning={isLoadingTripProgress}
-                size="large"
-                tip="Loading..."
-              >
-                {tripProgress?.return_done && (
-                  <ReturnInspectionReport
-                    tripId={inspectionData?.trip_id || ""}
-                    serialNo={2}
-                  />
+            {inspectionData?.returnLink && (
+              <div className="border border-[#DFDFDF] rounded-md p-4 mt-5">
+                <h2 className="text-[14px] text-[#303030] font-bold">
+                  Return inspection workflow
+                </h2>
+                {tripProgress?.departure_done && inspectionData?.returnLink && (
+                  <div className="flex justify-between items-center my-[9px]">
+                    <p className="text-[#2D65F2] text-[12px] font-medium leading-4 underline">
+                      {inspectionData?.returnLink}
+                    </p>
+                    {inspectionData?.returnLink && (
+                      <div className="flex items-center gap-[10px] justify-center">
+                        <LinkCopyIcon />
+                        <SharedIcon />
+                      </div>
+                    )}
+                  </div>
                 )}
-              </Spin>
-            </div>
+                {!tripProgress?.departure_done && inspectionData?.returnLink ? (
+                  <p className="text-[14px] text-[#666]">
+                    Return inspection link will be available once the departure
+                    inspection is completed.
+                  </p>
+                ) : (
+                  <p className="text-[#999] text-[12px] leading-4">
+                    Share this link with the trip driver or any authorized
+                    person so they can perform the inspection using a phone or
+                    other camera-enabled device.
+                  </p>
+                )}
+                <Spin
+                  spinning={isLoadingInspectionProgress}
+                  size="large"
+                  tip="Loading..."
+                >
+                  {returnProgress?.in_progress &&
+                    renderProgressSection(returnProgress, "Inspection")}
+                </Spin>
+                <Spin
+                  spinning={isLoadingTripProgress}
+                  size="large"
+                  tip="Loading..."
+                >
+                  {tripProgress?.return_done && (
+                    <ReturnInspectionReport
+                      tripId={inspectionData?.trip_id || ""}
+                      serialNo={2}
+                    />
+                  )}
+                </Spin>
+              </div>
+            )}
           </div>
           <p className="mt-auto text-right text-[#999] text-[12px] leading-4">
             This Trip Audit panel will be accessible for 30 days with your Trip
