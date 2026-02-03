@@ -24,6 +24,7 @@ const BASE_URL = "https://dev-real-damage.fleetblox.com";
 
 export default function RealTimeDamageDetection() {
   const route = useRouter();
+  const { markDamagesDone } = useInspectionStepsStore();
   const setCurrentStep = useInspectionStepsStore((s) => s.setCurrentStep);
   const setStartedInspection = useInspectionStepsStore(
     (s) => s.setStartedInspection,
@@ -526,6 +527,7 @@ export default function RealTimeDamageDetection() {
               setCurrentStep(4);
               setStartedInspection(true);
               route.push(`/inspection/${tripId}/${serialNo}`);
+              markDamagesDone();
             }}
             // href={`/inspection/result/${tripId}/${serialNo}`}
             className="absolute right-2 bottom-5 md:bottom-5 z-50 border cursor-pointer border-white rounded-md px-4 py-2.5 text-white text-[12px] font-semibold bg-black/40 backdrop-blur-sm w-[135px] "

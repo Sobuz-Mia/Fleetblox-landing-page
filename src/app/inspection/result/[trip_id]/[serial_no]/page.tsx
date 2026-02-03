@@ -6,12 +6,13 @@ import {
   apiToDisplayMap,
   templates,
 } from "../../../../tripwise/const/partKeys";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import LeftSideDamagesReviewConfirm from "../../components/LeftSideDamagesReviewConfirm";
 import RightSideDamagesReviewConfirm from "../../components/RightSideDamagesReviewConfirm";
 import FrontSideDamagesReviewConfirm from "../../components/FrontSideDamagesReviewConfirm";
 import RearSideDamagesReviewConfirm from "../../components/RearSideDamagesReviewConfirm";
 import toast from "react-hot-toast";
+import { useInspectionStepsStore } from "@/stores/inspectionsSteps";
 
 export type SideKey = "left-side" | "right-side" | "front-side" | "rear-side";
 
@@ -42,8 +43,9 @@ type TableRow = {
 };
 const BASE_API = "https://dev-real-damage.fleetblox.com/api";
 const InspectionResult = () => {
+  const { resetInspectionStart } = useInspectionStepsStore();
   const params = useParams<{ trip_id: string; serial_no: string }>();
-
+  const router = useRouter();
   const tripId = params.trip_id;
   const serialNo = params.serial_no;
   const [openSide, setOpenSide] = useState<
@@ -221,16 +223,22 @@ const InspectionResult = () => {
         </button>
         <button
           onClick={async () => {
+            router.push(`/inspection/${tripId}/${serialNo}`);
+            resetInspectionStart();
             try {
               const res = await axios.post(
                 `${BASE_API}/submit_report?trip_id=${tripId}&serial_no=${serialNo}`,
               );
               if (res?.status === 200) {
                 toast.success("Report Submit successfully");
+                resetInspectionStart();
               }
-            } catch (e) {
-              console.log(e);
-              toast.error("Something went wrong ");
+            } catch (error) {
+              if (axios.isAxiosError(error)) {
+                toast.error(
+                  error.response?.data?.message || "Something went wrong",
+                );
+              }
             }
           }}
           className="submit-button w-full"

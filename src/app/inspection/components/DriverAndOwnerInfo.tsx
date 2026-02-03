@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Loader from "./../../(gettingStarted)/components/Loader";
+import moment from "moment";
 
 interface VehicleData {
   owner_name?: string;
@@ -16,6 +17,7 @@ interface VehicleData {
   model: string;
   year: string;
   color: string;
+  completion_time?: string;
 }
 
 interface DriverAndOwnerInfoProps {
@@ -23,6 +25,7 @@ interface DriverAndOwnerInfoProps {
   tripId: string;
   serialNo: string | number;
   startedInspection: boolean;
+  currentStep: number;
 }
 
 const DriverAndOwnerInfo = ({
@@ -30,6 +33,7 @@ const DriverAndOwnerInfo = ({
   tripId,
   serialNo,
   startedInspection,
+  currentStep,
 }: DriverAndOwnerInfoProps) => {
   const [data, setData] = useState<VehicleData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -78,7 +82,6 @@ const DriverAndOwnerInfo = ({
       </div>
     );
   }
-
   return (
     <div>
       <div className="shadow-[0_2px_5px_0_rgba(0,0,0,0.05)] rounded-md bg-white p-5 mt-5">
@@ -175,12 +178,30 @@ const DriverAndOwnerInfo = ({
             </div>
           </div>
 
-          <button
-            onClick={() => setStartedInspection(true)}
-            className="submit-button w-full mt-5"
-          >
-            Start inspection
-          </button>
+          {currentStep === 4 ? (
+            <div className="shadow-[0_2px_5px_0_rgba(0,0,0,0.05)] rounded-md bg-white p-5 mt-[10px] text-center">
+              <h2 className="text-[#6F6464] text-[14px] font-bold mb-4">
+                Inspection Completed
+              </h2>
+              <p className="text-[11px] font-medium">
+                <span className="text-[#999]">Completed:</span>{" "}
+                {moment(data?.completion_time).format("DD MMM YYYY, hh:mm A")}
+              </p>
+              <button
+                // onClick={() => setStartedInspection(true)}
+                className=" px-[14px] py-2 border border-[#B8CBFC] rounded-md w-full text-[14px] font-semibold text-[#2D65F2] mt-2.5"
+              >
+                View report
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => setStartedInspection(true)}
+              className="submit-button w-full mt-5"
+            >
+              Start inspection
+            </button>
+          )}
         </div>
       )}
     </div>

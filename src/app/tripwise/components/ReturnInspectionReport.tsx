@@ -124,11 +124,14 @@ const ReturnInspectionReport = ({
       alt: "doorVINStickerImage",
     },
   ];
-
+  console.log(inspectionLog);
   return (
     <div>
       <div className="flex items-center gap-[10px] mt-[15px]">
-        <button className="py-2 px-3 border border-[#DFDFDF] rounded-md text-[#7D7D7D] text-[16px] font-bold font-openSans">
+        <button
+          onClick={() => setInspectionLog(true)}
+          className="py-2 px-3 border border-[#DFDFDF] rounded-md text-[#7D7D7D] text-[16px] font-bold font-openSans"
+        >
           Inspection log
         </button>
         <button
@@ -576,12 +579,12 @@ const ReturnInspectionReport = ({
         <Spin spinning={isLoadingInspectionLog} size="large" tip="Loading...">
           <div className="p-5">
             <h1 className="text-[#04082C] text-[18px] font-bold text-center">
-              Departure Inspection log
+              Return Inspection log
             </h1>
             <div>
               {renderProgressSection(
                 inspectionLogData,
-                "Departure Inspection",
+                "Return Inspection",
                 true,
               )}
             </div>

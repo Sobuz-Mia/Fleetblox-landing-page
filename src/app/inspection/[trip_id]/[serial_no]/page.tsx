@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState, useRef, ReactNode } from "react";
+import React, { useState, useRef, ReactNode, useEffect } from "react";
 import RightArrowIcon from "@/components/icons/RightArrowIcon";
 import Webcam from "react-webcam";
 import { BsCheckCircleFill } from "react-icons/bs";
@@ -31,17 +31,27 @@ function dataURLtoFile(dataurl: string, filename: string): File {
 }
 
 const InspectionSteps = () => {
-  const currentStep = useInspectionStepsStore((s) => s.currentStep);
-  const setCurrentStep = useInspectionStepsStore((s) => s.setCurrentStep);
+  const {
+    currentStep,
+    setCurrentStep,
+    startedInspection,
+    setStartedInspection,
+    completedVin,
+    completedLicense,
+    completedOdometer,
+    completedExterior,
+    completedDamages,
+    exteriorImagesCount,
+    markVinDone,
+    markLicenseDone,
+    markOdometerDone,
+    markExteriorDone,
+    addExteriorImage,
+  } = useInspectionStepsStore();
   const params = useParams<{ trip_id: string; serial_no: string }>();
   const tripId = params.trip_id;
   const serialNo = params.serial_no;
   const router = useRouter();
-  const startedInspection = useInspectionStepsStore((s) => s.startedInspection);
-  const setStartedInspection = useInspectionStepsStore(
-    (s) => s.setStartedInspection,
-  );
-  // const [currentStep, setCurrentStep] = useState(3);
   const [showSubScreen, setShowSubScreen] = useState(false);
   const [vinDone, setVinDone] = useState(false);
   const [licenseDone, setLicenseDone] = useState(false);
@@ -130,57 +140,54 @@ const InspectionSteps = () => {
       if (showCameraFor === "vin") {
         setProcessingMessage("Analyzing VIN");
         await scanVin(capturedImage);
+        markVinDone();
         setVinDone(true);
       } else if (showCameraFor === "license") {
         setProcessingMessage("Processing license");
         await scanLicensePlate(capturedImage);
+        markLicenseDone();
         setLicenseDone(true);
       } else if (showCameraFor === "odometer") {
         setProcessingMessage("Analyzing odometer");
         await scanOdometer(capturedImage);
         setOdometerDone(true);
+        markOdometerDone();
         setCurrentStep(3);
       } else if (showCameraFor === "exterior") {
         if (!capturedImage) return;
 
         const newUrls = [...exteriorDataUrls, capturedImage as string];
-
         setExteriorDataUrls(newUrls);
+        addExteriorImage();
         setExteriorCaptureStep(newUrls.length);
-        setCapturedImage(null); // clear preview so we go back to live camera (or sub-screen on 4th)
+        setCapturedImage(null);
 
-        // If we have less than 4 images → just continue capturing
-        if (newUrls.length < 4) {
-          return;
-        }
-
-        // We have just confirmed the 4th image → close camera and run damage detection automatically
-        setShowCameraFor(null); // close camera, go back to sub-screen
-        setIsProcessing(true);
-
-        try {
-          await scanCarSides(newUrls); // your API call
-          // setDamagesDone(true);
-
-          // Optional – auto-advance to the next step (recommended)
-          // If you don't want auto-advance, just comment these 2 lines out
+        // When user confirms the **4th** image → upload immediately
+        if (newUrls.length === 4) {
+          setShowCameraFor(null);
           setShowSubScreen(true);
-          // setCurrentStep(currentStep + 1);
-        } catch (err) {
-          const errorMessage =
-            err instanceof Error
-              ? err.message
-              : "Damage detection failed. You can try again using the 'Detect exterior damages' button.";
-          alert(errorMessage);
-        } finally {
-          setIsProcessing(false);
-        }
 
-        return;
+          setIsProcessing(true);
+          setProcessingMessage("Uploading vehicle images...");
+
+          try {
+            const res = await scanCarSides(newUrls);
+            markExteriorDone(); // ← mark as uploaded / capture complete
+            console.log(res, "4 side image save");
+            toast.success("Vehicle images uploaded successfully");
+          } catch (err) {
+            console.error("Upload failed:", err);
+            toast.error(
+              "Failed to upload images. Please try Detect exterior damages again.",
+            );
+            // You can decide: keep images in state or clear them
+          } finally {
+            setIsProcessing(false);
+          }
+        }
       }
-      setCapturedImage(null);
-      setShowCameraFor(null);
     } catch (err) {
+      console.error("Confirm error:", err); // Add for debugging
       const errorMessage =
         err instanceof Error
           ? err.message
@@ -191,6 +198,22 @@ const InspectionSteps = () => {
     }
   };
 
+  const getEffectiveStep = () => {
+    // if (!startedInspection) return 1;
+
+    if (!completedVin || !completedLicense) return 1;
+    if (!completedOdometer) return 2;
+    if (!completedExterior || !completedDamages) return 3;
+    return 4;
+  };
+  useEffect(() => {
+    const effective = getEffectiveStep();
+    if (currentStep !== effective) {
+      setCurrentStep(effective);
+    }
+    setExteriorCaptureStep(exteriorImagesCount);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const allItemsDoneForStep = (step: number) => {
     if (step === 1) return vinDone && licenseDone;
     if (step === 2) return odometerDone;
@@ -204,7 +227,6 @@ const InspectionSteps = () => {
       setCurrentStep(currentStep + 1);
     }
   };
-
   const getCameraTitle = () => {
     if (showCameraFor === "exterior") {
       return `${positions[exteriorCaptureStep]
@@ -337,16 +359,16 @@ const InspectionSteps = () => {
           key: "vin",
           label: "Door VIN sticker",
           icon: <VinSticker />,
-          done: vinDone,
+          done: completedVin,
           onClick: () => setShowCameraFor("vin"),
         },
         {
           key: "license",
           label: "License plate",
           icon: <LicensePlanIcon />,
-          done: licenseDone,
+          done: completedLicense,
           onClick: () => setShowCameraFor("license"),
-          disabled: !vinDone,
+          disabled: !completedVin,
         },
       ];
     } else if (currentStep === 3) {
@@ -355,9 +377,9 @@ const InspectionSteps = () => {
           key: "exterior",
           label: "Capture exterior images",
           icon: <CaptureImageIcon />,
-          done: exteriorDataUrls.length === 4,
+          done: completedExterior,
           onClick: () => {
-            setExteriorCaptureStep(exteriorDataUrls.length);
+            setExteriorCaptureStep(exteriorImagesCount);
             setShowCameraFor("exterior");
           },
         },
@@ -365,24 +387,12 @@ const InspectionSteps = () => {
           key: "damages",
           label: "Detect exterior damages",
           icon: <DetectExteriorDamageIcon />,
-          done: false,
+          done: completedDamages,
+          disabled: exteriorImagesCount !== 4 || isProcessing,
           // disabled: exteriorDataUrls.length !== 4 || isProcessing,
           onClick: async () => {
             router.push(`/live/${tripId}/${serialNo}`);
-            // if (exteriorDataUrls.length !== 4) return;
-            // setIsProcessing(true);
-            // try {
-            //   await scanCarSides(exteriorDataUrls);
-            //   setDamagesDone(true);
-            // } catch (err) {
-            //   const errorMessage =
-            //     err instanceof Error ? err.message : "Damage detection failed";
-            //   alert(errorMessage);
-            // } finally {
-            //   setIsProcessing(false);
-            // }
           },
-          // disabled: exteriorDataUrls.length !== 4,
         },
       ];
     }
@@ -443,7 +453,7 @@ const InspectionSteps = () => {
   if (!tripId || !serialNo) {
     return <div>Invalid parameters</div>;
   }
-
+  console.log(currentStep);
   return (
     <div className="bg-[#F5F9FC] h-screen p-5 max-w-[390px] mx-auto w-full relative">
       {/* {isProcessing && <LoadingDiv />} */}
@@ -456,6 +466,7 @@ const InspectionSteps = () => {
           startedInspection={startedInspection}
           tripId={tripId}
           serialNo={serialNo}
+          currentStep={currentStep}
         />
 
         {startedInspection && (
@@ -594,7 +605,11 @@ const InspectionSteps = () => {
                 >
                   4
                 </div>
-                <h2 className="text-[12px] font-medium leading-4 text-[#151515]">
+                <h2
+                  className={`text-[12px] font-medium leading-4 ${
+                    currentStep >= 4 ? "text-[#151515]" : "text-[#999]"
+                  }`}
+                >
                   Review and submit report
                 </h2>
               </div>
