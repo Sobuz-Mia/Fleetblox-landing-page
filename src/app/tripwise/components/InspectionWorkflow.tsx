@@ -232,7 +232,7 @@ const InspectionWorkflow = () => {
                 </p>
               </label>
               <p className="text-[#7D7D7D] text-[12px] font-openSans">
-                Use within <br /> 07 days
+                Use within <br /> {days} days
               </p>
             </div>
           ))}
